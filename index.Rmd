@@ -1,0 +1,57 @@
+---
+title: "<span class='ex-title'>Spatial Data Analysis with R:</span><br/><span class='ex-subtitle'>Outline</span>"
+author: "<a href='http://ccsfgis.org'>BayGeo GIS Education Center</a><br/>Spring, 2018<br/>Andy Lyons"
+output: 
+  html_document: 
+    css: slides/slidy_styles.css
+    self_contained: yes
+    includes:
+      in_header: slides/header.html
+---
+<style>
+ul {
+  margin-left: 1em;
+}
+</style>
+
+# Week 1. Introduction to R 
+
+* [Intro](part01a_intro.html) 
+
+* [R Basics](part01b_r-basics.html)
+
+* [Managing R](part01c_managing-r.html)
+
+* [Data Types](part01d_data-types.html)
+
+* [Exercise 1](part01_exercise1.html)
+
+# Week 2. Spatial Data Classes, Importing and Exporting Data, Intro to Visualization
+
+
+# Week 3. Geoprocessing, Spatial Overlays, and Intro to Raster Analyses
+
+
+# Week 4. More R, Importing from APIs, Geocoding, Movement Data
+
+
+# Week 5. Spatial Stats and Analyses
+
+
+# Resources
+
+* [Workshop Etherpad](https://public.etherpad-mozilla.org/p/rspatial-baygeo-s18)
+
+* [Where to Turn Next](slides/where_to_turn_next.html)
+
+* Cheatsheets
+
+    + [General R](extras/general-r_cheatsheet_animove.pdf)
+    + [Data Management](extras/data-management_cheatsheet.pdf)
+    + [R Color palettes](extras/color-palette_cheatsheet.pdf)
+    + [spatial operations](extras/spatial-commands_cheatsheet_animove_2014-05-11.pdf)
+    + [coordinate reference systems](extras/coordinate-ref-systems_overview.pdf)
+    + [remote sensing & GIS functions](extras/RS_ecology_refcard.pdf)
+    + [ArcGIS equivalents in R](extras/arcgis_to_r_spatial_cheatsheet.pdf)
+    + [ggmap quickstart](extras/ggmap_cheatsheet.pdf)
+
