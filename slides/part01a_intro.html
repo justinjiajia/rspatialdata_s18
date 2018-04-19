@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Week 1: R Basics" />
+  <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span> <span class='footer-right'><a href='../index.html'>Course Homepage</a></span> <span class='footer-right'>Etherpad: <a href='https://is.gd/rspatial_baygeo_s18'>https://is.gd/rspatial_baygeo_s18</a></span> <span class='footer-subtitle'>Spatial Data Analysis in R: Week 1</span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Spatial Data Analysis with R</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  </script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title"><span class="pres-subtitle">Spatial Data Analysis with R</span></h1>
+  <p class="author">
+<span class="pres-title">Week 1: R Basics</span>
+  </p>
+</div>
+<div id="intros" class="slide section level1">
+<h1>Intros</h1>
+<ul>
+<li>Name</li>
+<li>Background in R</li>
+<li>Background in GIS</li>
+<li>What you hope to get out of the class</li>
+</ul>
+</div>
+<div id="course-outline" class="slide section level1">
+<h1>Course Outline</h1>
+<p><span id="tri01span" class="tritoggle" onclick="TriShowHide(&#39;tri01&#39;);return false;">▼ </span><span class="sessiontitle">Oct 2. Introduction to R and Data Wrangling</span></p>
+<div id="tri01div" class="compact" style="display:block;">
+<ul>
+<li>RStudio<br />
+</li>
+<li>basic syntax<br />
+</li>
+<li>data types (vectors, data frames, matrices)<br />
+</li>
+<li>importing csv files<br />
+</li>
+<li>indexing and filtering<br />
+</li>
+<li>comparison operators<br />
+</li>
+<li>sequences<br />
+</li>
+<li>packages (what's in them, where to find them)<br />
+</li>
+<li>sample datasets<br />
+</li>
+<li>basic plotting<br />
+</li>
+</ul>
+</div>
+<p><span id="zeroryspan" class="tritoggle" onclick="TriShowHide(&#39;zerory&#39;);return false;">▶ </span><span class="sessiontitle">Oct 16. Spatial Data Classes, Importing and Exporting Data, Intro to Visualization</span></p>
+<div id="zerorydiv" class="compact" style="display:none;">
+<ul>
+<li>importing spatial data with rgdal</li>
+<li>projections</li>
+<li>querying on an attribute</li>
+<li>basic plotting</li>
+</ul>
+</div>
+<p><span id="icosxkspan" class="tritoggle" onclick="TriShowHide(&#39;icosxk&#39;);return false;">▶ </span><span class="sessiontitle">Oct 23. Geoprocessing, Joins, and Intro to Raster Analyses</span></p>
+<div id="icosxkdiv" class="compact" style="display:none;">
+<ul>
+<li>geoprocessing with rgeos</li>
+<li>spatial overlays</li>
+<li>rasterization</li>
+<li>distance surface</li>
+<li>attribute joins</li>
+</ul>
+</div>
+<p><span id="iadcpnspan" class="tritoggle" onclick="TriShowHide(&#39;iadcpn&#39;);return false;">▶ </span><span class="sessiontitle">Oct 30. More R, Geocoding, ggmap &amp; leaflet</span></p>
+<div id="iadcpndiv" class="compact" style="display:none;">
+<ul>
+<li>R fundamentals
+<ul>
+<li>data frame manipulations
+<ul>
+<li>merging data frames by row and column</li>
+<li>grouping and summarizing</li>
+<li>add rows and columns</li>
+</ul></li>
+<li>loops</li>
+<li>R Markdown</li>
+</ul></li>
+<li>geocoding</li>
+<li>ggmap</li>
+<li>leaflet</li>
+</ul>
+</div>
+<p><span id="uiybduspan" class="tritoggle" onclick="TriShowHide(&#39;uiybdu&#39;);return false;">▶ </span><span class="sessiontitle">Nov 13. Spatial Stats and Analyses</span></p>
+<div id="uiybdudiv" class="compact" style="display:none;">
+<ul>
+<li>R fundamentals
+<ul>
+<li>writing custom functions</li>
+<li>working with models</li>
+</ul></li>
+<li>APIs</li>
+<li>R-ArcGIS Bridge</li>
+<li>movement data</li>
+<li>selected spatial stats</li>
+</ul>
+</div>
+</div>
+<div id="course-materials" class="slide section level1">
+<h1>Course Materials</h1>
+<p>Etherpad: <a href="https://is.gd/rspatial_baygeo_s18" class="uri">https://is.gd/rspatial_baygeo_s18</a></p>
+<p>GitHub: <a href="https://github.com/ajlyons/rspatialdata" class="uri">https://github.com/ajlyons/rspatialdata</a></p>
+</div>
+<div id="rstudio-tour" class="slide section level1">
+<h1>RStudio Tour</h1>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

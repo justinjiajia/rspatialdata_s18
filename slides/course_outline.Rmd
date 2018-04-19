@@ -1,0 +1,66 @@
+---
+title: "Outline"
+output: html_document
+---
+
+<span class="tritoggle" id="tri01span" onclick="TriShowHide('tri01');return false;">`r if (1 %in% params$this_week) "&#9660;" else "&#9654;"` </span><span class="sessiontitle">Oct 2. Introduction to R and Data Wrangling</span>
+
+<div id="tri01div" style="display:`r if (1 %in% params$this_week) "block" else "none"`;" class="compact">
+- RStudio  
+- basic syntax  
+- data types (vectors, data frames, matrices)  
+- importing csv files  
+- indexing and filtering  
+- comparison operators  
+- sequences  
+- packages (what's in them, where to find them)  
+- sample datasets  
+- basic plotting  
+</div>
+
+<span class="tritoggle" id="zeroryspan" onclick="TriShowHide('zerory');return false;">`r if (2 %in% params$this_week) "&#9660;" else "&#9654;"` </span><span class="sessiontitle">Oct 16. Spatial Data Classes, Importing and Exporting Data, Intro to Visualization</span>
+
+<div id="zerorydiv" style="display:`r if (2 %in% params$this_week) "block" else "none"`;" class="compact">
+- importing spatial data with rgdal
+- projections
+- querying on an attribute
+- basic plotting
+</div>
+
+<span class="tritoggle" id="icosxkspan" onclick="TriShowHide('icosxk');return false;">`r if (3 %in% params$this_week) "&#9660;" else "&#9654;"` </span><span class="sessiontitle">Oct 23. Geoprocessing, Joins, and Intro to Raster Analyses</span>
+
+<div id="icosxkdiv" style="display:`r if (3 %in% params$this_week) "block" else "none"`;" class="compact">
+- geoprocessing with rgeos
+- spatial overlays
+- rasterization
+- distance surface
+- attribute joins
+</div>
+
+<span class="tritoggle" id="iadcpnspan" onclick="TriShowHide('iadcpn');return false;">`r if (4 %in% params$this_week) "&#9660;" else "&#9654;"` </span><span class="sessiontitle">Oct 30. More R, Geocoding, ggmap & leaflet</span>
+
+<div id="iadcpndiv" class="compact" style="display:`r if (4 %in% params$this_week) "block" else "none"`;">
+ - R fundamentals
+    + data frame manipulations 
+        + merging data frames by row and column
+        + grouping and summarizing
+        + add rows and columns
+    + loops
+    + R Markdown
+ - geocoding
+ - ggmap
+ - leaflet
+</div>
+
+<span class="tritoggle" id="uiybduspan" onclick="TriShowHide('uiybdu');return false;">`r if (5 %in% params$this_week) "&#9660;" else "&#9654;"` </span><span class="sessiontitle">Nov 13. Spatial Stats and Analyses</span>
+
+<div id="uiybdudiv" class="compact" style="display:`r if (5 %in% params$this_week) "block" else "none"`;">
+ - R fundamentals
+    + writing custom functions
+    + working with models
+ - APIs
+ - R-ArcGIS Bridge
+ - movement data
+ - selected spatial stats
+</div>
+
