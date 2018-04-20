@@ -27,7 +27,11 @@ h1 {
 [Exercise 1 - Packages](exercises/part01_exercise1_packages.html)
 
 [Exercise 2 - Basic R](exercises/part01_exercise2_basicr.html)
+
+[Importing and Plotting Spatial Data](slides/part01c_importing-plot.html)
+
 </div>
+
 
 # Week 2. R Markdown, Data Wrangling, Spatial Data Classes, Projections, Queries, Geoprocessing
 
