@@ -1,0 +1,79 @@
+---
+title: "<span class='ex-title'>Spatial Analysis with R:</span><br/><span class='ex-subtitle'>Exercise 1: Finding and Installing Packages</span>"
+date: "Spring, 2018"
+output: 
+  html_document: 
+    css: slidy_styles.css
+    includes:
+      in_header: header.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Installing Packages
+
+The key to working effectively in R is finding and installing the right packages. For spatial data, some of the most common and useful packages include:
+
+* __sp__: classes and methods for spatial data
+* __rgdal__: importing and transforming different spatial data types and providing access to proj4 library for working with map projections and coordinate systems
+* __rgeos__: for spatial operations and queries on geometric objects
+* __ggmap__: extends ggplot2 to provide access to online basemaps (e.g. Google Maps, OpenStreetMaps) and online services like the Google Geocoder
+* __leaflet__: for creating interactive web maps
+* __RColorBrewer__: for selecting predefined color palettes.
+* __raster__: functions for working with raster data
+
+1. To ensure you have these packages, run the following lines of code in R. Hint: start a new R script, can copy-paste the lines below, then select all lines and choose 'Run'.
+
+```{r install_packages, echo=TRUE, results='hide', message=FALSE}
+## Make a character vector with the require package names
+required.pkg <- c("sp", "rgdal", "rgeos", "leaflet", "ggmap", "maptools", "RColorBrewer", "raster", "maps", "zipcode")
+
+## Find out which ones are not already installed
+pkgs.not.installed <- required.pkg[!sapply(required.pkg, function(p) require(p, character.only=T))]
+
+## Install any packages needed
+if (length(pkgs.not.installed) > 0) install.packages(pkgs.not.installed, dependencies=TRUE, repos="http://cran.cnr.berkeley.edu/")
+
+# (Re)load all libraries at once
+lapply(required.pkg, library, character.only = TRUE)
+```
+
+2. Run the 'gallery' demo from the <tt>sp</tt> package. <a href="#" class="showhidelink" onclick="showHide('q2');return false;">answer</a>
+
+<div id="q2" class="answer-code">
+``` {r, eval=FALSE}
+library(gallery)  
+demo(gallery)
+```
+</div>
+
+3. What datasets are bundled with the <tt>maps</tt> package? 
+<a href="#" class="showhidelink" onclick="showHide('q3');return false;">answer</a>
+
+<div id="q3" class="answer-code">
+``` {r, eval=FALSE}
+data(package="maps")
+```
+</div>
+
+
+4. What type of object is the 'world.cities' from the <tt>maps</tt> package?
+<a href="#" class="showhidelink" onclick="showHide('q4');return false;">answer</a>
+
+<div id="q4" class="answer-code">
+``` {r, eval=FALSE}
+class(world.cities)  
+```
+</div>
+
+5. Open the Vignette for the <tt>raster</tt> package
+<a href="#" class="showhidelink" onclick="showHide('q5');return false;">answer</a>
+
+<div id="q5" class="answer-code">
+``` {r, eval=FALSE}
+vignette("Raster", package="raster")
+```
+</div>
+

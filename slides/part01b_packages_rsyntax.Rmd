@@ -1,0 +1,239 @@
+---
+title: "<span class='pres-subtitle'>Spatial Data Analysis with R</span>"
+author: "<span class='pres-title'>Week 1: Packages and R Syntax</span>"
+output: 
+  slidy_presentation:
+    css: slidy_styles.css
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer: "<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span> 
+    <span class='footer-right'><a href='../index.html'>Course Homepage</a></span>
+    <span class='footer-right'>Etherpad: <a href='https://is.gd/rspatial_baygeo_s18'>https://is.gd/rspatial_baygeo_s18</a></span>
+    <span class='footer-subtitle'>Spatial Data Analysis in R: Week 1</span>"
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: header.html
+params:
+   this_week: 1
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# R Packages
+
+<div class="incremental"><div><hr class="hrdivider">
+__Finding Packages__
+
+CRAN Task Views: https://cran.r-project.org/web/views/Spatial.html
+
+Forums, Blogs, Google
+
+</div></div>
+
+
+<div class="incremental"><div><hr class="hrdivider">
+__Installing and Downloading__
+
+Install (downloading)
+
+_From CRAN repositories_
+
+```{r, eval=FALSE, echo=TRUE}
+install.packages("raster", dependencies = TRUE, repos="http://cran.cnr.berkeley.edu/")
+```
+
+_From GitHub_
+
+```{r, eval=FALSE, echo=TRUE}
+library(devtools)
+install_github("sidtraits", "Koalha")
+```
+
+_Installation Errors_
+
+```{r, echo=TRUE}
+install.packages("Roster", repos="http://cran.cnr.berkeley.edu/")
+```
+
+Most of the time, a warning like this means the package doesn't exist at all.
+
+_Load into Memory_
+
+```{r, echo=TRUE}
+library("raster")
+```
+
+To unload:
+
+```{r, echo=TRUE, eval=FALSE}
+detach("package:raster")
+```
+
+To update:
+
+```{r, echo=TRUE, eval=FALSE}
+## update all installed packages
+update.packages() 
+
+## update a single package
+update.packages(oldPkgs="raster")
+```
+
+</div></div>
+
+<div class="incremental"><div><hr class="hrdivider">
+__What's in a package?__
+
+<table>
+<tr><td>Index of all help pages</td><td><tt>help(package="maptools")</tt></td></tr>
+
+<tr><td>List of Vignettes</td><td><tt>browseVignettes(package = "raster")</tt></td></tr>
+
+<tr><td>Bundled datasets</td><td><tt>data(package="myPackge")</tt></td></tr>
+
+<tr><td>Installation directory</td><td><tt>system.file(package = "maptools")</tt></td></tr>
+
+<tr><td>Bundled demos</td><td><tt>demo(package="sp")</tt></td></tr>
+
+<tr><td>Run a demo</td><td><tt>demo(webmap)</tt></td></tr>
+</table>
+</div></div>
+
+# Exercise 01
+
+<a href="../exercises/part01_exercise1_packages.html" target="_blank">Exercise 1: Packages</a>
+
+# R Syntax 
+
+# R as a calculator
+
+```{r computing,echo=TRUE,results='markup'}
+2 + 2 # add numbers
+2 * pi # multiply by a constant
+7 + runif(1) # add a random number
+3^4 # powers
+sqrt(4^4) # functions
+log(10)
+log(100, base = 10)
+23 %/% 2 
+23 %% 2
+
+# scientific notation
+5000000000 * 1000
+5e9 * 1e3
+```
+
+Think of a mathematical operation you need - can you guess how to do it in R?
+
+# Assigning values to R objects
+
+A key action in R is to store values in the form of R objects, and to examine the value of R objects.
+
+```{r}
+val <- 3
+val
+print(val)
+
+Val <- 7 # case-sensitive!
+print(c(val, Val))
+```
+
+We can work with (and store) sequences and repetitions
+```{r}
+mySeq <- 1:6
+mySeq
+
+myOtherSeq <- seq(1.1, 11.1, by = 2)
+myOtherSeq
+length(myOtherSeq)
+
+fours <- rep(4, 6)
+fours
+
+## This is a comment: here is an example of non-numeric data
+depts <- c('espm', 'pmb', 'stats')
+depts
+```
+
+If we don't assign the output of a command to an object, we haven't saved it for later use.
+
+R gives us a lot of flexibility (within certain rules) for assigning to (parts of) objects from (parts of) other objects.
+
+# How to be [lazy](http://dilbert.com/strips/comic/2005-05-29/)
+
+If you're starting to type something you've typed before, or the long name of an R object or function, STOP!  You likely don't need to type all of that.
+
+- Tab completion
+- Command history 
+    * up/down arrows
+    * Ctrl-{up arrow} or Command-{up arrow}
+- RStudio: select a line or block for execution
+- Put your code in a file and use `source()`. For example: `source('myRcodeFile.R')`
+
+**Question**: Are there other tricks that anyone knows of?
+
+# Vectors in R
+
+The most basic form of an R object is a vector. In fact, individual (scalar) values are vectors of length one. 
+
+We can concatenate values into a vector with `c()`.
+
+```{r}
+## numeric vector
+nums <- c(1.1, 3, -5.7)
+devs <- rnorm(5)
+devs
+
+## integer vector
+ints <- c(1L, 5L, -3L) # force storage as integer not decimal number
+## 'L' is for 'long integer' (historical)
+
+idevs <- sample(ints, 100, replace = TRUE)
+
+## character vector
+chars <- c('hi', 'hallo', "mother's", 'father\'s', 
+   "She said, 'hi'", "He said, \"hi\"" )
+chars
+cat(chars, sep = "\n")
+
+## logical vector
+bools <- c(TRUE, FALSE, TRUE)
+bools
+```
+
+# Working with indices and subsets
+
+```{r}
+vals <- seq(2, 12, by = 2)
+vals
+
+vals[3]
+vals[3:5]
+vals[c(1, 3, 6)]
+vals[-c(1, 3, 6)]
+vals[c(rep(TRUE, 3), rep(FALSE, 2), TRUE)]
+```
+
+<div class="incremental"><div><hr class="hrdivider">
+__R is case sensitive__
+
+```{r, echo=TRUE, message=TRUE, warning=TRUE}
+"Hello" == "Hello"
+"GoodBye" == "goodbye"
+mean(1:5)
+## Mean(1:5)  - will throw an error: could not find function "Mean"
+```
+</div></div>
+
+# Exercise
+
+[Exercise 2 (do questions 1-10)](../exercises/part01_exercise2_basicr.html)
+
+
+
+
