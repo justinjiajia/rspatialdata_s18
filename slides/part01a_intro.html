@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="author" content="Week 1: R Basics" />
+  <meta name="author" content="Week 1: Intro" />
   <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span> <span class='footer-right'><a href='../index.html'>Course Homepage</a></span> <span class='footer-right'>Etherpad: <a href='https://is.gd/rspatial_baygeo_s18'>https://is.gd/rspatial_baygeo_s18</a></span> <span class='footer-subtitle'>Spatial Data Analysis in R: Week 1</span>"/>
   <meta name="font-size-adjustment" content="2"/>
   <title>Spatial Data Analysis with R</title>
@@ -67,7 +67,7 @@
 <div class="slide titlepage">
   <h1 class="title"><span class="pres-subtitle">Spatial Data Analysis with R</span></h1>
   <p class="author">
-<span class="pres-title">Week 1: R Basics</span>
+<span class="pres-title">Week 1: Intro</span>
   </p>
 </div>
 <div id="intros" class="slide section level1">
@@ -79,9 +79,19 @@
 <li>What you hope to get out of the class</li>
 </ul>
 </div>
+<div id="course-format" class="slide section level1">
+<h1>Course Format</h1>
+<p>Each week we will cover</p>
+<ul>
+<li>R fundamentals</li>
+<li>Spatial operations</li>
+<li>Exercises</li>
+</ul>
+</div>
 <div id="course-outline" class="slide section level1">
 <h1>Course Outline</h1>
-<p><span id="tri01span" class="tritoggle" onclick="TriShowHide(&#39;tri01&#39;);return false;">▼ </span><span class="sessiontitle">Oct 2. Introduction to R and Data Wrangling</span></p>
+<!------- WEEK 01 ---------------------------------------->
+<p><span id="tri01span" class="tritoggle" onclick="TriShowHide(&#39;tri01&#39;);return false;">▼ </span><span class="sessiontitle">April 19. Intro to R, Packages, Basic Syntax, Importing Data, Basic Visualization</span></p>
 <div id="tri01div" class="compact" style="display:block;">
 <ul>
 <li>RStudio<br />
@@ -102,61 +112,26 @@
 </li>
 <li>sample datasets<br />
 </li>
+<li>importing data<br />
+</li>
 <li>basic plotting<br />
 </li>
 </ul>
 </div>
-<p><span id="zeroryspan" class="tritoggle" onclick="TriShowHide(&#39;zerory&#39;);return false;">▶ </span><span class="sessiontitle">Oct 16. Spatial Data Classes, Importing and Exporting Data, Intro to Visualization</span></p>
+<!-------- WEEK 02 --------------------------------------->
+<p><span id="zeroryspan" class="tritoggle" onclick="TriShowHide(&#39;zerory&#39;);return false;">▶ </span><span class="sessiontitle">April 26. R Markdown, Data Wrangling, Spatial Data Classes, Projections, Queries, Geoprocessing</span></p>
 <div id="zerorydiv" class="compact" style="display:none;">
-<ul>
-<li>importing spatial data with rgdal</li>
-<li>projections</li>
-<li>querying on an attribute</li>
-<li>basic plotting</li>
-</ul>
+
 </div>
-<p><span id="icosxkspan" class="tritoggle" onclick="TriShowHide(&#39;icosxk&#39;);return false;">▶ </span><span class="sessiontitle">Oct 23. Geoprocessing, Joins, and Intro to Raster Analyses</span></p>
+<!--------- WEEK 03 -------------------------------------->
+<p><span id="icosxkspan" class="tritoggle" onclick="TriShowHide(&#39;icosxk&#39;);return false;">▶ </span><span class="sessiontitle">May 3. Loops, Spatial Overlays, Raster Analyses, R-ArcGIS Integration</span></p>
 <div id="icosxkdiv" class="compact" style="display:none;">
-<ul>
-<li>geoprocessing with rgeos</li>
-<li>spatial overlays</li>
-<li>rasterization</li>
-<li>distance surface</li>
-<li>attribute joins</li>
-</ul>
+
 </div>
-<p><span id="iadcpnspan" class="tritoggle" onclick="TriShowHide(&#39;iadcpn&#39;);return false;">▶ </span><span class="sessiontitle">Oct 30. More R, Geocoding, ggmap &amp; leaflet</span></p>
+<!---------- WEEK 04 ------------------------------------->
+<p><span id="iadcpnspan" class="tritoggle" onclick="TriShowHide(&#39;iadcpn&#39;);return false;">▶ </span><span class="sessiontitle">May 10. Custom functions, working with models, APIs, geocoding, ggmap &amp; leaflet</span></p>
 <div id="iadcpndiv" class="compact" style="display:none;">
-<ul>
-<li>R fundamentals
-<ul>
-<li>data frame manipulations
-<ul>
-<li>merging data frames by row and column</li>
-<li>grouping and summarizing</li>
-<li>add rows and columns</li>
-</ul></li>
-<li>loops</li>
-<li>R Markdown</li>
-</ul></li>
-<li>geocoding</li>
-<li>ggmap</li>
-<li>leaflet</li>
-</ul>
-</div>
-<p><span id="uiybduspan" class="tritoggle" onclick="TriShowHide(&#39;uiybdu&#39;);return false;">▶ </span><span class="sessiontitle">Nov 13. Spatial Stats and Analyses</span></p>
-<div id="uiybdudiv" class="compact" style="display:none;">
-<ul>
-<li>R fundamentals
-<ul>
-<li>writing custom functions</li>
-<li>working with models</li>
-</ul></li>
-<li>APIs</li>
-<li>R-ArcGIS Bridge</li>
-<li>movement data</li>
-<li>selected spatial stats</li>
-</ul>
+
 </div>
 </div>
 <div id="course-materials" class="slide section level1">
@@ -166,6 +141,13 @@
 </div>
 <div id="rstudio-tour" class="slide section level1">
 <h1>RStudio Tour</h1>
+<h2 id="install-the-following-packages">Install the following packages</h2>
+<ul>
+<li>raster</li>
+<li>sp</li>
+<li>rgdal</li>
+<li>ggplot</li>
+</ul>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->

@@ -1,9 +1,9 @@
 ---
-title: "<span class='ex-title'>Spatial Analysis with R:</span><br/><span class='ex-subtitle'>Exercise 1: Basic R Operations</span>"
-date: "October, 2017"
+title: "<span class='ex-title'>Spatial Analysis with R:</span><br/><span class='ex-subtitle'>Exercise 2: Basic R Operations</span>"
+date: "Spring, 2018"
 output: 
   html_document: 
-    css: slidy_baygeof17.css
+    css: slidy_styles.css
     includes:
       in_header: header.html
 ---
@@ -28,7 +28,7 @@ chop = local({
 
 - If you haven't already, install [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/). 
 
-- Download the [GitHub repo](https://github.com/ajlyons/rspatial-baygeo-f17). 
+- Download the [GitHub repo](https://github.com/ajlyons/rspatialdata). 
 
 - Create a new R script in RStudio (File &rarr; New File &rarr; R Script). 
 
@@ -301,8 +301,16 @@ ggplot(data=iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + geom_poin
 </div>
 
 
-
 ---
+<div style="float:right; width:33%; text-align:right;">
+<a href="../index.html" style="text-decoration:none;">Course outline</a>
+</div>
 
-<a href="#" style="text-decoration:none;" onclick="showHide('show-all');return false;">Show all solutions</a> | <a href="#" style="text-decoration:none;" onclick="showHide('hide-all');return false;">Hide all solutions</a>
+<div style="float:right; width:33%; text-align:center;">
+<a href="#" style="text-decoration:none;" onclick="showHide('soln-show-all');return false;">show all solutions</a> | <a href="#" style="text-decoration:none;" onclick="showHide('soln-hide-all');return false;">hide all solutions</a>
+</div>
+
+<div style="width:33%;">
+<a href="#" style="text-decoration:none;" onclick="showHide('hints-show-all');return false;">show all hints</a> | <a href="#" style="text-decoration:none;" onclick="showHide('hints-hide-all');return false;">hide all hints</a>
+</div>
 

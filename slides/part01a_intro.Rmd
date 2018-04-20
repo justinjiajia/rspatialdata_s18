@@ -33,6 +33,14 @@ knitr::opts_chunk$set(echo = FALSE)
  - Background in GIS
  - What you hope to get out of the class
 
+# Course Format
+
+Each week we will cover
+
+ - R fundamentals
+ - Spatial operations
+ - Exercises
+
 # Course Outline
 
 ```{r test-main, child = 'course_outline.Rmd'}
@@ -46,4 +54,10 @@ GitHub: https://github.com/ajlyons/rspatialdata
 
 # RStudio Tour
 
+## Install the following packages
+
+- raster
+- sp
+- rgdal
+- ggplot
 

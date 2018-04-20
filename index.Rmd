@@ -1,6 +1,6 @@
 ---
 title: "<span class='ex-title'>Spatial Data Analysis with R:</span><br/><span class='ex-subtitle'>Outline</span>"
-author: "<a href='http://ccsfgis.org'>BayGeo GIS Education Center</a><br/>Spring, 2018<br/>Andy Lyons"
+author: "Spring, 2018"
 output: 
   html_document: 
     css: slides/slidy_styles.css
@@ -12,31 +12,18 @@ output:
 ul {
   margin-left: 1em;
 }
+h1 {
+  font-size: 130%;
+}
 </style>
 
 # Week 1. Introduction to R 
 
-* [Intro](part01a_intro.html) 
+# Week 2. R Markdown, Data Wrangling, Spatial Data Classes, Projections, Queries, Geoprocessing
 
-* [R Basics](part01b_r-basics.html)
+# Week 3. Loops, Spatial Overlays, Raster Analyses, R-ArcGIS Integration
 
-* [Managing R](part01c_managing-r.html)
-
-* [Data Types](part01d_data-types.html)
-
-* [Exercise 1](part01_exercise1.html)
-
-# Week 2. Spatial Data Classes, Importing and Exporting Data, Intro to Visualization
-
-
-# Week 3. Geoprocessing, Spatial Overlays, and Intro to Raster Analyses
-
-
-# Week 4. More R, Importing from APIs, Geocoding, Movement Data
-
-
-# Week 5. Spatial Stats and Analyses
-
+# Week 4. Custom functions, working with models, APIs, geocoding, ggmap & leaflet
 
 # Resources
 
