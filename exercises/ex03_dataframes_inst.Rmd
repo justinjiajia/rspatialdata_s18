@@ -1,0 +1,168 @@
+---
+title: 'Exercise 3: Working with Two-Dimensional Data'
+output:
+  html_notebook:
+    code_folding: hide
+    theme: yeti
+    toc: yes
+    toc_depth: 4
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_depth: '4'
+---
+
+```{r setup, include=FALSE}
+load('../common/course_info.RData')
+eval_code <- FALSE
+```
+
+## INSTRUCTIONS
+
+- If you haven't already, download the <a href="`r lstCI$githubrepo`" target="_blank">GitHub repo</a>. 
+
+- Find and open the file: <tt>exercises/ex03_dataframes_nb.Rmd</tt>
+
+- Complete the code blocks in the notebook. If you need help, check the solutions below.
+
+## USEFUL FUNCTIONS
+
+Some useful functions you may want to use in this exercise include:
+
+class()  
+data()  
+head()  
+hist()  
+mean()  
+names()  
+nrow()  
+read.csv()  
+sd()  
+sort()    
+summary()  
+table()  
+tolower()  
+unique()  
+
+
+## SORTING VECTORS
+
+__[1] Generate 500 random numbers uniformly distributed between 0 and 100. Find the largest five and
+smallest five values. Create a historgram. Bonus: repeat with a normal distribution.__ 
+
+```{r, eval=eval_code}
+x <- runif(500) * 100
+sort(x)[1:5]
+sort(x, decreasing = TRUE)[1:5]
+hist(x)
+
+## Normal distribution
+x <- rnorm(500) * 100
+```
+
+## BUNDLED DATA
+
+Many R packages come with bundled data sets. The data() function will list available datasets from the datasets package. You generally don’t have to ‘load’ a bundled dataset into memory, R will automatically bring them in when needed. Most datasets also have a help page that explain their contents, that you can view in the same way you view help page for a function.
+
+__[2] Explore the 'iris' dataset: What type of object (class) is it? What columns does it contain? What do the numbers represent?__
+
+```{r, eval=eval_code}
+class(iris)
+head(iris)
+
+## To open the help page:
+# ?iris
+# or:
+# help("iris")
+```
+
+## IMPORTING CSV FILES
+
+The <tt>raster</tt> package comes with a csv file called *countries.csv*. To find out where it is located on your hard drive, run:  
+
+`system.file("external/countries.csv", package="raster")`
+
+
+__[4] Import _countries.csv_ as a dataframe and save it as countriesDF. Use the <tt>summary()</tt> function to see what each column contains.__
+
+```{r, eval=eval_code}
+library(raster)
+fn <- system.file("external/countries.csv", package="raster")
+fn
+countriesDF <- read.csv(fn)
+summary(countriesDF)
+```
+
+## TWO-DIMENSIONAL DATA STRUCTURES
+
+The main two-dimensional data structures in R are matrices and data frames. The big differences between the two are that:
+
+i) all the elements of matrices have to be the same data type (usually numeric) whereas each column of a dataframe can be a different data type
+
+ii) the columns of a data frame are usually named, and you can reference them by name
+
+__[5] Display the column names of the countriesDF you just imported. Then make them all lowercase (hint: tolower() returns a lowercase version of its argument).__
+
+```{r, eval=eval_code}
+names(countriesDF)
+names(countriesDF) <- tolower(names(countriesDF))
+names(countriesDF)
+```
+
+__[6] How many rows are there in the iris data frame?__
+
+```{r, eval=eval_code}
+nrow(iris)
+```
+
+__[7] Write an expression that returns the names of the species in iris.__
+
+```{r, eval=eval_code}
+unique(iris$Species)
+```
+
+__[8] Write an expression that returns all columns from iris but only the rows for the species virginica.__
+
+```{r, eval=eval_code}
+iris[iris$Species=="virginica", ]
+```
+
+__[9] What is the mean, standard deviation, and quartiles of the petal length for the species _setosa_?__
+
+```{r, eval=eval_code}
+setosa_petal <- iris[iris$Species=="setosa", "Petal.Length"]
+mean(setosa_petal)
+sd(setosa_petal)
+summary(setosa_petal)
+```
+
+__[10] Using the countries data frame you imported earlier, how many countries are there on the continent of Africa?__
+
+```{r, eval=eval_code}
+nrow(countriesDF[countriesDF$continent=="Africa",])
+# or:
+table(countriesDF$continent)
+```
+
+## BASIC PLOTTING
+
+__[11] Create a histogram of state.area (area of the 50 US states in square miles). Investigate what the `breaks` argument does.__ 
+
+```{r, eval=eval_code}
+hist(state.area, breaks=25)
+```
+
+__[12] Create a scatterplot of the sepal length vs petal length from iris. Does it look like they’re correlated? Bonus: create the same plot using ggplot2.__
+
+```{r, eval=eval_code}
+plot(x=iris[iris$Species=="setosa", "Sepal.Length"], y=iris[iris$Species=="setosa", "Petal.Length"])
+```
+
+ggplot:
+
+```{r, eval=eval_code}
+library(ggplot2)
+ggplot(data=iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + geom_point()
+```
+
+

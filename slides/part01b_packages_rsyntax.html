@@ -7,6 +7,7 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <meta name="author" content="Week 1: Packages and R Syntax" />
+  <meta name="date" content="2018-04-19" />
   <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span> <span class='footer-right'><a href='../index.html'>Course Homepage</a></span> <span class='footer-right'>Etherpad: <a href='https://is.gd/rspatial_baygeo_s18'>https://is.gd/rspatial_baygeo_s18</a></span> <span class='footer-subtitle'>Spatial Data Analysis in R: Week 1</span>"/>
   <meta name="font-size-adjustment" content="2"/>
   <title>Spatial Data Analysis with R</title>
@@ -97,7 +98,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
   <script src="lib/slidy-2/scripts/slidy.js"></script>
   <link rel="stylesheet" type="text/css" media="screen, projection, print"
-   href="slidy_styles.css" />
+   href="..\common\slidy_styles.css" />
   <meta name="duration" content="0" />
 </head>
 <body>
@@ -106,6 +107,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <p class="author">
 <span class="pres-title">Week 1: Packages and R Syntax</span>
   </p>
+  <p class="date">April 19, 2018</p>
 </div>
 <div id="r-packages" class="slide section level1">
 <h1>R Packages</h1>
@@ -134,7 +136,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## Warning: package &#39;Roster&#39; is not available (for R version 3.4.4)</code></pre>
 <p>Most of the time, a warning like this means the package doesn't exist at all.</p>
 <p><em>Load into Memory</em></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;raster&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)</code></pre></div>
 <pre><code>## Loading required package: sp</code></pre>
 <p>To unload:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(<span class="st">&quot;package:raster&quot;</span>)</code></pre></div>
@@ -217,7 +219,7 @@ Run a demo
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi <span class="co"># multiply by a constant</span></code></pre></div>
 <pre><code>## [1] 6.283185</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">7</span> <span class="op">+</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>) <span class="co"># add a random number</span></code></pre></div>
-<pre><code>## [1] 7.690851</code></pre>
+<pre><code>## [1] 7.620543</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span><span class="op">^</span><span class="dv">4</span> <span class="co"># powers</span></code></pre></div>
 <pre><code>## [1] 81</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="dv">4</span><span class="op">^</span><span class="dv">4</span>) <span class="co"># functions</span></code></pre></div>
@@ -290,7 +292,7 @@ depts</code></pre></div>
 nums &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.1</span>, <span class="dv">3</span>, <span class="op">-</span><span class="fl">5.7</span>)
 devs &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)
 devs</code></pre></div>
-<pre><code>## [1]  1.27067497  0.17513166  0.15829217 -1.50988891  0.04174235</code></pre>
+<pre><code>## [1] -0.2023848 -0.7393940 -0.4382544  0.7013543  0.3973173</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## integer vector
 ints &lt;-<span class="st"> </span><span class="kw">c</span>(1L, 5L, <span class="op">-</span>3L) <span class="co"># force storage as integer not decimal number</span>
 ## &#39;L&#39; is for &#39;long integer&#39; (historical)

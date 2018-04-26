@@ -1,12 +1,12 @@
 ---
 title: "<span class='ex-title'>Spatial Data Analysis with R:</span><br/><span class='ex-subtitle'>Outline</span>"
-author: "Spring, 2018"
+author: "`r load('common/course_info.RData'); lstCI$course`"
 output: 
   html_document: 
-    css: slides/slidy_styles.css
+    css: common/slidy_styles.css
     self_contained: yes
     includes:
-      in_header: slides/header.html
+      in_header: common/header.html
 ---
 <style>
 ul {
@@ -17,7 +17,11 @@ h1 {
 }
 </style>
 
-# Week 1. Introduction to R  
+```{r include=FALSE}
+load('common/course_info.RData')
+```
+
+# `r lstCI$class01short`. Introduction to R  
 
 <div style="margin-left: 2em;">
 [Intro](slides/part01a_intro.html)
@@ -32,12 +36,11 @@ h1 {
 
 </div>
 
+# `r lstCI$class02short`. R Markdown, Data Wrangling, Spatial Data Classes, Projections, Queries, Geoprocessing
 
-# Week 2. R Markdown, Data Wrangling, Spatial Data Classes, Projections, Queries, Geoprocessing
+# `r lstCI$class03short`. Loops, Spatial Overlays, Raster Analyses, R-ArcGIS Integration
 
-# Week 3. Loops, Spatial Overlays, Raster Analyses, R-ArcGIS Integration
-
-# Week 4. Custom functions, working with models, APIs, geocoding, ggmap & leaflet
+# `r lstCI$class04short`. Custom functions, working with models, APIs, geocoding, ggmap & leaflet
 
 # Resources
 

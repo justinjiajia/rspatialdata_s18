@@ -1,0 +1,155 @@
+---
+title: "<span class='ex-title'>Spatial Analysis with R:</span><br/><span class='ex-subtitle'>Exercise 2: Basic R Operations</span>"
+date: "`r load('../common/course_info.RData'); lstCI$course`"
+output: 
+  html_document: 
+    css: "../common/slidy_styles.css"
+    includes:
+      in_header: "../common/header.html"
+      after_body: bottom_links.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("auton_chop.R")
+load('../common/course_info.RData')
+```
+
+### Instructions
+
+- If you haven't already, install [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/). 
+
+- Download the <a href="`r lstCI$githubrepo`" target="_blank">GitHub repo</a>. 
+
+- Create a new R script in RStudio (File &rarr; New File &rarr; R Script). 
+
+- Copy-paste the questions below (all of which begin with the _#_ character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works. 
+
+- Remember to save your script periodically to avoid losing work if RStudio crashes.
+
+- If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.
+
+- If you have any questions or problems, please feel free to email the instructor.
+
+---
+
+### \#\#\# BASIC ARITHMETIC, VECTORS, VARIABLES, AND RANDOM NUMBERS
+
+<a href="#" class="showhidelink" onclick="showHide('q1');return false;">\# `r auton()`</a> Write an expression that will return the area of a circle with radius=2.
+
+<div id="q1" class="answer-code">
+```{r}
+# circle area = pi x r squared
+pi * 2 ^ 2
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q2');return false;">\# `r auton()`</a> `r chop("Create a variable named _x_, and assign it a numeric value. Then write an expression that returns the diameter of a circle with radius = _x_.")`
+
+<div id="q2" class="answer-code">
+```{r}
+x = 3
+# circle diameter = 2 x pi x r
+2 * pi * x
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q3');return false;">\# `r auton()`</a> Write an expression that returns a sequence of integers from 1 to 10.
+
+<div id="q3" class="answer-code">
+```{r}
+1:10
+# or:
+seq(1, 10)
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q4');return false;">\# `r auton()`</a> Write an expression that returns all the _even_ integers from 1 to 20.
+
+<div id="q4" class="answer-code">
+```{r}
+1:10 * 2
+# or:
+seq(from=2, to=20, by=2)
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q5');return false;">\# `r auton()`</a> Write an expression that returns ten uniformly distributed random numbers between 0 and 100.
+
+<div id="q5" class="answer-code">
+```{r}
+## runif() returns random numbers from 0 to 1, so if we multiply those values by 100 the 
+## result will be numbers from 0 to 100.
+runif(n=10) * 100
+
+## If you prefer integers, the sample() function would work also
+sample(1:100, size=10)
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q6');return false;">\# `r auton()`</a> `r chop("Create a variable called _y_, and assign it ten randomly selected valuesof TRUE or FALSE (equal weights). Find out how many elements are TRUE.")`  
+
+<div id="q6" class="answer-code">
+```{r}
+y = sample(c(TRUE,FALSE), size=10, replace=TRUE)
+
+## There are a few ways to count up the number of 'TRUE's
+summary(y)
+sum(y)
+table(y)
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q7');return false;">\# `r auton()`</a> Create a character variable called _h_, and assign it the individual lowercase letters of the alphabet.
+
+<div id="q7" class="answer-code">
+```{r}
+## Easist is to use a built-in constant:
+h <- letters
+h
+
+## Simple also works:
+h <- c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
+
+## *NOT* correct (do you see why?)
+## h <- "abcdefghijklmnopqrstuvwxyz"
+
+## Fancy:
+h <- strsplit(rawToChar(as.raw(97:122)), split=NULL)[[1]]
+
+```
+</div>
+
+### \#\#\# INDEXING AND FILTERING
+
+<a href="#" class="showhidelink" onclick="showHide('q8');return false;">\# `r auton()`</a> Using the variable _h_ you made above, write an expression that returns the first five letters of the alphabet.
+
+<div id="q8" class="answer-code">
+```{r}
+h[1:5]
+# or:
+head(h, n=5)
+
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q9');return false;">\# `r auton()`</a> Write an expression that returns only the vowels.
+
+<div id="q9" class="answer-code">
+```{r}
+h[c(1,5,9,15,21)]
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q10');return false;">\# `r auton()`</a> `r chop("Create a variable called _x_ and assign it a sequence of integers from 1 to 10. Then change the 5th element to -99. Next, add 100 to the last five elements. Finally, find the average (mean) of your vector.")`  
+
+<div id="q10" class="answer-code">
+```{r}
+x <- 1:10
+x[5] <- -99
+x[6:10] <- x[6:10] + 100
+x
+mean(x)
+```
+</div>
+

@@ -1,9 +1,10 @@
 ---
 title: "<span class='pres-subtitle'>Spatial Data Analysis with R</span>"
 author: "<span class='pres-title'>Week 1: Import and Plot Vector Data</span>"
-output: 
+date: "`r load('../common/course_info.RData'); lstCI$class01`"
+output:
   slidy_presentation:
-    css: slidy_styles.css
+    css: "../common/slidy_styles.css"
     df_print: default
     duration: 0
     font_adjustment: 2
@@ -15,7 +16,7 @@ output:
     lib_dir: lib
     smart: no
     includes:
-      in_header: header.html
+      in_header: "../common/header.html"
 params:
    this_week: 1
 ---

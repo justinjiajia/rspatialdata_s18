@@ -1,9 +1,10 @@
 ---
 title: "<span class='pres-subtitle'>Spatial Data Analysis with R</span>"
 author: "<span class='pres-title'>Week 1: Intro</span>"
+date: "`r load('../common/course_info.RData'); lstCI$class01`"
 output: 
   slidy_presentation:
-    css: slidy_styles.css
+    css: "../common/slidy_styles.css"
     df_print: default
     duration: 0
     font_adjustment: 2
@@ -15,7 +16,7 @@ output:
     lib_dir: lib
     smart: no
     includes:
-      in_header: header.html
+      in_header: "../common/header.html"
 params:
    this_week: 1
 ---
@@ -46,6 +47,14 @@ Each week we will cover
 ```{r test-main, child = 'course_outline.Rmd'}
 ```
 
+# Course Goal
+
+<div style="text-align: center;">
+<img src="images/mountain_climbing_880x360.png"><br/>
+<span style="color:darkred;">Whereever you are, be a little higher on the learning curve!</span>
+</div>
+
+
 # Course Materials
 
 Etherpad: https://is.gd/rspatial_baygeo_s18
@@ -59,5 +68,8 @@ GitHub: https://github.com/ajlyons/rspatialdata
 - raster
 - sp
 - rgdal
-- ggplot
+- ggplot2
 
+# Next
+
+[R Syntax and Packages](part01b_packages_rsyntax.html)
