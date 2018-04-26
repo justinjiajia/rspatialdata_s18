@@ -1,0 +1,160 @@
+---
+title: "<span class='pres-subtitle'>Spatial Data Analysis with R</span>"
+author: "<span class='pres-title'>Week 1: Import and Plot Vector Data</span>"
+<<<<<<< HEAD
+output: 
+  slidy_presentation:
+    css: slidy_styles.css
+=======
+date: "`r load('../common/course_info.RData'); lstCI$class01`"
+output:
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+>>>>>>> master
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer: "<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span> 
+    <span class='footer-right'><a href='../index.html'>Course Homepage</a></span>
+    <span class='footer-right'>Etherpad: <a href='https://is.gd/rspatial_baygeo_s18'>https://is.gd/rspatial_baygeo_s18</a></span>
+    <span class='footer-subtitle'>Spatial Data Analysis in R: Week 1</span>"
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+<<<<<<< HEAD
+      in_header: header.html
+=======
+      in_header: "../common/header.html"
+>>>>>>> master
+params:
+   this_week: 1
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Spatial Data
+
+<div class="incremental"><div>
+__Physical World &rarr; GIS World__
+
+<div class="incremental centerblock" style="margin-bottom:2em;"><img src="images/layers.jpg"></img></div>
+
+<div class="incremental centerblock" style="margin-bottom:2em;"><img src="images/vectors-features-abstract.png"></img></div>
+
+<div class="incremental centerblock" style="margin-bottom:2em;"><img src="images/raster-features-abstract.png"></img></div>
+
+</div></div>
+
+<div class="incremental"><div><hr class="hrdivider">
+__Projections__
+<div class="centerblock"><img src="images/projections_550x682.png"></img></div>
+</div></div>
+
+# Representing Geographic Data 
+
+How would you represent each of the following?
+
+<div class="indented2">
+>- city, county, state boundaries
+>- air or ocean temperature
+>- crime locations
+>- buildings
+>- roads
+>- water fountains
+>- elevation
+>- soil type
+>- land use
+</div>
+
+
+# Importing Vector Data: rgdal
+
+```{r echo=TRUE, results='hide', message=FALSE}
+library(sp)
+library(rgdal)
+```
+
+## Importing Shapefiles
+
+View layers in a directory:
+
+```{r echo=TRUE, eval=FALSE}
+ogrListLayers(dsn)
+```
+
+Where _dsn_ is a directory.
+
+View metadata before importing:
+
+```{r echo=TRUE, eval=FALSE}
+ogrInfo(dsn, shape_file_name)
+```
+
+where _shape_file_name_ is the name of the directory, minus the _.shp_ extension
+
+To import, use ```readOGR()```
+
+```{r import_shp, echo=TRUE}
+ca_counties <- readOGR("../exercises/data", "ca_counties_census")
+summary(ca_counties)
+```
+
+## Importing Other Data Formats
+
+| Format          | Package        |
+| -------------   | -------------- |
+| KML             | rgdal          |
+| file GeoDB      | arcgisbinding  |
+
+
+# Plotting
+
+## Basic Plotting
+
+```{r plot_ca, fig.align="center", cache=TRUE, out.height=400}
+plot(ca_counties)
+```
+
+Notice how its squished? We can fix that with the ```asp``` argument (aspect ratio).
+
+```{r plot_asp1, cache=TRUE}
+plot(ca_counties, asp=1)
+```
+
+Other common arguments for ```plot()```
+
+<div class="compact">
+- type - type of plot (_p_=point, _l_=line, _b_=both)
+- pch - plot character
+- cex - character expansion factor (1=normal size)
+- lwd - line width
+- lty - line type
+- col - fill
+- border - outline color
+- main - title
+- xlab, ylab - set labels for the x and y axes
+- asp - aspect ratio (set _asp=1_ for geographic data)
+- axes - whether or not to display axes
+- add - set add=TRUE to overlay new feaures on current plot
+</div>
+
+_Plotting Examples_
+
+Here we pass the ```col``` argument to give the polygon a fill.
+
+```{r plot_multicolors, cache=TRUE}
+palette()
+plot(ca_counties, col=palette(), asp=1)
+```
+
+## Other Plotting Packages
+
+<div class="indented2">
+- Plotting functions in the base package are quite basic
+- For nicer looking plots, check out the packages ```tmap```, ```ggmap```, or ```lattice```
+</div>
+
+

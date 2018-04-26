@@ -1,0 +1,316 @@
+---
+title: "<span class='ex-title'>Spatial Analysis with R:</span><br/><span class='ex-subtitle'>Exercise 2: Basic R Operations</span>"
+date: "Spring, 2018"
+output: 
+  html_document: 
+    css: slidy_styles.css
+    includes:
+      in_header: header.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+auton = local({
+  i = 0
+  function() {
+    i <<- i + 1
+    return(paste(i, ".", sep=""))
+  }
+})
+chop = local({
+  function(x, width=100, indent=0, exdent=0, initial="", prefix="") {
+    return(   paste(strwrap(x, width=width, indent=indent, initial=initial, prefix=prefix, exdent=exdent), collapse="  \n\\# &nbsp;&nbsp;&nbsp;&nbsp;", sep="")   )
+  }
+})
+```
+
+### Instructions
+
+- If you haven't already, install [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/). 
+
+- Download the [GitHub repo](https://github.com/ajlyons/rspatialdata). 
+
+- Create a new R script in RStudio (File &rarr; New File &rarr; R Script). 
+
+- Copy-paste the questions below (all of which begin with the _#_ character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works. 
+
+- Remember to save your script periodically to avoid losing work if RStudio crashes.
+
+- If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.
+
+- If you have any questions or problems, please feel free to email the instructor.
+
+---
+
+### \#\#\# BASIC ARITHMETIC, VECTORS, VARIABLES, AND RANDOM NUMBERS
+
+<a href="#" class="showhidelink" onclick="showHide('q1');return false;">\# `r auton()`</a> Write an expression that will return the area of a circle with radius=2.
+
+<div id="q1" class="answer-code">
+```{r}
+# circle area = pi x r squared
+pi * 2 ^ 2
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q2');return false;">\# `r auton()`</a> `r chop("Create a variable named _x_, and assign it a numeric value. Then write an expression that returns the diameter of a circle with radius = _x_.")`
+
+<div id="q2" class="answer-code">
+```{r}
+x = 3
+# circle diameter = 2 x pi x r
+2 * pi * x
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q3');return false;">\# `r auton()`</a> Write an expression that returns a sequence of integers from 1 to 10.
+
+<div id="q3" class="answer-code">
+```{r}
+1:10
+# or:
+seq(1, 10)
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q4');return false;">\# `r auton()`</a> Write an expression that returns all the _even_ integers from 1 to 20.
+
+<div id="q4" class="answer-code">
+```{r}
+1:10 * 2
+# or:
+seq(from=2, to=20, by=2)
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q5');return false;">\# `r auton()`</a> Write an expression that returns ten uniformly distributed random numbers between 0 and 100.
+
+<div id="q5" class="answer-code">
+```{r}
+## runif() returns random numbers from 0 to 1, so if we multiply those values by 100 the 
+## result will be numbers from 0 to 100.
+runif(n=10) * 100
+
+## If you prefer integers, the sample() function would work also
+sample(1:100, size=10)
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q6');return false;">\# `r auton()`</a> `r chop("Create a variable called _y_, and assign it ten randomly selected valuesof TRUE or FALSE (equal weights). Find out how many elements are TRUE.")`  
+
+<div id="q6" class="answer-code">
+```{r}
+y = sample(c(TRUE,FALSE), size=10, replace=TRUE)
+
+## There are a few ways to count up the number of 'TRUE's
+summary(y)
+sum(y)
+table(y)
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q7');return false;">\# `r auton()`</a> Create a character variable called _h_, and assign it the individual uppercase letters of the alphabet.
+
+<div id="q7" class="answer-code">
+```{r}
+## Easist is to use a built-in constant:
+h <- LETTERS
+h
+
+## Simple also works:
+h <- c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
+
+## *NOT* correct (do you see why?)
+## h <- "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+## Fancy:
+h <- strsplit(rawToChar(as.raw(65:90)), split=NULL)[[1]]
+
+```
+</div>
+
+### \#\#\# INDEXING AND FILTERING
+
+<a href="#" class="showhidelink" onclick="showHide('q8');return false;">\# `r auton()`</a> Using the variable _h_ you made above, write an expression that returns the first five letters of the alphabet.
+
+<div id="q8" class="answer-code">
+```{r}
+h[1:5]
+# or:
+head(h, n=5)
+
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q9');return false;">\# `r auton()`</a> Write an expression that returns only the vowels.
+
+<div id="q9" class="answer-code">
+```{r}
+h[c(1,5,9,15,21)]
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('q10');return false;">\# `r auton()`</a> `r chop("Create a variable called _x_ and assign it a sequence of integers from 1 to 10. Then change the 5th element to -99. Next, add 100 to the last five elements. Finally, find the average (mean) of your vector.")`  
+
+<div id="q10" class="answer-code">
+```{r}
+x <- 1:10
+x[5] <- -99
+x[6:10] <- x[6:10] + 100
+x
+mean(x)
+```
+</div>
+
+### \#\#\# IMPORTING DATA 
+
+__\# Bundled datasets__  
+\# Many R packages come with bundled data sets. The ```data()``` function will list  
+\# available datasets from the _datasets_ package. You generally don't have to 'load'  
+\# a bundled dataset into memory, R will automatically bring them in when needed.  
+\# Most datasets also have a help page that explain their contents, that you can view  
+\# in the same way you view help page for a function.
+
+
+<a href="#" class="showhidelink" onclick="showHide('jrwlos');return false;">\# `r auton()`</a> Explore the _iris_ dataset: What type of object (class) is it? What columns does it  
+\# contain? What do the numbers represent?
+
+
+<div id="jrwlos" class="answer-code">
+```{r}
+class(iris)
+head(iris)
+```
+
+To open the help page:
+
+```{r, eval=FALSE}
+?iris
+# or:
+help("iris")
+```
+</div>
+
+
+__\# csv files__  
+\# The raster package comes with a csv file called countries.csv. To find out where  
+\# it is located on your hard drive, run  
+\# ```system.file("external/countries.csv", package="raster")```.
+
+<a href="#" class="showhidelink" onclick="showHide('bdnbvl');return false;">\# `r auton()`</a> Import _countries.csv_ as a dataframe and save it as _countriesDF_. Use the _summary()_ function to see what each column contains. 
+
+<div id="bdnbvl" class="answer-code">
+```{r}
+fn <- system.file("external/countries.csv", package="raster")
+fn
+countriesDF <- read.csv(fn)
+summary(countriesDF)
+```
+</div>
+
+### \#\#\# TWO-DIMENSIONAL DATA STRUCTURES
+
+\# The main two-dimensional data structures in R are _matrices_ and _data frames_.  
+\# The big differences between the two are that:  
+\# i) all the elements of matrices have to be the same data type (usually numeric)  
+\#  whereas each column of a dataframe can be a different data type  
+\# ii) the columns of a data frame are usually named, and you can reference them by name  
+
+<a href="#" class="showhidelink" onclick="showHide('pbmkbu');return false;">\# `r auton()`</a> `r chop("Display the column names of the _countriesDF_ you just imported. Then make them all lowercase (hint: _tolower()_ returns a lowercase version of its argument).")`
+
+<div id="pbmkbu" class="answer-code">
+```{r}
+names(countriesDF)
+names(countriesDF) <- tolower(names(countriesDF))
+names(countriesDF)
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('xxvwwm');return false;">\# `r auton()`</a> How many rows are there in the _iris_ data frame?  
+
+<div id="xxvwwm" class="answer-code">
+```{r}
+nrow(iris)
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('srdsrq');return false;">\# `r auton()`</a> Write an expression that returns the names of the species in _iris_.  
+
+<div id="srdsrq" class="answer-code">
+```{r}
+unique(iris$Species)
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('rbqkwu');return false;">\# `r auton()`</a> Write an expression that returns all columns from _iris_ but only the rows for the species _virginica_.  
+
+<div id="rbqkwu" class="answer-code">
+```{r}
+iris[iris$Species=="virginica", ]
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('owlygk');return false;">\# `r auton()`</a> What is the mean, standard deviation, and quartiles of the petal length for the species _setosa_?  
+
+<div id="owlygk" class="answer-code">
+```{r}
+setosa_petal <- iris[iris$Species=="setosa", "Petal.Length"]
+mean(setosa_petal)
+sd(setosa_petal)
+summary(setosa_petal)
+```
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('iqwwlv');return false;">\# `r auton()`</a> `r chop("Using the countries data frame you imported earlier, how many countries are there on the continent of Africa?")`
+
+<div id="iqwwlv" class="answer-code">
+```{r}
+nrow(countriesDF[countriesDF$continent=="Africa",])
+# or:
+table(countriesDF$continent)
+```
+</div>
+
+
+### \#\#\# BASIC PLOTTING
+
+<a href="#" class="showhidelink" onclick="showHide('ojjlny');return false;">\# `r auton()`</a> `r chop("Create a histogram of _state.area_ (area of the 50 US states in square miles). Investigate what the _breaks_ argument does.")`  
+
+<div id="ojjlny" class="answer-code">
+```{r}
+hist(state.area, breaks=25)
+```
+
+The _breaks_ argument specifies the number of bins, or the method used to determine the breakpoints.
+</div>
+
+<a href="#" class="showhidelink" onclick="showHide('bfiobz');return false;">\# `r auton()`</a> `r chop("Create a scatterplot of the sepal length vs petal length from _iris_. Does it look like they're correlated?")` 
+
+<div id="bfiobz" class="answer-code">
+```{r}
+plot(x=iris[iris$Species=="setosa", "Sepal.Length"], y=iris[iris$Species=="setosa", "Petal.Length"])
+```
+
+A nicer looking example with ggplot:
+
+```{r}
+library(ggplot2)
+ggplot(data=iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + geom_point()
+
+```
+</div>
+
+
+---
+<div style="float:right; width:33%; text-align:right;">
+<a href="../index.html" style="text-decoration:none;">Course outline</a>
+</div>
+
+<div style="float:right; width:33%; text-align:center;">
+<a href="#" style="text-decoration:none;" onclick="showHide('soln-show-all');return false;">show all solutions</a> | <a href="#" style="text-decoration:none;" onclick="showHide('soln-hide-all');return false;">hide all solutions</a>
+</div>
+
+<div style="width:33%;">
+<a href="#" style="text-decoration:none;" onclick="showHide('hints-show-all');return false;">show all hints</a> | <a href="#" style="text-decoration:none;" onclick="showHide('hints-hide-all');return false;">hide all hints</a>
+</div>
+
