@@ -1,0 +1,104 @@
+---
+title: "<span class='pres-subtitle'>Spatial Data Analysis with R</span>"
+author: "<span class='pres-title'>Week 2: Intro</span>"
+date: "`r load('../common/course_info.RData'); lstCI$class02`"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer: "<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span> 
+    <span class='footer-right'><a href='../index.html'>Course Homepage</a></span>
+    <span class='footer-right'>Etherpad: <a href='https://is.gd/rspatial_baygeo_s18'>https://is.gd/rspatial_baygeo_s18</a></span>
+    <span class='footer-subtitle'>Spatial Data Analysis in R: Week 2</span>"
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+   this_week: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+
+# Course Outline
+
+```{r test-main, child = 'course_outline.Rmd'}
+```
+
+# Review of Last Time
+
+## R Syntax
+
+- case sensitive
+- console - where commands get executed
+- script (source) window - can save commands to a files
+
+## Operators
+
+### Math
+
+<tt>+    -    *    %    :    %%     %/%</tt>
+
+### Comparison
+
+<tt>==     !=</tt>
+
+<tt>>  >=   <   <=   </tt>
+
+<tt>%in%</tt>   
+
+## Functions
+
+### Math
+
+<tt>seq(), c(), sample(), runif(), log(), mean(), sum(), table()</tt>
+
+### Finding out about objects
+
+<tt>class(), summary()</tt>
+
+### Controlling the R environment
+
+<tt>setwd(), getwd()</tt>
+
+## Variables
+
+<tt>x = "san francisco"</tt>  
+
+<tt>x <- "san francisco"</tt>
+
+## Data Classes
+
+vector  
+   character  
+   numeric  
+   Boolean  
+
+## Vector Functions / Element-wise Vector Functions
+
+<tt>x <- 1:3</tt>
+<tt>x ^ 2</tt>
+<tt>log(x)</tt>
+
+## Filtering with Square Brackets
+
+```{r}
+x <- 4:6  
+idx <- c(1,2)
+x[idx]
+ 
+
+idx <- c(T,T,F)
+x[idx]
+
+idx <- x > 4
+x[idx]
+```
+

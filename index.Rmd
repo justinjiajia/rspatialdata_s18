@@ -36,16 +36,15 @@ load('common/course_info.RData')
 
 </div>
 
-<<<<<<< HEAD
+# `r lstCI$class02short`. Two Dimensional Data Structures, R Markdown, Spatial Data Classes, Projections, Queries, Geoprocessing, Spatial Overlays
 
-# Week 2. R Markdown, Data Wrangling, Spatial Data Classes, Projections, Queries, Geoprocessing
-=======
-# `r lstCI$class02short`. R Markdown, Data Wrangling, Spatial Data Classes, Projections, Queries, Geoprocessing
->>>>>>> master
+<div style="margin-left: 2em;">
+[Intro](slides/part02a_intro.html)
+</div>
 
-# `r lstCI$class03short`. Loops, Spatial Overlays, Raster Analyses, R-ArcGIS Integration
+# `r lstCI$class03short`. Loops and branches, APIs, geocoding, raster analyses, R-ArcGIS integration
 
-# `r lstCI$class04short`. Custom functions, working with models, APIs, geocoding, ggmap & leaflet
+# `r lstCI$class04short`. Custom functions, working with models, ggmap & leaflet, projects
 
 # Resources
 
