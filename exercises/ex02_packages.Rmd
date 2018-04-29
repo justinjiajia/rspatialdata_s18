@@ -1,0 +1,95 @@
+---
+title: "<span class='ex-title'>Spatial Analysis with R:</span><br/><span class='ex-subtitle'>Exercise 2: Finding and Installing Packages</span>"
+date: "`r load('../common/course_info.RData'); lstCI$course`"
+output: 
+  html_document: 
+    css: "../common/slidy_styles.css"
+    includes:
+      in_header: "../common/header.html"
+      after_body: bottom_links.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("auton_chop.R")
+load('../common/course_info.RData')
+```
+
+The key to working effectively in R is finding and installing the right packages. For spatial data, some of the most common and useful packages include:
+
+* __sp__: classes and methods for spatial data
+* __raster__: classes and methods for common raster data operations
+* __rgdal__: importing and transforming different spatial data types and providing access to proj4 library for working with map projections and coordinate systems
+
+<hr class="hrdivider">
+
+<a id="qtn_xpmnyc" href="#" class="showhidelink" onclick="showHide('xpmnyc');return false;">\# `r auton()`</a> `r chop("Load the <tt>sp</tt>, <tt>raster</tt>, and <tt>rgdal</tt> packages.")`  
+
+<div id="xpmnyc" class="answer-code">
+```{r install_packages, echo=TRUE, results='hide', message=FALSE, eval=FALSE}
+library(sp)
+library(raster)
+library(rgdal)
+```
+</div>
+
+<a id="qtn_ycybrs" href="#" class="showhidelink" onclick="showHide('ycybrs');return false;">\# `r auton()`</a> `r chop("Run the 'gallery' demo from the <tt>sp</tt> package.")`  <a href="#" class="showhidehint" onclick="showHide('jootpd');return false;"></a>  
+
+<div id="jootpd" class="hint">The package must be loaded before you can run the <tt>demo()</tt> function.</div>
+
+<div id="ycybrs" class="answer-code">
+```{r eval=FALSE}
+library(sp)  
+demo(gallery)
+```
+</div>
+
+<a id="qtn_ljzzuv" href="#" class="showhidelink" onclick="showHide('ljzzuv');return false;">\# `r auton()`</a> `r chop("What datasets are bundled with the <tt>maps</tt> package?")`  
+
+<div id="ljzzuv" class="answer-code">
+``` {r, eval=FALSE}
+install.packages("maps")
+data(package="maps")
+```
+</div>
+
+<a id="qtn_yjqdpl" href="#" class="showhidelink" onclick="showHide('yjqdpl');return false;">\# `r auton()`</a> `r chop("What type of object is the 'world.cities' from the <tt>maps</tt> package?")`  <a href="#" class="showhidehint" onclick="showHide('gyshky');return false;"></a>  
+
+<div id="gyshky" class="hint">You may need to install the <tt>maps</tt> package if you haven't already.</div>
+
+<div id="yjqdpl" class="answer-code">
+``` {r, eval=TRUE}
+library(maps)
+class(world.cities)
+```
+
+</div>
+
+<a id="qtn_qaszan" href="#" class="showhidelink" onclick="showHide('qaszan');return false;">\# `r auton()`</a> `r chop("The <tt>HairEyeColor</tt> dataset contains hair and eye color data from student from which university")` <a href="#" class="showhidehint" onclick="showHide('ibymvd');return false;"></a>  
+
+<div id="ibymvd" class="hint">Bundled datasets have help pages too!</div>
+
+<div id="qaszan" class="answer-code">
+```{r eval=FALSE}
+?HairEyeColor
+```
+The University of Delaware.
+</div>
+
+<a id="qtn_edwpeb" href="#" class="showhidelink" onclick="showHide('edwpeb');return false;">\# `r auton()`</a> `r chop("Which package could you use to compute *Ripley's K* (a statistic that measures point clustering)?")`  
+
+<div id="edwpeb" class="answer-code">
+Google: *Ripley's K R*  
+The [<tt>spatstat</tt>](https://cran.r-project.org/web/packages/spatstat/vignettes/getstart.pdf){target="_blank"} package has it
+</div>
+
+<a id="qtn_svgobv" href="#" class="showhidelink" onclick="showHide('svgobv');return false;">\# `r auton()`</a> `r chop("Open the Vignette for the <tt>raster</tt> package")`  
+
+<div id="svgobv" class="answer-code">
+You can open a Vignette from the index help page of a package, or by running:
+
+```{r eval=FALSE}
+vignette("Raster", package="raster")
+```
+</div>
+

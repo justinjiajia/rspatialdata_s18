@@ -13,14 +13,13 @@ load('../common/course_info.RData')
 <div id="tri01div" style="display:`r if (1 %in% params$this_week) "block" else "none"`;" class="compact">
 - RStudio  
 - basic syntax  
-- data types (vectors, data frames, matrices)  
-- importing csv files  
+- data types
 - indexing and filtering  
 - comparison operators  
 - sequences  
-- packages (what's in them, where to find them)  
+- packages
 - sample datasets  
-- importing data  
+- importing spatial data  
 - basic plotting  
 </div>
 
@@ -28,13 +27,22 @@ load('../common/course_info.RData')
 <span class="tritoggle" id="zeroryspan" onclick="TriShowHide('zerory');return false;">`r if (2 %in% params$this_week) "&#9660;" else "&#9654;"` </span><span class="sessiontitle">`r lstCI$class02short`. Two-Dimensional Data Structures, R Markdown, Spatial Data Classes, Projections, Queries, Geoprocessing, Spatial Overlays</span>
 
 <div id="zerorydiv" style="display:`r if (2 %in% params$this_week) "block" else "none"`;" class="compact">
-
+- lists, data frames, matrices
+- importing and exporting   
+- R Markdown 
+- spatial data classes
+- projections
+- queries
+- geoprocessing
+- spatial overlays
 </div>
 
 <!--------- WEEK 03 -------------------------------------->
 <span class="tritoggle" id="icosxkspan" onclick="TriShowHide('icosxk');return false;">`r if (3 %in% params$this_week) "&#9660;" else "&#9654;"` </span><span class="sessiontitle">`r lstCI$class03short`. Loops and branches, APIs, geocoding, raster analyses, R-ArcGIS integration</span>
 
 <div id="icosxkdiv" style="display:`r if (3 %in% params$this_week) "block" else "none"`;" class="compact">
+
+
 
 </div>
 

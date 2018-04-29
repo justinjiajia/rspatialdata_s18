@@ -1,0 +1,76 @@
+---
+title: "<span class='ex-title'>Spatial Analysis with R:</span><br/><span class='ex-subtitle'>Exercise 3: Import and Plot Spatial Data</span>"
+date: "`r load('../common/course_info.RData'); lstCI$course`"
+output: 
+  html_document: 
+    css: "../common/slidy_styles.css"
+    includes:
+      in_header: "../common/header.html"
+      after_body: bottom_links.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("auton_chop.R")
+library(rgdal)
+load('../common/course_info.RData')
+```
+
+### Instructions
+
+- If you haven't already, install [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/). 
+
+- Download the <a href="`r lstCI$githubrepo`" target="_blank">GitHub repo</a>. 
+
+- Create a new R script in RStudio (File &rarr; New File &rarr; R Script). 
+
+- Copy the questions below (all of which begin with the _#_ character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.<br/><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button><br/>
+
+- Remember to save your script periodically to avoid losing work if RStudio crashes.
+
+- If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.
+
+- If you have any questions or problems, please feel free to email the instructor.
+
+<hr class="hrdivider">
+
+<div id="qtn_div">
+
+### \#\#\# IMPORT A SHAPEFILE
+
+<a id="qtn_zizsuk" href="#" class="showhidelink" onclick="showHide('zizsuk');return false;">\# `r auton()`</a> `r chop("The *exercises/data* folder contains a Shapefile of neighborhoods in San Francisco ([source](https://data.sfgov.org/Geographic-Locations-and-Boundaries/Analysis-Neighborhoods/p5b7-5n3h){target=\"_blank\"}). Import and plot it. How many neighborhoods are there?")`  
+
+<div id="zizsuk" class="answer-code">
+```{r import_nb, cache=TRUE}
+library(rgdal, quietly = TRUE)
+sf_nb <- readOGR("data", "sf_neighborhoods")
+plot(sf_nb, axes=T, asp=1)
+nrow(sf_nb)
+```
+
+&#8658; there are `r nrow(sf_nb)` neighborhoods.
+
+</div>
+
+### \#\#\# IMPORT A KML
+
+<a id="qtn_wvnipb" href="#" class="showhidelink" onclick="showHide('wvnipb');return false;">\# `r auton()`</a> `r chop("The *exercises/data* folder contains a KML file with permitted cannabis dispensaries as of 2014 ([source](https://data.sfgov.org/Health-and-Social-Services/Permitted-Medical-Cannabis-Dispensaries/46p7-cb56){target=\"_blank\"}). Import and plot it over the neighborhood boundaries. How many permitted cannabis dispensaries are in the city?")`  <a href="#" class="showhidehint" onclick="showHide('mqepye');return false;"></a>  
+
+<div id="mqepye" class="hint">Remember to use the <tt>add=TRUE</tt> argument to overlay features on an existing plot.</div>
+
+<div id="wvnipb" class="answer-code">
+```{r plot_pot, cache=TRUE}
+library(rgdal, quietly = TRUE)
+fn <- "data/sf_permitted_cannabis_dispensaries_2014.kml"
+file.exists(fn)
+ogrListLayers(fn)
+sf_pot <- readOGR(fn, "Cannabis Dispensaries 2014")
+plot(sf_nb, axes=T, asp=1)
+plot(sf_pot, add=T, col="red", pch=16)
+nrow(sf_nb)
+```
+&#8658; there were 41 cannabis dispensaries as of 2014.
+</div>
+
+</div>
+

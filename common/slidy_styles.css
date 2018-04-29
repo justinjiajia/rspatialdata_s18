@@ -40,8 +40,11 @@ div.colclear {
   color: blue;
 }
 .hrdivider {
+  background-color: #888;
+  border: 0 none;
+  color: #888;
+  height: 5px;
   width:70%;
-  height:5px;
   margin-top:1em;
 }
 .indented1 {
@@ -74,9 +77,7 @@ div.textbox {
   padding:0.2em;
   background-color: white;
 }
-div.spaceafter {
-  margin-bottom: 1.5em;
-}
+
 .pres-title {
   font-size:52px;;
   font-weight:bold;
@@ -87,6 +88,11 @@ div.spaceafter {
   font-size:40px;
   font-weight:bold;
   color:navy;
+}
+.pres-date {
+  font-size: 32px;
+  font-weight:normal;
+  color:black;
 }
 .ex-title {
   font-size:75%;
@@ -172,9 +178,6 @@ pre > code {
   font-weight: normal;
   font-size: 80%;
 }
-td {
-  border: 1px dotted grey;
-}
 .footer-right {
   margin:0 2em;
   float:right;
@@ -183,14 +186,21 @@ td {
   color:#008040;
   margin-left: 1em;
 }
+pre.nofrills {
+  font-weight: normal;
+  border: none;
+  background-color: white;
+  color: black;
+ 
+}
 pre.scrolling-code {
- margin:1em 2em;
- font-size:75%;
- font-weight: normal;
- overflow:scroll;
- border: 1px solid black;
- background-color: WhiteSmoke;
- color: black;
+  margin:1em 2em;
+  font-size:75%;
+  font-weight: normal;
+  overflow:scroll;
+  border: 1px solid black;
+  background-color: WhiteSmoke;
+  color: black;
 }
 .argument {
   color: #902000;
@@ -198,7 +208,31 @@ pre.scrolling-code {
   font-weight: normal;
 }
 
+.tbl_compact {
+  border-collapse: collapse;
+}
+.tbl_compact td, .tbl_compact th {
+  padding: 10px 50px;
+  border-bottom:1px solid gray;
+  color: black;
+}
+.tbl_compact td {
+  font-size: 100%;
+}
+.tbl_compact th {
+  background-color: #dddddd;
+}
+.tbl_compact tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
 /* ======== No longer used ==============
+td {
+  border: 1px dotted grey;
+  border-top:1px solid #e5eff8;
+  border-right:1px solid #e5eff8;
+  border-collapse:collapse;
+}
 a.showhidelink::before {
   content: "[";
 }

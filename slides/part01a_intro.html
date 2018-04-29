@@ -6,11 +6,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="author" content="Week 1: Intro" />
-  <meta name="date" content="2018-04-19" />
-  <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span> <span class='footer-right'><a href='../index.html'>Course Homepage</a></span> <span class='footer-right'>Etherpad: <a href='https://is.gd/rspatial_baygeo_s18'>https://is.gd/rspatial_baygeo_s18</a></span> <span class='footer-subtitle'>Spatial Data Analysis in R: Week 1</span>"/>
+  <meta name="author" content="Intro" />
+  <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href=' https://is.gd/rspatial_baygeo_s18 ' target='_blank'> https://is.gd/rspatial_baygeo_s18 </a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>"/>
   <meta name="font-size-adjustment" content="2"/>
-  <title>Spatial Data Analysis with R</title>
+  <title>Week 1: Spatial Data Analysis with R April 19, 2018</title>
   <style type="text/css">code{white-space: pre;}</style>
   <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
   <script language="javascript" type="text/javascript">
@@ -57,6 +56,19 @@
       }
     }
   }
+  function CopyToClipboard(containerid) {
+  if (document.selection) { 
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy"); 
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied") 
+  }}
   </script>
   <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
   <script src="lib/slidy-2/scripts/slidy.js"></script>
@@ -66,14 +78,14 @@
 </head>
 <body>
 <div class="slide titlepage">
-  <h1 class="title"><span class="pres-subtitle">Spatial Data Analysis with R</span></h1>
+  <h1 class="title"><span class="pres-date">Week 1:</span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span><br/><span class="pres-date">April 19, 2018</span></h1>
   <p class="author">
-<span class="pres-title">Week 1: Intro</span>
+<span class="pres-title">Intro</span>
   </p>
-  <p class="date">April 19, 2018</p>
 </div>
 <div id="intros" class="slide section level1">
 <h1>Intros</h1>
+<div class="indented1">
 <ul>
 <li>Name</li>
 <li>Background in R</li>
@@ -81,13 +93,16 @@
 <li>What you hope to get out of the class</li>
 </ul>
 </div>
+</div>
 <div id="course-format" class="slide section level1">
 <h1>Course Format</h1>
-<p>Each week we will cover</p>
+<p>Each week we will cover:</p>
+<div class="indented1">
 <ul>
 <li>R fundamentals</li>
 <li>Spatial operations</li>
-<li>Exercises</li>
+<li>Exercises
+</div></li>
 </ul>
 </div>
 <div id="course-outline" class="slide section level1">
@@ -100,56 +115,90 @@
 </li>
 <li>basic syntax<br />
 </li>
-<li>data types (vectors, data frames, matrices)<br />
-</li>
-<li>importing csv files<br />
-</li>
+<li>data types</li>
 <li>indexing and filtering<br />
 </li>
 <li>comparison operators<br />
 </li>
 <li>sequences<br />
 </li>
-<li>packages (what's in them, where to find them)<br />
-</li>
+<li>packages</li>
 <li>sample datasets<br />
 </li>
-<li>importing data<br />
+<li>importing spatial data<br />
 </li>
 <li>basic plotting<br />
 </li>
 </ul>
 </div>
 <!-------- WEEK 02 --------------------------------------->
-<p><span id="zeroryspan" class="tritoggle" onclick="TriShowHide(&#39;zerory&#39;);return false;">▶ </span><span class="sessiontitle">April 26. R Markdown, Data Wrangling, Spatial Data Classes, Projections, Queries, Geoprocessing</span></p>
+<p><span id="zeroryspan" class="tritoggle" onclick="TriShowHide(&#39;zerory&#39;);return false;">▶ </span><span class="sessiontitle">April 26. Two-Dimensional Data Structures, R Markdown, Spatial Data Classes, Projections, Queries, Geoprocessing, Spatial Overlays</span></p>
 <div id="zerorydiv" class="compact" style="display:none;">
-
+<ul>
+<li>lists, data frames, matrices</li>
+<li>importing and exporting<br />
+</li>
+<li>R Markdown</li>
+<li>spatial data classes</li>
+<li>projections</li>
+<li>queries</li>
+<li>geoprocessing</li>
+<li>spatial overlays</li>
+</ul>
 </div>
 <!--------- WEEK 03 -------------------------------------->
-<p><span id="icosxkspan" class="tritoggle" onclick="TriShowHide(&#39;icosxk&#39;);return false;">▶ </span><span class="sessiontitle">May 3. Loops, Spatial Overlays, Raster Analyses, R-ArcGIS Integration</span></p>
+<p><span id="icosxkspan" class="tritoggle" onclick="TriShowHide(&#39;icosxk&#39;);return false;">▶ </span><span class="sessiontitle">May 3. Loops and branches, APIs, geocoding, raster analyses, R-ArcGIS integration</span></p>
 <div id="icosxkdiv" class="compact" style="display:none;">
 
 </div>
 <!---------- WEEK 04 ------------------------------------->
-<p><span id="iadcpnspan" class="tritoggle" onclick="TriShowHide(&#39;iadcpn&#39;);return false;">▶ </span><span class="sessiontitle">May 10. Custom functions, working with models, APIs, geocoding, ggmap &amp; leaflet</span></p>
+<p><span id="iadcpnspan" class="tritoggle" onclick="TriShowHide(&#39;iadcpn&#39;);return false;">▶ </span><span class="sessiontitle">May 10. Custom functions, working with models, ggmap &amp; leaflet</span></p>
 <div id="iadcpndiv" class="compact" style="display:none;">
 
 </div>
 </div>
-<div id="course-goal" class="slide section level1">
-<h1>Course Goal</h1>
+<div id="course-goals" class="slide section level1">
+<h1>Course Goals</h1>
+<p>Get better at:</p>
+<div class="indented1">
+<ul>
+<li>Working with R and RStudio</li>
+<li>Using the most common data classes and packages for spatial data</li>
+<li>Importing spatial data from files and online sources</li>
+<li>Fundamental spatial data processing operations</li>
+<li>Running statistical models on spatial data</li>
+<li>Finding resources to continue learning on your own
+</div></li>
+</ul>
 <div style="text-align: center;">
-<p><img src="images/mountain_climbing_880x360.png"><br/> <span style="color:darkred;">Be a little higher on the learning curve!</span></p>
+<p><img src="images/mountain_climbing_880x360.png"><br/> <span style="color:darkred;">Wind up a little higher on the learning curve!</span></p>
 </div>
 </div>
 <div id="course-materials" class="slide section level1">
 <h1>Course Materials</h1>
 <p>Etherpad: <a href="https://is.gd/rspatial_baygeo_s18" class="uri">https://is.gd/rspatial_baygeo_s18</a></p>
-<p>GitHub: <a href="https://github.com/ajlyons/rspatialdata" class="uri">https://github.com/ajlyons/rspatialdata</a></p>
+<p>GitHub website: <a href="https://github.com/ajlyons/rspatialdata" class="uri">https://github.com/ajlyons/rspatialdata</a></p>
+<div class="indented1">
+<ul>
+<li>slides (HTML)</li>
+<li>exercises (HTML)</li>
+</ul>
+</div>
+<p>Github repository: <a href="https://github.com/ajlyons/rspatialdata" class="uri">https://github.com/ajlyons/rspatialdata</a></p>
+<p>Keyboard Shortcuts for Slides</p>
+<div class="indented2">
+<p>A: toggle display of current vs all slides<br />
+S: make fonts smaller<br />
+B: make fonts larger<br />
+F: toggle display of the footer<br />
+C: Show table of contents</p>
+</div>
 </div>
 <div id="rstudio-tour" class="slide section level1">
 <h1>RStudio Tour</h1>
-<h2 id="install-the-following-packages">Install the following packages</h2>
+<p>Explore RStudio</p>
+<p>Install the following packages:</p>
+<div class="indented1">
 <ul>
 <li>raster</li>
 <li>sp</li>
@@ -157,9 +206,10 @@
 <li>ggplot2</li>
 </ul>
 </div>
-<div id="next" class="slide section level1">
-<h1>Next</h1>
-<p><a href="part01b_packages_rsyntax.html">R Syntax and Packages</a></p>
+</div>
+<div id="next-up" class="slide section level1">
+<h1>Next Up</h1>
+<p><a href="part01b_fund01_rsyntax.html">R Syntax</a></p>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->

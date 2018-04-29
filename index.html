@@ -68,6 +68,19 @@ function showHide(shID) {
     }
   }
 }
+function CopyToClipboard(containerid) {
+if (document.selection) { 
+    var range = document.body.createTextRange();
+    range.moveToElementText(document.getElementById(containerid));
+    range.select().createTextRange();
+    document.execCommand("copy"); 
+} else if (window.getSelection) {
+    var range = document.createRange();
+    range.selectNode(document.getElementById(containerid));
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    // alert("text copied") 
+}}
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -113,7 +126,7 @@ h6 {
 }
 </style>
 
-<link href="data:text/css;charset=utf-8,%0A%0A%0A%2Ecompact%20pre%20%7B%0Afont%2Dweight%3A%20normal%3B%0Afont%2Dsize%3A%2070%25%3B%0Aline%2Dheight%3A%20110%25%3B%0A%7D%0A%2Ecompact%20li%20%7B%0Aline%2Dheight%3A%2080%25%3B%0Amargin%2Dleft%3A%202em%3B%0A%7D%0A%2Ecenterblock%20%7B%0Atext%2Dalign%3Acenter%3B%0Amargin%3A%200%20auto%3B%0A%7D%0Adiv%2Ecolleft%20%7B%0Afloat%3Aleft%3B%0Awidth%3A48%25%3B%20border%3A%200px%3B%0A%7D%0Adiv%2Ecolright%20%7B%0Afloat%3Aright%3B%0Awidth%3A48%25%3B%20border%3A%200px%3B%0A%7D%0Adiv%2Ecolclear%20%7B%20clear%3A%20both%3B%0A%7D%0A%2Etitlefix%20%7B%0Acolor%3A%20blue%3B%0A%7D%0A%2Ehrdivider%20%7B%0Awidth%3A70%25%3B%0Aheight%3A5px%3B%0Amargin%2Dtop%3A1em%3B%0A%7D%0A%2Eindented1%20%7B%0Amargin%2Dleft%3A1em%3B%0A%7D%0A%2Eindented2%20%7B%0Amargin%2Dleft%3A2em%3B%0A%7D%0A%2Eindented3%20%7B%0Amargin%2Dleft%3A3em%3B%0A%7D%0A%2Eindented4%20%7B%0Amargin%2Dleft%3A4em%3B%0A%7D%0Adiv%2Ebigcheck%20%7B%0Afont%2Dsize%3A180%25%3B%0Acolor%3A%2332CD32%3B%0Amargin%2Dleft%3A0%2E2em%3B%0A%7D%0Adiv%2Ebigx%20%7B%0Afont%2Dsize%3A180%25%3B%0Acolor%3Ared%3B%0Amargin%2Dleft%3A0%2E2em%3B%20%7D%0Adiv%2Etextbox%20%7B%0Amargin%2Dleft%3A2%2E5em%3B%0Amargin%2Dright%3A2%2E5em%3B%0Afont%2Dsize%3A85%25%3B%20border%3A%203px%20solid%20red%3B%0Apadding%3A0%2E2em%3B%0Abackground%2Dcolor%3A%20white%3B%0A%7D%0Adiv%2Espaceafter%20%7B%0Amargin%2Dbottom%3A%201%2E5em%3B%0A%7D%0A%2Epres%2Dtitle%20%7B%0Afont%2Dsize%3A52px%3B%3B%0Afont%2Dweight%3Abold%3B%0Aline%2Dheight%3A%20normal%3B%0Acolor%3A%23008040%3B%0A%7D%0A%2Epres%2Dsubtitle%20%7B%0Afont%2Dsize%3A40px%3B%0Afont%2Dweight%3Abold%3B%0Acolor%3Anavy%3B%0A%7D%0A%2Eex%2Dtitle%20%7B%0Afont%2Dsize%3A75%25%3B%0Afont%2Dweight%3Abold%3B%0Acolor%3A%23008040%3B%0A%7D%0A%2Eex%2Dsubtitle%20%7B%0Afont%2Dweight%3Abold%3B%0A%7D%0A%2Eanswer%2Dcode%20%7B%0Adisplay%3A%20none%3B%0A%7D%0A%2Eanswer%2Dcode%20%3E%20p%20%7B%0Acolor%3A%20MidnightBlue%3B%0A%7D%0A%2Ehint%20%7B%0Adisplay%3A%20none%3B%0Amargin%3A%201em%202em%3B%0Abackground%2Dcolor%3A%20whiteSmoke%3B%0Apadding%3A%200%200%2E5em%3B%0Aborder%3A%202px%20solid%20DarkSeaGreen%3B%0A%7D%0Aspan%2Etritoggle%20%7B%0Afont%2Dsize%3A%20120%25%3B%0Atext%2Ddecoration%3A%20none%3B%0Acolor%3A%20DarkBlue%3B%0Acursor%3A%20pointer%3B%0A%7D%0Aspan%2Esessiontitle%20%7B%0Acolor%3A%20DarkBlue%3B%0A%7D%0Aspan%2Etextlink%20%7B%0Afont%2Dweight%3A%20lighter%3B%0Atext%2Ddecoration%3A%20underline%3B%0Atext%2Ddecoration%2Dstyle%3A%20dotted%3B%0Acolor%3A%23008040%3B%0Afont%2Dsize%3A%2090%25%3B%0Acursor%3A%20pointer%3B%20%7D%0Aa%2Eshowhidelink%20%7B%0Afont%2Dweight%3Abold%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%2Eshowhidehint%20%7B%0Afont%2Dweight%3A%20lighter%3B%0Atext%2Ddecoration%3A%20underline%3B%0Atext%2Ddecoration%2Dstyle%3A%20dotted%3B%0Acolor%3A%23008040%3B%0Afont%2Dsize%3A%2090%25%3B%0Amargin%2Dleft%3A%200%2E2em%3B%0A%7D%0Aa%2Eshowhidehint%3A%3Abefore%20%7B%0Acontent%3A%20%22%5Bhint%5D%22%3B%0Atext%2Ddecoration%3A%20none%3B%0Acolor%3A%23008040%3B%0A%7D%0Aa%2Eclosediv%20%7B%0Amargin%2Dleft%3A2em%3B%0A%7D%0A%2Eeasy%2Dread%2Durl%20%7B%0Afont%2Dsize%3A110%25%3B%0Afont%2Dweight%3Abold%3B%0Acolor%3Adarkblue%3B%0Afont%2Dfamily%3Amonospace%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A180%25%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Ah2%20%7B%0Amargin%2Dleft%3A%2032px%3B%0Afont%2Dsize%3A130%25%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20Navy%3B%0A%7D%0Ah3%20%7B%0Afont%2Dsize%3A110%25%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20brown%3B%0A%7D%0Apre%20%3E%20code%20%7B%0Afont%2Dweight%3A%20normal%3B%0Afont%2Dsize%3A%2080%25%3B%0A%7D%0Atd%20%7B%0Aborder%3A%201px%20dotted%20grey%3B%0A%7D%0A%2Efooter%2Dright%20%7B%0Amargin%3A0%202em%3B%0Afloat%3Aright%3B%0A%7D%0A%2Efooter%2Dsubtitle%20%7B%0Acolor%3A%23008040%3B%0Amargin%2Dleft%3A%201em%3B%0A%7D%0Apre%2Escrolling%2Dcode%20%7B%0Amargin%3A1em%202em%3B%0Afont%2Dsize%3A75%25%3B%0Afont%2Dweight%3A%20normal%3B%0Aoverflow%3Ascroll%3B%0Aborder%3A%201px%20solid%20black%3B%0Abackground%2Dcolor%3A%20WhiteSmoke%3B%0Acolor%3A%20black%3B%0A%7D%0A%2Eargument%20%7B%0Acolor%3A%20%23902000%3B%0Afont%2Dfamily%3A%20monospace%3B%0Afont%2Dweight%3A%20normal%3B%0A%7D%0A%0A" rel="stylesheet" type="text/css" />
+<link href="data:text/css;charset=utf-8,%0A%0A%0A%2Ecompact%20pre%20%7B%0Afont%2Dweight%3A%20normal%3B%0Afont%2Dsize%3A%2070%25%3B%0Aline%2Dheight%3A%20110%25%3B%0A%7D%0A%2Ecompact%20li%20%7B%0Aline%2Dheight%3A%2080%25%3B%0Amargin%2Dleft%3A%202em%3B%0A%7D%0A%2Ecenterblock%20%7B%0Atext%2Dalign%3Acenter%3B%0Amargin%3A%200%20auto%3B%0A%7D%0Adiv%2Ecolleft%20%7B%0Afloat%3Aleft%3B%0Awidth%3A48%25%3B%20border%3A%200px%3B%0A%7D%0Adiv%2Ecolright%20%7B%0Afloat%3Aright%3B%0Awidth%3A48%25%3B%20border%3A%200px%3B%0A%7D%0Adiv%2Ecolclear%20%7B%20clear%3A%20both%3B%0A%7D%0A%2Etitlefix%20%7B%0Acolor%3A%20blue%3B%0A%7D%0A%2Ehrdivider%20%7B%0Abackground%2Dcolor%3A%20%23888%3B%0Aborder%3A%200%20none%3B%0Acolor%3A%20%23888%3B%0Aheight%3A%205px%3B%0Awidth%3A70%25%3B%0Amargin%2Dtop%3A1em%3B%0A%7D%0A%2Eindented1%20%7B%0Amargin%2Dleft%3A1em%3B%0A%7D%0A%2Eindented2%20%7B%0Amargin%2Dleft%3A2em%3B%0A%7D%0A%2Eindented3%20%7B%0Amargin%2Dleft%3A3em%3B%0A%7D%0A%2Eindented4%20%7B%0Amargin%2Dleft%3A4em%3B%0A%7D%0Adiv%2Ebigcheck%20%7B%0Afont%2Dsize%3A180%25%3B%0Acolor%3A%2332CD32%3B%0Amargin%2Dleft%3A0%2E2em%3B%0A%7D%0Adiv%2Ebigx%20%7B%0Afont%2Dsize%3A180%25%3B%0Acolor%3Ared%3B%0Amargin%2Dleft%3A0%2E2em%3B%20%7D%0Adiv%2Etextbox%20%7B%0Amargin%2Dleft%3A2%2E5em%3B%0Amargin%2Dright%3A2%2E5em%3B%0Afont%2Dsize%3A85%25%3B%20border%3A%203px%20solid%20red%3B%0Apadding%3A0%2E2em%3B%0Abackground%2Dcolor%3A%20white%3B%0A%7D%0A%2Epres%2Dtitle%20%7B%0Afont%2Dsize%3A52px%3B%3B%0Afont%2Dweight%3Abold%3B%0Aline%2Dheight%3A%20normal%3B%0Acolor%3A%23008040%3B%0A%7D%0A%2Epres%2Dsubtitle%20%7B%0Afont%2Dsize%3A40px%3B%0Afont%2Dweight%3Abold%3B%0Acolor%3Anavy%3B%0A%7D%0A%2Epres%2Ddate%20%7B%0Afont%2Dsize%3A%2032px%3B%0Afont%2Dweight%3Anormal%3B%0Acolor%3Ablack%3B%0A%7D%0A%2Eex%2Dtitle%20%7B%0Afont%2Dsize%3A75%25%3B%0Afont%2Dweight%3Abold%3B%0Acolor%3A%23008040%3B%0A%7D%0A%2Eex%2Dsubtitle%20%7B%0Afont%2Dweight%3Abold%3B%0A%7D%0A%2Eanswer%2Dcode%20%7B%0Adisplay%3A%20none%3B%0A%7D%0A%2Eanswer%2Dcode%20%3E%20p%20%7B%0Acolor%3A%20MidnightBlue%3B%0A%7D%0A%2Ehint%20%7B%0Adisplay%3A%20none%3B%0Amargin%3A%201em%202em%3B%0Abackground%2Dcolor%3A%20whiteSmoke%3B%0Apadding%3A%200%200%2E5em%3B%0Aborder%3A%202px%20solid%20DarkSeaGreen%3B%0A%7D%0Aspan%2Etritoggle%20%7B%0Afont%2Dsize%3A%20120%25%3B%0Atext%2Ddecoration%3A%20none%3B%0Acolor%3A%20DarkBlue%3B%0Acursor%3A%20pointer%3B%0A%7D%0Aspan%2Esessiontitle%20%7B%0Acolor%3A%20DarkBlue%3B%0A%7D%0Aspan%2Etextlink%20%7B%0Afont%2Dweight%3A%20lighter%3B%0Atext%2Ddecoration%3A%20underline%3B%0Atext%2Ddecoration%2Dstyle%3A%20dotted%3B%0Acolor%3A%23008040%3B%0Afont%2Dsize%3A%2090%25%3B%0Acursor%3A%20pointer%3B%20%7D%0Aa%2Eshowhidelink%20%7B%0Afont%2Dweight%3Abold%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%2Eshowhidehint%20%7B%0Afont%2Dweight%3A%20lighter%3B%0Atext%2Ddecoration%3A%20underline%3B%0Atext%2Ddecoration%2Dstyle%3A%20dotted%3B%0Acolor%3A%23008040%3B%0Afont%2Dsize%3A%2090%25%3B%0Amargin%2Dleft%3A%200%2E2em%3B%0A%7D%0Aa%2Eshowhidehint%3A%3Abefore%20%7B%0Acontent%3A%20%22%5Bhint%5D%22%3B%0Atext%2Ddecoration%3A%20none%3B%0Acolor%3A%23008040%3B%0A%7D%0Aa%2Eclosediv%20%7B%0Amargin%2Dleft%3A2em%3B%0A%7D%0A%2Eeasy%2Dread%2Durl%20%7B%0Afont%2Dsize%3A110%25%3B%0Afont%2Dweight%3Abold%3B%0Acolor%3Adarkblue%3B%0Afont%2Dfamily%3Amonospace%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A180%25%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Ah2%20%7B%0Amargin%2Dleft%3A%2032px%3B%0Afont%2Dsize%3A130%25%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20Navy%3B%0A%7D%0Ah3%20%7B%0Afont%2Dsize%3A110%25%3B%0Afont%2Dweight%3A%20bold%3B%0Acolor%3A%20brown%3B%0A%7D%0Apre%20%3E%20code%20%7B%0Afont%2Dweight%3A%20normal%3B%0Afont%2Dsize%3A%2080%25%3B%0A%7D%0A%2Efooter%2Dright%20%7B%0Amargin%3A0%202em%3B%0Afloat%3Aright%3B%0A%7D%0A%2Efooter%2Dsubtitle%20%7B%0Acolor%3A%23008040%3B%0Amargin%2Dleft%3A%201em%3B%0A%7D%0Apre%2Enofrills%20%7B%0Afont%2Dweight%3A%20normal%3B%0Aborder%3A%20none%3B%0Abackground%2Dcolor%3A%20white%3B%0Acolor%3A%20black%3B%0A%7D%0Apre%2Escrolling%2Dcode%20%7B%0Amargin%3A1em%202em%3B%0Afont%2Dsize%3A75%25%3B%0Afont%2Dweight%3A%20normal%3B%0Aoverflow%3Ascroll%3B%0Aborder%3A%201px%20solid%20black%3B%0Abackground%2Dcolor%3A%20WhiteSmoke%3B%0Acolor%3A%20black%3B%0A%7D%0A%2Eargument%20%7B%0Acolor%3A%20%23902000%3B%0Afont%2Dfamily%3A%20monospace%3B%0Afont%2Dweight%3A%20normal%3B%0A%7D%0A%2Etbl%5Fcompact%20%7B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0A%2Etbl%5Fcompact%20td%2C%20%2Etbl%5Fcompact%20th%20%7B%0Apadding%3A%2010px%2050px%3B%0Aborder%2Dbottom%3A1px%20solid%20gray%3B%0Acolor%3A%20black%3B%0A%7D%0A%2Etbl%5Fcompact%20td%20%7B%0Afont%2Dsize%3A%20100%25%3B%0A%7D%0A%2Etbl%5Fcompact%20th%20%7B%0Abackground%2Dcolor%3A%20%23dddddd%3B%0A%7D%0A%2Etbl%5Fcompact%20tr%3Anth%2Dchild%28even%29%20%7B%0Abackground%2Dcolor%3A%20%23dddddd%3B%0A%7D%0A%0A" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -170,8 +183,8 @@ $(document).ready(function () {
 
 
 <style>
-ul {
-  margin-left: 1em;
+li {
+  margin-top:1em;
 }
 h1 {
   font-size: 130%;
@@ -179,19 +192,31 @@ h1 {
 </style>
 <div id="april-19.-introduction-to-r" class="section level1">
 <h1>April 19. Introduction to R</h1>
-<div style="margin-left: 2em;">
-<p><a href="slides/part01a_intro.html">Intro</a></p>
-<p><a href="slides/part01b_packages_rsyntax.html">Packages and R Syntax</a></p>
-<p><a href="exercises/part01_exercise1_packages.html">Exercise 1 - Packages</a></p>
-<p><a href="exercises/part01_exercise2_basicr.html">Exercise 2 - Basic R</a></p>
-<p><a href="slides/part01c_importing-plot.html">Importing and Plotting Spatial Data</a></p>
-</div>
+<ul>
+<li><p><a href="slides/part01a_intro.html" target="_blank">Intro</a></p></li>
+<li><p><a href="slides/part01b_fund01_rsyntax.html" target="_blank">R Syntax</a></p>
+<ul>
+<li><a href="exercises/ex01_basicr.html" target="_blank">Exercise 1: Basic Operations</a></li>
+</ul></li>
+<li><p><a href="slides/part01c_fund02_packages.html" target="_blank">Working with Packages</a></p>
+<ul>
+<li><a href="exercises/ex02_packages.html" target="_blank">Exercise 2: Packages</a></li>
+</ul></li>
+<li><p><a href="slides/part01d_import_plot.html" target="_blank">Importing and Plotting Spatial Data</a></p>
+<ul>
+<li><a href="exercises/ex03_import_plot.html" target="_blank">Exercise 3: Import and Plot Data</a></li>
+</ul></li>
+</ul>
 </div>
 <div id="april-26.-two-dimensional-data-structures-r-markdown-spatial-data-classes-projections-queries-geoprocessing-spatial-overlays" class="section level1">
 <h1>April 26. Two Dimensional Data Structures, R Markdown, Spatial Data Classes, Projections, Queries, Geoprocessing, Spatial Overlays</h1>
-<div style="margin-left: 2em;">
-<p><a href="slides/part02a_intro.html">Intro</a></p>
-</div>
+<ul>
+<li><p><a href="slides/part02a_review.html">Intro</a></p></li>
+<li><p><a href="slides/part02b_fund03_misc.html">More R Fundamentals</a></p>
+<ul>
+<li><a href="exercises/" target="_blank">Exercise 4: Sorting, Lists, and Text</a></li>
+</ul></li>
+</ul>
 </div>
 <div id="may-3.-loops-and-branches-apis-geocoding-raster-analyses-r-arcgis-integration" class="section level1">
 <h1>May 3. Loops and branches, APIs, geocoding, raster analyses, R-ArcGIS integration</h1>
@@ -202,8 +227,7 @@ h1 {
 <div id="resources" class="section level1">
 <h1>Resources</h1>
 <ul>
-<li><p><a href="https://public.etherpad-mozilla.org/p/rspatial-baygeo-s18">Workshop Etherpad</a></p></li>
-<li><p><a href="slides/where_to_turn_next.html">Where to Turn Next</a></p></li>
+<li><p><a href="slides/where_to_turn_next.html" target="_blank">Where to Turn Next</a></p></li>
 <li><p>Cheatsheets</p>
 <ul>
 <li><a href="extras/general-r_cheatsheet_animove.pdf">General R</a></li>
@@ -215,6 +239,7 @@ h1 {
 <li><a href="extras/arcgis_to_r_spatial_cheatsheet.pdf">ArcGIS equivalents in R</a></li>
 <li><a href="extras/ggmap_cheatsheet.pdf">ggmap quickstart</a></li>
 </ul></li>
+<li><p><a href="https://public.etherpad-mozilla.org/p/rspatial-baygeo-s18" target="_blank">Workshop Etherpad</a></p></li>
 </ul>
 </div>
 

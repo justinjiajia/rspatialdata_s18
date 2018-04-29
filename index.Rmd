@@ -9,8 +9,8 @@ output:
       in_header: common/header.html
 ---
 <style>
-ul {
-  margin-left: 1em;
+li {
+  margin-top:1em;
 }
 h1 {
   font-size: 130%;
@@ -23,34 +23,36 @@ load('common/course_info.RData')
 
 # `r lstCI$class01short`. Introduction to R  
 
-<div style="margin-left: 2em;">
-[Intro](slides/part01a_intro.html)
+- [Intro](slides/part01a_intro.html){target="_blank"}
 
-[Packages and R Syntax](slides/part01b_packages_rsyntax.html)
+- [R Syntax](slides/part01b_fund01_rsyntax.html){target="_blank"}
 
-[Exercise 1 - Packages](exercises/part01_exercise1_packages.html)
+    - [Exercise 1: Basic Operations](exercises/ex01_basicr.html){target="_blank"}
 
-[Exercise 2 - Basic R](exercises/part01_exercise2_basicr.html)
+- [Working with Packages](slides/part01c_fund02_packages.html){target="_blank"}
 
-[Importing and Plotting Spatial Data](slides/part01c_importing-plot.html)
+    - [Exercise 2: Packages](exercises/ex02_packages.html){target="_blank"}
 
-</div>
+- [Importing and Plotting Spatial Data](slides/part01d_import_plot.html){target="_blank"}
+
+    - [Exercise 3: Import and Plot Data](exercises/ex03_import_plot.html){target="_blank"}
+
 
 # `r lstCI$class02short`. Two Dimensional Data Structures, R Markdown, Spatial Data Classes, Projections, Queries, Geoprocessing, Spatial Overlays
 
-<div style="margin-left: 2em;">
-[Intro](slides/part02a_intro.html)
-</div>
+- [Intro](slides/part02a_review.html)
 
+- [More R Fundamentals](slides/part02b_fund03_misc.html)
+
+    - [Exercise 4: Sorting, Lists, and Text](exercises/){target="_blank"}
+    
 # `r lstCI$class03short`. Loops and branches, APIs, geocoding, raster analyses, R-ArcGIS integration
 
 # `r lstCI$class04short`. Custom functions, working with models, ggmap & leaflet, projects
 
 # Resources
 
-* [Workshop Etherpad](https://public.etherpad-mozilla.org/p/rspatial-baygeo-s18)
-
-* [Where to Turn Next](slides/where_to_turn_next.html)
+* [Where to Turn Next](slides/where_to_turn_next.html){target="_blank"}
 
 * Cheatsheets
 
@@ -63,3 +65,4 @@ load('common/course_info.RData')
     + [ArcGIS equivalents in R](extras/arcgis_to_r_spatial_cheatsheet.pdf)
     + [ggmap quickstart](extras/ggmap_cheatsheet.pdf)
 
+* [Workshop Etherpad](https://public.etherpad-mozilla.org/p/rspatial-baygeo-s18){target="_blank"}

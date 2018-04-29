@@ -1,24 +1,20 @@
 ---
-title: "<span class='pres-subtitle'>Spatial Data Analysis with R</span>"
-author: "<span class='pres-title'>Week 1: Intro</span>"
-date: "`r load('../common/course_info.RData'); lstCI$class01`"
+title: "<span class='pres-date'>Week `r params$this_week`:</span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span><br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI$class01`</span>"
+author: "<span class='pres-title'>Intro</span>"
 output: 
   slidy_presentation:
     css: "../common/slidy_styles.css"
     df_print: default
     duration: 0
     font_adjustment: 2
-    footer: "<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span> 
-    <span class='footer-right'><a href='../index.html'>Course Homepage</a></span>
-    <span class='footer-right'>Etherpad: <a href='https://is.gd/rspatial_baygeo_s18'>https://is.gd/rspatial_baygeo_s18</a></span>
-    <span class='footer-subtitle'>Spatial Data Analysis in R: Week 1</span>"
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
     self_contained: no
     lib_dir: lib
     smart: no
     includes:
       in_header: "../common/header.html"
 params:
-   this_week: 1
+    this_week: 1
 ---
 
 ```{r setup, include=FALSE}
@@ -29,47 +25,84 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Intros
 
+<div class="indented1">
  - Name
  - Background in R
  - Background in GIS
  - What you hope to get out of the class
+</div>
 
 # Course Format
 
-Each week we will cover
+Each week we will cover:
 
+<div class="indented1">
  - R fundamentals
  - Spatial operations
  - Exercises
+ </div>
 
 # Course Outline
 
 ```{r test-main, child = 'course_outline.Rmd'}
 ```
 
-# Course Goal
+# Course Goals
+
+Get better at: 
+
+<div class="indented1">
+- Working with R and RStudio
+- Using the most common data classes and packages for spatial data
+- Importing spatial data from files and online sources
+- Fundamental spatial data processing operations
+- Running statistical models on spatial data
+- Finding resources to continue learning on your own
+ </div>
 
 <div style="text-align: center;">
 <img src="images/mountain_climbing_880x360.png"><br/>
-<span style="color:darkred;">Whereever you are, be a little higher on the learning curve!</span>
+<span style="color:darkred;">Wind up a little higher on the learning curve!</span>
 </div>
 
 
 # Course Materials
 
-Etherpad: https://is.gd/rspatial_baygeo_s18
+Etherpad: <https://is.gd/rspatial_baygeo_s18>
 
-GitHub: https://github.com/ajlyons/rspatialdata
+GitHub website: <https://github.com/ajlyons/rspatialdata>
+
+<div class="indented1">
+- slides (HTML)
+- exercises (HTML)
+</div>
+
+Github repository: <https://github.com/ajlyons/rspatialdata>
+
+Keyboard Shortcuts for Slides
+
+<div class="indented2">
+A: toggle display of current vs all slides  
+S: make fonts smaller  
+B: make fonts larger  
+F: toggle display of the footer  
+C: Show table of contents
+</div>
+
 
 # RStudio Tour
 
-## Install the following packages
+Explore RStudio
 
+Install the following packages:
+
+<div class="indented1">
 - raster
 - sp
 - rgdal
 - ggplot2
+</div>
 
-# Next
+# Next Up
 
-[R Syntax and Packages](part01b_packages_rsyntax.html)
+[R Syntax](part01b_fund01_rsyntax.html)

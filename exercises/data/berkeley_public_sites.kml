@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Folder>
+	<name>Public Facilities</name>
+	<open>1</open>
+	<Placemark>
+		<name>Claremont Club</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Claremont Club</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.242748524414,37.85214826885993,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>South Branch Berkeley Public Library</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">South Branch Berkeley Public Library</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2710805244141,37.85632426885985,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Claremont Branch Berkeley Public Library</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Claremont Branch Berkeley Public Library</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2544035244141,37.85659426885989,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Berkeley Public Library</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Berkeley Public Library</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2682995244141,37.86825826885988,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>University Art Museum</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">University Art Museum</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.255798524414,37.86881626885987,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Berkeley City Hall</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Berkeley City Hall</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2735825244141,37.8693652688599,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>West Branch Berkeley Public Library</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">West Branch Berkeley Public Library</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.291078524414,37.86965326885984,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Cloyne Court</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Cloyne Court</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.256644524414,37.87603426885988,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Hillside Club</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Hillside Club</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2660765244141,37.87853626885986,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>North Branch Berkeley Public Library</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">North Branch Berkeley Public Library</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.275247524414,37.88548426885991,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Lincoln School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Lincoln School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">14</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2729529597882,37.85268701849294,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Alta Bates Medical Center</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Alta Bates Medical Center</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D31</SimpleData>
+				<SimpleData name="TEXTLENGTH">25</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2582149597744,37.85554101849559,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>John Muir School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">John Muir School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">1</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">16</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2449729597621,37.85746601849738,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Le Conte School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Le Conte School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">1</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">15</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2621969597781,37.85769701849758,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Longfellow School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Longfellow School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">1</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">17</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2785829597933,37.85881001849862,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Willard Junior High School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Willard Junior High School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">1</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">26</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2583039597745,37.86020401849993,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Emerson School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Emerson School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">1</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">14</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2503739597671,37.86130201850098,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>California School for Blind an</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">California School for Blind an</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">30</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.249190959766,37.863540018503,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Columbus School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Columbus School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">1</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">15</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2947059598083,37.86494401850433,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>McKinley School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">McKinley School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">15</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2596659597757,37.86517401850453,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Berkeley High School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Berkeley High School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">20</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2719039597872,37.86798301850718,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Burbank Junior High School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Burbank Junior High School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">26</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2880189598022,37.86909301850816,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Franklin School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Franklin School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">15</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.291067959805,37.87383201851258,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Whittier School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Whittier School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">15</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2705069597859,37.87687401851541,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Jefferson School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Jefferson School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">1</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">16</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2837659597982,37.8791170185175,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Hillside School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Hillside School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">15</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2585529597747,37.8807670185191,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Garfield Junior High School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Garfield Junior High School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">27</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2769189597918,37.88131801851958,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Oxford School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Oxford School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">13</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2683219597838,37.8874640185253,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Hillside Primary School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Hillside Primary School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">23</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2558549597722,37.89017601852783,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Thousand Oaks School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Thousand Oaks School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">20</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2810809597957,37.89270401853023,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Cragmont School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Cragmont School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">15</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2675289597831,37.89399001853138,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Cragmont Primary School</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Cragmont Primary School</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC">D43</SimpleData>
+				<SimpleData name="TEXTLENGTH">23</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2702399597856,37.90184101853873,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>University Baptist Church</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">University Baptist Church</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2535795107422,37.85131815502928,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>First Evangelical Baptist Church</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">First Evangelical Baptist Church</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2871945107421,37.85464815502931,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Saint Clements Episcopal Church</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Saint Clements Episcopal Church</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2449665107422,37.85909415502928,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Saint Johns Presbyterian Church</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Saint Johns Presbyterian Church</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2541375107421,37.8621451550293,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Berkeley Seventh Day Adventist Church</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Berkeley Seventh Day Adventist Church</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2635785107421,37.8624241550293,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>First Church of Christ Scientist</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">First Church of Christ Scientist</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2558025107422,37.86575415502931,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>First Presbyterian Church</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">First Presbyterian Church</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2605185107422,37.86632115502932,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>First Congregational Church</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">First Congregational Church</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2616435107422,37.86714915502926,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Trinity United Methodist Church</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Trinity United Methodist Church</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2619135107422,37.86770715502935,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Saint Marks Episcopal Church</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Saint Marks Episcopal Church</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2632995107422,37.86798615502934,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Saint Josephs Roman Catholic Church</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Saint Josephs Roman Catholic Church</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2783025107422,37.86965115502935,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Church of the Good Shepherd</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Church of the Good Shepherd</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2946915107421,37.87020915502933,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>Church of the Cross</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">Church of the Cross</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2766375107422,37.87075815502936,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>University Christian Church of Berkeley</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">University Christian Church of Berkeley</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2624715107422,37.87714815502934,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark>
+		<name>The Church of Jesus Christ of Latter Day Saints</name>
+		<ExtendedData>
+			<SchemaData schemaUrl="#Berkeley_Census_Blocks">
+				<SimpleData name="Name">The Church of Jesus Christ of Latter Day Saints</SimpleData>
+				<SimpleData name="STCTYFIPS">06001</SimpleData>
+				<SimpleData name="LABEL_FLAG">0</SimpleData>
+				<SimpleData name="FCC"></SimpleData>
+				<SimpleData name="TEXTLENGTH">0</SimpleData>
+			</SchemaData>
+		</ExtendedData>
+		<Point>
+			<coordinates>-122.2680155107422,37.8802081550293,0</coordinates>
+		</Point>
+	</Placemark>
+	<Schema name="Berkeley_Census_Blocks" id="Berkeley_Census_Blocks">
+	<SimpleField name="Name" type="string"></SimpleField>
+	<SimpleField name="Description" type="string"></SimpleField>
+	<SimpleField name="NAME" type="string"></SimpleField>
+	<SimpleField name="STCTYFIPS" type="string"></SimpleField>
+	<SimpleField name="LABEL_FLAG" type="int"></SimpleField>
+	<SimpleField name="FCC" type="string"></SimpleField>
+	<SimpleField name="TEXTLENGTH" type="int"></SimpleField>
+</Schema>
+</Folder>
+</kml>

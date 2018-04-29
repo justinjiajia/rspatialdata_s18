@@ -1,36 +1,38 @@
 ---
 title: "<span class='ex-title'>Spatial Data Analysis with R:</span><br/><span class='ex-subtitle'>Acknowledgements</span>"
-author: 'Andy Lyons, 2018'
 output: 
   html_document: 
-    css: ../css/slidy_styles.css
-    self_contained: yes
-    includes:
-      in_header: ../css/header.html
+    css: ../common/slidy_styles.css
+    self_contained: no
+    lib_dir: lib
 ---
 
-# R Instructors 
+# R Instructors & Bloggers
 
 In the true spirit of open source software, these slides and exercises have built upon from the work of numerous authors who have shared their work online. Many thanks in particular to the following R instructors for sharing their workshop materials:
 
-[Nick Eubank](http://www.nickeubank.com) (Stanford)
+[Eric Anderson](http://eriqande.github.io/rep-res-web/) (NOAA)
+
+[Simon Ejdemyr](https://sejdemyr.github.io/) (Facebook & Stanford)
 
 [Claudia Engel](http://web.stanford.edu/~cengel/) (Stanford)
 
+[Nick Eubank](http://www.nickeubank.com) (Stanford)
+
 [Patty Frontiera](http://dlab.berkeley.edu/people/patty-frontiera) (UC Berkeley)
+
+[Manuel Gimond](https://www.colby.edu/directory/profile/manuel.gimond/) (Colby College)
 
 [Chris Paciorek](https://www.stat.berkeley.edu/~paciorek/) (UC Berkeley)
 
-[Eric Anderson](http://eriqande.github.io/rep-res-web/) (NOAA)
-
-[Manuel Gimond](https://www.colby.edu/directory/profile/manuel.gimond/) (Colby College)
+[Zev Ross](http://zevross.com/blog/) (ZevRoss Spatial Analysis)
 
 _And many more!_
 
 # Image Credits
 
-- http://www.opengeotools.com/img/geoCoding.png
+http://www.opengeotools.com/img/geoCoding.png
 
-- http://easyscienceforkids.com/all-about-old-faithful
+http://easyscienceforkids.com/all-about-old-faithful
 
 

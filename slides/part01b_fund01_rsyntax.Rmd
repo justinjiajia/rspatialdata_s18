@@ -1,0 +1,180 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`:</span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span><br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI$class01`</span>"
+author: "<span class='pres-title'>R Syntax</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 1
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# R as a calculator
+
+```{r computing,echo=TRUE,results='markup'}
+2 + 2 # add numbers
+2 * pi # multiply by a constant
+7 + runif(1) # add a random number
+3^4 # powers
+sqrt(4^4) # functions
+log(10)
+log(100, base = 10)
+23 %/% 2 
+23 %% 2
+
+# scientific notation
+5000000000 * 1000
+5e9 * 1e3
+```
+
+Think of a mathematical operation you need - can you guess how to do it in R?
+
+# Assigning values to R objects
+
+A key action in R is to store values in the form of variables (also called objects). We can use the '<tt>=</tt>' or '<tt><-</tt>' operators to do this.
+
+```{r}
+y <- 3^3
+```
+
+Note when you assign a value to a variable, R doesn't print the result to the console. To see the value of a variable, simply type it by itself.
+
+```{r}
+y
+```
+
+Pretty much anything can be saved to a variable. Here we save some text and dates.
+
+```{r}
+flv <- "vanilla"
+flv
+
+start_date <- Sys.Date()
+start_date
+```
+
+## Naming Variables
+
+The rules for naming variables are pretty flexible. You can use numbers, letters, and most special characters. There are a couple of rules to take note of:
+
+<div class="indented2">
+- variable names can't start with a number (e.g., *3pieces*)  
+- hyphens and spaces are not allowed
+</div>
+
+__Naming Styles__
+
+There are a handful of popular  [naming styles](https://www.r-bloggers.com/consistent-naming-conventions-in-r/){target="_blank"}. Pick one that you like, and be consistent! 
+
+```{r, echo=FALSE}
+library(kableExtra)
+naming_styles_vec <- c("alllowercase", "adjustcolor", "period.separated", "shoe.size", "underscore_separated", "numeric_version", "lowerCamelCase", "addTaskCallback", "UpperCamelCase", "SignatureMethod")
+naming_styles_mat <- matrix(naming_styles_vec, byrow=TRUE, ncol=2, dimnames=list(1:(length(naming_styles_vec)/2), c("Style", "Example")))
+knitr::kable(naming_styles_mat, format = "html", table.attr='class="tbl_compact"') %>% column_spec(column=2, monospace = TRUE)
+```
+
+# R Studio Shortcuts
+
+If you're starting to type something you've typed before, or the long name of an R object or function, STOP!  You likely don't need to type all of that.
+
+- Tab completion
+- Command history 
+    * up/down arrows
+    * Ctrl-{up arrow} or Command-{up arrow}
+- RStudio: select a line or block for execution
+- Put your code in a file and use `source()`. For example: `source('myRcodeFile.R')`
+
+**Question**: Are there other tricks that anyone knows of?
+
+# Vectors in R
+
+The most basic form of an R object is a vector. In fact, individual (scalar) values are vectors of length one. 
+
+We can concatenate values into a vector with `c()`.
+
+```{r}
+## numeric vector
+nums <- c(1.1, 3, -5.7)
+devs <- rnorm(5)
+devs
+
+## integer vector
+ints <- c(1L, 5L, -3L) # force storage as integer not decimal number
+## 'L' is for 'long integer' (historical)
+
+idevs <- sample(ints, 100, replace = TRUE)
+
+## character vector
+chars <- c('hi', 'hallo', "mother's", 'father\'s', 
+   "She said, 'hi'", "He said, \"hi\"" )
+chars
+cat(chars, sep = "\n")
+
+## logical vector
+bools <- c(TRUE, FALSE, TRUE)
+bools
+```
+
+
+# Sequences
+
+Let's look at some sequences. 
+
+```{r}
+mySeq <- 1:6
+mySeq
+
+myOtherSeq <- seq(1, 11, by = 2)
+myOtherSeq
+length(myOtherSeq)
+
+fours <- rep(4, 6)
+fours
+
+## This is a comment: here is an example of non-numeric data
+depts <- c('espm', 'pmb', 'stats')
+depts
+```
+
+
+# Working with indices and subsets
+
+```{r}
+vals <- seq(2, 12, by = 2)
+vals
+
+vals[3]
+vals[3:5]
+vals[c(1, 3, 6)]
+vals[-c(1, 3, 6)]
+vals[c(rep(TRUE, 3), rep(FALSE, 2), TRUE)]
+```
+
+<div class="incremental"><div><hr class="hrdivider">
+__R is case sensitive__
+
+```{r, echo=TRUE, message=TRUE, warning=TRUE}
+"Hello" == "Hello"
+"GoodBye" == "goodbye"
+mean(1:5)
+## Mean(1:5)  - will throw an error: could not find function "Mean"
+```
+</div></div>
+
+# Next Up
+
+[Exercise 1. R Syntax](../exercises/ex01_basicr.html){target="_blank"}
+
+[Working With Packages](part01c_fund02_packages.html)
