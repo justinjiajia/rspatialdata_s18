@@ -4,6 +4,9 @@ date: "`r load('../common/course_info.RData'); lstCI$course`"
 output: 
   html_document: 
     css: "../common/slidy_styles.css"
+    self_contained: no
+    lib_dir: lib
+    smart: no
     includes:
       in_header: "../common/header.html"
       after_body: bottom_links.html
@@ -23,7 +26,7 @@ load('../common/course_info.RData')
 
 - Create a new R script in RStudio (File &rarr; New File &rarr; R Script). 
 
-- Copy the questions below (all of which begin with the _#_ character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.<br/><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button><br/>
+- Copy the questions below (all of which begin with the _#_ character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.
 
 - Remember to save your script periodically to avoid losing work if RStudio crashes.
 
@@ -32,6 +35,7 @@ load('../common/course_info.RData')
 - If you have any questions or problems, please feel free to email the instructor.
 
 <hr class="hrdivider">
+<div style="text-align:center"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
 
 <div id="qtn_div">
 

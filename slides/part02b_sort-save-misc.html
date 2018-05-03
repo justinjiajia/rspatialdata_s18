@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="R Fundamentals" />
+  <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href=' https://is.gd/rspatial_baygeo_s18 ' target='_blank'> https://is.gd/rspatial_baygeo_s18 </a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Week 2:  Spatial Data Analysis with R  April 26, 2018</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) { 
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy"); 
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied") 
+  }}
+  </script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="..\common\slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title"><span class="pres-date">Week 2: </span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span> <br/><span class="pres-date">April 26, 2018</span></h1>
+  <p class="author">
+<span class="pres-title">R Fundamentals</span>
+  </p>
+</div>
+<div id="inspecting-data-variables" class="slide section level1">
+<h1>Inspecting Data Variables</h1>
+<p><strong>Top-Ten Functions for Inspecting Objects</strong></p>
+<table class="tbl_compact">
+<thead>
+<tr>
+<th style="text-align:left;">
+Function
+</th>
+<th style="text-align:left;">
+What it does
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+ls()
+</td>
+<td style="text-align:left;">
+list all objects in memory
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+class()
+</td>
+<td style="text-align:left;">
+display an object's type or class
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+head(), tail()
+</td>
+<td style="text-align:left;">
+show the first or last 6 elements
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+summary()
+</td>
+<td style="text-align:left;">
+display summary info tailored to the object type
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+table(), hist()
+</td>
+<td style="text-align:left;">
+compute frequency table
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+min(), max(), range(), quantile()
+</td>
+<td style="text-align:left;">
+numeric summaries
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+str()
+</td>
+<td style="text-align:left;">
+display the object structure
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+nrow(), ncol(), &amp; dim()
+</td>
+<td style="text-align:left;">
+return the number of rows &amp; columns
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+length()
+</td>
+<td style="text-align:left;">
+retun the number of elements
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+nchar()
+</td>
+<td style="text-align:left;">
+return the number of characters in a string
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+View()
+</td>
+<td style="text-align:left;">
+open up the object in an Excel-like window (view only)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-family: monospace;">
+names(), slotNames()
+</td>
+<td style="text-align:left;">
+view and/or edit the element names
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sorting-vectors" class="slide section level1">
+<h1>Sorting Vectors</h1>
+<p>There are two approaches to sorting:</p>
+<p><tt>sort(x)</tt>: Change the order of the elements in vector</p>
+<p><tt>order(x)</tt>: Leave x alone, but find the order the elements are in and get their indices in that order.</p>
+<p>To illustrate, let's make a vector of random values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="dv">1000</span> <span class="op">*</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">10</span>))
+x</code></pre></div>
+<pre><code>##  [1] 177 346 716 528 489 995  69 855 373 242</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sort</span>(x)</code></pre></div>
+<pre><code>##  [1]  69 177 242 346 373 489 528 716 855 995</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">order</span>(x)</code></pre></div>
+<pre><code>##  [1]  7  1 10  2  9  5  4  3  8  6</code></pre>
+<p>If you compute the order of the elements, you can return a sorted copy of the list by putting the indices inside the square brackets.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">idx &lt;-<span class="st"> </span><span class="kw">order</span>(x)
+x[idx]</code></pre></div>
+<pre><code>##  [1]  69 177 242 346 373 489 528 716 855 995</code></pre>
+<p>Sorting in descending order can be done with the <tt>decreasing</tt> argument.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">idx &lt;-<span class="st"> </span><span class="kw">order</span>(x, <span class="dt">decreasing=</span><span class="ot">TRUE</span>)
+x[idx]</code></pre></div>
+<pre><code>##  [1] 995 855 716 528 489 373 346 242 177  69</code></pre>
+</div>
+<div id="picking-a-random-sample" class="slide section level1">
+<h1>Picking a Random Sample</h1>
+<p>We've already seen examples of generating random numbers with functions like <tt>runif()</tt> and <tt>rnorm()</tt>. Another common task is selecting a random sample. Suppose you want to pick three letters from the alphabet at random (for a password for example).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sample</span>(LETTERS, <span class="dt">size=</span><span class="dv">3</span>)</code></pre></div>
+<pre><code>## [1] &quot;B&quot; &quot;Q&quot; &quot;A&quot;</code></pre>
+<div style="margin:0 3em;border:1px solid grey;">
+<p><em>Challenge question</em>: Write an R expression that returns 100 letters selected at random. Hint: you might need to add an argument because there aren't 100 leetters in the alphabet. [<span id="qtn_htismynn" class="showhide" style="cursor: pointer; color:blue;" onclick="showHide(&#39;htismynn&#39;);return false;">Ans</span>].</p>
+<div id="htismynn" class="answer-code">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sample</span>(LETTERS, <span class="dt">size=</span><span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>##   [1] &quot;R&quot; &quot;N&quot; &quot;E&quot; &quot;L&quot; &quot;K&quot; &quot;H&quot; &quot;R&quot; &quot;Q&quot; &quot;Q&quot; &quot;Y&quot; &quot;S&quot; &quot;U&quot; &quot;O&quot; &quot;W&quot; &quot;H&quot; &quot;F&quot; &quot;X&quot;
+##  [18] &quot;N&quot; &quot;N&quot; &quot;O&quot; &quot;Z&quot; &quot;G&quot; &quot;F&quot; &quot;X&quot; &quot;M&quot; &quot;A&quot; &quot;H&quot; &quot;C&quot; &quot;P&quot; &quot;N&quot; &quot;L&quot; &quot;Z&quot; &quot;V&quot; &quot;X&quot;
+##  [35] &quot;D&quot; &quot;B&quot; &quot;U&quot; &quot;E&quot; &quot;D&quot; &quot;Y&quot; &quot;M&quot; &quot;R&quot; &quot;E&quot; &quot;C&quot; &quot;K&quot; &quot;I&quot; &quot;D&quot; &quot;F&quot; &quot;C&quot; &quot;P&quot; &quot;T&quot;
+##  [52] &quot;T&quot; &quot;V&quot; &quot;E&quot; &quot;Y&quot; &quot;A&quot; &quot;X&quot; &quot;F&quot; &quot;L&quot; &quot;N&quot; &quot;Q&quot; &quot;F&quot; &quot;L&quot; &quot;Z&quot; &quot;P&quot; &quot;E&quot; &quot;J&quot; &quot;U&quot;
+##  [69] &quot;J&quot; &quot;X&quot; &quot;Y&quot; &quot;A&quot; &quot;C&quot; &quot;X&quot; &quot;Y&quot; &quot;C&quot; &quot;F&quot; &quot;L&quot; &quot;P&quot; &quot;Q&quot; &quot;J&quot; &quot;Y&quot; &quot;D&quot; &quot;R&quot; &quot;Z&quot;
+##  [86] &quot;W&quot; &quot;O&quot; &quot;G&quot; &quot;V&quot; &quot;T&quot; &quot;T&quot; &quot;J&quot; &quot;Q&quot; &quot;N&quot; &quot;Q&quot; &quot;G&quot; &quot;A&quot; &quot;J&quot; &quot;Z&quot; &quot;E&quot;</code></pre>
+</div>
+</div>
+<p>Another way to pick a sample with the <tt>sample()</tt> function is to generate a vector of logical values, and then use that as the expression for the rows to return.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">control_grp_yn &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(T,F), <span class="dt">size=</span><span class="dv">26</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)
+control_grp_yn</code></pre></div>
+<pre><code>##  [1]  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE
+## [12] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+## [23]  TRUE  TRUE  TRUE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LETTERS[control_grp_yn]</code></pre></div>
+<pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;G&quot; &quot;H&quot; &quot;Q&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot;</code></pre>
+<div style="margin:0 3em;border:1px solid grey;">
+<p><em>Challenge question</em>: How could you modify the code above to increase the odds of being selected from 50:50 to 2:1? [<span id="qtn_ismynn" class="showhide" style="cursor: pointer; color:blue;" onclick="showHide(&#39;ismynn&#39;);return false;">Ans</span>].</p>
+<div id="ismynn" class="answer-code" style="margin-left:1em;">
+<p>An easy way to boost the odds of being selected is simply to increase the number of <tt>TRUE</tt> values in the sample source.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">control_grp_yn &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(T,T,F), <span class="dt">size=</span><span class="dv">26</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)
+LETTERS[control_grp_yn]</code></pre></div>
+<pre><code>##  [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;F&quot; &quot;G&quot; &quot;I&quot; &quot;J&quot; &quot;K&quot; &quot;N&quot; &quot;P&quot; &quot;Q&quot; &quot;R&quot; &quot;S&quot; &quot;U&quot; &quot;W&quot; &quot;X&quot;
+## [18] &quot;Z&quot;</code></pre>
+</div>
+</div>
+</div>
+<div id="dealing-with-missing-undefined-and-invalid-values" class="slide section level1">
+<h1>Dealing with Missing, Undefined, and Invalid Values</h1>
+<p>An object may have a missing or undefined value if it hasn't been initialized yet, a value wasn't passed, an operation couldn't work.</p>
+<p>R has two resevered words it uses to note missing values.</p>
+<div class="indented1">
+<p><tt>NULL</tt> - undefined<br />
+<tt>NA</tt> - missing</p>
+</div>
+<p>These are not the same as errors!</p>
+<p>NULL can not exist in a vector.</p>
+<h2 id="testing-for-na-and-null">Testing for NA and NULL:</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.na</span>(x)
+<span class="kw">is.null</span>(x)</code></pre></div>
+<h2 id="other-special-values">Other special values</h2>
+<p>Empty Strings</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x <span class="op">==</span><span class="st"> &quot;&quot;</span> </code></pre></div>
+<p><tt>Inf</tt> and <tt>-Inf</tt></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">5</span><span class="op">/</span><span class="dv">0</span></code></pre></div>
+<pre><code>## [1] Inf</code></pre>
+</div>
+<div id="lists" class="slide section level1">
+<h1>Lists</h1>
+<p>Lists are similiar to vectors except that,</p>
+<ul>
+<li>the elements can be referenced by name as well as index<br />
+</li>
+<li>elements can be different types</li>
+<li>elements can anything (including other lists!)</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">move_data &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">id=</span><span class="st">&quot;toni&quot;</span>, <span class="dt">species=</span><span class="st">&quot;buffalo&quot;</span>, <span class="dt">age=</span><span class="dv">12</span>, <span class="dt">sex=</span><span class="st">&quot;female&quot;</span>, <span class="dt">selected=</span><span class="ot">TRUE</span>, <span class="dt">wt=</span><span class="dv">182</span>, <span class="dt">herd=</span><span class="kw">c</span>(<span class="st">&quot;west&quot;</span>, <span class="st">&quot;hilltop&quot;</span>))
+move_data</code></pre></div>
+<pre><code>## $id
+## [1] &quot;toni&quot;
+## 
+## $species
+## [1] &quot;buffalo&quot;
+## 
+## $age
+## [1] 12
+## 
+## $sex
+## [1] &quot;female&quot;
+## 
+## $selected
+## [1] TRUE
+## 
+## $wt
+## [1] 182
+## 
+## $herd
+## [1] &quot;west&quot;    &quot;hilltop&quot;</code></pre>
+<p>You grab individual elements with the <tt>$</tt> character or double square brackets. If you're not sure what the element names are, you can check with <tt>names()</tt> (and change them also).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(move_data)</code></pre></div>
+<pre><code>## [1] &quot;id&quot;       &quot;species&quot;  &quot;age&quot;      &quot;sex&quot;      &quot;selected&quot; &quot;wt&quot;      
+## [7] &quot;herd&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">move_data<span class="op">$</span>id</code></pre></div>
+<pre><code>## [1] &quot;toni&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">move_data[[<span class="dv">3</span>]]</code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">move_data[[<span class="st">&quot;age&quot;</span>]]</code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<p>Note <tt>$</tt> and <tt>[[ ]]]</tt> grab an individual element. Use single square brackets to return a sub-list.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">move_data[ <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">5</span>)]</code></pre></div>
+<pre><code>## $age
+## [1] 12
+## 
+## $selected
+## [1] TRUE</code></pre>
+<p>Reassign a list element</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">move_data<span class="op">$</span>selected &lt;-<span class="st"> </span><span class="ot">FALSE</span>
+move_data<span class="op">$</span>selected</code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>To add a list element, just assign it a value and R will add it 'on the fly'.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">move_data<span class="op">$</span>mother &lt;-<span class="st"> &quot;luci&quot;</span></code></pre></div>
+<p>To delete a list element, set it to <tt>NULL</tt>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">move_data<span class="op">$</span>herd &lt;-<span class="st"> </span><span class="ot">NULL</span>
+<span class="kw">names</span>(move_data)</code></pre></div>
+<pre><code>## [1] &quot;id&quot;       &quot;species&quot;  &quot;age&quot;      &quot;sex&quot;      &quot;selected&quot; &quot;wt&quot;      
+## [7] &quot;mother&quot;</code></pre>
+<h2 id="s4-objects">S4 Objects</h2>
+<p>S4 objects are like 'super lists'.</p>
+<p>In addition to list elements, they can have 'slots' that you grab with the <tt>@</tt> character.</p>
+<p>Spatial data classes from the <tt>sp</tt> package are S4 objects.</p>
+</div>
+<div id="saving-your-work" class="slide section level1">
+<h1>Saving Your Work</h1>
+<p>A big reason for using R is to be able to reproduce your work.</p>
+<p>You can save both scripts and variables to files on disk.</p>
+<p>Save scripts in RStudio as *.R files.</p>
+<h2 id="directories">Directories</h2>
+<p>When you import or save objects to disk using a command, you don't have the luxury of an interactive file dialog. You have to know where it's going.</p>
+<p>All file paths are relative to the <em>working directory</em>. You can view or set the working directory from RStudio or with commands at the console:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;/projects/soc101/sf_census/&quot;</span>)
+<span class="kw">getwd</span>()</code></pre></div>
+<pre><code>## [1] &quot;C:/projects/soc101/sf_census&quot;</code></pre>
+<p>R uses standard Linux notion when interpreting directory names. The default 'Home' directory is usually your Documents folder, and can be specified with the <tt>~</tt> character.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">path.expand</span>(<span class="st">&quot;~&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;C:/Users/Andy/Documents&quot;</code></pre>
+<p>The 'root' directory on the current volume (drive) can be specified with the '<tt>/</tt>' character. You can specify the drive letter if you'd like also (e.g., <tt>c:/</tt>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">path.expand</span>(<span class="st">&quot;/&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;/&quot;</code></pre>
+<p>Note for Windows users: R requires forward slashes (<tt>/</tt>), not back slashes (<tt>\</tt>). Sorry about that. If you really want to keep using back slashes, you can use a double back slash (<tt>\\</tt>)</p>
+<p>You can specify the current directory with a period (<tt>.</tt>). If you want to save something to a sub-directory of the active directory, start with the period and then keep going.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;/projects/soc101/sf_census&quot;</span>)
+<span class="kw">getwd</span>()</code></pre></div>
+<pre><code>## [1] &quot;C:/projects/soc101/sf_census&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">&quot;./data&quot;</span>)
+<span class="kw">getwd</span>()</code></pre></div>
+<pre><code>## [1] &quot;C:/projects/soc101/sf_census/data&quot;</code></pre>
+<h2 id="saving-objects-to-disk">Saving Objects to Disk</h2>
+<p>You can save individual objects (variables) to disk with the <tt>save()</tt> function. If you don't specify a directory as part of the file name, it will go in the working directory.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x_nums &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>) <span class="op">*</span><span class="st"> </span><span class="dv">20</span>
+## Save to home directory
+<span class="kw">save</span>(x_nums, <span class="dt">file=</span><span class="st">&quot;~/first_try.RData&quot;</span>)</code></pre></div>
+<p>.Rdata is a common extension for R data files, but you can name the file anyting you want. Note however the <tt>save()</tt> function saves objects in a binary, compressed file format that R understands. This makes it very flexible and easy to bring back into R using the sister function <tt>load()</tt>, however if you want to export data to use with another program, you probably want to use a different function that saves in a more standard file format, like <tt>write.csv()</tt> or <tt>write.table()</tt>.</p>
+<p>To save your entire workspace (all variables in memory), you can use the <tt>save.image()</tt> function. RStudio also have a 'Save Workspace' button on the 'Environment' window, and will probably ask if you want to save your workspace when you quit the program.</p>
+<h2 id="loading-objects-from-disk">Loading Objects from Disk</h2>
+<p>To load a file back into memory, use the load() function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(x_nums)   ## remove x_nums from memory
+<span class="kw">load</span>(<span class="st">&quot;~/first_try.RData&quot;</span>)
+<span class="kw">summary</span>(x_nums)</code></pre></div>
+<pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## -63.4914 -13.4858   0.9612   0.5270  15.1476  52.8959</code></pre>
+<p><strong>Short Cuts</strong></p>
+<p>If you're working at the console and want to quickly get the name to a file, you can use the <strong><tt>file.choose()</tt></strong> function.</p>
+<p>In RStudio, you can use the Files tab to browse your files and set the working directory.</p>
+<h2 id="saving-scripts">Saving Scripts</h2>
+<p>You can save and open scripts, R Markdown files, etc. from RStudio.</p>
+<p>If you have a set of commands that you want to rerun repeatedly, you can save them as a *.R file and then run them all at once with source() function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;import_clean_data.R&quot;</span>)</code></pre></div>
+<p><em>Still to come</em>:</p>
+<ul>
+<li>saving plots as image files</li>
+<li>saving spatial data</li>
+</ul>
+</div>
+<div id="next-up" class="slide section level1">
+<h1>Next Up</h1>
+<p><a href="../exercises/ex04_lists_sort_safe.html" target="_blank">Exercise 4. Lists and sorting</a></p>
+<p><a href="part02c_2d-data.html">Two-Dimensional Data Structures</a></p>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

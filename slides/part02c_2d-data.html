@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Matrices and Data Frames" />
+  <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href=' https://is.gd/rspatial_baygeo_s18 ' target='_blank'> https://is.gd/rspatial_baygeo_s18 </a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Week 2:  Spatial Data Analysis with R  April 26, 2018</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) { 
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy"); 
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied") 
+  }}
+  </script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="..\common\slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title"><span class="pres-date">Week 2: </span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span> <br/><span class="pres-date">April 26, 2018</span></h1>
+  <p class="author">
+<span class="pres-title">Matrices and Data Frames</span>
+  </p>
+</div>
+<div id="two-dimensional-data" class="slide section level1">
+<h1>Two-Dimensional Data</h1>
+<p>Data structures with rows and columns are ubiquitous in many fields. R has two data classes to store 2D data - matrices and data frames.</p>
+<table class="tbl_compact">
+<thead>
+<tr>
+<th style="text-align:left;">
+Property
+</th>
+<th style="text-align:left;">
+Matrix
+</th>
+<th style="text-align:left;">
+Data Frame
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+data type
+</td>
+<td style="text-align:left;">
+entire matrix must use the same data type
+</td>
+<td style="text-align:left;">
+each column can be a different data type
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+column labels
+</td>
+<td style="text-align:left;">
+optional, can be defined as an attribute for display
+</td>
+<td style="text-align:left;">
+built-in, columns can referenced by name
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+more than two dimensions
+</td>
+<td style="text-align:left;">
+allowed (called an array)
+</td>
+<td style="text-align:left;">
+not allowed
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+can add rows and columns
+</td>
+<td style="text-align:left;">
+yes
+</td>
+<td style="text-align:left;">
+yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+matrix algebra
+</td>
+<td style="text-align:left;">
+allowed
+</td>
+<td style="text-align:left;">
+not supported
+</td>
+</tr>
+</tbody>
+</table>
+<p>To create a matrix from scratch, use the <tt>matrix()</tt> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data=</span><span class="kw">rnorm</span>(<span class="dv">9</span>), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">3</span>)
+mat </code></pre></div>
+<pre><code>##            [,1]       [,2]       [,3]
+## [1,]  0.1590751  1.7618291 -1.2795421
+## [2,]  1.4793530 -0.5129097  0.2577352
+## [3,] -0.2136505 -1.3856868  0.2637582</code></pre>
+<p>There are number of sample datasets that come with R, many of which are data frames. Functions to explore data frames include <tt>names()</tt>, <tt>head()</tt>, <tt>nrow()</tt>, <tt>ncol()</tt>, <tt>dim()</tt>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(mtcars)</code></pre></div>
+<pre><code>##  [1] &quot;mpg&quot;  &quot;cyl&quot;  &quot;disp&quot; &quot;hp&quot;   &quot;drat&quot; &quot;wt&quot;   &quot;qsec&quot; &quot;vs&quot;   &quot;am&quot;   &quot;gear&quot;
+## [11] &quot;carb&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mtcars)</code></pre></div>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(mtcars)</code></pre></div>
+<pre><code>## [1] 32</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(mtcars)</code></pre></div>
+<pre><code>## [1] 11</code></pre>
+<p>You can grab an individual column by name with the <tt>$</tt> selector.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(mtcars<span class="op">$</span>disp)</code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mtcars<span class="op">$</span>wt)</code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   1.513   2.581   3.325   3.217   3.610   5.424</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x=</span>mtcars<span class="op">$</span>wt, <span class="dt">y=</span>mtcars<span class="op">$</span>mpg, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">main=</span><span class="st">&quot;Gas Mileage vs Weight&quot;</span>)</code></pre></div>
+<p><img src="part02c_2d-data_files/figure-slidy/unnamed-chunk-4-1.png" width="768" /></p>
+</div>
+<div id="selecting-rows-and-columns" class="slide section level1">
+<h1>Selecting Rows and Columns</h1>
+<p>Similar to vectors, you can reference specific rows specific rows and columns with square bracket notation. Only this time we need two expressions separated by a comma.</p>
+<p><tt>mydataframe[</tt> <em>rows</em> , <em>cols</em> <tt>]</tt></p>
+<p>Like vectors, the expression for <em>rows</em> &amp; <em>cols</em> can be integers (row and column indices), or Booleans. In addition, with data frames you can use a vector of column names to specific the columns. To return all the rows or all the columns, omit the expression.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(maps)
+<span class="kw">data</span>(canada.cities)
+<span class="kw">head</span>(canada.cities)</code></pre></div>
+<pre><code>##            name country.etc    pop   lat    long capital
+## 1 Abbotsford BC          BC 157795 49.06 -122.30       0
+## 2      Acton ON          ON   8308 43.63  -80.03       0
+## 3 Acton Vale QC          QC   5153 45.63  -72.57       0
+## 4    Airdrie AB          AB  25863 51.30 -114.02       0
+## 5    Aklavik NT          NT    643 68.22 -135.00       0
+## 6    Albanel QC          QC   1090 48.87  -72.42       0</code></pre>
+<p>Columns can be specified either by name or index number. The following two expressions are equivalent (note how the expression for <em>rows</em> has been omitted, so all rows are returned).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(canada.cities[,<span class="dv">1</span>])</code></pre></div>
+<pre><code>## [1] &quot;Abbotsford BC&quot; &quot;Acton ON&quot;      &quot;Acton Vale QC&quot; &quot;Airdrie AB&quot;   
+## [5] &quot;Aklavik NT&quot;    &quot;Albanel QC&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(canada.cities[,<span class="st">&quot;name&quot;</span>])</code></pre></div>
+<pre><code>## [1] &quot;Abbotsford BC&quot; &quot;Acton ON&quot;      &quot;Acton Vale QC&quot; &quot;Airdrie AB&quot;   
+## [5] &quot;Aklavik NT&quot;    &quot;Albanel QC&quot;</code></pre>
+<p>The <em>rows</em> expression can also be an expression that returns logicals.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">idx &lt;-<span class="st"> </span>(canada.cities<span class="op">$</span>pop <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span>)
+<span class="kw">table</span>(idx)</code></pre></div>
+<pre><code>## idx
+## FALSE  TRUE 
+##   887    29</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">big_cities &lt;-<span class="st"> </span>canada.cities[idx,   ]
+<span class="kw">plot</span>(big_cities[ , <span class="kw">c</span>(<span class="st">&quot;long&quot;</span>,<span class="st">&quot;lat&quot;</span>)], <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">16</span>  )</code></pre></div>
+<p><img src="part02c_2d-data_files/figure-slidy/unnamed-chunk-7-1.png" width="768" /></p>
+</div>
+<div id="appending-rows" class="slide section level1">
+<h1>Appending rows</h1>
+<p>You can append two data frames with the <em>rbind()</em> (row bind) function. This requires the two data frames to have the same columns in the same order.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">small_cities &lt;-<span class="st"> </span>canada.cities[canada.cities<span class="op">$</span>pop <span class="op">&lt;</span><span class="st"> </span><span class="dv">5000</span>,   ]
+<span class="kw">nrow</span>(small_cities)</code></pre></div>
+<pre><code>## [1] 598</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">small_plus_big_cities &lt;-<span class="st"> </span><span class="kw">rbind</span>(small_cities, big_cities)
+<span class="kw">plot</span>(small_plus_big_cities[ , <span class="kw">c</span>(<span class="st">&quot;long&quot;</span>,<span class="st">&quot;lat&quot;</span>)], <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">16</span>  )</code></pre></div>
+<p><img src="part02c_2d-data_files/figure-slidy/unnamed-chunk-8-1.png" width="768" /></p>
+</div>
+<div id="adding-columns" class="slide section level1">
+<h1>Adding columns</h1>
+<p>To add a column, you can just assign values to it. R will create the column on the fly.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">big_cities<span class="op">$</span>mynewcol &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(big_cities)
+<span class="kw">head</span>(big_cities)</code></pre></div>
+<pre><code>##                        name country.etc    pop   lat    long capital
+## 1             Abbotsford BC          BC 157795 49.06 -122.30       0
+## 41                Barrie ON          ON 198492 44.38  -79.68       0
+## 106              Calgary AB          AB 991432 51.05 -114.06       0
+## 155 Chicoutimi-Jonquiere QC          QC 110582 48.43  -71.08       0
+## 230             Edmonton AB          AB 831979 53.57 -113.54       2
+## 312               Guelph ON          ON 117979 43.56  -80.26       0
+##     mynewcol
+## 1          1
+## 41         2
+## 106        3
+## 155        4
+## 230        5
+## 312        6</code></pre>
+<p>You can also add columns with <tt>transform()</tt> or <tt>mutate()</tt> from the <em>dplyr</em> package. You can also append a column from another data frame (presuming the rows are in the same order) with <tt>cbind()</tt>.</p>
+</div>
+<div id="data-frame-joins-merges-and-summaries" class="slide section level1">
+<h1>Data frame joins, merges, and summaries</h1>
+<p>We won't have time to cover how to join or merge data frames, but the basics are</p>
+<ul>
+<li><p>the data frames must have a column with the same values to match rows</p></li>
+<li><p>use the merge() function</p></li>
+</ul>
+<p>For more complex joins and summaries involving grouping and aggregate functions, look at the <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">dplyr data wrangling cheatsheet</a> from the <em>dplyr</em> package.</p>
+</div>
+<div id="next-up" class="slide section level1">
+<h1>Next-Up</h1>
+<p><a href="../exercises/ex05_dataframes.html" target="_blank">Exercise 5. Working with Data Frames</a></p>
+<p><a href="part02d_rmarkdown.html">R Markdown</a></p>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

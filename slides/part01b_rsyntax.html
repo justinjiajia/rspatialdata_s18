@@ -9,7 +9,7 @@
   <meta name="author" content="R Syntax" />
   <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href=' https://is.gd/rspatial_baygeo_s18 ' target='_blank'> https://is.gd/rspatial_baygeo_s18 </a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>"/>
   <meta name="font-size-adjustment" content="2"/>
-  <title>Week 1: Spatial Data Analysis with R April 19, 2018</title>
+  <title>Week 1:  Spatial Data Analysis with R  April 19, 2018</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
@@ -115,7 +115,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 <body>
 <div class="slide titlepage">
-  <h1 class="title"><span class="pres-date">Week 1:</span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span><br/><span class="pres-date">April 19, 2018</span></h1>
+  <h1 class="title"><span class="pres-date">Week 1: </span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span> <br/><span class="pres-date">April 19, 2018</span></h1>
   <p class="author">
 <span class="pres-title">R Syntax</span>
   </p>
@@ -127,7 +127,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>pi <span class="co"># multiply by a constant</span></code></pre></div>
 <pre><code>## [1] 6.283185</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">7</span> <span class="op">+</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>) <span class="co"># add a random number</span></code></pre></div>
-<pre><code>## [1] 7.262888</code></pre>
+<pre><code>## [1] 7.248935</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span><span class="op">^</span><span class="dv">4</span> <span class="co"># powers</span></code></pre></div>
 <pre><code>## [1] 81</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="dv">4</span><span class="op">^</span><span class="dv">4</span>) <span class="co"># functions</span></code></pre></div>
@@ -160,7 +160,7 @@ flv</code></pre></div>
 <pre><code>## [1] &quot;vanilla&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">start_date &lt;-<span class="st"> </span><span class="kw">Sys.Date</span>()
 start_date</code></pre></div>
-<pre><code>## [1] &quot;2018-04-29&quot;</code></pre>
+<pre><code>## [1] &quot;2018-05-02&quot;</code></pre>
 <h2 id="naming-variables">Naming Variables</h2>
 <p>The rules for naming variables are pretty flexible. You can use numbers, letters, and most special characters. There are a couple of rules to take note of:</p>
 <div class="indented2">
@@ -250,7 +250,7 @@ SignatureMethod
 nums &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.1</span>, <span class="dv">3</span>, <span class="op">-</span><span class="fl">5.7</span>)
 devs &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>)
 devs</code></pre></div>
-<pre><code>## [1] -0.75699164 -0.59765167 -0.09140932  0.35385240 -0.94369898</code></pre>
+<pre><code>## [1]  1.433694 -0.816734  1.214193 -1.988716  0.882661</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## integer vector
 ints &lt;-<span class="st"> </span><span class="kw">c</span>(1L, 5L, <span class="op">-</span>3L) <span class="co"># force storage as integer not decimal number</span>
 ## &#39;L&#39; is for &#39;long integer&#39; (historical)
@@ -277,7 +277,7 @@ bools</code></pre></div>
 </div>
 <div id="sequences" class="slide section level1">
 <h1>Sequences</h1>
-<p>Let's look at some sequences.</p>
+<p>Sequences of numbers are useful for all sorts of things such as setting up loops and data wrangling. The <tt>seq()</tt> function has a full set of arguments to make sequences, or you can use the <tt>:</tt> operator if you just need a set of sequential integers.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mySeq &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span>
 mySeq</code></pre></div>
 <pre><code>## [1] 1 2 3 4 5 6</code></pre>
@@ -294,8 +294,23 @@ depts &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&
 depts</code></pre></div>
 <pre><code>## [1] &quot;espm&quot;  &quot;pmb&quot;   &quot;stats&quot;</code></pre>
 </div>
+<div id="random-numbers" class="slide section level1">
+<h1>Random Numbers</h1>
+<p>R has a number of random number generators. We've already seen the runif() function which generates continuous random numbers along a uniform distribution. The rnorm() function is similar but it generates normally distributed numbers.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>))
+<span class="kw">table</span>(x)</code></pre></div>
+<pre><code>## x
+##   0   1   2   3   4   5   6   7   8   9  10 
+##  48 101 106  92 101 109  93  86 101 113  50</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>)
+<span class="kw">hist</span>(x)</code></pre></div>
+<p><img src="part01b_rsyntax_files/figure-slidy/unnamed-chunk-7-1.png" width="768" /></p>
+</div>
 <div id="working-with-indices-and-subsets" class="slide section level1">
 <h1>Working with indices and subsets</h1>
+<p>Vectors can be incredibly convenient and greatly simplify your code. However you often don't want all of the elements in a vector. Fortunately R provides a convenient way to extract specific elements from a vector using square-bracket notation. There are three ways you use square brackets.</p>
+<h2 id="option-1-pass-a-vector-of-integers">Option 1: pass a vector of integers</h2>
+<p>If you pass a vector of integers in the square brackets, R will take them to be the indices of the element(s) you want returned.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vals &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">2</span>, <span class="dv">12</span>, <span class="dt">by =</span> <span class="dv">2</span>)
 vals</code></pre></div>
 <pre><code>## [1]  2  4  6  8 10 12</code></pre>
@@ -305,14 +320,30 @@ vals</code></pre></div>
 <pre><code>## [1]  6  8 10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vals[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>)]</code></pre></div>
 <pre><code>## [1]  2  6 12</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vals[<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>)]</code></pre></div>
-<pre><code>## [1]  4  8 10</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vals[<span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">TRUE</span>, <span class="dv">3</span>), <span class="kw">rep</span>(<span class="ot">FALSE</span>, <span class="dv">2</span>), <span class="ot">TRUE</span>)]</code></pre></div>
-<pre><code>## [1]  2  4  6 12</code></pre>
-<div class="incremental">
-<div>
-<hr class="hrdivider">
-<p><strong>R is case sensitive</strong></p>
+<p>Challenge question: what happens if you pass a negative integer? [<span id="qtn_tismynn" class="showhide" style="cursor: pointer; color:blue;" onclick="showHide(&#39;tismynn&#39;);return false;">Ans</span>].</p>
+<div id="tismynn" class="answer-code" style="margin-left:1em;">
+<p>Negative integers tell R to <em>omit</em> those elements.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]
+x[<span class="op">-</span><span class="dv">2</span>]</code></pre></div>
+<pre><code>## [1] &quot;A&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot;</code></pre>
+</div>
+<h2 id="option-2-pass-a-vector-of-logicals-booleans">Option 2: Pass a vector of logicals (Booleans)</h2>
+<p>The second way to extract element(s) from a vector is to pass a vector of TRUE/FALSE values in the square brackets. R will return the elements corresponding to the TRUE values (assuming the TRUE/FALSE values are in the same order as the elements of the vector).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vals</code></pre></div>
+<pre><code>## [1]  2  4  6  8 10 12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vals[<span class="kw">c</span>(T,F,F,F,T,T)]</code></pre></div>
+<pre><code>## [1]  2 10 12</code></pre>
+<h2 id="option-3-pass-an-expression-that-returns-a-vector-of-booleans">Option 3: Pass an expression that returns a vector of Booleans</h2>
+<p>The is really the same as option #2, but instead of instead of creating the vector of Booleans as a separate object you enter an expression generates them on-the-fly.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
+x[ x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span> ]</code></pre></div>
+<pre><code>## [1]  6  7  8  9 10</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x[ x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span> ]</code></pre></div>
+<pre><code>## [1]  2  4  6  8 10</code></pre>
+</div>
+<div id="gotchas" class="slide section level1">
+<h1>Gotcha's</h1>
+<h2 id="r-is-case-sensitive">R is case sensitive</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;Hello&quot;</span> <span class="op">==</span><span class="st"> &quot;Hello&quot;</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;GoodBye&quot;</span> <span class="op">==</span><span class="st"> &quot;goodbye&quot;</span></code></pre></div>
@@ -321,12 +352,10 @@ vals</code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Mean(1:5)  - will throw an error: could not find function &quot;Mean&quot;</code></pre></div>
 </div>
-</div>
-</div>
 <div id="next-up" class="slide section level1">
-<h1>Next Up</h1>
+<h1>Next-Up</h1>
 <p><a href="../exercises/ex01_basicr.html" target="_blank">Exercise 1. R Syntax</a></p>
-<p><a href="part01c_fund02_packages.html">Working With Packages</a></p>
+<p><a href="part01c_packages.html">Working With Packages</a></p>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->

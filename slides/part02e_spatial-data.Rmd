@@ -1,0 +1,303 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>Spatial Data Basic Operations</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    incremental: false
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 2
+    load_ci: !r load('../common/course_info.RData')
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+library(rgdal)
+```
+
+# ```sp``` package
+&nbsp;
+
+## Spatial Data Classes from the ```sp``` package
+
+<div class="indented1">
+__Vector data classes__
+
+```SpatialPoints, SpatialPointsDataFrame```
+
+```SpatialLines, SpatialLinesDataFrame```
+
+```SpatialPolygons, SpatialPolygonsDataFrame```
+
+__Raster classes__
+
+```SpatialPixels```
+
+```SpatialGrid```
+</div>
+
+<div class="textbox">
+To see all data classes that inherit from 'Spatial', run ```getClass('Spatial')```
+</div>
+
+## <tt>Spatial*</tt> Data Classes
+
+<div class="indented2">
+- all sp* objects store _projection info_
+- it's relatively easy to _convert_ data types within and between packages
+- standard _data frame syntax_ will often work with sp* objects
+- many spatial analysis packages take sp* objects _directly_ or have conversion functions
+</div>
+
+__SpatialPoints__
+
+<div class="indented2">
+![](images/spatialpoints_781x415.png)
+
+![](images/spatialpointsdataframe_781x415.png)
+</div>
+
+__Structure of Spatial* Objects__
+
+<div class="indented2">
+![](images/spatial-objects-data-structure_659x531.png) 
+</div>
+
+# Managing Projections
+
+## Background
+
+<div class="indented2">
+ - __CRS__ (Coordinate Reference System) is the umbrella term for both projection systems and geographic (lat-long) coordinates.
+ - all of the data classes from the ```sp``` package store projection info
+ - all of the import functions from the ```rgdal```, ```raster```, and ```maptools``` packages read projection info
+ - ```CRS()``` is used to specify the parameters of a project system, you can also 'lookup' a projection system using an id number
+ - when creating spatial objects from scratch, you don't have to specify a CRS (but its highly recommended, particularly if your spatial object is geospatial)
+</div>
+
+## Specifying Projection Systems
+
+The ```CRS()``` function uses the *PROJ.4* library, which has at least three ways to specify a projections:
+
+<div class="indented2">
+- specially formatted strings
+- epsg numbers
+- ESRI numbers
+</div>
+
+```{r define_prj}
+library(sp)
+prj1 <- CRS("+proj=utm +zone=17 +datum=WGS84")
+prj2 <- CRS("+init=epsg:3358")
+prj3 <- CRS("+init=ESRI:102719")
+```
+
+The one-stop shop for finding proj4 strings and epsg/ESRI id numbers is [http://www.spatialreference.org](http://www.spatialreference.org){target="_blank"}. (Google usually works also. 
+
+## Geographic Coordinates
+
+Even though geographic coordinates (latitude-longitude) are not projected, it is still a coordinate reference system. In fact you use this a lot when you're creating <tt>Spatial*</tt> objects from scratch.
+
+```{r define_ll}
+## The following are equivalent
+latlong1_crs <- CRS("+proj=longlat +datum=WGS84")
+latlong2_crs <- CRS("+init=epsg:4326")
+```
+
+## Web Mercator
+
+Another common projection system is [Web Mercator](http://spatialreference.org/ref/sr-org/epsg3857-wgs84-web-mercator-auxiliary-sphere/){target="_blank"}. Web Mercator is used by many popular mapping platforms, such as Google Maps, Bing, and Open Street Map. Web mapping packages such as <tt>leaflet</tt> and <tt>ggmap</tt> will typically project lat-long data into WebMercator on the fly, but if you ever need to project data into Web Mercator its EPSG number is 3857.
+
+```{r define_webm}
+webmercator_crs <- CRS("+init=epsg:3857")
+```
+
+For more info, see: [Coordinate Reference Systems in R](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf){target="_blank"} (cheat sheet) 
+
+# Reading Projection Info When Importing
+
+The majority of spatial data file formats save the projection information as part of the file(s). As we saw last time, this includes Shapefiles that we can import using the <tt>rgdal</tt> package.
+
+
+```{r import_shp, echo=TRUE}
+library(rgdal)
+ca_counties <- readOGR(dsn="../exercises/data", layer="ca_counties_census", verbose=FALSE)
+plot(ca_counties, axes=TRUE)
+```
+
+# Getting or Setting the CRS  
+
+All data classes from the _sp_ and _raster_ packages have a ```proj4string``` slot
+
+```{r projslot}
+ca_counties@proj4string
+```
+
+<div style="margin-left:3em;border:1px solid grey;">
+*Challenge question*: What projection system is this? [<span id="qtn_hismynn" class="showhide" style="cursor: pointer; color:blue;" onclick="showHide('hismynn');return false;">Ans</span>].
+
+<div id="hismynn" class="answer-code">
+This is [California Teale Albers NAD83](http://www.spatialreference.org/ref/sr-org/10/){target="_blank"} (if you figured that out you're truly a geo-geek).
+</div>
+</div>
+
+You can also get or set the CRS info using the ```proj4string()``` function
+
+```{r proj4functn}
+proj4string(ca_counties)
+```
+
+Both of these methods can be used to read or write the CRS info, However this only telling R how your data are saved, it is _not_ actually projecting anything (that's next!) 
+
+## (Re)projecting data
+
+<div class="indented2">
+- R does not do on-the-fly projecting. To overlay or fuse spatial data, all layers need to be in same CRS
+- ```spTransform()``` is your go-to function for projecting and transforming
+</div>
+
+Let's 'unproject' the CA Counties back to geographic coordinates.
+
+```{r ca_counties_ll, cache=TRUE}
+latlong_crs <- CRS("+proj=longlat +datum=WGS84")
+ca_counties_ll <- spTransform(ca_counties, latlong_crs)
+plot(ca_counties_ll, axes=TRUE)
+```
+
+# Creating New Spatial objects 
+
+## SpatialPoints
+
+We can create a _SpatialPoints_ object by passing a two-column data frame or matrix containing the _x_ and _y_ coordinates to the ```SpatialPoints()``` function.
+
+To illustrate, let's grab the _us.cities_ data frame (cities with pop > 40k), which is bundled with the  ```maps``` package. Next we'll extract just the cities in California.
+
+```{r calcitiesDF}
+library(maps)
+head(us.cities)
+ca_citiesDF <- us.cities[us.cities$country.etc=="CA", ]
+nrow(ca_citiesDF)
+head(ca_citiesDF)
+```
+
+To turn these into a _SpatialPoints_ object, we need to pass just the columns containing the x and y coordinates to the ```SpatialPoints()``` function. In this case, the _long_ column contains the x-coordinates, and the _lat_ column contains the y-coordinates.
+
+```{r calcitiesSP}
+ca_citiesSP <- SpatialPoints(ca_citiesDF[ , c("long", "lat")])
+summary(ca_citiesSP)
+```
+
+Note the proj4string is missing. Let's tell R what CRS these points are in before we do anything else.
+
+```{r calcitiesSP_addp4s}
+proj4string(ca_citiesSP) <- CRS("+proj=longlat +datum=WGS84")
+```
+
+Now we can plot them on top of the counties.
+
+```{r calcities_plot, cache=TRUE}
+plot(ca_counties_ll, asp=1, axes=T)
+plot(ca_citiesSP, add=TRUE, pch=16, cex=1, col="red")
+```
+
+## SpatialPointsDataFrame
+
+If we want to retain the attribute table (e.g., the name and population of every city), we need to create a SpatialPoints<span style="font-weight:bold;">DataFrame</span>. ```SpatialPointsDataFrame()``` is pretty similar to its shorter cousin, but also wants you to pass an argument called _data_ with the attribute table (data frame). While we're at it, we can also pass the _proj4string_ argument.
+
+```{r cacites_spdf}
+ca_citiesSPDF <- SpatialPointsDataFrame(coords=ca_citiesDF[,c("long","lat")], data=ca_citiesDF, proj4string = CRS("+proj=longlat +datum=WGS84"))
+summary(ca_citiesSPDF)
+```
+
+Now that we have attributes, we can color the points by population size. First we'll put the population values into 10 'bins' using the ```cut()``` function, and then use the bin numbers to assign a color.
+
+```{r calcitiespop_plot, cache=TRUE}
+pop_deciles <- quantile(ca_citiesSPDF@data$pop, probs = 0:10/10)
+pop_bin_factor <- cut(ca_citiesSPDF@data$pop, breaks=pop_deciles)
+pop_bin_num <- as.numeric(pop_bin_factor)
+table(pop_bin_num)
+plot(ca_counties_ll, asp=1, axes=T)
+plot(ca_citiesSPDF, add=TRUE, pch=16, cex=1, col=topo.colors(10)[pop_bin_num])
+```
+
+# Attribute Queries
+
+Spatial*DataFrame objects are designed to work as similarly as possible as regular data frames. This means you can reference columns the way you always do, use the [rows,cols] syntax to pull out selected rows, append two SPDF objects together using the ```rbind()``` function, get the number of rows with ```nrow()```, etc.  
+
+The attached data frame is saved in the ```data``` slot, so you grab it using the <tt>@</tt> operator, as in: 
+
+my_spatial_object<span style="font-weight:bold;">@data</span>
+
+```{r cacites_names}
+## Look at the names of the columns
+names(ca_counties_ll@data)
+```
+
+Let's pull out one county and plot it. To perform an attribute query, you need to know the range of values.
+
+```{r sanmateo, cache=TRUE}
+ca_counties_ll@data$CountyNAME
+```
+
+To grab just one county, we can use [square bracket notation] with an expression in the *rows* position.  
+
+```{r}
+
+sanMateoCtyLL <- ca_counties_ll[ca_counties_ll@data$CountyNAME=="San Mateo County",]
+
+summary(sanMateoCtyLL)
+plot(sanMateoCtyLL, axes=TRUE, asp=1, main="San Mateo", col=gray(0.8))
+```
+
+With a similar technique, we can randomly select five counties:
+
+```{r rand_cty, cache=TRUE}
+idx <- sample(1:nrow(ca_counties@data), size=5, replace = FALSE)
+idx
+
+plot(ca_counties, axes=TRUE, asp=1)
+plot(ca_counties[idx,], col=palette(), add=TRUE)
+```
+
+# Getting the Coordinates
+
+Sometimes you need to get the coordinates of the features in a SpatialPoints object 'back' as a simple matrix, so you can do something else with them (such as compute distances). The *sp* package has a function <tt>coordinates()</tt> which does exactly this. 
+
+```{r}
+x <- coordinates(ca_citiesSP)
+head(x)
+```
+
+# Getting Rid of the Data Frame
+
+There are times when you want to get rid of the data frame, in otherwords convert a *SpatialPointsDataFrame* object into a simply *SpatialPoints* object. The <tt>geometry()</tt> function will do this for you. It will also work on *SpatialLines\** and *SpatialPolygons\** objects.
+
+```{r}
+x <- geometry(ca_citiesSPDF)
+class(x)
+```
+
+# Next Up
+
+[Exercise 6. Spatial Data Operations](../exercises/ex06_spatial-data-ops.html){target="_blank"}
+
+<!-- 
+[Geoprocessing](part02f_geoprocessing.html)
+-->
+ 
+ 
+
+
+
+
+

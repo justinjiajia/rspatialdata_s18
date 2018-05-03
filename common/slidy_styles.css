@@ -46,6 +46,7 @@ div.colclear {
   height: 5px;
   width:70%;
   margin-top:1em;
+  margin-bottom:0.5em;
 }
 .indented1 {
   margin-left:1em;
@@ -224,6 +225,29 @@ pre.scrolling-code {
 }
 .tbl_compact tr:nth-child(even) {
   background-color: #dddddd;
+}
+li.exercise {
+  margin-left: 4em;
+  list-style: none;
+  font-size: 120%;
+}
+li.exercise:before {
+  content: '\1F4D3';
+  text-decoration: none;
+}
+a.exercise {
+  font-weight:normal;
+  font-family:monospace;
+}
+li.slide {
+  margin-left: 2em;
+  list-style: none;
+  font-size: 120%;
+}
+li.slide:before {
+  content: '\20E2';
+  text-decoration: none;
+  margin-right: 1em;
 }
 
 /* ======== No longer used ==============

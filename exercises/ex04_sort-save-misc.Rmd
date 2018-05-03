@@ -1,0 +1,57 @@
+---
+title: "<span class='ex-title'>Spatial Analysis with R:</span><br/><span class='ex-subtitle'>Exercise 4: Lists, Sorting, and Saving Data</span>"
+date: "`r load('../common/course_info.RData'); lstCI$course`"
+output: 
+  html_document: 
+    css: "../common/slidy_styles.css"
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+      after_body: bottom_links.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("auton_chop.R")
+library(rgdal)
+load('../common/course_info.RData')
+```
+
+Make this short and sweet.
+
+Change list names
+
+Save a file to the home directory
+
+Open a datasets from Airlines, and compute some stats.
+
+### Instructions
+
+- If you haven't already, install [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/). 
+
+- Download the <a href="`r lstCI$githubrepo`" target="_blank">GitHub repo</a>. 
+
+- Create a new R script in RStudio (File &rarr; New File &rarr; R Script). 
+
+- Copy the questions below (all of which begin with the _#_ character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.<br/><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button><br/>
+
+- Remember to save your script periodically to avoid losing work if RStudio crashes.
+
+- If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.
+
+- If you have any questions or problems, please feel free to email the instructor.
+
+<hr class="hrdivider">
+
+<div id="qtn_div">
+
+### \#\#\# VIEW A LIST
+
+
+
+
+
+</div>
+

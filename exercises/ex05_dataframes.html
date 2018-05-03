@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Spatial Analysis with R: Exercise 5: Working with Data Frames</title>
+
+<script src="lib/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="lib/navigation-1.1/tabsets.js"></script>
+<link href="lib/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="lib/highlightjs-1.1/highlight.js"></script>
+<link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+<script language="javascript" type="text/javascript">
+function TriShowHide(shID) {
+  shIDspan = shID + "span";
+  shIDdiv = shID + "div";
+  if (document.getElementById(shIDdiv).style.display != 'block') {
+    document.getElementById(shIDdiv).style.display = 'block';
+    txtSpan = "&#9660;";
+  } else {
+    document.getElementById(shIDdiv).style.display = 'none';
+    txtSpan = "&#9654;";
+  }
+  document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+}
+function showHide(shID) {
+  if (shID=="soln-show-all") {
+    var allAnswerCode = document.getElementsByClassName("answer-code");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'block';
+    }
+  } else if (shID=="soln-hide-all") {
+    var allAnswerCode = document.getElementsByClassName("answer-code");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'none';
+    }
+  } else if (shID=="hints-show-all") {
+    var allAnswerCode = document.getElementsByClassName("hint");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'block';
+    }
+  } else if (shID=="hints-hide-all") {
+    var allAnswerCode = document.getElementsByClassName("hint");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'none';
+    }
+  } else {
+    if (document.getElementById(shID)) {
+      if (document.getElementById(shID).style.display != 'block') {
+        document.getElementById(shID).style.display = 'block';
+      } else {
+        document.getElementById(shID).style.display = 'none';
+      }
+    }
+  }
+}
+function CopyToClipboard(containerid) {
+if (document.selection) { 
+    var range = document.body.createTextRange();
+    range.moveToElementText(document.getElementById(containerid));
+    range.select().createTextRange();
+    document.execCommand("copy"); 
+} else if (window.getSelection) {
+    var range = document.createRange();
+    range.selectNode(document.getElementById(containerid));
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    // alert("text copied") 
+}}
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="..\common\slidy_styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore"><span class="ex-title">Spatial Analysis with R:</span><br/><span class="ex-subtitle">Exercise 5: Working with Data Frames</span></h1>
+<h4 class="date"><em>Spring 2018</em></h4>
+
+</div>
+
+
+<div id="instructions" class="section level3">
+<h3>Instructions</h3>
+<ul>
+<li><p>If you haven't already, install <a href="https://cran.r-project.org/">R</a> and <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>.</p></li>
+<li><p>Download the <a href="https://github.com/ajlyons/rspatialdata/tree/gh-pages" target="_blank">GitHub repo</a>.</p></li>
+<li><p>Create a new R script in RStudio (File → New File → R Script).</p></li>
+<li><p>Copy the questions below (all of which begin with the <em>#</em> character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.</p></li>
+<li><p>Remember to save your script periodically to avoid losing work if RStudio crashes.</p></li>
+<li><p>If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.</p></li>
+<li><p>If you have any questions or problems, please feel free to email the instructor.</p></li>
+<li><p>Some of the functions you may want to use in this exercise include:</p></li>
+</ul>
+<div style="width:410px; margin-left:6em;">
+<div style="width:200px;font-family:monospace;float:right;">
+<p>read.csv()<br />
+sample()<br />
+sd()<br />
+sort()<br />
+summary()<br />
+table()<br />
+tolower()<br />
+unique()</p>
+</div>
+<div style="width:200px; font-family:monospace;">
+<p>class()<br />
+data()<br />
+head()<br />
+hist()<br />
+mean()<br />
+names()<br />
+nrow()<br />
+plot()<br />
+range()</p>
+</div>
+</div>
+<hr class="hrdivider">
+<div style="text-align:center">
+<button onclick="CopyToClipboard('qtn_div');return false;">
+Copy questions
+</button>
+</div>
+<div id="qtn_div">
+<p>####################<br />
+<strong>### Exploring Data Frames</strong></p>
+<p># R comes with a bunch of sample datasets. To see a list of the main ones in the <em>datasets</em> package,<br />
+#  run <tt>data()</tt> without an argument. The 'trees' dataset contains measurements of Black Cherry Trees.</p>
+<p><a id="qtn_supikf" href="#" class="showhidelink" onclick="showHide('supikf');return false;"># 1.</a> What are the column names of the <em>trees</em> data frame?</p>
+<div id="supikf" class="answer-code">
+<pre class="r"><code>names(trees)</code></pre>
+<pre><code>## [1] &quot;Girth&quot;         &quot;Height&quot;        &quot;Volume&quot;        &quot;HeightSquared&quot;
+## [5] &quot;HeightLog&quot;</code></pre>
+</div>
+<p><a id="qtn_mpmcru" href="#" class="showhidelink" onclick="showHide('mpmcru');return false;"># 2.</a> How many samples (rows) are in the <em>trees</em> data frame?</p>
+<div id="mpmcru" class="answer-code">
+<pre class="r"><code>nrow(trees)</code></pre>
+<pre><code>## [1] 31</code></pre>
+</div>
+<p><a id="qtn_cukbok" href="#" class="showhidelink" onclick="showHide('cukbok');return false;"># 3.</a> Write expressions that return the range, mean, and standard deviation of the <em>Height</em> column. <a href="#" class="showhidehint" onclick="showHide('tjquew');return false;"></a></p>
+<div id="tjquew" class="hint">
+Look for functions other than <tt>summary()</tt>
+</div>
+<div id="cukbok" class="answer-code">
+<pre class="r"><code>range(trees$Height)</code></pre>
+<pre><code>## [1] 63 87</code></pre>
+<pre class="r"><code>mean(trees$Height)</code></pre>
+<pre><code>## [1] 76</code></pre>
+<pre class="r"><code>sd(trees$Height)</code></pre>
+<pre><code>## [1] 6.371813</code></pre>
+</div>
+<p>####################<br />
+<strong>### Basic Plotting</strong></p>
+<p><a id="qtn_sfgkcj" href="#" class="showhidelink" onclick="showHide('sfgkcj');return false;"># 4.</a> Make a scatterplot of the tree volume as a function of girth and height. Which one looks more<br />
+#  correlated? <a href="#" class="showhidehint" onclick="showHide('apzwtt');return false;"></a></p>
+<div id="apzwtt" class="hint">
+Use the <tt>plot()</tt> function, with girth on the x-axis and volume on the y-axis. Use <tt>pch=16</tt> to make the symbols little circles.
+</div>
+<div id="sfgkcj" class="answer-code">
+<pre class="r"><code>plot(x=trees$Girth, y=trees$Volume, pch=16)</code></pre>
+<p><img src="ex05_dataframes_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>plot(x=trees$Height, y=trees$Volume, pch=16)</code></pre>
+<p><img src="ex05_dataframes_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
+<p>Visually it looks like tree girth is more tightly correlated with canopy volume. Perhaps that's why foresters are always measuring DBH (diameter breast height).</p>
+</div>
+<p><a id="qtn_kfailp" href="#" class="showhidelink" onclick="showHide('kfailp');return false;"># 5.</a> Create a box-and-whiskers plots of the <em>Volume</em> column. <a href="#" class="showhidehint" onclick="showHide('boqdjo');return false;"></a></p>
+<div id="boqdjo" class="hint">
+We haven't seen the function that makes a box and whiskers plot yet, so your first job is to find it.
+</div>
+<div id="kfailp" class="answer-code">
+<pre class="r"><code>boxplot(trees$Volume, main=&quot;Volume&quot;)</code></pre>
+<p><img src="ex05_dataframes_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<p>####################<br />
+<strong>### DATA FRAME MANIPULATIONS</strong></p>
+<p><a id="qtn_eblhoo" href="#" class="showhidelink" onclick="showHide('eblhoo');return false;"># 6.</a> A common technique in regression is to scale variables to find non-linear relationships. Add two<br />
+#  new columns to the trees data frame, i) height squared, and ii) log(height).</p>
+<div id="eblhoo" class="answer-code">
+<pre class="r"><code>trees$HeightSquared &lt;- trees$Height ^ 2
+trees$HeightLog &lt;- log(trees$Height)
+head(trees)</code></pre>
+<pre><code>##   Girth Height Volume HeightSquared HeightLog
+## 1   8.3     70   10.3          4900  4.248495
+## 2   8.6     65   10.3          4225  4.174387
+## 3   8.8     63   10.2          3969  4.143135
+## 4  10.5     72   16.4          5184  4.276666
+## 5  10.7     81   18.8          6561  4.394449
+## 6  10.8     83   19.7          6889  4.418841</code></pre>
+<p>You could also use the <tt>transform()</tt> function, or the <tt>mutate()</tt> function from the <em>dplyr</em> package.</p>
+</div>
+<p><a id="qtn_lqavvi" href="#" class="showhidelink" onclick="showHide('lqavvi');return false;"># 7.</a> Randomly select 80% of the samples (rows) from the <em>trees</em> data frame, and save them as a new object<br />
+#  called <em>trees_training</em>.</p>
+<div id="lqavvi" class="answer-code">
+<pre class="r"><code>samp_size &lt;- round(0.8 * nrow(trees))
+samp_size</code></pre>
+<pre><code>## [1] 25</code></pre>
+<pre class="r"><code>idx &lt;- sample(1:nrow(trees), size=samp_size, replace=FALSE)
+idx</code></pre>
+<pre><code>##  [1]  9 26 16 14 10 31 20  6 23 21 28  1 13 15  8 11 19 27 29 24 18  5 22
+## [24]  4 12</code></pre>
+<pre class="r"><code>trees_training &lt;- trees[idx, ]
+nrow(trees_training)</code></pre>
+<pre><code>## [1] 25</code></pre>
+</div>
+<p>####################<br />
+<strong>### IMPORTING CSV FILES</strong></p>
+<p><a id="qtn_lykudu" href="#" class="showhidelink" onclick="showHide('lykudu');return false;"># 8.</a> Import the csv file <em>ca_celltowers.csv</em> from the data folder (in the exercises folder), saving the<br />
+#  result as <em>ca_celltowers_df</em>. <a href="#" class="showhidehint" onclick="showHide('wixins');return false;"></a></p>
+<div id="wixins" class="hint">
+You can use RStudio's Import Dataset wizard to generate all the arguments for the <tt>read.csv()</tt> command. CSV files are text files.
+</div>
+<div id="lykudu" class="answer-code">
+<pre class="r"><code>ca_celltowers_df &lt;- read.csv(&quot;data/ca_celltowers.csv&quot;)</code></pre>
+</div>
+<p><a id="qtn_oytxly" href="#" class="showhidelink" onclick="showHide('oytxly');return false;"># 9.</a> How many cell towers are saved in the table? How many licensed cell tower companies are<br />
+#  represented? <a href="#" class="showhidehint" onclick="showHide('mpzfto');return false;"></a></p>
+<div id="mpzfto" class="hint">
+Think about how you can get rid of duplicates so you're just left with unique values.
+</div>
+<div id="oytxly" class="answer-code">
+<pre class="r"><code>nrow(ca_celltowers_df)</code></pre>
+<pre><code>## [1] 1227</code></pre>
+<pre class="r"><code>unique(ca_celltowers_df$LICENSEE)</code></pre>
+<pre><code>##  [1] NEW CINGULAR WIRELESS PCS, LLC                          
+##  [2] Cellco Partnership                                      
+##  [3] SACRAMENTO VALLEY LIMITED PARTNERSHIP                   
+##  [4] FRESNO MSA LIMITED PARTNERSHIP                          
+##  [5] SANTA BARBARA CELLULAR SYSTEMS, LTD.                    
+##  [6] GTE MOBILNET OF SANTA BARBARA LIMITED PARTNERSHIP       
+##  [7] Los Angeles SMSA Limited Partnership                    
+##  [8] WWC License L.L.C.                                      
+##  [9] CAGAL CELLULAR COMMUNICATIONS CORPORATION               
+## [10] GTE MOBILNET OF CALIFORNIA LIMITED PARTNERSHIP          
+## [11] CALIFORNIA RURAL SERVICE AREA #1, INC.                  
+## [12] RENO  CELLULAR TELEPHONE COMPANY                        
+## [13] CALIFORNIA RSA NO. 4 LIMITED PARTNERSHIP                
+## [14] Fresno MSA Limited Partnership                          
+## [15] Los Angeles SMSA Limited  Partnership                   
+## [16] SLO CELLULAR, INC. D/B/A CELLULAR ONE OF SAN LUIS OBISPO
+## [17] VISALIA CELLULAR TELPHONE COMPANY                       
+## [18] Sacramento Valley Limited Partnership                   
+## [19] REDDING MSA LIMITED PARTNERSHIP                         
+## [20] MODOC RSA LIMITED PARTNERSHIP                           
+## [21] Commnet of Nevada, LLC                                  
+## [22] California RSA No. 3 Limited Partnership                
+## [23] Abraham Divestiture Company LLC                         
+## [24] Verizon Wireless (VAW) LLC                              
+## [25] Accessible Wireless, LLC                                
+## 25 Levels: Abraham Divestiture Company LLC ... WWC License L.L.C.</code></pre>
+<p>There are 25 unique licensed cell tower companies.</p>
+</div>
+<p>####################<br />
+<strong>### QUERIES</strong></p>
+<p><a id="qtn_reemfy" href="#" class="showhidelink" onclick="showHide('reemfy');return false;"># 10.</a> The built-in <em>iris</em> data frame has sepal and petal measurements for three species of flowers.<br />
+#  Create a data frame that contains every 10th row of iris. <a href="#" class="showhidehint" onclick="showHide('faieao');return false;"></a></p>
+<div id="faieao" class="hint">
+Think about row indices and sequences
+</div>
+<div id="reemfy" class="answer-code">
+<pre class="r"><code>idx &lt;- seq(from=1, to=nrow(iris), by=10)
+idx</code></pre>
+<pre><code>##  [1]   1  11  21  31  41  51  61  71  81  91 101 111 121 131 141</code></pre>
+<pre class="r"><code>iris_everytenth &lt;- iris[idx,]</code></pre>
+</div>
+<p><a id="qtn_itfzam" href="#" class="showhidelink" onclick="showHide('itfzam');return false;"># 11.</a> Create a data frame that stores just the Petal measurements (length and width) for the species<br />
+#  <em>virginica</em>.</p>
+<div id="itfzam" class="answer-code">
+<pre class="r"><code>virginica_petal &lt;- iris[iris$Species == &quot;virginica&quot;, c(&quot;Species&quot;, &quot;Petal.Length&quot;, &quot;Petal.Width&quot;)]
+summary(virginica_petal)</code></pre>
+<pre><code>##        Species    Petal.Length    Petal.Width   
+##  setosa    : 0   Min.   :4.500   Min.   :1.400  
+##  versicolor: 0   1st Qu.:5.100   1st Qu.:1.800  
+##  virginica :50   Median :5.550   Median :2.000  
+##                  Mean   :5.552   Mean   :2.026  
+##                  3rd Qu.:5.875   3rd Qu.:2.300  
+##                  Max.   :6.900   Max.   :2.500</code></pre>
+</div>
+<p><a id="qtn_wxkxmg" href="#" class="showhidelink" onclick="showHide('wxkxmg');return false;"># 12.</a> Modify the expression above to create a data frame of petal measurements for all species <strong>other<br />
+#  than</strong> <em>virginica</em>.</p>
+<div id="wxkxmg" class="answer-code">
+<pre class="r"><code>setosa_versicolor_petal &lt;- iris[iris$Species != &quot;virginica&quot;, c(&quot;Species&quot;, &quot;Petal.Length&quot;, &quot;Petal.Width&quot;)]
+summary(setosa_versicolor_petal)</code></pre>
+<pre><code>##        Species    Petal.Length    Petal.Width   
+##  setosa    :50   Min.   :1.000   Min.   :0.100  
+##  versicolor:50   1st Qu.:1.500   1st Qu.:0.200  
+##  virginica : 0   Median :2.450   Median :0.800  
+##                  Mean   :2.861   Mean   :0.786  
+##                  3rd Qu.:4.325   3rd Qu.:1.300  
+##                  Max.   :5.100   Max.   :1.800</code></pre>
+</div>
+</div>
+<!-- end questions -->
+</div>
+
+<hr>
+<div style="float:right; width:33%; text-align:right;">
+<a href="../index.html" style="text-decoration:none;">Course outline</a>
+</div>
+
+<div style="float:right; width:33%; text-align:center;">
+<a href="#" style="text-decoration:none;" onclick="showHide('soln-show-all');return false;">show all solutions</a> | <a href="#" style="text-decoration:none;" onclick="showHide('soln-hide-all');return false;">hide all solutions</a>
+</div>
+
+<div style="width:33%;">
+<a href="#" style="text-decoration:none;" onclick="showHide('hints-show-all');return false;">show all hints</a> | <a href="#" style="text-decoration:none;" onclick="showHide('hints-hide-all');return false;">hide all hints</a>
+</div>
+<br/>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

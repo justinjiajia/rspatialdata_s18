@@ -1,5 +1,5 @@
 ---
-title: "<span class='pres-date'>Week `r params$this_week`:</span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span><br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI$class01`</span>"
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
 author: "<span class='pres-title'>Working with Packages</span>"
 output: 
   slidy_presentation:
@@ -110,7 +110,27 @@ tbl_mat <- matrix(tbl_vec, byrow=TRUE, ncol=2, dimnames=list(1:(length(tbl_vec)/
 knitr::kable(tbl_mat, format = "html", table.attr='class="tbl_compact"') %>% column_spec(column=2, monospace = TRUE)
 ```
 
-# Dealing with Duplicate Function Names
+*Datasets*
+
+To view the datasets in the package *sp*, run
+
+```{r, eval=FALSE}
+data(package="sp")
+```
+
+To see a list of datasets in all packages currently loaded, run data() without an argument.
+
+```{r, eval=FALSE}
+data()
+```
+
+To see *all* datasets in *all* installed packages, run
+
+```{r, eval=FALSE}
+data(package = .packages(all.available = TRUE))
+```
+
+# Dealing with duplicate function names
 
 Sometimes two or more packages will have a function with the same name. ![](images/sad-face-32x32.png) 
 

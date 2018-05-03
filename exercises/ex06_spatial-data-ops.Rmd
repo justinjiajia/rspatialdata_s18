@@ -1,0 +1,136 @@
+---
+title: "<span class='ex-title'>Spatial Analysis with R:</span><br/><span class='ex-subtitle'>Exercise 6: Spatial Data Operations</span>"
+date: "`r load('../common/course_info.RData'); lstCI$course`"
+output: 
+  html_document: 
+    css: "../common/slidy_styles.css"
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+      after_body: bottom_links.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("auton_chop.R")
+load('../common/course_info.RData')
+```
+
+### Instructions
+
+- If you haven't already, install [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/). 
+
+- Download the <a href="`r lstCI$githubrepo`" target="_blank">GitHub repo</a>. 
+
+- Create a new R script in RStudio (File &rarr; New File &rarr; R Script). 
+
+- Copy the questions below (all of which begin with the _#_ character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.
+
+- Remember to save your script periodically to avoid losing work if RStudio crashes.
+
+- If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.
+
+- If you have any questions or problems, please feel free to email the instructor.
+
+<hr class="hrdivider">
+<div style="text-align:center"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+
+<div id="qtn_div">
+
+### \#\#\# IMPORT COUNTY BOUNDARIES
+
+<a id="qtn_tzzewz" href="#" class="showhidelink" onclick="showHide('tzzewz');return false;">\# `r auton()`</a> `r chop("The exercises/data directory has a Shapefile called *ca_counties_census*. Bring it into R and determine if they are projected.")` <a href="#" class="showhidehint" onclick="showHide('feolbg');return false;"></a>  
+
+<div id="feolbg" class="hint">See [Importing Vector Data with rgdal](../slides/part01d_import_plot.html#importing-vector-data-rgdal){target="_blank"}</div>
+
+<div id="tzzewz" class="answer-code">
+```{r}
+library(rgdal)
+shapefile_dir <- "data"
+file.exists(shapefile_dir)
+ca_cnty_prj <- rgdal::readOGR(shapefile_dir, "ca_counties_census")
+class(ca_cnty_prj)
+ca_cnty_prj@proj4string
+```
+Yes, the county boundaries are projected. We can tell the data are projected because the units meters. 
+</div>
+
+<a id="qtn_jofvcg" href="#" class="showhidelink" onclick="showHide('jofvcg');return false;">\# `r auton()`</a> `r chop("The exercises/data directory has a csv file called *ca_celltowers.csv*. Import it into R. Which columns contain the longitude and latitude in decimal degrees?")` <a href="#" class="showhidehint" onclick="showHide('ilgqqh');return false;"></a>  
+
+<div id="ilgqqh" class="hint">Decimal degrees are written as numbers with decimal places, as opposed to the *degrees,minutes,seconds* notation.</div>
+  
+
+<div id="jofvcg" class="answer-code">
+```{r}
+cell_towers_df <- read.csv("data/ca_celltowers.csv")
+head(cell_towers_df)
+```
+It looks like the LONG and LAT columns contain decimal degrees.
+</div>
+
+<a id="qtn_tkwexp" href="#" class="showhidelink" onclick="showHide('tkwexp');return false;">\# `r auton()`</a> `r chop("Create a SpatialPointsDataFrame for the cell towers. For the CRS, use  WGS84 geographic coordinates.")` <a href="#" class="showhidehint" onclick="showHide('vfhcis');return false;"></a>  
+
+<div id="vfhcis" class="hint">The epsg code for Geographic Coordinates WGS84 is 4326</div>
+
+<div id="tkwexp" class="answer-code">
+```{r}
+library(sp)
+cell_towers_spdf_ll <- SpatialPointsDataFrame(coords=cell_towers_df[ ,c("LONG", "LAT")], data=cell_towers_df, proj4string = CRS("+init=epsg:4326"))
+plot(cell_towers_spdf_ll)
+```
+</div>
+
+<a id="qtn_yoepjg" href="#" class="showhidelink" onclick="showHide('yoepjg');return false;">\# `r auton()`</a> `r chop("Project the cell towers into the same projection system as the county boundaries.")` <a href="#" class="showhidehint" onclick="showHide('duktto');return false;"></a>  
+
+<div id="duktto" class="hint">You can reference the proj4string object directly when you project the cell towers, no need to make a copy.</div>
+
+
+
+<div id="yoepjg" class="answer-code">
+```{r}
+cell_towers_spdf_prj  <- sp::spTransform(cell_towers_spdf_ll, ca_cnty_prj@proj4string)
+summary(cell_towers_spdf_prj)
+```
+</div>
+
+
+<a id="qtn_cdzvsw" href="#" class="showhidelink" onclick="showHide('cdzvsw');return false;">\# `r auton()`</a> `r chop("Plot the cell tower locations on top of the county boundaries.")`  
+
+<div id="cdzvsw" class="answer-code">
+```{r}
+plot(ca_cnty_prj, axes=TRUE, asp=1)
+plot(cell_towers_spdf_prj, add=TRUE, col="red", pch=16, cex=0.5)
+```
+</div>
+
+
+<a id="qtn_mzzuax" href="#" class="showhidelink" onclick="showHide('mzzuax');return false;">\# `r auton()`</a> `r chop("Select a county of your choice, and use an attribute query to save the boundary of that county as a new SpatialPolygonDataFrame. Plot it, and then plot the cell towers on top.")` <a href="#" class="showhidehint" onclick="showHide('muorxt');return false;"></a>  
+
+<div id="muorxt" class="hint">You can extract features from a SpatialPolygonDataFrame with square bracket notation, the same way you would a data frame.</div>
+  
+
+<div id="mzzuax" class="answer-code">
+```{r}
+idx <- sample(1:nrow(ca_cnty_prj), size=1)
+idx
+random_county <- ca_cnty_prj[idx,]
+plot(random_county, axes=TRUE, asp=TRUE)
+plot(cell_towers_spdf_prj, add=TRUE, col="red", pch=16, cex=0.7)
+```
+</div>
+
+<a id="qtn_uphips" href="#" class="showhidelink" onclick="showHide('uphips');return false;">\# `r auton()`</a> `r chop("Save the projected cell towers and selected county boundary to disk so they can be loaded for a future exercise.")` <a href="#" class="showhidehint" onclick="showHide('bhxspo');return false;"></a>  
+
+<div id="bhxspo" class="hint">Remember where you save it!</div>
+  
+
+<div id="uphips" class="answer-code">
+```{r, eval=FALSE}
+save(cell_towers_spdf_prj, file="cell_towers_prj.RData")
+save(random_county, file="county_bnd_one.RData")
+```
+</div>
+
+</div><!-- end questions -->

@@ -1,5 +1,5 @@
 ---
-title: "<span class='pres-date'>Week `r params$this_week`:</span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span><br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI$class01`</span>"
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
 author: "<span class='pres-title'>R Syntax</span>"
 output: 
   slidy_presentation:
@@ -127,10 +127,9 @@ bools <- c(TRUE, FALSE, TRUE)
 bools
 ```
 
-
 # Sequences
 
-Let's look at some sequences. 
+Sequences of numbers are useful for all sorts of things such as setting up loops and data wrangling. The <tt>seq()</tt> function has a full set of arguments to make sequences, or you can use the <tt>:</tt> operator if you just need a set of sequential integers.    
 
 ```{r}
 mySeq <- 1:6
@@ -148,8 +147,26 @@ depts <- c('espm', 'pmb', 'stats')
 depts
 ```
 
+# Random Numbers
+
+R has a number of random number generators. We've already seen the runif() function which generates continuous random numbers along a uniform distribution. The rnorm() function is similar but it generates normally distributed numbers.
+
+```{r}
+x <- round(10 * runif(1000))
+table(x)
+
+x <- rnorm(1000)
+hist(x)
+```
+
 
 # Working with indices and subsets
+
+Vectors can be incredibly convenient and greatly simplify your code. However you often don't want all of the elements in a vector. Fortunately R provides a convenient way to extract specific elements from a vector using square-bracket notation. There are three ways you use square brackets.
+
+## Option 1: pass a vector of integers
+
+If you pass a vector of integers in the square brackets, R will take them to be the indices of the element(s) you want returned.
 
 ```{r}
 vals <- seq(2, 12, by = 2)
@@ -158,12 +175,41 @@ vals
 vals[3]
 vals[3:5]
 vals[c(1, 3, 6)]
-vals[-c(1, 3, 6)]
-vals[c(rep(TRUE, 3), rep(FALSE, 2), TRUE)]
 ```
 
-<div class="incremental"><div><hr class="hrdivider">
-__R is case sensitive__
+Challenge question: what happens if you pass a negative integer? [<span id="qtn_tismynn" class="showhide" style="cursor: pointer; color:blue;" onclick="showHide('tismynn');return false;">Ans</span>].
+
+<div id="tismynn" class="answer-code" style="margin-left:1em;">
+Negative integers tell R to *omit* those elements.
+
+```{r}
+x <- LETTERS[1:5]
+x[-2]
+```
+</div>
+
+## Option 2: Pass a vector of logicals (Booleans)
+
+The second way to extract element(s) from a vector is to pass a vector of TRUE/FALSE values in the square brackets. R will return the elements corresponding to the TRUE values (assuming the TRUE/FALSE values are in the same order as the elements of the vector).
+
+```{r}
+vals
+vals[c(T,F,F,F,T,T)]
+```
+
+## Option 3: Pass an expression that returns a vector of Booleans
+
+The is really the same as option #2, but instead of instead of creating the vector of Booleans as a separate object you enter an expression generates them on-the-fly.
+
+```{r}
+x <- 1:10
+x[ x > 5 ]
+x[ x %% 2 == 0 ]
+```
+
+# Gotcha's
+
+## R  is case sensitive
 
 ```{r, echo=TRUE, message=TRUE, warning=TRUE}
 "Hello" == "Hello"
@@ -171,10 +217,9 @@ __R is case sensitive__
 mean(1:5)
 ## Mean(1:5)  - will throw an error: could not find function "Mean"
 ```
-</div></div>
 
-# Next Up
+# Next-Up
 
 [Exercise 1. R Syntax](../exercises/ex01_basicr.html){target="_blank"}
 
-[Working With Packages](part01c_fund02_packages.html)
+[Working With Packages](part01c_packages.html)

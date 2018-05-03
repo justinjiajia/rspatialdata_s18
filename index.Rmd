@@ -4,7 +4,9 @@ author: "`r load('common/course_info.RData'); lstCI$course`"
 output: 
   html_document: 
     css: common/slidy_styles.css
-    self_contained: yes
+    self_contained: no
+    lib_dir: exercises/lib
+    smart: no
     includes:
       in_header: common/header.html
 ---
@@ -23,29 +25,56 @@ load('common/course_info.RData')
 
 # `r lstCI$class01short`. Introduction to R  
 
-- [Intro](slides/part01a_intro.html){target="_blank"}
+<li class="slide"><a target="_blank" class="slide" href="slides/part01a_intro.html">Intro</a></li>
 
-- [R Syntax](slides/part01b_fund01_rsyntax.html){target="_blank"}
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part01b_rsyntax.html">R Syntax</a></li>
 
-    - [Exercise 1: Basic Operations](exercises/ex01_basicr.html){target="_blank"}
+<li class="exercise"><a target="_blank" class="exercise"
+href="exercises/ex01_basicr.html">Exercise 1: Basic Operations</a></li>
 
-- [Working with Packages](slides/part01c_fund02_packages.html){target="_blank"}
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part01c_packages.html">Working with Packages</a></li>
 
-    - [Exercise 2: Packages](exercises/ex02_packages.html){target="_blank"}
+<li class="exercise"><a target="_blank" class="exercise"
+href="exercises/ex02_packages.html">Exercise 2: Packages</a></li>
 
-- [Importing and Plotting Spatial Data](slides/part01d_import_plot.html){target="_blank"}
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part01d_import_plot.html">Importing and Plotting Spatial Data</a></li>
 
-    - [Exercise 3: Import and Plot Data](exercises/ex03_import_plot.html){target="_blank"}
-
+<li class="exercise"><a target="_blank" class="exercise"
+href="exercises/ex03_import_plot.html">Exercise 3: Import and Plot Data</a></li>
 
 # `r lstCI$class02short`. Two Dimensional Data Structures, R Markdown, Spatial Data Classes, Projections, Queries, Geoprocessing, Spatial Overlays
 
-- [Intro](slides/part02a_review.html)
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part02a_review.html">Review from Last Time</a></li>
 
-- [More R Fundamentals](slides/part02b_fund03_misc.html)
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part02b_sort-save-misc.html">More R Fundamentals</a></li>
 
-    - [Exercise 4: Sorting, Lists, and Text](exercises/){target="_blank"}
-    
+<li class="exercise"><a target="_blank" class="exercise" href="exercises/ex04_sort-save-misc.html">Exercise 4: Lists, Sorting and Saving Data</a></li>
+
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part02c_2d-data.html">Matrices and data frames</a></li>
+  
+<li class="exercise"><a target="_blank" class="exercise"
+href="exercises/ex05_dataframes.html">Exercise 5: Working with Data Frames</a></li>
+
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part02d_rmarkdown.html">R Markdown</a></li>
+
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part02e_spatial-data.html">Spatial Data Basic Operations</a></li>
+
+<li class="exercise"><a target="_blank" class="exercise"
+href="exercises/ex06_spatial-data-ops.html">Exercise 6: Spatial Data Operations</a></li>
+
+<!--
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part02f_geoprocessing.html">Geoprocessing</a></li>
+-->
+
 # `r lstCI$class03short`. Loops and branches, APIs, geocoding, raster analyses, R-ArcGIS integration
 
 # `r lstCI$class04short`. Custom functions, working with models, ggmap & leaflet, projects

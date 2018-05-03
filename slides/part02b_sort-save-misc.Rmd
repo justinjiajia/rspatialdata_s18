@@ -1,0 +1,294 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>R Fundamentals</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+```
+
+# Inspecting Data Variables
+
+__Top-Ten Functions for Inspecting Objects__
+
+```{r, echo=FALSE, results='asis'}
+library(kableExtra)
+tbl_vec <- c("ls()", "list all objects in memory", "class()", "display an object's type or class", "head(), tail()", "show the first or last 6 elements", "summary()", "display summary info tailored to the object type", "table(), hist()", "compute frequency table", "min(), max(), range(), quantile()", "numeric summaries", "str()", "display the object structure", "nrow(), ncol(), & dim()", "return the number of rows & columns", "length()", "retun the number of elements", "nchar()", "return the number of characters in a string", "View()", "open up the object in an Excel-like window (view only)", "names(), slotNames()", "view and/or edit the element names")
+tbl_mat <- matrix(tbl_vec, byrow=TRUE, ncol=2, dimnames=list(1:(length(tbl_vec)/2), c("Function", "What it does")))
+knitr::kable(tbl_mat, format = "html", table.attr='class="tbl_compact"') %>% column_spec(column=1, monospace = TRUE)
+```
+
+# Sorting Vectors
+
+There are two approaches to sorting:
+
+<tt>sort(x)</tt>: Change the order of the elements in vector
+
+<tt>order(x)</tt>: Leave x alone, but find the order the elements are in and get their indices in that order.
+
+To illustrate, let's make a vector of random values.
+
+```{r}
+x <- round(1000 * runif(10))
+x
+sort(x)
+order(x)
+```
+
+If you compute the order of the elements, you can return a sorted copy of the list by putting the indices inside the square brackets.
+
+```{r}
+idx <- order(x)
+x[idx]
+```
+
+Sorting in descending order can be done with the <tt>decreasing</tt> argument.
+
+```{r}
+idx <- order(x, decreasing=TRUE)
+x[idx]
+```
+
+# Picking a Random Sample
+
+We've already seen examples of generating random numbers with functions like <tt>runif()</tt> and <tt>rnorm()</tt>. Another common task is selecting a random sample. Suppose you want to pick three letters from the alphabet at random (for a password for example).
+
+```{r}
+sample(LETTERS, size=3)
+```
+
+<div style="margin:0 3em;border:1px solid grey;">
+*Challenge question*: Write an R expression that returns 100 letters selected at random. Hint: you might need to add an argument because there aren't 100 leetters in the alphabet. [<span id="qtn_htismynn" class="showhide" style="cursor: pointer; color:blue;" onclick="showHide('htismynn');return false;">Ans</span>].
+
+<div id="htismynn" class="answer-code">
+```{r}
+sample(LETTERS, size=100, replace = TRUE)
+```
+
+</div>
+</div>
+
+Another way to pick a sample with the <tt>sample()</tt> function is to generate a vector of logical values, and then use that as the expression for the rows to return.
+
+```{r}
+control_grp_yn <- sample(c(T,F), size=26, replace=TRUE)
+control_grp_yn
+LETTERS[control_grp_yn]
+```
+
+<div style="margin:0 3em;border:1px solid grey;">
+*Challenge question*: How could you modify the code above to increase the odds of being selected from 50:50 to 2:1? [<span id="qtn_ismynn" class="showhide" style="cursor: pointer; color:blue;" onclick="showHide('ismynn');return false;">Ans</span>].
+
+<div id="ismynn" class="answer-code" style="margin-left:1em;">
+An easy way to boost the odds of being selected is simply to increase the number of <tt>TRUE</tt> values in the sample source.
+
+```{r}
+control_grp_yn <- sample(c(T,T,F), size=26, replace=TRUE)
+LETTERS[control_grp_yn]
+```
+</div>
+</div>
+
+# Dealing with Missing, Undefined, and Invalid Values
+
+An object may have a missing or undefined value if it hasn't been initialized yet, a value wasn't passed, an operation couldn't work.
+
+R has two resevered words it uses to note missing values.
+
+<div class="indented1">
+<tt>NULL</tt> - undefined  
+<tt>NA</tt> - missing
+</div> 
+
+These are not the same as errors!
+
+NULL can not exist in a vector. 
+
+## Testing for NA and NULL:
+
+```{r, eval=FALSE}
+is.na(x)
+is.null(x)
+```
+
+## Other special values
+
+Empty Strings
+
+```{r eval=F}
+x == ""	
+```
+
+<tt>Inf</tt> and <tt>-Inf</tt>
+
+```{r eval=T}
+5/0
+```
+
+# Lists
+
+Lists are similiar to vectors except that,
+
+- the elements can be referenced by name as well as index  
+- elements can be different types
+- elements can anything (including other lists!)
+
+```{r}
+move_data <- list(id="toni", species="buffalo", age=12, sex="female", selected=TRUE, wt=182, herd=c("west", "hilltop"))
+move_data
+```
+
+You grab individual elements with the <tt>$</tt> character or double square brackets. If you're not sure what the element names are, you can check with <tt>names()</tt> (and change them also).
+
+```{r}
+names(move_data)
+move_data$id
+move_data[[3]]
+move_data[["age"]]
+```
+
+Note <tt>$</tt> and <tt>[[ ]]]</tt> grab an individual element. Use single square brackets to return a sub-list.
+
+```{r}
+move_data[ c(3,5)]
+```
+
+Reassign a list element
+
+```{r}
+move_data$selected <- FALSE
+move_data$selected
+```
+
+To add a list element, just assign it a value and R will add it 'on the fly'.
+
+```{r}
+move_data$mother <- "luci"
+```
+
+To delete a list element, set it to <tt>NULL</tt>.
+
+```{r}
+move_data$herd <- NULL
+names(move_data)
+```
+
+
+## S4 Objects
+
+S4 objects are like 'super lists'.
+
+In addition to list elements, they can have 'slots' that you grab with the <tt>@</tt> character.
+
+Spatial data classes from the <tt>sp</tt> package are S4 objects.
+
+# Saving Your Work
+
+A big reason for using R is to be able to reproduce your work.
+
+You can save both scripts and variables to files on disk.
+
+Save scripts in RStudio as *.R files. 
+
+## Directories
+
+When you import or save objects to disk using a command, you don't have the luxury of an interactive file dialog. You have to know where it's going. 
+
+All file paths are relative to the *working directory*. You can view or set the working directory from RStudio or with commands at the console:
+
+```{r}
+setwd("/projects/soc101/sf_census/")
+getwd()
+```
+
+R uses standard Linux notion when interpreting directory names. The default 'Home' directory is usually your Documents folder, and can be specified with the <tt>~</tt> character.
+
+```{r}
+path.expand("~")
+```
+
+The 'root' directory on the current volume (drive) can be specified with the '<tt>/</tt>' character. You can specify the drive letter if you'd like also (e.g., <tt>c:/</tt>). 
+
+```{r}
+path.expand("/")
+```
+
+Note for Windows users: R requires forward slashes (<tt>/</tt>), not back slashes (<tt>\\</tt>). Sorry about that. If you really want to keep using back slashes, you can use a double back slash (<tt>\\\\</tt>)
+
+You can specify the current directory with a period (<tt>.</tt>). If you want to save something to a sub-directory of the active directory, start with the period and then keep going.
+
+```{r}
+setwd("/projects/soc101/sf_census")
+getwd()
+setwd("./data")
+getwd()
+```
+
+## Saving Objects to Disk
+
+You can save individual objects (variables) to disk with the <tt>save()</tt> function. If you don't specify a directory as part of the file name, it will go in the working directory. 
+
+```{r}
+x_nums <- rnorm(1000) * 20
+## Save to home directory
+save(x_nums, file="~/first_try.RData")
+```
+
+.Rdata is a common extension for R data files, but you can name the file anyting you want. Note however the <tt>save()</tt> function saves objects in a binary, compressed file format that R understands. This makes it very flexible and easy to bring back into R using the sister function <tt>load()</tt>, however if you want to export data to use with another program, you probably want to use a different function that saves in a more standard file format, like <tt>write.csv()</tt> or <tt>write.table()</tt>.
+
+To save your entire workspace (all variables in memory), you can use the <tt>save.image()</tt> function. RStudio also have a 'Save Workspace' button on the 'Environment' window, and will probably ask if you want to save your workspace when you quit the program.
+
+## Loading Objects from Disk
+
+To load a file back into memory, use the load() function. 
+
+```{r}
+rm(x_nums)   ## remove x_nums from memory
+load("~/first_try.RData")
+summary(x_nums)
+```
+
+__Short Cuts__
+
+If you're working at the console and want to quickly get the name to a file, you can use the __<tt>file.choose()</tt>__ function. 
+
+In RStudio, you can use the Files tab to browse your files and set the working directory.
+
+## Saving Scripts
+
+You can save and open scripts, R Markdown files, etc. from RStudio.
+
+If you have a set of commands that you want to rerun repeatedly, you can save them as a *.R file and then run them all at once with source() function.
+
+```{r, eval=F}
+source("import_clean_data.R")
+```
+
+*Still to come*:
+
+- saving plots as image files
+- saving spatial data
+
+# Next Up
+
+[Exercise 4. Lists and sorting](../exercises/ex04_lists_sort_safe.html){target="_blank"}
+
+[Two-Dimensional Data Structures](part02c_2d-data.html)
+
+
+

@@ -1,5 +1,5 @@
 ---
-title: "<span class='pres-date'>Week `r params$this_week`:</span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span><br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI$class01`</span>"
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
 author: "<span class='pres-title'>Review from Last Time</span>"
 output: 
   slidy_presentation:
@@ -211,5 +211,5 @@ knitr::kable(plot_args_df, format = "html", table.attr='class="tbl_compact"') %>
 
 # Next Up
 
-[Fundamentals Pt. 3](part02b_fund03_misc.html)
+[Sorting, Saving, and Other Fundamentals](part02b_sort-save-misc.html)
 

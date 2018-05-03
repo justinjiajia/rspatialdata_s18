@@ -1,0 +1,126 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>Matrices and Data Frames</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+library(maps)
+```
+
+# Two-Dimensional Data
+
+Data structures with rows and columns are ubiquitous in many fields. R has two data classes to store 2D data - matrices and data frames.
+
+```{r, echo=FALSE, results='asis'}
+library(kableExtra)
+tbl_vec <- c("data type", "entire matrix must use the same data type", "each column can be a different data type", "column labels", "optional, can be defined as an attribute for display", "built-in, columns can referenced by name", "more than two dimensions", "allowed (called an array)", "not allowed", "can add rows and columns", "yes", "yes", "matrix algebra", "allowed", "not supported")
+tbl_mat <- matrix(tbl_vec, byrow=TRUE, ncol=3, dimnames=list(1:(length(tbl_vec)/3), c("Property", "Matrix", "Data Frame")))
+knitr::kable(tbl_mat, format = "html", table.attr='class="tbl_compact"') 
+```
+
+To create a matrix from scratch, use the <tt>matrix()</tt> function. 
+
+```{r}
+mat <- matrix(data=rnorm(9), nrow = 3, ncol=3)
+mat 
+```
+
+There are number of sample datasets that come with R, many of which are data frames. Functions to explore data frames include <tt>names()</tt>, <tt>head()</tt>, <tt>nrow()</tt>, <tt>ncol()</tt>, <tt>dim()</tt>.
+
+```{r}
+names(mtcars)
+head(mtcars)
+nrow(mtcars)
+ncol(mtcars)
+```
+You can grab an individual column by name with the <tt>$</tt> selector. 
+
+```{r}
+class(mtcars$disp)
+summary(mtcars$wt)
+plot(x=mtcars$wt, y=mtcars$mpg, pch=16, main="Gas Mileage vs Weight")
+```
+
+# Selecting Rows and Columns
+
+Similar to vectors, you can reference specific rows specific rows and columns with square bracket notation. Only this time we need two expressions separated by a comma.
+
+<tt>mydataframe[</tt> *rows* , *cols* <tt>]</tt>
+
+Like vectors, the expression for *rows* & *cols* can be integers (row and column indices), or Booleans. In addition, with data frames you can use a vector of column names to specific the columns. To return all the rows or all the columns, omit the expression. 
+
+```{r}
+library(maps)
+data(canada.cities)
+head(canada.cities)
+```
+
+Columns can be specified either by name or index number. The following two expressions are equivalent (note how the expression for *rows* has been omitted, so all rows are returned). 
+
+```{r}
+head(canada.cities[,1])
+head(canada.cities[,"name"])
+```
+
+The *rows* expression can also be an expression that returns logicals.
+
+```{r}
+idx <- (canada.cities$pop > 100000)
+table(idx)
+big_cities <- canada.cities[idx,   ]
+plot(big_cities[ , c("long","lat")], asp=1, pch=16  )
+```
+
+# Appending rows
+
+You can append two data frames with the *rbind()* (row bind) function. This requires the two data frames to have the same columns in the same order.
+
+```{r}
+small_cities <- canada.cities[canada.cities$pop < 5000,   ]
+nrow(small_cities)
+small_plus_big_cities <- rbind(small_cities, big_cities)
+plot(small_plus_big_cities[ , c("long","lat")], asp=1, pch=16  )
+```
+
+# Adding columns 
+
+To add a column, you can just assign values to it. R will create the column on the fly.
+
+```{r}
+big_cities$mynewcol <- 1:nrow(big_cities)
+head(big_cities)
+```
+
+You can also add columns with <tt>transform()</tt> or <tt>mutate()</tt> from the *dplyr* package. You can also append a column from another data frame (presuming the rows are in the same order) with <tt>cbind()</tt>.
+
+# Data frame joins, merges, and summaries
+
+We won't have time to cover how to join or merge data frames, but the basics are
+
+- the data frames must have a column with the same values to match rows
+
+- use the merge() function
+
+For more complex joins and summaries involving grouping and aggregate functions, look at the [dplyr data wrangling cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) from the *dplyr* package.
+
+# Next-Up
+
+[Exercise 5. Working with Data Frames](../exercises/ex05_dataframes.html){target="_blank"}
+
+[R Markdown](part02d_rmarkdown.html)

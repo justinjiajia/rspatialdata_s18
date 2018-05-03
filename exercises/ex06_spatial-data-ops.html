@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Spatial Analysis with R: Exercise 6: Spatial Data Operations</title>
+
+<script src="lib/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="lib/navigation-1.1/tabsets.js"></script>
+<link href="lib/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="lib/highlightjs-1.1/highlight.js"></script>
+<link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+<script language="javascript" type="text/javascript">
+function TriShowHide(shID) {
+  shIDspan = shID + "span";
+  shIDdiv = shID + "div";
+  if (document.getElementById(shIDdiv).style.display != 'block') {
+    document.getElementById(shIDdiv).style.display = 'block';
+    txtSpan = "&#9660;";
+  } else {
+    document.getElementById(shIDdiv).style.display = 'none';
+    txtSpan = "&#9654;";
+  }
+  document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+}
+function showHide(shID) {
+  if (shID=="soln-show-all") {
+    var allAnswerCode = document.getElementsByClassName("answer-code");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'block';
+    }
+  } else if (shID=="soln-hide-all") {
+    var allAnswerCode = document.getElementsByClassName("answer-code");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'none';
+    }
+  } else if (shID=="hints-show-all") {
+    var allAnswerCode = document.getElementsByClassName("hint");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'block';
+    }
+  } else if (shID=="hints-hide-all") {
+    var allAnswerCode = document.getElementsByClassName("hint");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'none';
+    }
+  } else {
+    if (document.getElementById(shID)) {
+      if (document.getElementById(shID).style.display != 'block') {
+        document.getElementById(shID).style.display = 'block';
+      } else {
+        document.getElementById(shID).style.display = 'none';
+      }
+    }
+  }
+}
+function CopyToClipboard(containerid) {
+if (document.selection) { 
+    var range = document.body.createTextRange();
+    range.moveToElementText(document.getElementById(containerid));
+    range.select().createTextRange();
+    document.execCommand("copy"); 
+} else if (window.getSelection) {
+    var range = document.createRange();
+    range.selectNode(document.getElementById(containerid));
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    // alert("text copied") 
+}}
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="..\common\slidy_styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore"><span class="ex-title">Spatial Analysis with R:</span><br/><span class="ex-subtitle">Exercise 6: Spatial Data Operations</span></h1>
+<h4 class="date"><em>Spring 2018</em></h4>
+
+</div>
+
+
+<div id="instructions" class="section level3">
+<h3>Instructions</h3>
+<ul>
+<li><p>If you haven't already, install <a href="https://cran.r-project.org/">R</a> and <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>.</p></li>
+<li><p>Download the <a href="https://github.com/ajlyons/rspatialdata/tree/gh-pages" target="_blank">GitHub repo</a>.</p></li>
+<li><p>Create a new R script in RStudio (File → New File → R Script).</p></li>
+<li><p>Copy the questions below (all of which begin with the <em>#</em> character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.</p></li>
+<li><p>Remember to save your script periodically to avoid losing work if RStudio crashes.</p></li>
+<li><p>If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.</p></li>
+<li><p>If you have any questions or problems, please feel free to email the instructor.</p></li>
+</ul>
+<hr class="hrdivider">
+<div style="text-align:center">
+<button onclick="CopyToClipboard('qtn_div');return false;">
+Copy questions
+</button>
+</div>
+<div id="qtn_div">
+<h3 id="import-county-boundaries">### IMPORT COUNTY BOUNDARIES</h3>
+<p><a id="qtn_tzzewz" href="#" class="showhidelink" onclick="showHide('tzzewz');return false;"># 1.</a> The exercises/data directory has a Shapefile called <em>ca_counties_census</em>. Bring it into R and<br />
+#  determine if they are projected. <a href="#" class="showhidehint" onclick="showHide('feolbg');return false;"></a></p>
+<div id="feolbg" class="hint">
+See <a href="../slides/part01d_import_plot.html#importing-vector-data-rgdal" target="_blank">Importing Vector Data with rgdal</a>
+</div>
+<div id="tzzewz" class="answer-code">
+<pre class="r"><code>library(rgdal)
+shapefile_dir &lt;- &quot;data&quot;
+file.exists(shapefile_dir)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>ca_cnty_prj &lt;- rgdal::readOGR(shapefile_dir, &quot;ca_counties_census&quot;)</code></pre>
+<pre><code>## OGR data source with driver: ESRI Shapefile 
+## Source: &quot;data&quot;, layer: &quot;ca_counties_census&quot;
+## with 58 features
+## It has 13 fields
+## Integer64 fields read as strings:  ALAND AWATER POP2010 POP2011 POP2012 POP2013 POP2014</code></pre>
+<pre><code>## Warning in rgdal::readOGR(shapefile_dir, &quot;ca_counties_census&quot;): Z-dimension
+## discarded</code></pre>
+<pre class="r"><code>class(ca_cnty_prj)</code></pre>
+<pre><code>## [1] &quot;SpatialPolygonsDataFrame&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;sp&quot;</code></pre>
+<pre class="r"><code>ca_cnty_prj@proj4string</code></pre>
+<pre><code>## CRS arguments:
+##  +proj=aea +lat_1=34 +lat_2=40.5 +lat_0=0 +lon_0=-120 +x_0=0
+## +y_0=-4000000 +datum=NAD83 +units=m +no_defs +ellps=GRS80
+## +towgs84=0,0,0</code></pre>
+<p>Yes, the county boundaries are projected. We can tell the data are projected because the units meters.</p>
+</div>
+<p><a id="qtn_jofvcg" href="#" class="showhidelink" onclick="showHide('jofvcg');return false;"># 2.</a> The exercises/data directory has a csv file called <em>ca_celltowers.csv</em>. Import it into R. Which<br />
+#  columns contain the longitude and latitude in decimal degrees? <a href="#" class="showhidehint" onclick="showHide('ilgqqh');return false;"></a></p>
+<div id="ilgqqh" class="hint">
+Decimal degrees are written as numbers with decimal places, as opposed to the <em>degrees,minutes,seconds</em> notation.
+</div>
+<div id="jofvcg" class="answer-code">
+<pre class="r"><code>cell_towers_df &lt;- read.csv(&quot;data/ca_celltowers.csv&quot;)
+head(cell_towers_df)</code></pre>
+<pre><code>##   FID                       LICENSEE CALLSIGN LOCNUM  LAT_DMS LATDIR
+## 1   0 NEW CINGULAR WIRELESS PCS, LLC  KNKA529      1   37,0,9      N
+## 2   1 NEW CINGULAR WIRELESS PCS, LLC  KNKA529      9 36,58,40      N
+## 3   2 NEW CINGULAR WIRELESS PCS, LLC  KNKA529     10 36,59,31      N
+## 4   3 NEW CINGULAR WIRELESS PCS, LLC  KNKA529     11 36,56,24      N
+## 5   4 NEW CINGULAR WIRELESS PCS, LLC  KNKA529     12 36,54,40      N
+## 6   5 NEW CINGULAR WIRELESS PCS, LLC  KNKA529     13 36,55,59      N
+##     LON_DMS LONDIR                           LOCADD     LOCCITY  LOCCOUNTY
+## 1   122,3,8      W                     1156 HIGH ST  SANTA CRUZ SANTA CRUZ
+## 2 121,47,51      W                       49 Crow Rd Watsonville SANTA CRUZ
+## 3  122,3,52      W College Eight,  200 Heller Drive  Santa Cruz SANTA CRUZ
+## 4  121,50,3      W                1253 Trabing Road Watsonville SANTA CRUZ
+## 5 121,45,30      W              15 West Lake Street Watsonville SANTA CRUZ
+## 6 121,47,13      W                 370 AIRPORT BLVD WATSONVILLE SANTA CRUZ
+##   LOCSTATE NEPA QZONE  TOWREG SUPSTRUC ALLSTRUC STRUCTYPE LIC_ID      LONG
+## 1       CA    N    NA      NA     30.8     42.1     TOWER  11518 -122.0522
+## 2       CA    N    NA 1057141     32.0     32.0      POLE  11518 -121.7975
+## 3       CA    N    NA      NA     13.4     14.6         B  11518 -122.0644
+## 4       CA    N    NA 1211537     15.2     17.1      POLE  11518 -121.8342
+## 5       CA    N    NA      NA     22.6     25.3         B  11518 -121.7583
+## 6       CA    N    NA 1057387     33.8     37.5     TOWER  11518 -121.7869
+##       LAT
+## 1 37.0025
+## 2 36.9778
+## 3 36.9919
+## 4 36.9400
+## 5 36.9111
+## 6 36.9331</code></pre>
+<p>It looks like the LONG and LAT columns contain decimal degrees.</p>
+</div>
+<p><a id="qtn_tkwexp" href="#" class="showhidelink" onclick="showHide('tkwexp');return false;"># 3.</a> Create a SpatialPointsDataFrame for the cell towers. For the CRS, use WGS84 geographic coordinates. <a href="#" class="showhidehint" onclick="showHide('vfhcis');return false;"></a></p>
+<div id="vfhcis" class="hint">
+The epsg code for Geographic Coordinates WGS84 is 4326
+</div>
+<div id="tkwexp" class="answer-code">
+<pre class="r"><code>library(sp)
+cell_towers_spdf_ll &lt;- SpatialPointsDataFrame(coords=cell_towers_df[ ,c(&quot;LONG&quot;, &quot;LAT&quot;)], data=cell_towers_df, proj4string = CRS(&quot;+init=epsg:4326&quot;))
+plot(cell_towers_spdf_ll)</code></pre>
+<p><img src="ex06_spatial-data-ops_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<p><a id="qtn_yoepjg" href="#" class="showhidelink" onclick="showHide('yoepjg');return false;"># 4.</a> Project the cell towers into the same projection system as the county boundaries. <a href="#" class="showhidehint" onclick="showHide('duktto');return false;"></a></p>
+<div id="duktto" class="hint">
+You can reference the proj4string object directly when you project the cell towers, no need to make a copy.
+</div>
+<div id="yoepjg" class="answer-code">
+<pre class="r"><code>cell_towers_spdf_prj  &lt;- sp::spTransform(cell_towers_spdf_ll, ca_cnty_prj@proj4string)
+summary(cell_towers_spdf_prj)</code></pre>
+<pre><code>## Object of class SpatialPointsDataFrame
+## Coordinates:
+##            min      max
+## LONG -355202.8 536585.1
+## LAT  -642326.5 446717.2
+## Is projected: TRUE 
+## proj4string :
+## [+proj=aea +lat_1=34 +lat_2=40.5 +lat_0=0 +lon_0=-120 +x_0=0
+## +y_0=-4000000 +datum=NAD83 +units=m +no_defs +ellps=GRS80
+## +towgs84=0,0,0]
+## Number of points: 1227
+## Data attributes:
+##       FID                                                   LICENSEE  
+##  Min.   :   0.0   NEW CINGULAR WIRELESS PCS, LLC                :413  
+##  1st Qu.: 306.5   GTE MOBILNET OF CALIFORNIA LIMITED PARTNERSHIP:168  
+##  Median : 613.0   SACRAMENTO VALLEY LIMITED PARTNERSHIP         :102  
+##  Mean   : 613.0   Los Angeles SMSA Limited  Partnership         : 93  
+##  3rd Qu.: 919.5   FRESNO MSA LIMITED PARTNERSHIP                : 91  
+##  Max.   :1226.0   CALIFORNIA RURAL SERVICE AREA #1, INC.        : 57  
+##                   (Other)                                       :303  
+##     CALLSIGN       LOCNUM          LAT_DMS     LATDIR        LON_DMS    
+##  KNKA228:113   Min.   : 1.00   35,55,33:   5   N:1227   119,48,47:   4  
+##  KNKA341:104   1st Qu.: 6.00   38,39,22:   4            122,36,57:   4  
+##  KNKA209: 93   Median :12.00   32,45,52:   3            117,12,2 :   3  
+##  KNKA351: 44   Mean   :20.74   34,53,17:   3            117,31,27:   3  
+##  KNKN346: 43   3rd Qu.:24.50   35,24,4 :   3            117,42,30:   3  
+##  KNKA405: 37   Max.   :99.00   35,34,43:   3            118,58,13:   3  
+##  (Other):793                   (Other) :1206            (Other)  :1207  
+##  LONDIR  
+##  W:1227  
+##          
+##          
+##          
+##          
+##          
+##          
+##                                                                    LOCADD    
+##  South Mt St. Helena, End of Mt. St. Helena Road     (St. Helena South:   3  
+##  1.0 miles S of Julian Wash, Township 13 S, Range 20 E                :   2  
+##  1.3 MI N OF HWY 58 NEAR THE CORNER OF BITTERWATER                    :   2  
+##  1000 Box Canyon Road                                                 :   2  
+##  1160 S LAKE AVE                                                      :   2  
+##  12016 ROAD 16                                                        :   2  
+##  (Other)                                                              :1214  
+##           LOCCITY              LOCCOUNTY   LOCSTATE  NEPA    
+##  SAN DIEGO    :  34   SAN DIEGO     :126   CA:1227    :  17  
+##  San Diego    :  22   KERN          : 70             N:1200  
+##  SAN FRANCISCO:  19   FRESNO        : 67             Y:  10  
+##  FRESNO       :  11   SAN BERNARDINO: 44                     
+##  Fresno       :   9   LOS ANGELES   : 43                     
+##  MADERA       :   8   SAN JOAQUIN   : 40                     
+##  (Other)      :1124   (Other)       :837                     
+##   QZONE             TOWREG           SUPSTRUC          ALLSTRUC     
+##  Mode:logical   Min.   :1000020   Min.   :   0.00   Min.   :  0.00  
+##  NA&#39;s:1227      1st Qu.:1014940   1st Qu.:   0.00   1st Qu.:  0.00  
+##                 Median :1018704   Median :  19.80   Median :  9.20  
+##                 Mean   :1059763   Mean   :  44.08   Mean   : 18.35  
+##                 3rd Qu.:1055733   3rd Qu.:  38.05   3rd Qu.: 32.95  
+##                 Max.   :1270777   Max.   :7992.00   Max.   :124.60  
+##                 NA&#39;s   :1007                                        
+##    STRUCTYPE       LIC_ID           LONG             LAT       
+##         :581   Min.   :11518   Min.   :-124.2   Min.   :32.20  
+##  TOWER  :234   1st Qu.:12102   1st Qu.:-121.8   1st Qu.:34.80  
+##  POLE   :174   Median :12298   Median :-120.4   Median :37.08  
+##  MAST   :141   Mean   :12394   Mean   :-120.1   Mean   :36.73  
+##  B      : 53   3rd Qu.:12742   3rd Qu.:-118.6   3rd Qu.:38.22  
+##  BANT   : 13   Max.   :13433   Max.   :-114.2   Max.   :41.98  
+##  (Other): 31</code></pre>
+</div>
+<p><a id="qtn_cdzvsw" href="#" class="showhidelink" onclick="showHide('cdzvsw');return false;"># 5.</a> Plot the cell tower locations on top of the county boundaries.</p>
+<div id="cdzvsw" class="answer-code">
+<pre class="r"><code>plot(ca_cnty_prj, axes=TRUE, asp=1)
+plot(cell_towers_spdf_prj, add=TRUE, col=&quot;red&quot;, pch=16, cex=0.5)</code></pre>
+<p><img src="ex06_spatial-data-ops_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<p><a id="qtn_mzzuax" href="#" class="showhidelink" onclick="showHide('mzzuax');return false;"># 6.</a> Select a county of your choice, and use an attribute query to save the boundary of that county as a<br />
+#  new SpatialPolygonDataFrame. Plot it, and then plot the cell towers on top. <a href="#" class="showhidehint" onclick="showHide('muorxt');return false;"></a></p>
+<div id="muorxt" class="hint">
+You can extract features from a SpatialPolygonDataFrame with square bracket notation, the same way you would a data frame.
+</div>
+<div id="mzzuax" class="answer-code">
+<pre class="r"><code>idx &lt;- sample(1:nrow(ca_cnty_prj), size=1)
+idx</code></pre>
+<pre><code>## [1] 51</code></pre>
+<pre class="r"><code>random_county &lt;- ca_cnty_prj[idx,]
+plot(random_county, axes=TRUE, asp=TRUE)
+plot(cell_towers_spdf_prj, add=TRUE, col=&quot;red&quot;, pch=16, cex=0.7)</code></pre>
+<p><img src="ex06_spatial-data-ops_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<p><a id="qtn_uphips" href="#" class="showhidelink" onclick="showHide('uphips');return false;"># 7.</a> Save the projected cell towers and selected county boundary to disk so they can be loaded for a<br />
+#  future exercise. <a href="#" class="showhidehint" onclick="showHide('bhxspo');return false;"></a></p>
+<div id="bhxspo" class="hint">
+Remember where you save it!
+</div>
+<div id="uphips" class="answer-code">
+<pre class="r"><code>save(cell_towers_spdf_prj, file=&quot;cell_towers_prj.RData&quot;)
+save(random_county, file=&quot;county_bnd_one.RData&quot;)</code></pre>
+</div>
+</div>
+<!-- end questions -->
+</div>
+
+<hr>
+<div style="float:right; width:33%; text-align:right;">
+<a href="../index.html" style="text-decoration:none;">Course outline</a>
+</div>
+
+<div style="float:right; width:33%; text-align:center;">
+<a href="#" style="text-decoration:none;" onclick="showHide('soln-show-all');return false;">show all solutions</a> | <a href="#" style="text-decoration:none;" onclick="showHide('soln-hide-all');return false;">hide all solutions</a>
+</div>
+
+<div style="width:33%;">
+<a href="#" style="text-decoration:none;" onclick="showHide('hints-show-all');return false;">show all hints</a> | <a href="#" style="text-decoration:none;" onclick="showHide('hints-hide-all');return false;">hide all hints</a>
+</div>
+<br/>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

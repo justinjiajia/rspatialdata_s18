@@ -9,7 +9,7 @@
   <meta name="author" content="Working with Packages" />
   <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href=' https://is.gd/rspatial_baygeo_s18 ' target='_blank'> https://is.gd/rspatial_baygeo_s18 </a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>"/>
   <meta name="font-size-adjustment" content="2"/>
-  <title>Week 1: Spatial Data Analysis with R April 19, 2018</title>
+  <title>Week 1:  Spatial Data Analysis with R  April 19, 2018</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
@@ -115,7 +115,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </head>
 <body>
 <div class="slide titlepage">
-  <h1 class="title"><span class="pres-date">Week 1:</span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span><br/><span class="pres-date">April 19, 2018</span></h1>
+  <h1 class="title"><span class="pres-date">Week 1: </span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span> <br/><span class="pres-date">April 19, 2018</span></h1>
   <p class="author">
 <span class="pres-title">Working with Packages</span>
   </p>
@@ -235,9 +235,16 @@ demo(webmap)
 </tr>
 </tbody>
 </table>
+<p><em>Datasets</em></p>
+<p>To view the datasets in the package <em>sp</em>, run</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="dt">package=</span><span class="st">&quot;sp&quot;</span>)</code></pre></div>
+<p>To see a list of datasets in all packages currently loaded, run data() without an argument.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>()</code></pre></div>
+<p>To see <em>all</em> datasets in <em>all</em> installed packages, run</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="dt">package =</span> <span class="kw">.packages</span>(<span class="dt">all.available =</span> <span class="ot">TRUE</span>))</code></pre></div>
 </div>
 <div id="dealing-with-duplicate-function-names" class="slide section level1">
-<h1>Dealing with Duplicate Function Names</h1>
+<h1>Dealing with duplicate function names</h1>
 <p>Sometimes two or more packages will have a function with the same name. <img src="images/sad-face-32x32.png" /></p>
 <p>R will use whichever one it finds first.</p>
 <p>Best Practice: use the package name and the <tt>::</tt> reference to specify which package a function is from.</p>
