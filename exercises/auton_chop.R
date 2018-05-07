@@ -5,8 +5,13 @@ auton = local({
     return(paste(i, ".", sep=""))
   }
 })
+hashline = local({
+  function(n=40) {
+    return(paste0(rep('\\#',n), collapse=''))
+  }
+})
 chop = local({
-  function(x, width=100, indent=0, exdent=0, initial="", prefix="", collapse="  \n\\# &nbsp;", nonprint_omit=TRUE) {
+  function(x, width=80, indent=0, exdent=0, initial="", prefix="", collapse="  \n\\# &nbsp;", nonprint_omit=TRUE) {
     x_work <- x
     bracket_matches_txt <- character(0)
     link_matches_txt <- character(0)

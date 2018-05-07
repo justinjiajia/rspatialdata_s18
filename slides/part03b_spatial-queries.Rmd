@@ -1,0 +1,78 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>Spatial Queries</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 3
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+```
+
+# Spatial Queries
+
+Selecting features based on their location
+
+<div class="indented1">
+- falls within  
+- touches  
+- contains  
+- within distance  
+- intersects  
+- closest  
+</div>
+
+Packages
+<div class="indented1">
+- *sp* (over)  
+- *rgeos*  
+- *raster* (extract pixel values)  
+- *FNN* (nearest neighbor)  
+</div>
+
+# <tt>over()</tt> function
+
+<div class="indented1">
+- from the sp package    
+- does many types of Spatial overlays and joins   
+</div>
+
+
+```{r}
+
+```
+
+
+Selection with square brackets
+
+Syntax
+
+my_spatial_points[*expr*, ]
+
+
+
+
+
+
+
+# Next Up
+
+[Exercise 8: Loops and Branches](exercises/ex08_loops-branches.html){target="_blank"}
+
+[Spatial Queries](part03b_spatial-queries.html)
+
+

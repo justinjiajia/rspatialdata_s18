@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Geoprocessing" />
+  <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href=' https://is.gd/rspatial_baygeo_s18 ' target='_blank'> https://is.gd/rspatial_baygeo_s18 </a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Week 2:  Spatial Data Analysis with R  April 26, 2018</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) { 
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy"); 
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied") 
+  }}
+  </script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="..\common\slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title"><span class="pres-date">Week 2: </span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span> <br/><span class="pres-date">April 26, 2018</span></h1>
+  <p class="author">
+<span class="pres-title">Geoprocessing</span>
+  </p>
+</div>
+<div id="rgeos-package" class="slide section level1">
+<h1>rgeos package</h1>
+<p>Wrapper for the Geometry Engine Open Source (a C++ port of the Java Topology Suite).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(rgeos)</code></pre></div>
+<h2 id="functions-sampler">Functions Sampler</h2>
+<div style="width:1120px; border:1px solid white;">
+<div style="width:350px;float:right;border:0px solid green;">
+<p><strong>Spatial Proximity Tests</strong><br />
+<tt>gContains()<br />
+gCovers()<br />
+gEquals()<br />
+gIntersects()<br />
+gOverlaps()<br />
+gTouches()<br />
+gWithinDistance()</tt></p>
+</div>
+<div style="width:400px;float:right;border:0px solid blue;">
+<p><strong>Create New Geometries</strong><br />
+<tt>gBuffer()<br />
+gConvexHull()<br />
+gDifference()<br />
+gIntersection()<br />
+gSimplify()<br />
+gUnion()</tt></p>
+</div>
+<div style="width:330px;border:0px solid magenta;">
+<p><strong>Geometric Properties</strong><br />
+<tt>gArea()<br />
+gCentroid()<br />
+gDistance()<br />
+gLength()</tt></p>
+</div>
+</div>
+<div style="clear: both;">
+
+</div>
+<p>Many functions from rgeos have a <tt>byid</tt> argument. byid=TRUE means applies the processing to individual features.</p>
+</div>
+<div id="examples" class="slide section level1">
+<h1>Examples</h1>
+<h2 id="load-some-data">Load Some Data</h2>
+<p>To try it out, let's open the SF neighboods and cannabis dispensaries you opened in an earlier exercise.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rgdal)
+sf_nb_ll &lt;-<span class="st"> </span><span class="kw">readOGR</span>(<span class="st">&quot;../exercises/data&quot;</span>, <span class="st">&quot;sf_neighborhoods&quot;</span>)</code></pre></div>
+<pre><code>## OGR data source with driver: ESRI Shapefile 
+## Source: &quot;../exercises/data&quot;, layer: &quot;sf_neighborhoods&quot;
+## with 41 features
+## It has 1 fields</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fn &lt;-<span class="st"> &quot;../exercises/data/sf_permitted_cannabis_dispensaries_2014.kml&quot;</span>
+sf_pot_ll &lt;-<span class="st"> </span><span class="kw">readOGR</span>(fn, <span class="st">&quot;Cannabis Dispensaries 2014&quot;</span>)</code></pre></div>
+<pre><code>## OGR data source with driver: KML 
+## Source: &quot;../exercises/data/sf_permitted_cannabis_dispensaries_2014.kml&quot;, layer: &quot;Cannabis Dispensaries 2014&quot;
+## with 28 features
+## It has 2 fields</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(sf_nb_ll, <span class="dt">axes=</span>T, <span class="dt">asp=</span><span class="dv">1</span>)
+<span class="kw">plot</span>(sf_pot_ll, <span class="dt">add=</span>T, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>)</code></pre></div>
+<p><img src="part02f_geoprocessing_files/figure-slidy/unnamed-chunk-2-1.png" width="768" /></p>
+<h2 id="project-the-data">Project the Data</h2>
+<p>Distance and area are only meaningful with projected data. Hence you typically project data before geoprocessing.</p>
+<p>Project the San Francisco data to UTM Zone 10</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">utm10n &lt;-<span class="st"> </span><span class="kw">CRS</span>(<span class="st">&quot;+proj=utm +zone=10 +ellps=WGS84&quot;</span>)
+sfnb_prj &lt;-<span class="st"> </span><span class="kw">spTransform</span>(sf_nb_ll, utm10n)
+sfpot_prj &lt;-<span class="st"> </span><span class="kw">spTransform</span>(sf_pot_ll, utm10n)
+<span class="kw">plot</span>(sfnb_prj, <span class="dt">axes=</span>T, <span class="dt">asp=</span><span class="dv">1</span>)
+<span class="kw">plot</span>(sfpot_prj, <span class="dt">add=</span>T, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>)</code></pre></div>
+<p><img src="part02f_geoprocessing_files/figure-slidy/unnamed-chunk-3-1.png" width="768" /></p>
+</div>
+<div id="area-and-centroids" class="slide section level1">
+<h1>Area and Centroids</h1>
+<p><tt>gArea()</tt></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sfnb_area &lt;-<span class="st"> </span><span class="kw">gArea</span>(sfnb_prj, <span class="dt">byid=</span><span class="ot">TRUE</span>)
+<span class="kw">str</span>(sfnb_area)</code></pre></div>
+<pre><code>##  Named num [1:41] 13390446 2790169 2218769 581470 3603578 ...
+##  - attr(*, &quot;names&quot;)= chr [1:41] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; ...</code></pre>
+<p><tt>gCentroid()</tt></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sfnb_ctr_sp &lt;-<span class="st"> </span><span class="kw">gCentroid</span>(sfnb_prj, <span class="dt">byid=</span><span class="ot">TRUE</span>)
+<span class="kw">class</span>(sfnb_ctr_sp)</code></pre></div>
+<pre><code>## [1] &quot;SpatialPoints&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;sp&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(sfnb_prj, <span class="dt">axes=</span><span class="ot">TRUE</span>, <span class="dt">asp=</span><span class="dv">1</span>)
+<span class="kw">plot</span>(sfnb_ctr_sp, <span class="dt">col=</span><span class="st">&quot;purple&quot;</span>, <span class="dt">pch=</span><span class="dv">17</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="part02f_geoprocessing_files/figure-slidy/unnamed-chunk-5-1.png" width="768" /></p>
+</div>
+<div id="buffers" class="slide section level1">
+<h1>Buffers</h1>
+<p><tt>gBuffer(<em>spgeom</em>, <em>byid</em>, <em>id</em>, <em>width</em>)</tt></p>
+<ul>
+<li>spgeom: must be a SpatialPolygon* object<br />
+</li>
+<li>byid: apply to individual features</li>
+<li>width: in map units, (postive=outer buffer, negative=inner</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">buff_dist &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.3048</span>  ## 1000 ft in meters
+sfpot_buf_prj &lt;-<span class="st"> </span><span class="kw">gBuffer</span>(sfpot_prj, <span class="dt">byid=</span>T, <span class="dt">width=</span>buff_dist)
+<span class="kw">plot</span>(sfpot_buf_prj, <span class="dt">axes=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="part02f_geoprocessing_files/figure-slidy/bufpot_byidt-1.png" width="768" /></p>
+<p>Note the difference that <tt>byid=F</tt> makes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sfpot_buf_prj &lt;-<span class="st"> </span><span class="kw">gBuffer</span>(sfpot_prj, <span class="dt">byid=</span>F, <span class="dt">width=</span>buff_dist)
+<span class="kw">plot</span>(sfpot_buf_prj, <span class="dt">axes=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="part02f_geoprocessing_files/figure-slidy/bufpot_byidf-1.png" width="768" /></p>
+</div>
+<div id="intersections" class="slide section level1">
+<h1>Intersections</h1>
+<p>Intersect the buffered dispensaries with just one of the neighborhood boundaries.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nb_name &lt;-<span class="st"> &quot;Mission&quot;</span>
+mission_bnd &lt;-<span class="st"> </span>sfnb_prj[sfnb_prj<span class="op">@</span>data<span class="op">$</span>nhood<span class="op">==</span>nb_name, ]
+mission_intrsct_pot &lt;-<span class="st"> </span><span class="kw">gIntersection</span>(mission_bnd, sfpot_buf_prj)
+<span class="kw">plot</span>(mission_bnd, <span class="dt">axes=</span>T, <span class="dt">asp=</span><span class="dv">1</span>)
+<span class="kw">plot</span>(mission_intrsct_pot, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">add=</span>T)</code></pre></div>
+<p><img src="part02f_geoprocessing_files/figure-slidy/unnamed-chunk-6-1.png" width="768" /></p>
+<p>Compute the percentage of the Mission neighborhood that falls within 1000 feet of a cannabis dispensary.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gArea</span>(mission_intrsct_pot) <span class="op">/</span><span class="st"> </span><span class="kw">gArea</span>(mission_bnd)</code></pre></div>
+<pre><code>## [1] 0.276493</code></pre>
+</div>
+<div id="delaunay-triangulation" class="slide section level1">
+<h1>Delaunay Triangulation</h1>
+<p><em>Delaunay Triangulation</em>: a triangular network connecting a set of points such that for each edge we can find a circle containing the edge's endpoints but not containing any other points.</p>
+<div class="figure">
+<img src="images/delaunay_circumcircles_480x480.png" />
+
+</div>
+<p>Create a Delaunay Triangulation for the cannabis dispensaries.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sfpot_deltri &lt;-<span class="st"> </span><span class="kw">gDelaunayTriangulation</span>(sfpot_prj)
+<span class="kw">plot</span>(sfpot_prj, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">axes=</span><span class="ot">TRUE</span>)
+<span class="kw">plot</span>(sfnb_prj, <span class="dt">border=</span><span class="st">&quot;grey60&quot;</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)
+<span class="kw">plot</span>(sfpot_deltri, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">border=</span><span class="st">&quot;darkorchid3&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="part02f_geoprocessing_files/figure-slidy/delaunay_tri-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="convex-hull-minimum-convex-polygon" class="slide section level1">
+<h1>Convex Hull / Minimum Convex Polygon</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sfpot_ch &lt;-<span class="st"> </span><span class="kw">gConvexHull</span>(sfpot_prj)
+<span class="kw">plot</span>(sfpot_prj, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">axes=</span><span class="ot">TRUE</span>)
+<span class="kw">plot</span>(sfnb_prj, <span class="dt">border=</span><span class="st">&quot;grey60&quot;</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)
+<span class="kw">plot</span>(sfpot_ch, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">border=</span><span class="st">&quot;darkorchid3&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="part02f_geoprocessing_files/figure-slidy/unnamed-chunk-8-1.png" width="768" /></p>
+</div>
+<div id="next-up" class="slide section level1">
+<h1>Next Up</h1>
+<p><a href="../exercises/ex07_geoprocessing.html" target="_blank">Exercise 7. Geoprocessing</a></p>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

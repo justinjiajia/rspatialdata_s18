@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Spatial Analysis with R: Exercise 7: Geoprocessing</title>
+
+<script src="lib/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="lib/navigation-1.1/tabsets.js"></script>
+<link href="lib/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="lib/highlightjs-1.1/highlight.js"></script>
+<link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+<script language="javascript" type="text/javascript">
+function TriShowHide(shID) {
+  shIDspan = shID + "span";
+  shIDdiv = shID + "div";
+  if (document.getElementById(shIDdiv).style.display != 'block') {
+    document.getElementById(shIDdiv).style.display = 'block';
+    txtSpan = "&#9660;";
+  } else {
+    document.getElementById(shIDdiv).style.display = 'none';
+    txtSpan = "&#9654;";
+  }
+  document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+}
+function showHide(shID) {
+  if (shID=="soln-show-all") {
+    var allAnswerCode = document.getElementsByClassName("answer-code");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'block';
+    }
+  } else if (shID=="soln-hide-all") {
+    var allAnswerCode = document.getElementsByClassName("answer-code");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'none';
+    }
+  } else if (shID=="hints-show-all") {
+    var allAnswerCode = document.getElementsByClassName("hint");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'block';
+    }
+  } else if (shID=="hints-hide-all") {
+    var allAnswerCode = document.getElementsByClassName("hint");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'none';
+    }
+  } else {
+    if (document.getElementById(shID)) {
+      if (document.getElementById(shID).style.display != 'block') {
+        document.getElementById(shID).style.display = 'block';
+      } else {
+        document.getElementById(shID).style.display = 'none';
+      }
+    }
+  }
+}
+function CopyToClipboard(containerid) {
+if (document.selection) { 
+    var range = document.body.createTextRange();
+    range.moveToElementText(document.getElementById(containerid));
+    range.select().createTextRange();
+    document.execCommand("copy"); 
+} else if (window.getSelection) {
+    var range = document.createRange();
+    range.selectNode(document.getElementById(containerid));
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    // alert("text copied") 
+}}
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="..\common\slidy_styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore"><span class="ex-title">Spatial Analysis with R:</span><br/><span class="ex-subtitle">Exercise 7: Geoprocessing</span></h1>
+<h4 class="date"><em>Spring 2018</em></h4>
+
+</div>
+
+
+<div id="instructions" class="section level3">
+<h3>Instructions</h3>
+<ul>
+<li><p>If you haven't already, install <a href="https://cran.r-project.org/">R</a> and <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>.</p></li>
+<li><p>Download the <a href="https://github.com/ajlyons/rspatialdata/tree/gh-pages" target="_blank">GitHub repo</a>.</p></li>
+<li><p>Create a new R script in RStudio (File → New File → R Script).</p></li>
+<li><p>Copy the questions below (all of which begin with the <em>#</em> character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.</p></li>
+<li><p>Remember to save your script periodically to avoid losing work if RStudio crashes.</p></li>
+<li><p>If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.</p></li>
+<li><p>If you have any questions or problems, please feel free to email the instructor.</p></li>
+</ul>
+<hr class="hrdivider">
+<div style="text-align:center">
+<button onclick="CopyToClipboard('qtn_div');return false;">
+Copy questions
+</button>
+</div>
+<div id="qtn_div">
+<p>########################################<br />
+<strong>### Import Projected CA Counties and Cell Towers</strong></p>
+<p><a id="qtn_mhhtcn" href="#" class="showhidelink" onclick="showHide('mhhtcn');return false;"># 1.</a> (If needed) import the projected county boundaries and cell tower locations you<br />
+#  saved in an earlier exercise.</p>
+<div id="mhhtcn" class="answer-code">
+<pre class="r"><code>load(&quot;data/ex06_cell_towers_prj.RData&quot;)
+load(&quot;data/ex06_counties_bnd.RData&quot;)</code></pre>
+</div>
+<p>########################################<br />
+<strong>### Country Centroids and Delaunay Triangulation</strong></p>
+<p><a id="qtn_kliybg" href="#" class="showhidelink" onclick="showHide('kliybg');return false;"># 2.</a> Compute and plot the centroids of the counties.</p>
+<div id="kliybg" class="answer-code">
+<pre class="r"><code>library(rgeos)</code></pre>
+<pre><code>## rgeos version: 0.3-26, (SVN revision 560)
+##  GEOS runtime version: 3.6.1-CAPI-1.10.1 r0 
+##  Linking to sp version: 1.2-6 
+##  Polygon checking: TRUE</code></pre>
+<pre class="r"><code>ca_cnty_ctr &lt;- gCentroid(ca_cnty_prj, byid=TRUE)
+plot(ca_cnty_prj, axes=TRUE, asp=1)
+plot(ca_cnty_ctr, col=&quot;tan3&quot;, pch=17, cex=1.2, add=TRUE)</code></pre>
+<p><img src="ex07_geoprocessing_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<p><a id="qtn_ctxpvl" href="#" class="showhidelink" onclick="showHide('ctxpvl');return false;"># 3.</a> Create and plot a Delaunay Triangulation of the county centroids.</p>
+<div id="ctxpvl" class="answer-code">
+<pre class="r"><code>countyctr_tri &lt;- gDelaunayTriangulation(ca_cnty_ctr)
+#plot(sfpot_prj, col=&quot;red&quot;, pch=16, cex=2, axes=TRUE)
+plot(ca_cnty_prj, border=&quot;grey60&quot;, axes=TRUE, asp=1)
+plot(countyctr_tri, add=TRUE, border=&quot;springgreen4&quot;, lwd=1.2)</code></pre>
+<p><img src="ex07_geoprocessing_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<p>########################################<br />
+<strong>### Buffers and Intersections</strong></p>
+<p><a id="qtn_azdmbs" href="#" class="showhidelink" onclick="showHide('azdmbs');return false;"># 4.</a> Compute a 5 mile buffer around each tower.</p>
+<div id="azdmbs" class="answer-code">
+<pre class="r"><code>meters_per_mile &lt;- 1609.34
+cell_towers_buf &lt;- gBuffer(cell_towers_spdf_prj, byid=TRUE, width=5 * meters_per_mile)
+plot(cell_towers_buf)</code></pre>
+<p><img src="ex07_geoprocessing_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<p><a id="qtn_rdwyol" href="#" class="showhidelink" onclick="showHide('rdwyol');return false;"># 5.</a> Focusing on one county, find the area within 5 miles of a cell tower. What<br />
+#  percentage of the county is this?</p>
+<div id="rdwyol" class="answer-code">
+<pre class="r"><code>idx &lt;- sample(1:nrow(ca_cnty_prj), size=1)
+some_county_bnd &lt;- ca_cnty_prj[idx,]
+cnty_celltowbuff &lt;- gIntersection(some_county_bnd, cell_towers_buf)
+plot(some_county_bnd, axes=TRUE, asp=TRUE, main=ca_cnty_prj@data[idx, &quot;CountyNAME&quot;])
+plot(cnty_celltowbuff, add=TRUE, col=&quot;red&quot;, pch=16, cex=0.7)</code></pre>
+<p><img src="ex07_geoprocessing_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>gArea(cnty_celltowbuff)</code></pre>
+<pre><code>## [1] 1040134423</code></pre>
+<pre class="r"><code>gArea(cnty_celltowbuff) / gArea(some_county_bnd)</code></pre>
+<pre><code>## [1] 0.2887868</code></pre>
+<p>29% of the county is within 5 miles of cell tower.</p>
+</div>
+</div>
+<!-- end questions -->
+</div>
+
+<hr>
+<div style="float:right; width:33%; text-align:right;">
+<a href="../index.html" style="text-decoration:none;">Course outline</a>
+</div>
+
+<div style="float:right; width:33%; text-align:center;">
+<a href="#" style="text-decoration:none;" onclick="showHide('soln-show-all');return false;">show all solutions</a> | <a href="#" style="text-decoration:none;" onclick="showHide('soln-hide-all');return false;">hide all solutions</a>
+</div>
+
+<div style="width:33%;">
+<a href="#" style="text-decoration:none;" onclick="showHide('hints-show-all');return false;">show all hints</a> | <a href="#" style="text-decoration:none;" onclick="showHide('hints-hide-all');return false;">hide all hints</a>
+</div>
+<br/>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

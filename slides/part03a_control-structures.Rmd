@@ -1,0 +1,129 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>Control Structures: Loops and Branches</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 3
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+```
+
+---
+
+# Course Outline
+
+```{r test-main, child = 'course_outline.Rmd'}
+```
+
+# Branching with <tt>if</tt>, <tt>else</tt>, and <tt>ifelse</tt>
+
+<tt>if</tt> and <tt>else</tt> statements are control structures that let you control how a code should execute based on a set of pre-established conditions.
+
+Syntax:
+
+<tt>if (condition) {statement} else {other statement}</tt>
+
+```{r}
+x <- 7
+if (x > 7) {
+  print(x)
+} else {
+  print("NOT BIG ENOUGH!!")
+}
+```
+
+*Notes*
+
+<div class="indented1">
+- the conditional expression after the <tt>if</tt> statement much be in (parentheses)  
+- Use {curly braces} to define chunks of code   
+- indentation is not mandatory, but makes the code more legible   
+</div>
+
+__<tt>ifelse()</tt>__
+
+A variabtion of the <tt>if-then</tt> statements is the __<tt>ifelse()</tt>__ function. This function is handy for recoding data.
+
+Syntax:
+
+<tt>ifelse(test, yes, no)</tt>
+
+
+```{r, eval=FALSE}
+animal <- ifelse(animal=="cat", 1, 0)       
+```
+
+
+# Loops
+
+- Use a __for__ loop if you know in advance how many passes  
+- use a __while__ loop if you have to do a check to see if you need to continue going through the loop  
+
+## For loops
+
+You generally loop a variable like *i* over a vector of values to control the loop.
+
+```{r}
+for (i in 1:10){
+  print(i^2)
+}
+```
+
+An example where the loop variable is used as an index.
+
+```{r}
+for (i in 1:10) {
+  print(state.name[i])
+}
+```
+
+Loops can be combined with if-else statements
+
+```{r}
+x <- 1:10
+for (i in 1:10) {
+    if(x[i] >= 7) { 
+        print(x[i])
+    } else {                     
+      print("NOT BIG ENOUGH!!")
+    }
+}
+```
+
+## Keeping Track of a Variable
+
+A common practice is to 
+
+
+Loop through a data frame
+
+
+
+
+## While Loops
+
+
+
+
+# Next Up
+
+[Exercise 8: Loops and Branches](exercises/ex08_loops-branches.html){target="_blank"}
+
+[Spatial Queries](part03b_spatial-queries.html)
+
+

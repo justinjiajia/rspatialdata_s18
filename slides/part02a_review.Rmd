@@ -152,7 +152,7 @@ Load = bring into your R session
 <tt>library()</tt> or <tt>require()</tt>
 </div>
 
-## R Spatial Ecosystem
+## Spatial Data Pacakges Ecosystem
 
 <div class="centerblock"><img src="images/rspatial_ecosystem_v2_776x486.png"></img></div>
 

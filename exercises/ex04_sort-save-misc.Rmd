@@ -19,14 +19,6 @@ library(rgdal)
 load('../common/course_info.RData')
 ```
 
-Make this short and sweet.
-
-Change list names
-
-Save a file to the home directory
-
-Open a datasets from Airlines, and compute some stats.
-
 ### Instructions
 
 - If you haven't already, install [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/). 
@@ -35,7 +27,7 @@ Open a datasets from Airlines, and compute some stats.
 
 - Create a new R script in RStudio (File &rarr; New File &rarr; R Script). 
 
-- Copy the questions below (all of which begin with the _#_ character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.<br/><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button><br/>
+- Copy the questions below (all of which begin with the _#_ character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.
 
 - Remember to save your script periodically to avoid losing work if RStudio crashes.
 
@@ -44,14 +36,141 @@ Open a datasets from Airlines, and compute some stats.
 - If you have any questions or problems, please feel free to email the instructor.
 
 <hr class="hrdivider">
+<div style="text-align:center"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
 
 <div id="qtn_div">
 
-### \#\#\# VIEW A LIST
+`r paste0(rep('\\#',20), collapse='')`  
+\#\#\# SORT DATA
 
+\# `r chop("<tt>Nile</tt> is a dataset that comes with the *datasets* package, and contains the annual flow of the river Nile from 1871-1970.")`
 
+<a id="qtn_zfhrcd" href="#" class="showhidelink" onclick="showHide('zfhrcd');return false;">\# `r auton()`</a> `r chop("What type of object is *Nile*?")`  
 
-
-
+<div id="zfhrcd" class="answer-code">
+```{r}
+class(Nile)
+```
+<tt>ts</tt> = time series. A Time Series object is basically a numeric vector with additional attributes that save the time points.
 </div>
+
+<a id="qtn_jdaltg" href="#" class="showhidelink" onclick="showHide('jdaltg');return false;">\# `r auton()`</a> `r chop("How many values are there in *Nile*?")`  
+
+<div id="jdaltg" class="answer-code">
+```{r}
+length(Nile)
+```
+</div>
+
+<a id="qtn_wckfld" href="#" class="showhidelink" onclick="showHide('wckfld');return false;">\# `r auton()`</a> `r chop("Plot the Nile data")`  
+
+<div id="wckfld" class="answer-code">
+```{r}
+plot(Nile)
+```
+</div>
+
+<a id="qtn_fpulpd" href="#" class="showhidelink" onclick="showHide('fpulpd');return false;">\# `r auton()`</a> `r chop("Write expressions that return the i) lowest 3 values from *Nile*, ii) the top 3 values, and iii) middle three values")`  
+
+<div id="fpulpd" class="answer-code">
+```{r}
+sort(Nile)[1:3]
+sort(Nile, decreasing = TRUE)[1:3]
+mid_idx <- round(length(Nile) / 2)
+sort(Nile)[seq(from=mid_idx-1, to=mid_idx+1)]
+```
+</div>
+
+`r paste0(rep('\\#',20), collapse='')`  
+__\#\#\# CREATE AND MANIPULATE A LIST__
+
+<a id="qtn_ncnwzg" href="#" class="showhidelink" onclick="showHide('ncnwzg');return false;">\# `r auton()`</a> Create three vectors:  
+\# i. your favorite colors  
+\# ii. ten random numbers from a uniform distribution ranging from 10 to 20  
+\# iii. five randomly chosen letters of the alphabet
+
+<div id="ncnwzg" class="answer-code">
+```{r}
+my_cols <- c("green", "crimson", "bronze")
+my_nums <- runif(10, min=10, max=20)
+my_letters <- sample(LETTERS, size=5, replace=FALSE)
+```
+</div>
+
+
+<a id="qtn_lusnod" href="#" class="showhidelink" onclick="showHide('lusnod');return false;">\# `r auton()`</a> `r chop("Combine the three vectors you created above into a list.")`  
+
+<div id="lusnod" class="answer-code">
+```{r}
+my_list <- list(colors=my_cols, nums=my_nums, ltrs=my_letters)
+my_list
+```
+</div>
+
+<a id="qtn_nnkyrr" href="#" class="showhidelink" onclick="showHide('nnkyrr');return false;">\# `r auton()`</a> `r chop("Write expressions that returns the class of each element of your list.")`  
+
+<div id="nnkyrr" class="answer-code">
+```{r}
+class(my_list$colors)
+class(my_list$nums)
+class(my_list$ltrs)
+```
+
+You could also use
+
+```{r}
+str(my_list)
+sapply(my_list, class)
+```
+</div>
+
+<a id="qtn_upstrl" href="#" class="showhidelink" onclick="showHide('upstrl');return false;">\# `r auton()`</a> `r chop("Delete one of the list elements. Verify it's gone.")`  
+
+<div id="upstrl" class="answer-code">
+```{r}
+my_list$ltrs <- NULL
+names(my_list)
+```
+</div>
+
+`r paste0(rep('\\#',20), collapse='')`  
+__\#\#\# SAVING DATA TO DISK__
+
+<a id="qtn_zenxza" href="#" class="showhidelink" onclick="showHide('zenxza');return false;">\# `r auton()`</a> `r chop("Where is R's 'home' directory on your computer?")`  
+
+<div id="zenxza" class="answer-code">
+```{r}
+setwd("~")
+getwd()
+```
+</div>
+
+<a id="qtn_qsyxru" href="#" class="showhidelink" onclick="showHide('qsyxru');return false;">\# `r auton()`</a> `r chop("Save the list object you created above as a R data file to your home directory.")`  
+
+<div id="qsyxru" class="answer-code">
+```{r}
+save(my_list, file="~/MyListData.RData")
+```
+</div>
+
+<a id="qtn_xxbrob" href="#" class="showhidelink" onclick="showHide('xxbrob');return false;">\# `r auton()`</a> `r chop("Delete the list object you created above from memory. Verify it's deleted.")`  
+
+<div id="xxbrob" class="answer-code">
+```{r, error=TRUE}
+rm(my_list)
+my_list
+```
+</div>
+
+<a id="qtn_nayatk" href="#" class="showhidelink" onclick="showHide('nayatk');return false;">\# `r auton()`</a> `r chop("Load the R data file you saved to the home directory earlier. Verify the list is back in memory.")`  
+
+<div id="nayatk" class="answer-code">
+```{r}
+load("~/MyListData.RData")
+my_list
+```
+</div>
+
+
+</div><!-- end question div -->
 

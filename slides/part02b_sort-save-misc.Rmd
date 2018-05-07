@@ -1,6 +1,6 @@
 ---
 title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
-author: "<span class='pres-title'>R Fundamentals</span>"
+author: "<span class='pres-title'>Sorting, Samples, Saving,<br/>and other R basics</span>"
 output: 
   slidy_presentation:
     css: "../common/slidy_styles.css"
@@ -117,7 +117,15 @@ R has two resevered words it uses to note missing values.
 
 These are not the same as errors!
 
-NULL can not exist in a vector. 
+NULL can not exist in a vector, but NA can. 
+
+```{r}
+x <- c(rep(NA, 10))
+x
+
+y <- c(rep(NULL, 10))
+y
+```
 
 ## Testing for NA and NULL:
 
@@ -142,11 +150,12 @@ x == ""
 
 # Lists
 
-Lists are similiar to vectors except that,
+A List object is an ordered group of data that are not of the same type. Lists are similiar to vectors except that,
 
 - the elements can be referenced by name as well as index  
 - elements can be different types
 - elements can anything (including other lists!)
+- instead of using c() like in vector creation, use <tt>list()</tt> to create a list
 
 ```{r}
 move_data <- list(id="toni", species="buffalo", age=12, sex="female", selected=TRUE, wt=182, herd=c("west", "hilltop"))
@@ -249,9 +258,21 @@ x_nums <- rnorm(1000) * 20
 save(x_nums, file="~/first_try.RData")
 ```
 
-.Rdata is a common extension for R data files, but you can name the file anyting you want. Note however the <tt>save()</tt> function saves objects in a binary, compressed file format that R understands. This makes it very flexible and easy to bring back into R using the sister function <tt>load()</tt>, however if you want to export data to use with another program, you probably want to use a different function that saves in a more standard file format, like <tt>write.csv()</tt> or <tt>write.table()</tt>.
+*.RData* and *.Rda* are common extensions for R data files, but you can name your file anyting you want. 
+
+The __<tt>save()</tt>__ function saves objects in a binary, compressed file format that R understands. This makes it very flexible and easy to bring back into R using the sister function __<tt>load()</tt>__.
 
 To save your entire workspace (all variables in memory), you can use the <tt>save.image()</tt> function. RStudio also have a 'Save Workspace' button on the 'Environment' window, and will probably ask if you want to save your workspace when you quit the program.
+
+__Other ways to save data__
+
+If you want to export data to use with another program, you probably want to use a different function that saves in a more standard file format, like __<tt>write.csv()</tt>__ or __<tt>write.table()</tt>__.
+
+Use the __<tt>sink()</tt>__ function to redirect output from the console to a file. Run __<tt>sink()</tt>__ again without an argument to resume sending output to the console.
+
+Spatial objects can be written to GIS formats with functions from the *rgdal* package, including __<tt>writeGDAL</tt>__ (vector) and __<tt>writeGDAL</tt>__ (raster). 
+
+Plots can be saved as PNG and PDF files.
 
 ## Loading Objects from Disk
 
@@ -279,14 +300,9 @@ If you have a set of commands that you want to rerun repeatedly, you can save th
 source("import_clean_data.R")
 ```
 
-*Still to come*:
-
-- saving plots as image files
-- saving spatial data
-
 # Next Up
 
-[Exercise 4. Lists and sorting](../exercises/ex04_lists_sort_safe.html){target="_blank"}
+[Exercise 4. Lists and sorting](../exercises/ex04_sort-save-misc.html){target="_blank"}
 
 [Two-Dimensional Data Structures](part02c_2d-data.html)
 

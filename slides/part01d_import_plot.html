@@ -174,10 +174,14 @@ Your browser does not support iframes.
 <h1>Importing Vector Data: rgdal</h1>
 <div class="indented1">
 <ul>
-<li><p><tt>rgdal</tt> is a wrapper for the Geospatial Data Abstraction Library (GDAL) library.</p></li>
-<li><p>It provides drivers for a wide range of vector and raster data formats.</p></li>
-<li><p>Data come in as Spatial* objects (<tt>sp</tt> package).</p></li>
-<li>Knows how to read project info</li>
+<li><tt>rgdal</tt> is a wrapper for the Geospatial Data Abstraction Library (GDAL) library.<br />
+</li>
+<li>It provides drivers for a wide range of vector and raster data formats.<br />
+</li>
+<li>Data come in as Spatial* objects (<tt>sp</tt> package).<br />
+</li>
+<li>Knows how to read project info<br />
+</li>
 </ul>
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sp)
@@ -276,7 +280,42 @@ Your browser does not support iframes.
 ##  Berkeley Seventh Day Adventist Church: 1              
 ##  Burbank Junior High School           : 1              
 ##  (Other)                              :41</code></pre>
-<p>More info on importing spatial data with rgdal from <a href="http://zevross.com/blog/2016/01/13/tips-for-reading-spatial-files-into-r-with-rgdal/">Zev Ross</a>.</p>
+<h2 id="import-from-a-geodatabase">Import from a Geodatabase</h2>
+<p>rgdal can import from a file geodatabase also. In this case, the source is the name of a directory.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdb_dir &lt;-<span class="st"> &quot;../exercises/data/sf_crime.gdb&quot;</span>
+<span class="kw">file.exists</span>(gdb_dir)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ogrListLayers</span>(gdb_dir)</code></pre></div>
+<pre><code>## [1] &quot;San_Francisco_Crimes&quot;
+## attr(,&quot;driver&quot;)
+## [1] &quot;OpenFileGDB&quot;
+## attr(,&quot;nlayers&quot;)
+## [1] 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sfcrime_sp &lt;-<span class="st"> </span><span class="kw">readOGR</span>(<span class="dt">dsn=</span>gdb_dir,<span class="dt">layer=</span><span class="st">&quot;San_Francisco_Crimes&quot;</span>)</code></pre></div>
+<pre><code>## OGR data source with driver: OpenFileGDB 
+## Source: &quot;../exercises/data/sf_crime.gdb&quot;, layer: &quot;San_Francisco_Crimes&quot;
+## with 74760 features
+## It has 10 fields</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(sfcrime_sp)</code></pre></div>
+<pre><code>## [1] &quot;SpatialPointsDataFrame&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;sp&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(sfcrime_sp<span class="op">@</span>data)</code></pre></div>
+<pre><code>##  [1] &quot;Field1&quot;     &quot;Dates&quot;      &quot;Category&quot;   &quot;Descript&quot;   &quot;DayOfWeek&quot; 
+##  [6] &quot;PdDistrict&quot; &quot;Resolution&quot; &quot;Address&quot;    &quot;X&quot;          &quot;Y&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(sfcrime_sp, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex=</span><span class="fl">0.4</span>, <span class="dt">axes=</span>T, <span class="dt">asp=</span><span class="dv">1</span>)</code></pre></div>
+<p><img src="part01d_import_plot_files/figure-slidy/plot_sfcrimes-1.png" width="768" /></p>
+<h2 id="exporting">Exporting</h2>
+<p>To determine if you can <em>export</em> as well as import a specific file format, look at the OGR driver info by running <tt>ogrDrivers()</tt>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(<span class="kw">ogrDrivers</span>(), <span class="kw">grepl</span>(<span class="st">&quot;ESRI&quot;</span>, name))</code></pre></div>
+<pre><code>##              name      long_name write  copy isVector
+## 17 ESRI Shapefile ESRI Shapefile  TRUE FALSE     TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(<span class="kw">ogrDrivers</span>(), <span class="kw">grepl</span>(<span class="st">&quot;KML&quot;</span>, name))</code></pre></div>
+<pre><code>##    name                     long_name write  copy isVector
+## 32  KML Keyhole Markup Language (KML)  TRUE FALSE     TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(<span class="kw">ogrDrivers</span>(), <span class="kw">grepl</span>(<span class="st">&quot;GDB&quot;</span>, name))</code></pre></div>
+<pre><code>##           name    long_name write  copy isVector
+## 44 OpenFileGDB ESRI FileGDB FALSE FALSE     TRUE</code></pre>
 </div>
 <div id="plotting" class="slide section level1">
 <h1>Plotting</h1>
@@ -326,6 +365,11 @@ Your browser does not support iframes.
 <div id="next-up" class="slide section level1">
 <h1>Next Up</h1>
 <p><a href="../exercises/ex03_import_plot.html" target="_blank">Exercise 3. Import and Plot Spatial Data</a></p>
+<p>Other Resources</p>
+<div class="indented2">
+<ul>
+<li><a href="http://zevross.com/blog/2016/01/13/tips-for-reading-spatial-files-into-r-with-rgdal/" target="_blank">Importing spatial data with <tt>rgdal</tt></a>, by Zev Ross </dev></li>
+</ul>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->

@@ -99,6 +99,14 @@ C: Show table of contents
 
 Explore RStudio
 
+<div class="indented1">
+- what the different windows are for
+- how to change font size and colors
+- running commands from the script window
+- packages tab
+- help menu, package help  
+</div>
+
 Install the following packages:
 
 <div class="indented1">

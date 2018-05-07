@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Control Structures: Loops and Branches" />
+  <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href=' https://is.gd/rspatial_baygeo_s18 ' target='_blank'> https://is.gd/rspatial_baygeo_s18 </a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Week 3:  Spatial Data Analysis with R  May 10, 2018</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) { 
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy"); 
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied") 
+  }}
+  </script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="..\common\slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title"><span class="pres-date">Week 3: </span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span> <br/><span class="pres-date">May 10, 2018</span></h1>
+  <p class="author">
+<span class="pres-title">Control Structures: Loops and Branches</span>
+  </p>
+</div>
+<div id="course-outline" class="slide section level1">
+<h1>Course Outline</h1>
+<!------- WEEK 01 ---------------------------------------->
+<p><span id="tri01span" class="tritoggle" onclick="TriShowHide(&#39;tri01&#39;);return false;">▶ </span><span class="sessiontitle">April 19. Intro to R, Packages, Basic Syntax, Importing Data, Basic Visualization</span></p>
+<div id="tri01div" class="compact" style="display:none;">
+<ul>
+<li>RStudio<br />
+</li>
+<li>basic syntax<br />
+</li>
+<li>data types</li>
+<li>indexing and filtering<br />
+</li>
+<li>comparison operators<br />
+</li>
+<li>sequences<br />
+</li>
+<li>packages</li>
+<li>sample datasets<br />
+</li>
+<li>importing spatial data<br />
+</li>
+<li>basic plotting<br />
+</li>
+</ul>
+</div>
+<!-------- WEEK 02 --------------------------------------->
+<p><span id="zeroryspan" class="tritoggle" onclick="TriShowHide(&#39;zerory&#39;);return false;">▶ </span><span class="sessiontitle">April 26. Two-Dimensional Data Structures, R Markdown, Spatial Data Classes, Projections, Queries, Geoprocessing, Spatial Overlays</span></p>
+<div id="zerorydiv" class="compact" style="display:none;">
+<ul>
+<li>lists, data frames, matrices</li>
+<li>importing and exporting<br />
+</li>
+<li>R Markdown</li>
+<li>spatial data classes</li>
+<li>projections</li>
+<li>queries</li>
+<li>geoprocessing</li>
+<li>spatial overlays</li>
+</ul>
+</div>
+<!--------- WEEK 03 -------------------------------------->
+<p><span id="icosxkspan" class="tritoggle" onclick="TriShowHide(&#39;icosxk&#39;);return false;">▼ </span><span class="sessiontitle">May 10. Loops and branches, APIs, geocoding, raster analyses, R-ArcGIS integration</span></p>
+<div id="icosxkdiv" class="compact" style="display:block;">
+
+</div>
+<!---------- WEEK 04 ------------------------------------->
+<p><span id="iadcpnspan" class="tritoggle" onclick="TriShowHide(&#39;iadcpn&#39;);return false;">▶ </span><span class="sessiontitle">May ??. Custom functions, working with models, ggmap &amp; leaflet</span></p>
+<div id="iadcpndiv" class="compact" style="display:none;">
+
+</div>
+</div>
+<div id="branching-with-if-else-and-ifelse" class="slide section level1">
+<h1>Branching with <tt>if</tt>, <tt>else</tt>, and <tt>ifelse</tt></h1>
+<p><tt>if</tt> and <tt>else</tt> statements are control structures that let you control how a code should execute based on a set of pre-established conditions.</p>
+<p>Syntax:</p>
+<p><tt>if (condition) {statement} else {other statement}</tt></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">7</span>
+<span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">7</span>) {
+  <span class="kw">print</span>(x)
+} <span class="cf">else</span> {
+  <span class="kw">print</span>(<span class="st">&quot;NOT BIG ENOUGH!!&quot;</span>)
+}</code></pre></div>
+<pre><code>## [1] &quot;NOT BIG ENOUGH!!&quot;</code></pre>
+<p><em>Notes</em></p>
+<div class="indented1">
+<ul>
+<li>the conditional expression after the <tt>if</tt> statement much be in (parentheses)<br />
+</li>
+<li>Use {curly braces} to define chunks of code<br />
+</li>
+<li>indentation is not mandatory, but makes the code more legible<br />
+</li>
+</ul>
+</div>
+</div>
+<div id="loops" class="slide section level1">
+<h1>Loops</h1>
+<ul>
+<li>Use a <strong>for</strong> loop if you know in advance how many passes<br />
+</li>
+<li>use a <strong>while</strong> loop if you have to do a check to see if you need to continue going through the loop</li>
+</ul>
+<h2 id="for-loops">For loops</h2>
+<p>You generally loop a variable like <em>i</em> over a vector of values to control the loop.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){
+  <span class="kw">print</span>(i<span class="op">^</span><span class="dv">2</span>)
+}</code></pre></div>
+<pre><code>## [1] 1
+## [1] 4
+## [1] 9
+## [1] 16
+## [1] 25
+## [1] 36
+## [1] 49
+## [1] 64
+## [1] 81
+## [1] 100</code></pre>
+<p>An example where the loop variable is used as an index.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
+  <span class="kw">print</span>(state.name[i])
+}</code></pre></div>
+<pre><code>## [1] &quot;Alabama&quot;
+## [1] &quot;Alaska&quot;
+## [1] &quot;Arizona&quot;
+## [1] &quot;Arkansas&quot;
+## [1] &quot;California&quot;
+## [1] &quot;Colorado&quot;
+## [1] &quot;Connecticut&quot;
+## [1] &quot;Delaware&quot;
+## [1] &quot;Florida&quot;
+## [1] &quot;Georgia&quot;</code></pre>
+<p>Loops can be combined with if-else statements</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
+    <span class="cf">if</span>(x[i] <span class="op">&gt;=</span><span class="st"> </span><span class="dv">7</span>) { 
+        <span class="kw">print</span>(x[i])
+    } <span class="cf">else</span> {                     
+      <span class="kw">print</span>(<span class="st">&quot;NOT BIG ENOUGH!!&quot;</span>)
+    }
+}</code></pre></div>
+<pre><code>## [1] &quot;NOT BIG ENOUGH!!&quot;
+## [1] &quot;NOT BIG ENOUGH!!&quot;
+## [1] &quot;NOT BIG ENOUGH!!&quot;
+## [1] &quot;NOT BIG ENOUGH!!&quot;
+## [1] &quot;NOT BIG ENOUGH!!&quot;
+## [1] &quot;NOT BIG ENOUGH!!&quot;
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10</code></pre>
+</div>
+<div id="while-loops" class="slide section level1">
+<h1>While Loops</h1>
+</div>
+<div id="next-up" class="slide section level1">
+<h1>Next Up</h1>
+<p><a href="exercises/ex08_loops-branches.html" target="_blank">Exercise 8: Loops and Branches</a></p>
+<p><a href="part03b_spatial-queries.html">Spatial Queries</a></p>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

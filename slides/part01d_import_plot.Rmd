@@ -64,13 +64,10 @@ How would you represent each of the following?
 # Importing Vector Data: rgdal
 
 <div class="indented1">
-- <tt>rgdal</tt> is a wrapper for the Geospatial Data Abstraction Library (GDAL) library.
-
-- It provides drivers for a wide range of vector and raster data formats.
-
-- Data come in as Spatial* objects (<tt>sp</tt> package).
-
-- Knows how to read project info
+- <tt>rgdal</tt> is a wrapper for the Geospatial Data Abstraction Library (GDAL) library.  
+- It provides drivers for a wide range of vector and raster data formats.  
+- Data come in as Spatial* objects (<tt>sp</tt> package).  
+- Knows how to read project info  
 </div>
 
 ```{r echo=TRUE, results='hide', message=FALSE}
@@ -118,7 +115,29 @@ brk_sites <- readOGR(kml_fn, "Public Facilities")
 summary(brk_sites)
 ```
 
-More info on importing spatial data with rgdal from [Zev Ross](http://zevross.com/blog/2016/01/13/tips-for-reading-spatial-files-into-r-with-rgdal/).
+## Import from a Geodatabase
+
+rgdal can import from a file geodatabase also. In this case, the source is the name of a directory.
+
+```{r plot_sfcrimes, cache=TRUE}
+gdb_dir <- "../exercises/data/sf_crime.gdb"
+file.exists(gdb_dir)
+ogrListLayers(gdb_dir)
+sfcrime_sp <- readOGR(dsn=gdb_dir,layer="San_Francisco_Crimes")
+class(sfcrime_sp)
+names(sfcrime_sp@data)
+plot(sfcrime_sp, pch=16, cex=0.4, axes=T, asp=1)
+```
+
+## Exporting
+
+To determine if you can *export* as well as import a specific file format, look at the OGR driver info by running <tt>ogrDrivers()</tt>.
+
+```{r}
+subset(ogrDrivers(), grepl("ESRI", name))
+subset(ogrDrivers(), grepl("KML", name))
+subset(ogrDrivers(), grepl("GDB", name))
+```
 
 # Plotting
 
@@ -132,7 +151,7 @@ There are lots of optional arguments to make it look nicer
 There are plotting packages for even nicer output (e.g., <tt>ggplot2</tt>)
 </div>
 
-```{r plot_ca, fig.align="center", cache=TRUE, out.height=400}
+```{r plot_ca, fig.align="center", out.height=400, cache=TRUE}
 plot(ca_counties)
 ```
 
@@ -179,4 +198,9 @@ plot(ca_counties, col=palette(), asp=1)
 
 [Exercise 3. Import and Plot Spatial Data](../exercises/ex03_import_plot.html){target="_blank"}
 
+*Other Resources*
+
+<div class="indented2">
+- [Importing spatial data with <tt>rgdal</tt>](http://zevross.com/blog/2016/01/13/tips-for-reading-spatial-files-into-r-with-rgdal/){target="_blank"}, by Zev Ross
+</dev>
 

@@ -39,6 +39,7 @@ load('../common/course_info.RData')
 
 <div id="qtn_div">
 
+`r paste0(rep('\\#',20), collapse='')`  
 ### \#\#\# IMPORT COUNTY BOUNDARIES
 
 <a id="qtn_tzzewz" href="#" class="showhidelink" onclick="showHide('tzzewz');return false;">\# `r auton()`</a> `r chop("The exercises/data directory has a Shapefile called *ca_counties_census*. Bring it into R and determine if they are projected.")` <a href="#" class="showhidehint" onclick="showHide('feolbg');return false;"></a>  
@@ -121,15 +122,14 @@ plot(cell_towers_spdf_prj, add=TRUE, col="red", pch=16, cex=0.7)
 ```
 </div>
 
-<a id="qtn_uphips" href="#" class="showhidelink" onclick="showHide('uphips');return false;">\# `r auton()`</a> `r chop("Save the projected cell towers and selected county boundary to disk so they can be loaded for a future exercise.")` <a href="#" class="showhidehint" onclick="showHide('bhxspo');return false;"></a>  
+<a id="qtn_uphips" href="#" class="showhidelink" onclick="showHide('uphips');return false;">\# `r auton()`</a> `r chop("Save the projected county boundaries and cell tower locations to disk so they can be loaded for a future exercise.")` <a href="#" class="showhidehint" onclick="showHide('bhxspo');return false;"></a>  
 
 <div id="bhxspo" class="hint">Remember where you save it!</div>
-  
 
 <div id="uphips" class="answer-code">
-```{r, eval=FALSE}
-save(cell_towers_spdf_prj, file="cell_towers_prj.RData")
-save(random_county, file="county_bnd_one.RData")
+```{r}
+save(ca_cnty_prj, file="data/ex06_counties_bnd.RData")
+save(cell_towers_spdf_prj, file="data/ex06_cell_towers_prj.RData")
 ```
 </div>
 

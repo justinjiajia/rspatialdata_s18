@@ -181,29 +181,135 @@ $(document).ready(function () {
 </div>
 
 
-<p>Make this short and sweet.</p>
-<p>Change list names</p>
-<p>Save a file to the home directory</p>
-<p>Open a datasets from Airlines, and compute some stats.</p>
 <div id="instructions" class="section level3">
 <h3>Instructions</h3>
 <ul>
 <li><p>If you haven't already, install <a href="https://cran.r-project.org/">R</a> and <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>.</p></li>
 <li><p>Download the <a href="https://github.com/ajlyons/rspatialdata/tree/gh-pages" target="_blank">GitHub repo</a>.</p></li>
 <li><p>Create a new R script in RStudio (File → New File → R Script).</p></li>
-<li>Copy the questions below (all of which begin with the <em>#</em> character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.<br/>
-<button onclick="CopyToClipboard('qtn_div');return false;">
-Copy questions
-</button>
-<p><br/></p></li>
+<li><p>Copy the questions below (all of which begin with the <em>#</em> character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.</p></li>
 <li><p>Remember to save your script periodically to avoid losing work if RStudio crashes.</p></li>
 <li><p>If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.</p></li>
 <li><p>If you have any questions or problems, please feel free to email the instructor.</p></li>
 </ul>
 <hr class="hrdivider">
-<div id="qtn_div">
-<h3 id="view-a-list">### VIEW A LIST</h3>
+<div style="text-align:center">
+<button onclick="CopyToClipboard('qtn_div');return false;">
+Copy questions
+</button>
 </div>
+<div id="qtn_div">
+<p>####################<br />
+### SORT DATA</p>
+<p># <tt>Nile</tt> is a dataset that comes with the <em>datasets</em> package, and contains the annual flow of the<br />
+#  river Nile from 1871-1970.</p>
+<p><a id="qtn_zfhrcd" href="#" class="showhidelink" onclick="showHide('zfhrcd');return false;"># 1.</a> What type of object is <em>Nile</em>?</p>
+<div id="zfhrcd" class="answer-code">
+<pre class="r"><code>class(Nile)</code></pre>
+<pre><code>## [1] &quot;ts&quot;</code></pre>
+<p><tt>ts</tt> = time series. A Time Series object is basically a numeric vector with additional attributes that save the time points.</p>
+</div>
+<p><a id="qtn_jdaltg" href="#" class="showhidelink" onclick="showHide('jdaltg');return false;"># 2.</a> How many values are there in <em>Nile</em>?</p>
+<div id="jdaltg" class="answer-code">
+<pre class="r"><code>length(Nile)</code></pre>
+<pre><code>## [1] 100</code></pre>
+</div>
+<p><a id="qtn_wckfld" href="#" class="showhidelink" onclick="showHide('wckfld');return false;"># 3.</a> Plot the Nile data</p>
+<div id="wckfld" class="answer-code">
+<pre class="r"><code>plot(Nile)</code></pre>
+<p><img src="ex04_sort-save-misc_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<p><a id="qtn_fpulpd" href="#" class="showhidelink" onclick="showHide('fpulpd');return false;"># 4.</a> Write expressions that return the i) lowest 3 values from <em>Nile</em>, ii) the top 3 values, and iii)<br />
+#  middle three values</p>
+<div id="fpulpd" class="answer-code">
+<pre class="r"><code>sort(Nile)[1:3]</code></pre>
+<pre><code>## [1] 456 649 676</code></pre>
+<pre class="r"><code>sort(Nile, decreasing = TRUE)[1:3]</code></pre>
+<pre><code>## [1] 1370 1260 1250</code></pre>
+<pre class="r"><code>mid_idx &lt;- round(length(Nile) / 2)
+sort(Nile)[seq(from=mid_idx-1, to=mid_idx+1)]</code></pre>
+<pre><code>## [1] 874 890 897</code></pre>
+</div>
+<p>####################<br />
+<strong>### CREATE AND MANIPULATE A LIST</strong></p>
+<p><a id="qtn_ncnwzg" href="#" class="showhidelink" onclick="showHide('ncnwzg');return false;"># 5.</a> Create three vectors:<br />
+# i. your favorite colors<br />
+# ii. ten random numbers from a uniform distribution ranging from 10 to 20<br />
+# iii. five randomly chosen letters of the alphabet</p>
+<div id="ncnwzg" class="answer-code">
+<pre class="r"><code>my_cols &lt;- c(&quot;green&quot;, &quot;crimson&quot;, &quot;bronze&quot;)
+my_nums &lt;- runif(10, min=10, max=20)
+my_letters &lt;- sample(LETTERS, size=5, replace=FALSE)</code></pre>
+</div>
+<p><a id="qtn_lusnod" href="#" class="showhidelink" onclick="showHide('lusnod');return false;"># 6.</a> Combine the three vectors you created above into a list.</p>
+<div id="lusnod" class="answer-code">
+<pre class="r"><code>my_list &lt;- list(colors=my_cols, nums=my_nums, ltrs=my_letters)
+my_list</code></pre>
+<pre><code>## $colors
+## [1] &quot;green&quot;   &quot;crimson&quot; &quot;bronze&quot; 
+## 
+## $nums
+##  [1] 10.37470 15.76191 16.24487 13.80308 15.25319 18.01784 18.24371
+##  [8] 19.34479 12.36445 15.21938
+## 
+## $ltrs
+## [1] &quot;Q&quot; &quot;R&quot; &quot;I&quot; &quot;F&quot; &quot;D&quot;</code></pre>
+</div>
+<p><a id="qtn_nnkyrr" href="#" class="showhidelink" onclick="showHide('nnkyrr');return false;"># 7.</a> Write expressions that returns the class of each element of your list.</p>
+<div id="nnkyrr" class="answer-code">
+<pre class="r"><code>class(my_list$colors)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>class(my_list$nums)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>class(my_list$ltrs)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>You could also use</p>
+<pre class="r"><code>str(my_list)</code></pre>
+<pre><code>## List of 3
+##  $ colors: chr [1:3] &quot;green&quot; &quot;crimson&quot; &quot;bronze&quot;
+##  $ nums  : num [1:10] 10.4 15.8 16.2 13.8 15.3 ...
+##  $ ltrs  : chr [1:5] &quot;Q&quot; &quot;R&quot; &quot;I&quot; &quot;F&quot; ...</code></pre>
+<pre class="r"><code>sapply(my_list, class)</code></pre>
+<pre><code>##      colors        nums        ltrs 
+## &quot;character&quot;   &quot;numeric&quot; &quot;character&quot;</code></pre>
+</div>
+<p><a id="qtn_upstrl" href="#" class="showhidelink" onclick="showHide('upstrl');return false;"># 8.</a> Delete one of the list elements. Verify it's gone.</p>
+<div id="upstrl" class="answer-code">
+<pre class="r"><code>my_list$ltrs &lt;- NULL
+names(my_list)</code></pre>
+<pre><code>## [1] &quot;colors&quot; &quot;nums&quot;</code></pre>
+</div>
+<p>####################<br />
+<strong>### SAVING DATA TO DISK</strong></p>
+<p><a id="qtn_zenxza" href="#" class="showhidelink" onclick="showHide('zenxza');return false;"># 9.</a> Where is R's 'home' directory on your computer?</p>
+<div id="zenxza" class="answer-code">
+<pre class="r"><code>setwd(&quot;~&quot;)
+getwd()</code></pre>
+<pre><code>## [1] &quot;C:/Users/Andy/Documents&quot;</code></pre>
+</div>
+<p><a id="qtn_qsyxru" href="#" class="showhidelink" onclick="showHide('qsyxru');return false;"># 10.</a> Save the list object you created above as a R data file to your home directory.</p>
+<div id="qsyxru" class="answer-code">
+<pre class="r"><code>save(my_list, file=&quot;~/MyListData.RData&quot;)</code></pre>
+</div>
+<p><a id="qtn_xxbrob" href="#" class="showhidelink" onclick="showHide('xxbrob');return false;"># 11.</a> Delete the list object you created above from memory. Verify it's deleted.</p>
+<div id="xxbrob" class="answer-code">
+<pre class="r"><code>rm(my_list)
+my_list</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;my_list&#39; not found</code></pre>
+</div>
+<p><a id="qtn_nayatk" href="#" class="showhidelink" onclick="showHide('nayatk');return false;"># 12.</a> Load the R data file you saved to the home directory earlier. Verify the list is back in memory.</p>
+<div id="nayatk" class="answer-code">
+<pre class="r"><code>load(&quot;~/MyListData.RData&quot;)
+my_list</code></pre>
+<pre><code>## $colors
+## [1] &quot;green&quot;   &quot;crimson&quot; &quot;bronze&quot; 
+## 
+## $nums
+##  [1] 10.37470 15.76191 16.24487 13.80308 15.25319 18.01784 18.24371
+##  [8] 19.34479 12.36445 15.21938</code></pre>
+</div>
+</div>
+<!-- end question div -->
 </div>
 
 <hr>

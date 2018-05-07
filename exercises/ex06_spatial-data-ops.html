@@ -206,8 +206,16 @@ Copy questions
 See <a href="../slides/part01d_import_plot.html#importing-vector-data-rgdal" target="_blank">Importing Vector Data with rgdal</a>
 </div>
 <div id="tzzewz" class="answer-code">
-<pre class="r"><code>library(rgdal)
-shapefile_dir &lt;- &quot;data&quot;
+<pre class="r"><code>library(rgdal)</code></pre>
+<pre><code>## Loading required package: sp</code></pre>
+<pre><code>## rgdal: version: 1.2-13, (SVN revision 686)
+##  Geospatial Data Abstraction Library extensions to R successfully loaded
+##  Loaded GDAL runtime: GDAL 2.2.0, released 2017/04/28
+##  Path to GDAL shared files: C:/Users/Andy/Documents/R/win-library/3.4/rgdal/gdal
+##  Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
+##  Path to PROJ.4 shared files: C:/Users/Andy/Documents/R/win-library/3.4/rgdal/proj
+##  Linking to sp version: 1.2-5</code></pre>
+<pre class="r"><code>shapefile_dir &lt;- &quot;data&quot;
 file.exists(shapefile_dir)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>ca_cnty_prj &lt;- rgdal::readOGR(shapefile_dir, &quot;ca_counties_census&quot;)</code></pre>
@@ -367,20 +375,20 @@ You can extract features from a SpatialPolygonDataFrame with square bracket nota
 <div id="mzzuax" class="answer-code">
 <pre class="r"><code>idx &lt;- sample(1:nrow(ca_cnty_prj), size=1)
 idx</code></pre>
-<pre><code>## [1] 51</code></pre>
+<pre><code>## [1] 11</code></pre>
 <pre class="r"><code>random_county &lt;- ca_cnty_prj[idx,]
 plot(random_county, axes=TRUE, asp=TRUE)
 plot(cell_towers_spdf_prj, add=TRUE, col=&quot;red&quot;, pch=16, cex=0.7)</code></pre>
 <p><img src="ex06_spatial-data-ops_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
-<p><a id="qtn_uphips" href="#" class="showhidelink" onclick="showHide('uphips');return false;"># 7.</a> Save the projected cell towers and selected county boundary to disk so they can be loaded for a<br />
+<p><a id="qtn_uphips" href="#" class="showhidelink" onclick="showHide('uphips');return false;"># 7.</a> Save the projected county boundaries and cell tower locations to disk so they can be loaded for a<br />
 #  future exercise. <a href="#" class="showhidehint" onclick="showHide('bhxspo');return false;"></a></p>
 <div id="bhxspo" class="hint">
 Remember where you save it!
 </div>
 <div id="uphips" class="answer-code">
-<pre class="r"><code>save(cell_towers_spdf_prj, file=&quot;cell_towers_prj.RData&quot;)
-save(random_county, file=&quot;county_bnd_one.RData&quot;)</code></pre>
+<pre class="r"><code>save(cell_towers_spdf_prj, file=&quot;data/ex06_cell_towers_prj.RData&quot;)
+save(ca_cnty_prj, file=&quot;data/ex06_counties_bnd.RData&quot;)</code></pre>
 </div>
 </div>
 <!-- end questions -->

@@ -1,0 +1,109 @@
+---
+title: "<span class='ex-title'>Spatial Analysis with R:</span><br/><span class='ex-subtitle'>Exercise 7: Geoprocessing</span>"
+date: "`r load('../common/course_info.RData'); lstCI$course`"
+output: 
+  html_document: 
+    css: "../common/slidy_styles.css"
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+      after_body: bottom_links.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("auton_chop.R")
+load('../common/course_info.RData')
+```
+
+### Instructions
+
+- If you haven't already, install [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/). 
+
+- Download the <a href="`r lstCI$githubrepo`" target="_blank">GitHub repo</a>. 
+
+- Create a new R script in RStudio (File &rarr; New File &rarr; R Script). 
+
+- Copy the questions below (all of which begin with the _#_ character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.
+
+- Remember to save your script periodically to avoid losing work if RStudio crashes.
+
+- If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.
+
+- If you have any questions or problems, please feel free to email the instructor.
+
+<hr class="hrdivider">
+<div style="text-align:center"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+
+<div id="qtn_div">
+
+`r hashline()`  
+__\#\#\# Import Projected CA Counties and Cell Towers__
+
+<a id="qtn_mhhtcn" href="#" class="showhidelink" onclick="showHide('mhhtcn');return false;">\# `r auton()`</a> `r chop("(If needed) import the projected county boundaries and cell tower locations you saved in an earlier exercise.")`  
+
+<div id="mhhtcn" class="answer-code">
+```{r}
+load("data/ex06_cell_towers_prj.RData")
+load("data/ex06_counties_bnd.RData")
+```
+</div>
+
+`r hashline()`  
+__\#\#\# Country Centroids and Delaunay Triangulation__
+
+<a id="qtn_kliybg" href="#" class="showhidelink" onclick="showHide('kliybg');return false;">\# `r auton()`</a> `r chop("Compute and plot the centroids of the counties.")`  
+
+<div id="kliybg" class="answer-code">
+```{r}
+library(rgeos)
+ca_cnty_ctr <- gCentroid(ca_cnty_prj, byid=TRUE)
+plot(ca_cnty_prj, axes=TRUE, asp=1)
+plot(ca_cnty_ctr, col="tan3", pch=17, cex=1.2, add=TRUE)
+```
+</div>
+
+
+<a id="qtn_ctxpvl" href="#" class="showhidelink" onclick="showHide('ctxpvl');return false;">\# `r auton()`</a> `r chop("Create and plot a Delaunay Triangulation of the county centroids.")`  
+
+<div id="ctxpvl" class="answer-code">
+```{r}
+countyctr_tri <- gDelaunayTriangulation(ca_cnty_ctr)
+#plot(sfpot_prj, col="red", pch=16, cex=2, axes=TRUE)
+plot(ca_cnty_prj, border="grey60", axes=TRUE, asp=1)
+plot(countyctr_tri, add=TRUE, border="springgreen4", lwd=1.2)
+```
+</div>
+
+`r hashline()`  
+__\#\#\# Buffers and Intersections__
+
+<a id="qtn_azdmbs" href="#" class="showhidelink" onclick="showHide('azdmbs');return false;">\# `r auton()`</a> `r chop("Compute a 5 mile buffer around each tower.")`  
+
+<div id="azdmbs" class="answer-code">
+```{r}
+meters_per_mile <- 1609.34
+cell_towers_buf <- gBuffer(cell_towers_spdf_prj, byid=TRUE, width=5 * meters_per_mile)
+plot(cell_towers_buf)
+```
+</div>
+
+<a id="qtn_rdwyol" href="#" class="showhidelink" onclick="showHide('rdwyol');return false;">\# `r auton()`</a> `r chop("Focusing on one county, find the area within 5 miles of a cell tower. What percentage of the county is this?")`  
+
+<div id="rdwyol" class="answer-code">
+```{r}
+idx <- sample(1:nrow(ca_cnty_prj), size=1)
+some_county_bnd <- ca_cnty_prj[idx,]
+cnty_celltowbuff <- gIntersection(some_county_bnd, cell_towers_buf)
+plot(some_county_bnd, axes=TRUE, asp=TRUE, main=ca_cnty_prj@data[idx, "CountyNAME"])
+plot(cnty_celltowbuff, add=TRUE, col="red", pch=16, cex=0.7)
+gArea(cnty_celltowbuff)
+gArea(cnty_celltowbuff) / gArea(some_county_bnd)
+```
+
+`r 100 * round(gArea(cnty_celltowbuff) / gArea(some_county_bnd),2)`% of the county is within 5 miles of a cell tower.
+</div>
+
+</div><!-- end questions -->

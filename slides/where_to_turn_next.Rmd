@@ -26,6 +26,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 [R Basics](https://sejdemyr.github.io/r-tutorials/basics/), Simon Ejdemyr
 
+*__swirl__*. swirl is a R package that provides tutorials right within RStudio. Install *swirl* from the 'Packages' tab in RStudio, then type *swirl()* at the console.
+
+
 ### Spatial Data in R Tutorials
 
 [Introduction to Working With Vector Data in R](http://neondataskills.org/tutorial-series/vector-data-series/), NEON
