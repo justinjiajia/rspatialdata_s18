@@ -45,7 +45,7 @@ href="slides/part01d_import_plot.html">Importing and Plotting Spatial Data</a></
 <li class="exercise"><a target="_blank" class="exercise"
 href="exercises/ex03_import_plot.html">Exercise 3: Import and Plot Data</a></li>
 
-# `r lstCI$class02short`. Two Dimensional Data Structures, R Markdown, Spatial Data Classes, Projections, Queries, Geoprocessing, Spatial Overlays
+# `r lstCI$class02short`. Two Dimensional Data Structures, R Markdown, Spatial Data Classes, Projections, Queries, Geoprocessing
 
 <li class="slide"><a target="_blank" class="slide" 
 href="slides/part02a_review.html">Review from Last Time</a></li>
@@ -70,14 +70,45 @@ href="slides/part02e_spatial-data.html">Spatial Data Basic Operations</a></li>
 <li class="exercise"><a target="_blank" class="exercise"
 href="exercises/ex06_spatial-data-ops.html">Exercise 6: Spatial Data Operations</a></li>
 
-<!--
 <li class="slide"><a target="_blank" class="slide" 
 href="slides/part02f_geoprocessing.html">Geoprocessing</a></li>
+
+<li class="exercise"><a target="_blank" class="exercise"
+href="exercises/ex07_geoprocessing.html">Exercise 7: Geoprocessing</a></li>
+
+# `r lstCI$class03short`. Loops and branches, spatial queries, raster data, APIs, geocoding
+
+<!--
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part03a_control-structures.html">Control Structures</a></li>
+
+<li class="exercise"><a target="_blank" class="exercise"
+href="exercises/ex08_loops-branches.html">Exercise 8: Loops and Branches</a></li>
+
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part03b_spatial-queries.html">Spatial Queries</a></li>
+
+<li class="exercise"><a target="_blank" class="exercise"
+href="exercises/ex09_spatial-queries.html">Exercise 9: Spatial Queries</a></li>
+
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part03c_raster.html">Raster Package </a></li>
+
+<li class="exercise"><a target="_blank" class="exercise"
+href="exercises/ex10_raster.html">Exercise 10: Raster Package</a></li>
+
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part03d_geocoding.html">Geocoding</a></li>
+
+<li class="exercise"><a target="_blank" class="exercise"
+href="exercises/ex11_geocoding.html">Exercise 11: Geocoding</a></li>
+
+Movebank?
+
 -->
 
-# `r lstCI$class03short`. Loops and branches, APIs, geocoding, raster analyses, R-ArcGIS integration
+# `r lstCI$class04short`. Custom functions, working with models, ggmap & leaflet, projects, R-ArcGIS integration
 
-# `r lstCI$class04short`. Custom functions, working with models, ggmap & leaflet, projects
 
 # Resources
 
