@@ -1,0 +1,281 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>Raster Data Pt 1</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 3
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+library(raster)
+library(rgdal)
+```
+
+# Raster data
+
+## Sources
+
+<div style="float: left;width:450px; text-align:right; padding:0em 2em;"><img src="images/landsat_fcc_400x400.jpg"></img></div>
+
+__Sensor data__  
+- satellite  
+- airborne  
+- UAV  
+
+__Derived data__  
+- cost surfaces  
+- elevation  
+- model outputs  
+- classification  
+- rasterized vector data  
+
+<div class="colclear"></div>
+
+
+## Raster package
+
+```{r require_raster}
+library(raster)
+```
+
+<div class="indented2">
+- read, write and manipulate gridded spatial data
+- basic and high-level analysis functions 
+- processing of large files
+</div>
+
+For details see the vignette: *Introduction to the 'raster' package*
+
+## Raster Data Types
+
+<div class="indented2">
+<tt>RasterLayer</tt> - a single layer raster
+
+<tt>RasterStack</tt> - multi-layer raster  
+
+<tt>RasterBrick</tt> - multi-layer raster (from a single file on disk, faster)  
+</div>
+
+Note that _Raster_ objects can live in memory or disk (see Vignette for details)
+
+# Import a GeoTiff
+
+## Get the filename for a sample tif file
+
+```{r get_rasterdir_pictures}
+rgdal_dir <- system.file("pictures", package="rgdal")
+cea_fn <- file.path(rgdal_dir, "cea.tif")
+cea_fn
+file.exists(cea_fn)
+```
+
+## Read the meta data
+
+```{r gdal_info_spna, cache=TRUE}
+rgdal::GDALinfo(cea_fn)
+```
+
+## Import the GeoTiff
+
+```{r import_geotiff, fig.align="center", cache=TRUE}
+cea_rast <- raster(cea_fn)
+cea_rast
+```
+
+Notice a few things about this raster.
+
+<div class="indented1">
+*dimensions*: the “size” of the file in pixels: nrow=number of rows; ncol=number of columns, and ncells= the total number of pixels or cells
+
+*resolution*: the size of each pixel (in meters in this case). 1 meter pixels means that each pixel represents a 1m x 1m area on the earth’s surface.
+
+*extent*: the spatial extent of the raster. This value will be in the same coordinate units as the coordinate reference system of the raster.
+
+*coord ref*: the coordinate reference system string for the raster. 
+</div>
+
+## Visualization
+
+The primary visualization functions for raster data are <tt>plot()</tt> and <tt>image()</tt>. We'll use <tt>image()</tt> and specify a grayscale color ramp.
+
+```{r viz_geotiff, fig.align="center", cache=TRUE}
+image(cea_rast, col=gray(0:255/255), asp=1)
+```
+
+## Common Raster Data Processing Tasks
+
+
+```{r, echo=FALSE, results='asis'}
+library(kableExtra)
+tbl_vec <- c("visualize", "image(), plot()", "crop", "crop()", "mask", "mask()", "resample (i.e., change the pixel size)", "aggregate()", "(re)project", "projectRaster()", "inspect pixel values", "getValues(), [rows,cols]", "stack", "stack()", "export to disk", "writeRaster(), writeGDAL()")
+tbl_mat <- matrix(tbl_vec, byrow=TRUE, ncol=2, dimnames=list(1:(length(tbl_vec)/2), c("Task", "Function(s)")))
+knitr::kable(tbl_mat, format = "html", table.attr='class="tbl_compact"') %>% column_spec(column=2, monospace = TRUE)
+```
+
+Remember to use the <tt>raster::</tt> prefix when calling functions to avoid name conflicts from other packages.
+
+# Import Raster Data from the Cloud
+
+<tt>raster::getData()</tt> can be used to download the following datasets into R:
+
+<div class="indented2">
+- **countries** - polygons for all countries  
+- **GADM** - a database of global administrative boundaries  
+- **SRTM** - hole-filled CGIAR-SRTM (90 m resolution)  
+- **alt** - altitude (elevation) aggregated from SRTM 90 m resolution data between -60 and 60 latitude.
+- **worldclim** -  a database of global interpolated climate data
+</div>
+
+For other sources of elevation data, see the [*elevatr* package](https://cran.r-project.org/web/packages/elevatr/vignettes/introduction_to_elevatr.html){target="_blank"}
+
+## Download a DEM for Yosemite National Park
+
+Note that SRTM data comes in 5 degree tiles. These files can be about 70Mb. Pass <tt>download=TRUE</tt> to cache the TIF file.
+
+```{r get_data_yosem_srtm, cache=TRUE}
+library(raster)
+western_ca_dem_ll <- getData('SRTM', lon=-119, lat=37, download=TRUE)
+plot(western_ca_dem_ll, asp=1)
+```
+
+
+## Import the Yosemite Park Boundary
+
+SRTM tiles are usually much larger than needed. Cropping them to a study area is often the next step, which we'll do next.
+
+```{r import_yosem_bnd, cache=TRUE}
+library(rgdal)
+yosem_bnd_ll <- rgdal::readOGR(dsn="../exercises/data", layer="yosemite_bnd", verbose=FALSE)
+plot(yosem_bnd_ll, asp=1, axes=TRUE)
+```
+
+## Crop the DEM to the Yosemite Park boundary.
+
+```{r plot_yosem_dem, cache=TRUE}
+yosem_ext_dem_ll <- crop(western_ca_dem_ll, yosem_bnd_ll)
+plot(yosem_ext_dem_ll, asp=1, main="SRTM Elevation Data, Yosemite NP")
+plot(yosem_bnd_ll, add=TRUE)
+```
+
+## Mask
+
+Masking a raster doesn't generally change the dimensions or spatial resolution, however it sets the pixel values of masked areas to NA, so they will be excluded from analyses.
+
+Mask the Yosemite DEM to the park boundary.
+
+```{r mask_yosem_dem, cache=TRUE}
+yosem_msk_dem_ll <- mask(yosem_ext_dem_ll, yosem_bnd_ll)
+plot(yosem_msk_dem_ll, asp=1)
+```
+
+## View raster properties
+
+
+```{r, echo=FALSE, results='asis'}
+tbl_vec <- c("dimensions", "dim(), nrow(), ncol()", "extent", "extent(), x@extent",
+"projection info", "proj4string(), x@proj4string", "pixel size", "res()", "in memory", "inMemory()")
+tbl_mat <- matrix(tbl_vec, byrow=TRUE, ncol=2, dimnames=list(1:(length(tbl_vec)/2), c("Property", "Function(s)")))
+knitr::kable(tbl_mat, format = "html", table.attr='class="tbl_compact"') %>% column_spec(column=2, monospace = TRUE)
+```
+
+Let's see those in action:
+
+```{r}
+dim(yosem_msk_dem_ll)
+nrow(yosem_msk_dem_ll)
+ncol(yosem_msk_dem_ll)
+res(yosem_msk_dem_ll)
+extent(yosem_msk_dem_ll)
+summary(yosem_ext_dem_ll)
+yosem_ext_dem_ll
+```
+
+## Project a raster
+
+Just like vector data, if you want to be able to use real-world measurements in your analysis, you need to project the data to a real-world coordinate system.
+
+Let's project the Yosemite DEM and boundary to UTM10.
+
+```{r proj_yosem, cache=TRUE}
+utm10n_crs <- CRS("+proj=utm +zone=10 +ellps=WGS84")
+yosem_msk_dem_prj <- projectRaster(yosem_msk_dem_ll, crs=utm10n_crs)
+yosem_msk_dem_prj
+yosem_bnd_prj <- spTransform(yosem_bnd_ll, utm10n_crs)
+plot(yosem_msk_dem_prj, asp=1)
+plot(yosem_bnd_prj, add=TRUE, lwd=2)
+```
+
+# Resample
+
+Let's compute the number of pixels and the pixel size of our projected raster.
+
+```{r, rast_stats, cache=TRUE}
+res(yosem_msk_dem_prj)
+nrow(yosem_msk_dem_prj) * ncol(yosem_msk_dem_prj)
+```
+
+R can easily handle 750,000 pixels values, but it might be overkill for your use case. We can resample the raster with the <tt>aggregate()</tt> function. The two main arguments the aggregate() function requires are the factor by which to reduce the resolution (e.g., by 10), and how R should compute values for the new bigger pixels based on the values of the pixels.
+
+```{r resamp, cache=TRUE}
+yosem_msk_dem_prj_resamp <- aggregate(yosem_msk_dem_prj, fact=2, fun=mean)
+dim(yosem_msk_dem_prj_resamp)
+res(yosem_msk_dem_prj_resamp)
+```
+
+## Slope, Aspect, Hillshade
+
+A common visualization task for elevation data is computing slope, aspect, and hillshade.
+
+```{r}
+yosem_slope <- terrain(yosem_msk_dem_prj_resamp, opt="slope")
+yosem_aspect <- terrain(yosem_msk_dem_prj_resamp, opt="aspect")
+yosem_hillshade <- hillShade(yosem_slope, yosem_aspect, 40, 270)
+plot(yosem_hillshade, col=grey(0:100/100), legend=FALSE)
+```
+
+Food for thought: aside from making nice visualizations, what types of questions or anlayses would slope or aspect be useful for?
+
+## Exporting Raster Data
+
+Use <tt>writeRaster()</tt> from the *raster* package to export *RasterLayer* objects to disk. <tt>writeGDAL()</tt> from the *rgdal* package can be used to export SpatialGrid* and SpatialPixels* objects. 
+
+There several file formats for georeferenced raster data, with GeoTiff being the most comnon.
+
+```{r}
+raster::writeRaster(yosem_slope, "~/yosemite_slope.tif", overwrite=TRUE)
+raster::writeRaster(yosem_aspect, "~/yosemite_aspect.tif", overwrite=TRUE)
+```
+
+```{r, include=F}
+## Save data for next slide deck
+save(yosem_bnd_prj, file="~/yosemite_bnd.RData")
+save(yosem_msk_dem_prj, file="~/yosemite_dem.RData")
+```
+
+# Additional Resources
+
+[Raster data manipulation](http://rspatial.org/spatial/rst/8-rastermanip.html){target="_blank"},  book chapter by Robert Hijmans
+
+[Working With Raster Time Series Data in R](https://www.neonscience.org/raster-time-series){target="_blank"}, NEON Science
+
+<div class="faux-h1">Next Up</div>
+
+[Exercise 10: Importing Raster Data](../exercises/ex10_raster01.html){target="_blank"}
+
+[Raster Data Pt2](part03d_raster-pt2.html)
+
+

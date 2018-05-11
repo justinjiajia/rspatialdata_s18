@@ -1,0 +1,150 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>Raster Data Pt 2: Derived Surfaces</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+library(raster)
+library(rgdal)
+```
+
+
+# Working with Pixel Values
+
+First we bring in the elevation data we made last time.
+
+```{r plot_start, cache=TRUE}
+load("~/yosemite_bnd.RData")  # yosem_bnd_prj
+load("~/yosemite_dem.RData")  # yosem_msk_dem_prj
+plot(yosem_msk_dem_prj, asp=1)
+plot(yosem_bnd_prj, add=TRUE, lwd=2)
+```
+
+There are couple of ways to get pixel values
+
+<tt>myrast[*rows*,*cols*]</tt>
+
+<tt>getValues()</tt> - returns all pixel values as a vector (useful for global operations)
+
+Example: identify steep slopes in Yosemite
+
+```{r hist_slope_vals, cache=TRUE}
+yosem_slope <- raster("~/yosemite_slope.tif")
+all_slope_vals <- getValues(yosem_slope)
+## Slope is computed in radians. To show degrees, multiply by 180.
+hist(all_slope_vals * 180, xlab="slope (degrees)", col="grey80", main="Yosemite Slope Distribution")
+```
+
+Let's make a mask of high slope values, where we define steep slopes as > 40 degrees.
+
+```{r steep_slope_define, cache=TRUE}
+## Create a blank copy of yosem_slope
+yosem_slope_steep <- raster(yosem_slope)
+hasValues(yosem_slope_steep)
+
+threshhold_deg <- 40
+yosem_slope_steep[yosem_slope > (threshhold_deg / 180)] <- 1
+yosem_slope_steep
+summary(yosem_slope_steep)
+plot(yosem_slope)
+plot(yosem_slope_steep, col="red", add=TRUE, legend=FALSE)
+```
+
+# Extract Pixel Values 
+
+Create some sample points
+
+```{r samp_pts, cache=TRUE}
+bbox <- yosem_bnd_prj@bbox
+num_pts <- 20
+x <- runif(min=bbox[1,1], max=bbox[1,2], num_pts)
+y <- runif(min=bbox[2,1], max=bbox[2,2], num_pts)
+yosem_pts <- SpatialPoints(coords=data.frame(x=x,y=y), proj4string = yosem_bnd_prj@proj4string)
+plot(yosem_bnd_prj, axes=T, asp=1)
+plot(yosem_pts, cex=2, pch=16, col="red", add=TRUE)
+```
+
+To extract values from a raster for where features overlap, use <tt>extract()</tt>.
+
+```{r}
+plot(yosem_msk_dem_prj)
+plot(yosem_pts, cex=2, pch=16, col="red", add=TRUE)
+pt_elev <- extract(yosem_msk_dem_prj, yosem_pts)
+pt_elev
+```
+
+# Rastering Vector Data
+
+To do analysis, we often have to convert vector features to raster format.
+
+Syntax: <tt>rasterize(*spgeom*, *rast*, *field*)</tt>
+
+```{r rasterize_ex, cache=TRUE}
+yosem_pts_rst <- rasterize(yosem_pts, yosem_slope, field=1)
+x <- getValues(yosem_pts_rst)
+table(x)
+```
+
+## Create a distance surface
+
+```{r create_dist, cache=TRUE}
+yosem_dist2pts <- distance(yosem_pts_rst)
+plot(yosem_dist2pts, main="Distance to Random Points")
+plot(yosem_bnd_prj, add=TRUE, lwd=2)
+```
+
+# Raster Algebra
+
+Raster algebra is where you add, subtract, multiply, etc. two or more rasters together. 
+
+- The rasters should have the same extent and pixel size
+
+- The operation is evaluated on a pixel-by-pixel basis.
+
+- We can use raster algebra for siting analyses that aim to find the locations that meet multiple criteria. 
+
+
+Example: Find all locations in Yosemite that are within 1 mile of our sample points and all on slopes < 20 degrees. 
+
+```{r plot_rast01, cache=TRUE}
+## Create a raster of the suitable distances
+## All pixels will be NA except for those that meet the criteria
+# 1 mile = 1609.34 meters
+pts_close_rst <- raster(yosem_dist2pts)
+dist_vals <- getValues(yosem_dist2pts)
+pts_close_rst[ dist_vals < 1609.34  ] <- 1
+
+## Create a raster of suitable flat areas
+flat_areas_rst <- raster(yosem_slope)
+slope_vals <- getValues(yosem_slope)
+flat_areas_rst[ slope_vals < (20/180) ] <- 1
+
+## Multiple the two rasters to find those cells where both conditions are met
+best_locations <- flat_areas_rst * pts_close_rst
+image(best_locations, col="red")
+plot(yosem_bnd_prj, add=TRUE, lwd=2)
+```
+
+# Next Up
+
+[Exercise 11: Derived Data](../exercises/ex11_raster02.html){target="_blank"}
+
+[Geocoding](part03e_geocoding.html)
+
+

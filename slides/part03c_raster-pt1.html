@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Raster Data Pt 1" />
+  <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href=' https://is.gd/rspatial_baygeo_s18 ' target='_blank'> https://is.gd/rspatial_baygeo_s18 </a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Week 3:  Spatial Data Analysis with R  May 10, 2018</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) { 
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy"); 
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied") 
+  }}
+  </script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="..\common\slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title"><span class="pres-date">Week 3: </span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span> <br/><span class="pres-date">May 10, 2018</span></h1>
+  <p class="author">
+<span class="pres-title">Raster Data Pt 1</span>
+  </p>
+</div>
+<div id="raster-data" class="slide section level1">
+<h1>Raster data</h1>
+<h2 id="sources">Sources</h2>
+<div style="float: left;width:450px; text-align:right; padding:0em 2em;">
+<img src="images/landsat_fcc_400x400.jpg"></img>
+</div>
+<p><strong>Sensor data</strong><br />
+- satellite<br />
+- airborne<br />
+- UAV</p>
+<p><strong>Derived data</strong><br />
+- cost surfaces<br />
+- elevation<br />
+- model outputs<br />
+- classification<br />
+- rasterized vector data</p>
+<div class="colclear">
+
+</div>
+<h2 id="raster-package">Raster package</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)</code></pre></div>
+<div class="indented2">
+<ul>
+<li>read, write and manipulate gridded spatial data</li>
+<li>basic and high-level analysis functions</li>
+<li>processing of large files</li>
+</ul>
+</div>
+<p>For details see the vignette: <em>Introduction to the 'raster' package</em></p>
+<h2 id="raster-data-types">Raster Data Types</h2>
+<div class="indented2">
+<p><tt>RasterLayer</tt> - a single layer raster</p>
+<p><tt>RasterStack</tt> - multi-layer raster</p>
+<p><tt>RasterBrick</tt> - multi-layer raster (from a single file on disk, faster)</p>
+</div>
+<p>Note that <em>Raster</em> objects can live in memory or disk (see Vignette for details)</p>
+</div>
+<div id="import-a-geotiff" class="slide section level1">
+<h1>Import a GeoTiff</h1>
+<h2 id="get-the-filename-for-a-sample-tif-file">Get the filename for a sample tif file</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rgdal_dir &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;pictures&quot;</span>, <span class="dt">package=</span><span class="st">&quot;rgdal&quot;</span>)
+cea_fn &lt;-<span class="st"> </span><span class="kw">file.path</span>(rgdal_dir, <span class="st">&quot;cea.tif&quot;</span>)
+cea_fn</code></pre></div>
+<pre><code>## [1] &quot;C:/Users/Andy/Documents/R/win-library/3.4/rgdal/pictures/cea.tif&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">file.exists</span>(cea_fn)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<h2 id="read-the-meta-data">Read the meta data</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rgdal<span class="op">::</span><span class="kw">GDALinfo</span>(cea_fn)</code></pre></div>
+<pre><code>## Warning: statistics not supported by this driver</code></pre>
+<pre><code>## rows        515 
+## columns     514 
+## bands       1 
+## lower left origin.x        -28493.17 
+## lower left origin.y        4224973 
+## res.x       60.02214 
+## res.y       60.02214 
+## ysign       -1 
+## oblique.x   0 
+## oblique.y   0 
+## driver      GTiff 
+## projection  +proj=cea +lon_0=-117.333333333333 +lat_ts=33.75 +x_0=0 +y_0=0
+## +datum=NAD27 +units=m +no_defs 
+## file        C:/Users/Andy/Documents/R/win-library/3.4/rgdal/pictures/cea.tif 
+## apparent band summary:
+##   GDType hasNoDataValue NoDataValue blockSize1 blockSize2
+## 1   Byte          FALSE           0         15        514
+## apparent band statistics:
+##   Bmin Bmax Bmean Bsd
+## 1    0  255    NA  NA
+## Metadata:
+## AREA_OR_POINT=Area</code></pre>
+<h2 id="import-the-geotiff">Import the GeoTiff</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cea_rast &lt;-<span class="st"> </span><span class="kw">raster</span>(cea_fn)
+cea_rast</code></pre></div>
+<pre><code>## class       : RasterLayer 
+## dimensions  : 515, 514, 264710  (nrow, ncol, ncell)
+## resolution  : 60.02214, 60.02214  (x, y)
+## extent      : -28493.17, 2358.212, 4224973, 4255885  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=cea +lon_0=-117.333333333333 +lat_ts=33.75 +x_0=0 +y_0=0 +datum=NAD27 +units=m +no_defs +ellps=clrk66 +nadgrids=@conus,@alaska,@ntv2_0.gsb,@ntv1_can.dat 
+## data source : C:\Users\Andy\Documents\R\win-library\3.4\rgdal\pictures\cea.tif 
+## names       : cea 
+## values      : 0, 255  (min, max)</code></pre>
+<p>Notice a few things about this raster.</p>
+<div class="indented1">
+<p><em>dimensions</em>: the “size” of the file in pixels: nrow=number of rows; ncol=number of columns, and ncells= the total number of pixels or cells</p>
+<p><em>resolution</em>: the size of each pixel (in meters in this case). 1 meter pixels means that each pixel represents a 1m x 1m area on the earth’s surface.</p>
+<p><em>extent</em>: the spatial extent of the raster. This value will be in the same coordinate units as the coordinate reference system of the raster.</p>
+<p><em>coord ref</em>: the coordinate reference system string for the raster.</p>
+</div>
+<h2 id="visualization">Visualization</h2>
+<p>The primary visualization functions for raster data are <tt>plot()</tt> and <tt>image()</tt>. We'll use <tt>image()</tt> and specify a grayscale color ramp.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(cea_rast, <span class="dt">col=</span><span class="kw">gray</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">255</span><span class="op">/</span><span class="dv">255</span>), <span class="dt">asp=</span><span class="dv">1</span>)</code></pre></div>
+<p><img src="part03c_raster-pt1_files/figure-slidy/viz_geotiff-1.png" width="768" style="display: block; margin: auto;" /></p>
+<h2 id="common-raster-data-processing-tasks">Common Raster Data Processing Tasks</h2>
+<table class="tbl_compact">
+<thead>
+<tr>
+<th style="text-align:left;">
+Task
+</th>
+<th style="text-align:left;">
+Function(s)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+visualize
+</td>
+<td style="text-align:left;font-family: monospace;">
+image(), plot()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+crop
+</td>
+<td style="text-align:left;font-family: monospace;">
+crop()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mask
+</td>
+<td style="text-align:left;font-family: monospace;">
+mask()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+resample (i.e., change the pixel size)
+</td>
+<td style="text-align:left;font-family: monospace;">
+aggregate()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+(re)project
+</td>
+<td style="text-align:left;font-family: monospace;">
+projectRaster()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+inspect pixel values
+</td>
+<td style="text-align:left;font-family: monospace;">
+getValues(), [rows,cols]
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+stack
+</td>
+<td style="text-align:left;font-family: monospace;">
+stack()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+export to disk
+</td>
+<td style="text-align:left;font-family: monospace;">
+writeRaster(), writeGDAL()
+</td>
+</tr>
+</tbody>
+</table>
+<p>Remember to use the <tt>raster::</tt> prefix when calling functions to avoid name conflicts from other packages.</p>
+</div>
+<div id="import-raster-data-from-the-cloud" class="slide section level1">
+<h1>Import Raster Data from the Cloud</h1>
+<p><tt>raster::getData()</tt> can be used to download the following datasets into R:</p>
+<div class="indented2">
+<ul>
+<li><strong>countries</strong> - polygons for all countries<br />
+</li>
+<li><strong>GADM</strong> - a database of global administrative boundaries<br />
+</li>
+<li><strong>SRTM</strong> - hole-filled CGIAR-SRTM (90 m resolution)<br />
+</li>
+<li><strong>alt</strong> - altitude (elevation) aggregated from SRTM 90 m resolution data between -60 and 60 latitude.</li>
+<li><strong>worldclim</strong> - a database of global interpolated climate data</li>
+</ul>
+</div>
+<p>For other sources of elevation data, see the <a href="https://cran.r-project.org/web/packages/elevatr/vignettes/introduction_to_elevatr.html" target="_blank"><em>elevatr</em> package</a></p>
+<h2 id="download-a-dem-for-yosemite-national-park">Download a DEM for Yosemite National Park</h2>
+<p>Note that SRTM data comes in 5 degree tiles. These files can be about 70Mb. Pass <tt>download=TRUE</tt> to cache the TIF file.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
+western_ca_dem_ll &lt;-<span class="st"> </span><span class="kw">getData</span>(<span class="st">&#39;SRTM&#39;</span>, <span class="dt">lon=</span><span class="op">-</span><span class="dv">119</span>, <span class="dt">lat=</span><span class="dv">37</span>, <span class="dt">download=</span><span class="ot">TRUE</span>)
+<span class="kw">plot</span>(western_ca_dem_ll, <span class="dt">asp=</span><span class="dv">1</span>)</code></pre></div>
+<p><img src="part03c_raster-pt1_files/figure-slidy/get_data_yosem_srtm-1.png" width="768" /></p>
+<h2 id="import-the-yosemite-park-boundary">Import the Yosemite Park Boundary</h2>
+<p>SRTM tiles are usually much larger than needed. Cropping them to a study area is often the next step, which we'll do next.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rgdal)
+yosem_bnd_ll &lt;-<span class="st"> </span>rgdal<span class="op">::</span><span class="kw">readOGR</span>(<span class="dt">dsn=</span><span class="st">&quot;../exercises/data&quot;</span>, <span class="dt">layer=</span><span class="st">&quot;yosemite_bnd&quot;</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)
+<span class="kw">plot</span>(yosem_bnd_ll, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">axes=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="part03c_raster-pt1_files/figure-slidy/import_yosem_bnd-1.png" width="768" /></p>
+<h2 id="crop-the-dem-to-the-yosemite-park-boundary.">Crop the DEM to the Yosemite Park boundary.</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yosem_ext_dem_ll &lt;-<span class="st"> </span><span class="kw">crop</span>(western_ca_dem_ll, yosem_bnd_ll)
+<span class="kw">plot</span>(yosem_ext_dem_ll, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">main=</span><span class="st">&quot;SRTM Elevation Data, Yosemite NP&quot;</span>)
+<span class="kw">plot</span>(yosem_bnd_ll, <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="part03c_raster-pt1_files/figure-slidy/plot_yosem_dem-1.png" width="768" /></p>
+<h2 id="mask">Mask</h2>
+<p>Masking a raster doesn't generally change the dimensions or spatial resolution, however it sets the pixel values of masked areas to NA, so they will be excluded from analyses.</p>
+<p>Mask the Yosemite DEM to the park boundary.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yosem_msk_dem_ll &lt;-<span class="st"> </span><span class="kw">mask</span>(yosem_ext_dem_ll, yosem_bnd_ll)
+<span class="kw">plot</span>(yosem_msk_dem_ll, <span class="dt">asp=</span><span class="dv">1</span>)</code></pre></div>
+<p><img src="part03c_raster-pt1_files/figure-slidy/mask_yosem_dem-1.png" width="768" /></p>
+<h2 id="view-raster-properties">View raster properties</h2>
+<table class="tbl_compact">
+<thead>
+<tr>
+<th style="text-align:left;">
+Property
+</th>
+<th style="text-align:left;">
+Function(s)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+dimensions
+</td>
+<td style="text-align:left;font-family: monospace;">
+dim(), nrow(), ncol()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+extent
+</td>
+<td style="text-align:left;font-family: monospace;">
+extent(), <a href="mailto:x@extent">x@extent</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+projection info
+</td>
+<td style="text-align:left;font-family: monospace;">
+proj4string(), <a href="mailto:x@proj4string">x@proj4string</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pixel size
+</td>
+<td style="text-align:left;font-family: monospace;">
+res()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+in memory
+</td>
+<td style="text-align:left;font-family: monospace;">
+inMemory()
+</td>
+</tr>
+</tbody>
+</table>
+<p>Let's see those in action:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(yosem_msk_dem_ll)</code></pre></div>
+<pre><code>## [1] 829 828   1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(yosem_msk_dem_ll)</code></pre></div>
+<pre><code>## [1] 829</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(yosem_msk_dem_ll)</code></pre></div>
+<pre><code>## [1] 828</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">res</span>(yosem_msk_dem_ll)</code></pre></div>
+<pre><code>## [1] 0.0008333333 0.0008333333</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">extent</span>(yosem_msk_dem_ll)</code></pre></div>
+<pre><code>## class       : Extent 
+## xmin        : -119.8863 
+## xmax        : -119.1963 
+## ymin        : 37.49458 
+## ymax        : 38.18542</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(yosem_ext_dem_ll)</code></pre></div>
+<pre><code>##         srtm_13_05
+## Min.           436
+## 1st Qu.       2031
+## Median        2486
+## 3rd Qu.       2888
+## Max.          3971
+## NA&#39;s             0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yosem_ext_dem_ll</code></pre></div>
+<pre><code>## class       : RasterLayer 
+## dimensions  : 829, 828, 686412  (nrow, ncol, ncell)
+## resolution  : 0.0008333333, 0.0008333333  (x, y)
+## extent      : -119.8863, -119.1963, 37.49458, 38.18542  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
+## data source : in memory
+## names       : srtm_13_05 
+## values      : 436, 3971  (min, max)</code></pre>
+<h2 id="project-a-raster">Project a raster</h2>
+<p>Just like vector data, if you want to be able to use real-world measurements in your analysis, you need to project the data to a real-world coordinate system.</p>
+<p>Let's project the Yosemite DEM and boundary to UTM10.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">utm10n_crs &lt;-<span class="st"> </span><span class="kw">CRS</span>(<span class="st">&quot;+proj=utm +zone=10 +ellps=WGS84&quot;</span>)
+yosem_msk_dem_prj &lt;-<span class="st"> </span><span class="kw">projectRaster</span>(yosem_msk_dem_ll, <span class="dt">crs=</span>utm10n_crs)
+yosem_msk_dem_prj</code></pre></div>
+<pre><code>## class       : RasterLayer 
+## dimensions  : 863, 878, 757714  (nrow, ncol, ncell)
+## resolution  : 73.4, 92.5  (x, y)
+## extent      : 772280.7, 836725.9, 4153865, 4233693  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=utm +zone=10 +ellps=WGS84 
+## data source : in memory
+## names       : srtm_13_05 
+## values      : 663.819, 3943.061  (min, max)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yosem_bnd_ll_prj &lt;-<span class="st"> </span><span class="kw">spTransform</span>(yosem_bnd_ll, utm10n_crs)
+<span class="kw">plot</span>(yosem_msk_dem_prj, <span class="dt">asp=</span><span class="dv">1</span>)
+<span class="kw">plot</span>(yosem_bnd_ll_prj, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="part03c_raster-pt1_files/figure-slidy/proj_yosem-1.png" width="768" /></p>
+<p>Challenge Questions</p>
+<ul>
+<li>Count the number of 'NA' pixels in this image?<br />
+</li>
+<li>Compare the area of the park using the raster versus the park boundary.</li>
+<li>How would you grab the pixel value of a specifc row and column?</li>
+</ul>
+</div>
+<div id="resample" class="slide section level1">
+<h1>Resample</h1>
+<p>Let's compute the number of pixels and the pixel size of our projected raster.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">res</span>(yosem_msk_dem_prj)</code></pre></div>
+<pre><code>## [1] 73.4 92.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(yosem_msk_dem_prj) <span class="op">*</span><span class="st"> </span><span class="kw">ncol</span>(yosem_msk_dem_prj)</code></pre></div>
+<pre><code>## [1] 757714</code></pre>
+<p>R can easily handle 750,000 pixels values, but it might be overkill for your use case. We can resample the raster with the <tt>aggregate()</tt> function. The two main arguments the aggregate() function requires are the factor by which to reduce the resolution (e.g., by 10), and how R should compute values for the new bigger pixels based on the values of the pixels.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yosem_msk_dem_prj_resamp &lt;-<span class="st"> </span><span class="kw">aggregate</span>(yosem_msk_dem_prj, <span class="dt">fact=</span><span class="dv">2</span>, <span class="dt">fun=</span>mean)
+<span class="kw">dim</span>(yosem_msk_dem_prj_resamp)</code></pre></div>
+<pre><code>## [1] 432 439   1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">res</span>(yosem_msk_dem_prj_resamp)</code></pre></div>
+<pre><code>## [1] 146.8 185.0</code></pre>
+<h2 id="slope-aspect-hillshade">Slope, Aspect, Hillshade</h2>
+<p>A common visualization task for elevation data is computing slope, aspect, and hillshade.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yosem_slope &lt;-<span class="st"> </span><span class="kw">terrain</span>(yosem_msk_dem_prj_resamp, <span class="dt">opt=</span><span class="st">&quot;slope&quot;</span>)
+yosem_aspect &lt;-<span class="st"> </span><span class="kw">terrain</span>(yosem_msk_dem_prj_resamp, <span class="dt">opt=</span><span class="st">&quot;aspect&quot;</span>)
+yosem_hillshade &lt;-<span class="st"> </span><span class="kw">hillShade</span>(yosem_slope, yosem_aspect, <span class="dv">40</span>, <span class="dv">270</span>)
+<span class="kw">plot</span>(yosem_hillshade, <span class="dt">col=</span><span class="kw">grey</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">100</span><span class="op">/</span><span class="dv">100</span>), <span class="dt">legend=</span><span class="ot">FALSE</span>)</code></pre></div>
+<p><img src="part03c_raster-pt1_files/figure-slidy/unnamed-chunk-4-1.png" width="768" /></p>
+<p>Food for thought: aside from making nice visualizations, what types of questions or anlayses would slope or aspect be useful for?</p>
+<h2 id="exporting-raster-data">Exporting Raster Data</h2>
+<p>Use <tt>writeRaster()</tt> from the <em>raster</em> package to export <em>RasterLayer</em> objects to disk. <tt>writeGDAL()</tt> from the <em>rgdal</em> package can be used to export SpatialGrid* and SpatialPixels* objects.</p>
+<p>There several file formats for georeferenced raster data, with GeoTiff being the most comnon.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster<span class="op">::</span><span class="kw">writeRaster</span>(yosem_slope, <span class="st">&quot;~/yosemite_slope.tif&quot;</span>, <span class="dt">overwrite=</span><span class="ot">TRUE</span>)
+raster<span class="op">::</span><span class="kw">writeRaster</span>(yosem_aspect, <span class="st">&quot;~/yosemite_aspect.tif&quot;</span>, <span class="dt">overwrite=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p>Extract Pixel Values</p>
+<p>Rasterization</p>
+<p>Distance Surfaces</p>
+<p>Raster Algebra</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#plot(myrast)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#myrastSquared &lt;- -1 * myrast^2</span>
+<span class="co">#plot(myrastSquared)</span></code></pre></div>
+</div>
+<div id="additional-resources" class="slide section level1">
+<h1>Additional Resources</h1>
+<p>Raster package Vignette</p>
+<p><a href="http://rspatial.org/spatial/rst/8-rastermanip.html" target="_blank">Raster data manipulation</a>, book chapter by Robert Hijmans</p>
+<p><a href="https://www.neonscience.org/raster-time-series" target="_blank">Working With Raster Time Series Data in R</a>, NEON Science</p>
+<div class="faux-h1">
+Next Up
+</div>
+<p><a href="../exercises/ex10_raster01.html" target="_blank">Exercise 10: Importing Raster Data</a></p>
+<p><a href="part03c_raster-pt2.html">Raster Data Pt2</a></p>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

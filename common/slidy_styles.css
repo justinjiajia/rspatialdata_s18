@@ -164,6 +164,13 @@ h1 {
   font-size:180%;
   font-weight: bold;
 }
+.faux-h1 {
+  font-size: 160%;
+  font-weight: bold;
+  margin-top: 2em;
+  margin-bottom: 14.933px;
+  line-height: 35.84px;
+}
 h2 {
   margin-left: 32px;
   font-size:130%;

@@ -21,13 +21,21 @@ params:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(kableExtra)
+library(rgdal)
+library(rgeos)
 ```
 
 # Spatial Queries
 
-Selecting features based on their location
+## Types of Spatial Queries
 
-<div class="indented1">
+Spatial Queries: Selecting features based on their location.
+
+Absolute location - based on their coordinate values
+
+Relative location - based on proximity to other features, including:
+
+<div class="indented2">
 - falls within  
 - touches  
 - contains  
@@ -36,7 +44,16 @@ Selecting features based on their location
 - closest  
 </div>
 
-Packages
+## Related concepts
+
+<div class="indented1">
+Attribute query - select features based on their attribute values
+
+Spatial join - Spatial query followed by copying the attributes of selected features (also called Spatial Enrichment)
+</div>
+
+## Packages with Spatial Query Functions
+
 <div class="indented1">
 - *sp* (over)  
 - *rgeos*  
@@ -44,35 +61,134 @@ Packages
 - *FNN* (nearest neighbor)  
 </div>
 
-# <tt>over()</tt> function
+## <tt>over(x,y)</tt> function
 
 <div class="indented1">
-- from the sp package    
-- does many types of Spatial overlays and joins   
+- from the *sp* package    
+- does many types of Spatial overlays and joins  
+- <tt>x</tt> and <tt>y</tt> must have the same CRS
+- what you get back depends on the types of object for x and y (dozen possibilities:
 </div>
 
+<div class="indented2">
+
+<div class="indented2" style="font-family:monospace;">x = "SpatialPoints", y = "SpatialPolygons"</div>
+
+<div class="indented3" style="font:size:90%; font-style:italic; color:darkblue;">
+returns a numeric vector of length equal to the number of points; the number is the index (number) of the polygon of y in which a point falls; NA denotes the point does not fall in a polygon; if a point falls in multiple polygons, the last polygon is recorded.
+</div>
+
+<div class="indented2" style="font-family:monospace;">x = "SpatialPointsDataFrame", y = "SpatialPolygons"</div>
+<div class="indented3" style="font:size:90%; font-style:italic; color:darkblue;">
+equal to the previous method, except that an argument fn=xxx is allowed, e.g. fn = mean which will then report a data.frame with the mean attribute values of the x points falling in each polygon (set) of y
+</div>
+
+<div class="indented2" style="font-family:monospace;">x = "SpatialPoints", y = "SpatialPolygonsDataFrame"</div>
+<div class="indented3" style="font:size:90%; font-style:italic; color:darkblue;">
+returns a data.frame of the second argument with row entries corresponding to the first argument
+</div>
+
+<div class="indented2" style="font-family:monospace;">x = "SpatialPolygons", y = "SpatialPoints"</div>
+
+<div class="indented3" style="font:size:90%; font-style:italic; color:darkblue;">
+returns the polygon index of points in y; if x is a SpatialPolygonsDataFrame, a data.frame with rows from x corresponding to points in y is returned.
+</div>
+
+*and several others...*
+</div>
+
+## Using the <tt>over(x,y)</tt> function effectively 
+
+<div class="indented1">
+You have to read the details closely.
+
+If this makes your head hurt, you're not alone.
+
+Remember that a <tt>SpatialPoints</tt> and <tt>SpatialPointsDataFrame</tt> are two different object types. 
+
+You can drop the dataframe of any *Spatial** object with the <tt>geometry()</tt> function
+</div>
+
+# Example: compute the number of cannabis dispenaries per neighborhood
+
+1. Import the SF neighborhood boundaries and the cannabis dispensary locations. 
 
 ```{r}
-
+library(rgdal)
+sfnb_ll <- readOGR("../exercises/data", "sf_neighborhoods", verbose=FALSE)
+fn <- "../exercises/data/sf_permitted_cannabis_dispensaries_2014.kml"
+sfpot_ll <- readOGR(fn, "Cannabis Dispensaries 2014", verbose=FALSE)
+sfpot_ll <- spTransform(sfpot_ll, sfnb_ll@proj4string)
+plot(sfnb_ll, axes=T, asp=1)
+plot(sfpot_ll, add=T, col="red", pch=16)
 ```
 
+2. Compute the number of dispensaries per neighborhood
 
-Selection with square brackets
+```{r}
+sfpot_nb_idx <- over(geometry(sfpot_ll), geometry(sfnb_ll))
+sfpot_nb_str <- sfnb_ll@data$nhood[sfpot_nb_idx]
+sfpot_nb_str <- as.character(sfpot_nb_str)  ## change factor to a character
+table(sfpot_nb_str)
+```
 
-Syntax
+# Other Spatial Query Functions
 
-my_spatial_points[*expr*, ]
+## Square brackets
 
+To do a Spatial Query based on contains or overlays relationship, can you use the traditional [square bracket] notation. 
 
+Syntax: <tt>my_spatial_points[*rows*, ]</tt>  
 
+For the *rows* expression provide the features you want to use for selection.  
 
+__Example__: select the dispensaries that fall in the Mission neighborhood.
 
+```{r}
+msn_bnd <- sfnb_ll[sfnb_ll$nhood=="Mission",]
+msnpot_pnts <- sfpot_ll[msn_bnd, ]
+nrow(msnpot_pnts)
+plot(msn_bnd, axes=TRUE)
+plot(msnpot_pnts, add=TRUE)
+```
 
+## rgeos Spatial Query Functions
 
-# Next Up
+The rgeos package contains a number of spatial query functions, including: 
 
-[Exercise 8: Loops and Branches](exercises/ex08_loops-branches.html){target="_blank"}
+<div class="indented2" style="font-family:monospace;">
+gContains()  
+gCovers()  
+gEquals()  
+gIntersects()  
+gOverlaps()  
+gTouches()  
+gWithinDistance()  
+</div>
 
-[Spatial Queries](part03b_spatial-queries.html)
+Many of these use the <tt>byid</tt> argument to control whether the test is performed for individual features or the spatial layer as a whole.  
+aa
+Like the <tt>over()</tt> function, you have to read the help page carefully.
+
+__Example__: Find the cannabis dispensary in the Mission neighborhood using the *gContains()* function.
+
+```{r}
+library(rgeos)
+x_matrix <- gContains(msn_bnd, sfpot_ll, byid=c(F,T))
+x_vec <- x_matrix[,1]   ## gContains returns a matrix, in this case just one column
+table(x_vec)
+plot(msn_bnd, axes=TRUE)
+plot(sfpot_ll[x_vec,], add=TRUE, col="green")
+```
+
+# Coming Soon
+
+*extracting pixel values from raster data*
+
+<div class="faux-h1">Next Up</div>
+
+[Exercise 9: Spatial Queries](exercises/ex09_spatial-queries.html){target="_blank"}
+
+[Working with Raster Data](part03c_raster.html)
 
 

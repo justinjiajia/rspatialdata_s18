@@ -1,0 +1,66 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>Raster Data Pt 2</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 3
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+library(raster)
+library(rgdal)
+```
+
+# Raster data
+
+Extract Pixel Values
+
+Rasterization
+
+Distance Surfaces
+
+
+
+Raster Algebra
+
+```{r plot_rast01, cache=TRUE}
+#plot(myrast)
+```
+
+```{r plot_rast_squared, cache=TRUE}
+#myrastSquared <- -1 * myrast^2
+#plot(myrastSquared)
+```
+
+
+# Additional Resources
+
+Raster package Vignette
+
+[Raster data manipulation](http://rspatial.org/spatial/rst/8-rastermanip.html){target="_blank"},  book chapter by Robert Hijmans
+
+[Working With Raster Time Series Data in R](https://www.neonscience.org/raster-time-series){target="_blank"}, NEON Science
+
+<div class="faux-h1">Next Up</div>
+
+[Exercise 8: Loops and Branches](exercises/ex08_loops-branches.html){target="_blank"}
+
+[Spatial Queries](part03b_spatial-queries.html)
+
+
+
+
