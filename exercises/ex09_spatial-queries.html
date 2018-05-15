@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Spatial Analysis with R: Exercise 9: Spatial Queries</title>
+
+<script src="lib/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="lib/navigation-1.1/tabsets.js"></script>
+<link href="lib/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="lib/highlightjs-1.1/highlight.js"></script>
+<link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+<script language="javascript" type="text/javascript">
+function TriShowHide(shID) {
+  shIDspan = shID + "span";
+  shIDdiv = shID + "div";
+  if (document.getElementById(shIDdiv).style.display != 'block') {
+    document.getElementById(shIDdiv).style.display = 'block';
+    txtSpan = "&#9660;";
+  } else {
+    document.getElementById(shIDdiv).style.display = 'none';
+    txtSpan = "&#9654;";
+  }
+  document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+}
+function showHide(shID) {
+  if (shID=="soln-show-all") {
+    var allAnswerCode = document.getElementsByClassName("answer-code");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'block';
+    }
+  } else if (shID=="soln-hide-all") {
+    var allAnswerCode = document.getElementsByClassName("answer-code");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'none';
+    }
+  } else if (shID=="hints-show-all") {
+    var allAnswerCode = document.getElementsByClassName("hint");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'block';
+    }
+  } else if (shID=="hints-hide-all") {
+    var allAnswerCode = document.getElementsByClassName("hint");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'none';
+    }
+  } else {
+    if (document.getElementById(shID)) {
+      if (document.getElementById(shID).style.display != 'block') {
+        document.getElementById(shID).style.display = 'block';
+      } else {
+        document.getElementById(shID).style.display = 'none';
+      }
+    }
+  }
+}
+function CopyToClipboard(containerid) {
+if (document.selection) { 
+    var range = document.body.createTextRange();
+    range.moveToElementText(document.getElementById(containerid));
+    range.select().createTextRange();
+    document.execCommand("copy"); 
+} else if (window.getSelection) {
+    var range = document.createRange();
+    range.selectNode(document.getElementById(containerid));
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    // alert("text copied") 
+}}
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="..\common\slidy_styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore"><span class="ex-title">Spatial Analysis with R:</span><br/><span class="ex-subtitle">Exercise 9: Spatial Queries</span></h1>
+<h4 class="date"><em>Spring 2018</em></h4>
+
+</div>
+
+
+<div id="instructions" class="section level3">
+<h3>Instructions</h3>
+<ul>
+<li><p>If you haven't already, install <a href="https://cran.r-project.org/">R</a> and <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>.</p></li>
+<li><p>Download the <a href="https://github.com/ajlyons/rspatialdata/tree/gh-pages" target="_blank">GitHub repo</a>.</p></li>
+<li><p>Create a new R script in RStudio (File → New File → R Script).</p></li>
+<li><p>Copy the questions below (all of which begin with the <em>#</em> character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.</p></li>
+<li><p>Remember to save your script periodically to avoid losing work if RStudio crashes.</p></li>
+<li><p>If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.</p></li>
+<li><p>If you have any questions or problems, please feel free to email the instructor.</p></li>
+</ul>
+<hr class="hrdivider">
+<div class="copy-button">
+<button onclick="CopyToClipboard('qtn_div');return false;">
+Copy questions
+</button>
+</div>
+<div id="qtn_div" class="ex-qtn">
+<p>########################################################<br/>#### <strong>ANALYZE CRIMES IN A SAN FRANCISCO NEIGHBORHOOD</strong> ####<br/>########################################################</p>
+<p><a id="qtn_swxdzr" href="#" class="showhidelink" onclick="showHide('swxdzr');return false;"># 1.</a> Import the San Francisco neighborhoods. Select just one (e.g, Haight Ashbury).<br />
+#  Save the boundary to a new variable, and plot it. <a href="#" class="showhidehint" onclick="showHide('iezehr');return false;"></a></p>
+<div id="iezehr" class="hint">
+See <a href="ex03_import_plot.html#qtn_zizsuk">Exercise 3</a>
+</div>
+<div id="swxdzr" class="answer-code">
+<pre class="r"><code>library(rgdal, quietly = TRUE)
+sfnb_ll &lt;- readOGR(&quot;data&quot;, &quot;sf_neighborhoods&quot;)</code></pre>
+<pre><code>## OGR data source with driver: ESRI Shapefile 
+## Source: &quot;data&quot;, layer: &quot;sf_neighborhoods&quot;
+## with 41 features
+## It has 1 fields</code></pre>
+<pre class="r"><code>plot(sfnb_ll, axes=T, asp=1)</code></pre>
+<p><img src="ex09_spatial-queries_files/figure-html/swxdrz-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>haight_ll &lt;- sfnb_ll[sfnb_ll$nhood==&quot;Haight Ashbury&quot;, ]
+plot(haight_ll, axes=TRUE, asp=1)</code></pre>
+<p><img src="ex09_spatial-queries_files/figure-html/swxdrz-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<p><a id="qtn_abnwfz" href="#" class="showhidelink" onclick="showHide('abnwfz');return false;"># 2.</a> Import the San Francisco Crimes Database from the sf_crime file GeoDB. <a href="#" class="showhidehint" onclick="showHide('qtyyke');return false;"></a></p>
+<div id="qtyyke" class="hint">
+See <a href="part01d_import_plot.html#import-from-a-geodatabase">Importing from a File Geodatabase with rgdal</a>
+</div>
+<div id="abnwfz" class="answer-code">
+<pre class="r"><code>gdb_dir &lt;- &quot;data/sf_crime.gdb&quot;
+file.exists(gdb_dir)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>rgdal::ogrListLayers(gdb_dir)</code></pre>
+<pre><code>## [1] &quot;San_Francisco_Crimes&quot;
+## attr(,&quot;driver&quot;)
+## [1] &quot;OpenFileGDB&quot;
+## attr(,&quot;nlayers&quot;)
+## [1] 1</code></pre>
+<pre class="r"><code>sfcrime_sp &lt;- rgdal::readOGR(dsn=gdb_dir,layer=&quot;San_Francisco_Crimes&quot;)</code></pre>
+<pre><code>## OGR data source with driver: OpenFileGDB 
+## Source: &quot;data/sf_crime.gdb&quot;, layer: &quot;San_Francisco_Crimes&quot;
+## with 74760 features
+## It has 10 fields</code></pre>
+<pre class="r"><code>class(sfcrime_sp)</code></pre>
+<pre><code>## [1] &quot;SpatialPointsDataFrame&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;sp&quot;</code></pre>
+</div>
+<p><a id="qtn_zpzoim" href="#" class="showhidelink" onclick="showHide('zpzoim');return false;"># 3.</a> Find out how many crimes occurred in your selected neighborhood. <a href="#" class="showhidehint" onclick="showHide('bhssvm');return false;"></a></p>
+<div id="bhssvm" class="hint">
+Remember that in order to do a spatial overlay operation, both layers must have the same CRS.<br/>Use the <tt>sp:over()</tt> function, so you can keep the data frame (unlike <tt>rgeos::gIntersection()</tt>).
+</div>
+<div id="zpzoim" class="answer-code">
+<p>First let's inspect the <em>proj4string</em> slot of both layers.</p>
+<pre class="r"><code>sfcrime_sp@proj4string</code></pre>
+<pre><code>## CRS arguments:
+##  +proj=merc +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m
+## +no_defs +ellps=WGS84 +towgs84=0,0,0</code></pre>
+<pre class="r"><code>haight_ll@proj4string</code></pre>
+<pre><code>## CRS arguments: +proj=longlat +ellps=WGS84 +no_defs</code></pre>
+<p>The crime locations are projected, while neighborhood boundaries are not. So before we can do a spatial overlay, we have to get them in the same CRS. Let's project the neighborhood boundary into the projection system of the crime data.</p>
+<pre class="r"><code>haight_prj &lt;- sp::spTransform(haight_ll, sfcrime_sp@proj4string)
+plot(haight_prj, axes=TRUE, asp=1)
+plot(sfcrime_sp, add=TRUE, col=&quot;red&quot;, pch=16, cex=0.5)</code></pre>
+<p><img src="ex09_spatial-queries_files/figure-html/prj_crimes_haight-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now we can do the spatial overlay. Note how we use the <tt>sp::geometry()</tt> function to strip off the data frame, so that <tt>sp::over()</tt> returns for each point the index (row number) of the polygon it falls in (and NA if there's no overlap).</p>
+<pre class="r"><code>crimept_polyid &lt;- sp::over(sp::geometry(sfcrime_sp), sp::geometry(haight_prj))
+sum(is.na(crimept_polyid))</code></pre>
+<pre><code>## [1] 73000</code></pre>
+<pre class="r"><code>sum(!is.na(crimept_polyid))</code></pre>
+<pre><code>## [1] 1760</code></pre>
+<pre class="r"><code>haight_crime_pts &lt;- sfcrime_sp[!is.na(crimept_polyid),]
+plot(haight_prj, axes=TRUE, asp=1)
+plot(haight_crime_pts, add=TRUE, col=&quot;purple&quot;, pch=16, cex=0.5)</code></pre>
+<p><img src="ex09_spatial-queries_files/figure-html/intersect_crimes_haight-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>nrow(haight_crime_pts@data)</code></pre>
+<pre><code>## [1] 1760</code></pre>
+<p>There are 1760 crimes in this neighborhood.</p>
+</div>
+<p><a id="qtn_lerzpa" href="#" class="showhidelink" onclick="showHide('lerzpa');return false;"># 4.</a> What was the most common type of crime?</p>
+<div id="lerzpa" class="answer-code">
+<pre class="r"><code>head(haight_crime_pts@data)</code></pre>
+<pre><code>##     Field1               Dates       Category
+## 92   27676 2014/12/28 00:00:00   NON-CRIMINAL
+## 132  27716 2014/12/28 00:00:00       BURGLARY
+## 200  27784 2014/12/28 00:00:00        ASSAULT
+## 201  27785 2014/12/28 00:00:00        ASSAULT
+## 202  27786 2014/12/28 00:00:00 OTHER OFFENSES
+## 203  27787 2014/12/28 00:00:00 OTHER OFFENSES
+##                                             Descript DayOfWeek PdDistrict
+## 92                         CIVIL SIDEWALKS, CITATION    Sunday       PARK
+## 132                 BURGLARY OF FLAT, UNLAWFUL ENTRY    Sunday       PARK
+## 200 ASSAULT ON A POLICE OFFICER WITH A DEADLY WEAPON    Sunday       PARK
+## 201                             THREATS AGAINST LIFE    Sunday       PARK
+## 202                                 RESISTING ARREST    Sunday       PARK
+## 203                      VIOLATION OF MUNICIPAL CODE    Sunday       PARK
+##         Resolution                 Address         X        Y
+## 92  ARREST, BOOKED 1400 Block of HAIGHT ST -122.4462 37.77016
+## 132           NONE    1600 Block of OAK ST -122.4465 37.77192
+## 200 ARREST, BOOKED 1400 Block of HAIGHT ST -122.4461 37.77005
+## 201 ARREST, BOOKED 1400 Block of HAIGHT ST -122.4461 37.77005
+## 202 ARREST, BOOKED 1400 Block of HAIGHT ST -122.4461 37.77005
+## 203 ARREST, BOOKED 1400 Block of HAIGHT ST -122.4461 37.77005</code></pre>
+<pre class="r"><code>sort(table(haight_crime_pts@data$Category), decreasing = TRUE)</code></pre>
+<pre><code>## 
+##                NON-CRIMINAL               LARCENY/THEFT 
+##                         514                         256 
+##              OTHER OFFENSES                    WARRANTS 
+##                         216                         139 
+##               DRUG/NARCOTIC                     ASSAULT 
+##                         123                          90 
+##                    BURGLARY              MISSING PERSON 
+##                          73                          67 
+##               VEHICLE THEFT                   VANDALISM 
+##                          67                          65 
+##              SUSPICIOUS OCC                       FRAUD 
+##                          31                          29 
+##                     ROBBERY                 DRUNKENNESS 
+##                          18                          11 
+##                 WEAPON LAWS                     RUNAWAY 
+##                          11                          10 
+##             SECONDARY CODES                 LIQUOR LAWS 
+##                           8                           7 
+##             STOLEN PROPERTY          DISORDERLY CONDUCT 
+##                           7                           4 
+## DRIVING UNDER THE INFLUENCE      FORGERY/COUNTERFEITING 
+##                           4                           4 
+##                    TRESPASS                  KIDNAPPING 
+##                           4                           2 
+##                       ARSON                  BAD CHECKS 
+##                           0                           0 
+##                     BRIBERY                EMBEZZLEMENT 
+##                           0                           0 
+##                   EXTORTION             FAMILY OFFENSES 
+##                           0                           0 
+##                    GAMBLING                   LOITERING 
+##                           0                           0 
+##                PROSTITUTION       SEX OFFENSES FORCIBLE 
+##                           0                           0 
+##   SEX OFFENSES NON FORCIBLE                     SUICIDE 
+##                           0                           0 
+##                        TREA 
+##                           0</code></pre>
+<p>It looks like non-criminal citations are the most common offense.</p>
+</div>
+<p>#############################################<br/>#### <strong>GENERATE RANDOM POINTS IN A POLYGON</strong> ####<br/>#############################################</p>
+<p><a id="qtn_kqrtya" href="#" class="showhidelink" onclick="showHide('kqrtya');return false;"># 5.</a> Generate 50 random points that fall within your selected neighborhood. <a href="#" class="showhidehint" onclick="showHide('jgvuvk');return false;"></a></p>
+<div id="jgvuvk" class="hint">
+Because the neighborhood boundary is not rectangular, we can i) generate many more than 50 random points within the extent (bounding box), ii) filter out those that don't fall within the boundary, iii) of the remaining, randomly select 50.
+</div>
+<div id="kqrtya" class="answer-code">
+<pre class="r"><code>## Get the bounding box
+hbb &lt;- haight_ll@bbox
+hbb</code></pre>
+<pre><code>##          min        max
+## x -122.45390 -122.43157
+## y   37.76148   37.77376</code></pre>
+<pre class="r"><code>num_pts &lt;- 250
+xs &lt;- runif(min=hbb[1,1], max=hbb[1,2], n=num_pts)
+ys &lt;- runif(min=hbb[2,1], max=hbb[2,2], n=num_pts)
+samp_pts_ext &lt;- SpatialPoints(data.frame(xs,ys), proj4string = haight_ll@proj4string)
+plot(haight_ll, axes=TRUE, asp=1)
+plot(samp_pts_ext, add=TRUE, col=&quot;red&quot;, pch=16, cex=0.5)</code></pre>
+<p><img src="ex09_spatial-queries_files/figure-html/tddhw-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Next, we use a spatial ovelay to get rid of the points outside the boundary. We can use either <tt>sp::over()</tt> or <tt>rgeos::gIntersection()</tt>. <tt>gIntersection()</tt> requires fewer gymnastics so we'll go with that.</p>
+<pre class="r"><code>library(rgeos)
+samp_pts_bnd &lt;- rgeos::gIntersection(samp_pts_ext, haight_ll)
+plot(haight_ll, axes=TRUE, asp=1)
+plot(samp_pts_bnd, add=TRUE, col=&quot;purple&quot;, pch=16, cex=0.5)</code></pre>
+<p><img src="ex09_spatial-queries_files/figure-html/remove_pts_outside-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Determine how many points fall within the neighborhood.</p>
+<pre class="r"><code>length(samp_pts_bnd)</code></pre>
+<pre><code>## [1] 121</code></pre>
+<p>That's too many. Randomly select 50 of the points.</p>
+<pre class="r"><code>idx &lt;- sample(1:length(samp_pts_bnd), size=50, replace=FALSE)
+samp_50pts_bnd &lt;- samp_pts_bnd[idx,]
+plot(haight_ll, axes=TRUE, asp=1)
+plot(samp_50pts_bnd, add=TRUE, col=&quot;purple&quot;, pch=16, cex=0.5)</code></pre>
+<p><img src="ex09_spatial-queries_files/figure-html/fifty_pts-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<!-- end questions -->
+</div>
+
+<hr>
+<div style="float:right; width:33%; text-align:right;">
+<a href="../index.html" style="text-decoration:none;">Course outline</a>
+</div>
+
+<div style="float:right; width:33%; text-align:center;">
+<a href="#" style="text-decoration:none;" onclick="showHide('soln-show-all');return false;">show all solutions</a> | <a href="#" style="text-decoration:none;" onclick="showHide('soln-hide-all');return false;">hide all solutions</a>
+</div>
+
+<div style="width:33%;">
+<a href="#" style="text-decoration:none;" onclick="showHide('hints-show-all');return false;">show all hints</a> | <a href="#" style="text-decoration:none;" onclick="showHide('hints-hide-all');return false;">hide all hints</a>
+</div>
+<br/>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

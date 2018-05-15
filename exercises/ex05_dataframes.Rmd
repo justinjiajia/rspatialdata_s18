@@ -14,6 +14,9 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+    if (before) par(mar = c(2, 2, 0.5, 0.5))
+})
 source("auton_chop.R")
 load('../common/course_info.RData')
 ```
@@ -62,12 +65,10 @@ range()
 </div>
 
 <hr class="hrdivider">
-<div style="text-align:center"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div class="copy-button"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div id="qtn_div" class="ex-qtn">
 
-<div id="qtn_div">
-
-`r paste0(rep('\\#',20), collapse='')`  
-__\#\#\# Exploring Data Frames__
+`r hashtitle("Exploring Data Frames")`
 
 \# `r chop("R comes with a bunch of sample datasets. To see a list of the main ones in the *datasets* package, run <tt>data()</tt> without an argument. The 'trees' dataset contains measurements of Black Cherry Trees.")`
 
@@ -99,15 +100,14 @@ sd(trees$Height)
 ```
 </div>
 
-`r paste0(rep('\\#',20), collapse='')`  
-__\#\#\# Basic Plotting__
+`r hashtitle("Basic Plotting")`
 
 <a id="qtn_sfgkcj" href="#" class="showhidelink" onclick="showHide('sfgkcj');return false;">\# `r auton()`</a> `r chop("Make a scatterplot of the tree volume as a function of girth and height. Which one looks more correlated?")` <a href="#" class="showhidehint" onclick="showHide('apzwtt');return false;"></a>  
 
 <div id="apzwtt" class="hint">Use the <tt>plot()</tt> function, with girth on the x-axis and volume on the y-axis. Use <tt>pch=16</tt> to make the symbols little circles.</div>
 
 <div id="sfgkcj" class="answer-code">
-```{r}
+```{r plot_trees, small.mar=TRUE}
 plot(x=trees$Girth, y=trees$Volume, pch=16)
 plot(x=trees$Height, y=trees$Volume, pch=16)
 ```
@@ -121,13 +121,12 @@ Visually it looks like tree girth is more tightly correlated with canopy volume.
 <div id="boqdjo" class="hint">We haven't seen the function that makes a box and whiskers plot yet, so your first job is to find it.</div>  
 
 <div id="kfailp" class="answer-code">
-```{r}
+```{r bplot_trees, small.mar=TRUE}
 boxplot(trees$Volume, main="Volume")
 ```
 </div>
 
-`r paste0(rep('\\#',20), collapse='')`  
-__\#\#\# DATA FRAME MANIPULATIONS__
+`r hashtitle("DATA FRAME MANIPULATIONS")`
 
 <a id="qtn_eblhoo" href="#" class="showhidelink" onclick="showHide('eblhoo');return false;">\# `r auton()`</a> `r chop("A common technique in regression is to scale variables to find non-linear relationships. Add two new columns to the trees data frame, i) height squared, and ii) log(height).")`  
 
@@ -155,8 +154,7 @@ nrow(trees_training)
 ```
 </div>
 
-`r paste0(rep('\\#',20), collapse='')`  
-__\#\#\# IMPORTING CSV FILES__
+`r hashtitle("IMPORTING CSV FILES")`
 
 <a id="qtn_lykudu" href="#" class="showhidelink" onclick="showHide('lykudu');return false;">\# `r auton()`</a> `r chop("Import the csv file *ca_celltowers.csv* from the data folder (in the exercises folder), saving the result as *ca_celltowers_df*.")` <a href="#" class="showhidehint" onclick="showHide('wixins');return false;"></a>  
 
@@ -183,8 +181,7 @@ There are 25 unique licensed cell tower companies.
 
 </div>
 
-`r paste0(rep('\\#',20), collapse='')`  
-__\#\#\# QUERIES__
+`r hashtitle("QUERIES")`
 
 <a id="qtn_reemfy" href="#" class="showhidelink" onclick="showHide('reemfy');return false;">\# `r auton()`</a> `r chop("The built-in *iris* data frame has sepal and petal measurements for three species of flowers. Create a data frame that contains every 10th row of iris.")` <a href="#" class="showhidehint" onclick="showHide('faieao');return false;"></a>  
 

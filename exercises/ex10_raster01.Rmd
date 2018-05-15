@@ -1,0 +1,103 @@
+---
+title: "<span class='ex-title'>Spatial Analysis with R:</span><br/><span class='ex-subtitle'>Exercise 10: Import Raster Data</span>"
+date: "`r load('../common/course_info.RData'); lstCI$course`"
+output: 
+  html_document: 
+    css: "../common/slidy_styles.css"
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+      after_body: bottom_links.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+    if (before) par(mar = c(2, 2, 0.5, 0.5))
+})
+source("auton_chop.R")
+load('../common/course_info.RData')
+library(raster)
+```
+
+### Instructions
+
+- If you haven't already, install [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/). 
+
+- Download the <a href="`r lstCI$githubrepo`" target="_blank">GitHub repo</a>. 
+
+- Create a new R script in RStudio (File &rarr; New File &rarr; R Script). 
+
+- Copy the questions below (all of which begin with the _#_ character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.
+
+- Remember to save your script periodically to avoid losing work if RStudio crashes.
+
+- If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.
+
+- If you have any questions or problems, please feel free to email the instructor.
+
+<hr class="hrdivider">
+<div class="copy-button"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div id="qtn_div" class="ex-qtn">
+
+`r hashtitle("Import a GeoTIFF")`
+
+<a id="qtn_hnlugg" href="#" class="showhidelink" onclick="showHide('hnlugg');return false;">\# `r auton()`</a> `r chop("Import the GeoTiff file <tt>SP27GTIF.TIF</tt> that comes with the *rgdal* package. View its properties.")` <a href="#" class="showhidehint" onclick="showHide('pzobpq');return false;"></a>  
+
+<div id="pzobpq" class="hint">
+To find the directory where pictures from the rgdal package are saved, run <tt>system.file("pictures", package="rgdal")</tt></div>
+  
+
+<div id="hnlugg" class="answer-code">
+```{r}
+library(raster)
+img_dir <- system.file("pictures", package="rgdal")
+img_fn <- file.path(img_dir, "SP27GTIF.TIF")
+file.exists(img_fn)
+img_rast <- raster::raster(img_fn)
+print(img_rast)
+```
+</div>
+
+<a id="qtn_poyepl" href="#" class="showhidelink" onclick="showHide('poyepl');return false;">\# `r auton()`</a> `r chop("How many band(s) does this image have? What is the range of pixel values?")`  
+
+<div id="poyepl" class="answer-code">
+```{r}
+summary(img_rast)
+```
+
+This image has only one band, with values from 4-255.
+</div>
+
+<a id="qtn_brceln" href="#" class="showhidelink" onclick="showHide('brceln');return false;">\# `r auton()`</a> `r chop("Plot the image with a gray scale colors.")`  
+
+<div id="brceln" class="answer-code">
+```{r print_img, cache=TRUE, fig.align='center', small.mar=TRUE}
+image(img_rast, col=grey.colors(255), asp=1)
+```
+</div>
+
+<a id="qtn_sgaova" href="#" class="showhidelink" onclick="showHide('sgaova');return false;">\# `r auton()`</a> `r chop("What is the resolution (size) of the pixels?")`  
+
+<div id="sgaova" class="answer-code">
+```{r}
+res(img_rast)
+```
+</div>
+
+<a id="qtn_jpiflp" href="#" class="showhidelink" onclick="showHide('jpiflp');return false;">\# `r auton()`</a> `r chop("What part of the planet is this image from?")` <a href="#" class="showhidehint" onclick="showHide('lpfzzx');return false;"></a>  
+
+<div id="lpfzzx" class="hint">(Un)project the image to geographic coordinates (see [Geographic Coordinates](../slides/part02e_spatial-data.html#geographic-coordinates)). Then enter the latitude and longitude into Google Maps by changing the URL http://maps.google.com/?q=36.3,-119.0 (note that Google Map URLs expect the latitude followed by the longitude).</div>
+
+<div id="jpiflp" class="answer-code">
+```{r}
+img_rast_ll <- projectRaster(img_rast, crs=sp::CRS("+init=epsg:4326"))
+plot(img_rast_ll, col=gray.colors(255))
+```
+
+The image is the [Chicago waterfront](https://goo.gl/maps/AqnXUFqFxUo).
+</div>
+
+</div><!-- end questions -->

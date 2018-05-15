@@ -193,18 +193,18 @@ $(document).ready(function () {
 <li><p>If you have any questions or problems, please feel free to email the instructor.</p></li>
 </ul>
 <hr class="hrdivider">
-<div style="text-align:center">
+<div class="copy-button">
 <button onclick="CopyToClipboard('qtn_div');return false;">
 Copy questions
 </button>
 </div>
-<div id="qtn_div">
-<h3 id="import-a-shapefile">### IMPORT A SHAPEFILE</h3>
-<p><a id="qtn_zizsuk" href="#" class="showhidelink" onclick="showHide('zizsuk');return false;"># 1.</a> The <em>exercises/data</em> folder contains a Shapefile of neighborhoods in San Francisco (<a href="https://data.sfgov.org/Geographic-Locations-and-Boundaries/Analysis-Neighborhoods/p5b7-5n3h" target="_blank">source</a>). Import and<br />
-#  plot it. How many neighborhoods are there?</p>
+<div id="qtn_div" class="ex-qtn">
+<p>############################<br/>#### <strong>IMPORT A SHAPEFILE</strong> ####<br/>############################</p>
+<p><a id="qtn_zizsuk" href="#" class="showhidelink" onclick="showHide('zizsuk');return false;"># 1.</a> The <em>exercises/data</em> folder contains a Shapefile of neighborhoods in San<br />
+#  Francisco (<a href="https://data.sfgov.org/Geographic-Locations-and-Boundaries/Analysis-Neighborhoods/p5b7-5n3h" target="_blank">source</a>). Import and plot it. How many neighborhoods are there?</p>
 <div id="zizsuk" class="answer-code">
 <pre class="r"><code>library(rgdal, quietly = TRUE)
-sf_nb &lt;- readOGR(&quot;data&quot;, &quot;sf_neighborhoods&quot;)</code></pre>
+sf_nb &lt;- rgdal::readOGR(&quot;data&quot;, &quot;sf_neighborhoods&quot;)</code></pre>
 <pre><code>## OGR data source with driver: ESRI Shapefile 
 ## Source: &quot;data&quot;, layer: &quot;sf_neighborhoods&quot;
 ## with 41 features
@@ -215,10 +215,10 @@ sf_nb &lt;- readOGR(&quot;data&quot;, &quot;sf_neighborhoods&quot;)</code></pre>
 <pre><code>## [1] 41</code></pre>
 <p>⇒ there are 41 neighborhoods.</p>
 </div>
-<h3 id="import-a-kml">### IMPORT A KML</h3>
-<p><a id="qtn_wvnipb" href="#" class="showhidelink" onclick="showHide('wvnipb');return false;"># 2.</a> The <em>exercises/data</em> folder contains a KML file with permitted cannabis dispensaries as of 2014<br />
-#  (<a href="https://data.sfgov.org/Health-and-Social-Services/Permitted-Medical-Cannabis-Dispensaries/46p7-cb56" target="_blank">source</a>). Import and plot it over the neighborhood boundaries. How many permitted cannabis dispensaries<br />
-#  are in the city? <a href="#" class="showhidehint" onclick="showHide('mqepye');return false;"></a></p>
+<p>######################<br/>#### <strong>IMPORT A KML</strong> ####<br/>######################</p>
+<p><a id="qtn_wvnipb" href="#" class="showhidelink" onclick="showHide('wvnipb');return false;"># 2.</a> The <em>exercises/data</em> folder contains a KML file with permitted cannabis<br />
+#  dispensaries as of 2014 (<a href="https://data.sfgov.org/Health-and-Social-Services/Permitted-Medical-Cannabis-Dispensaries/46p7-cb56" target="_blank">source</a>). Import and plot it over the neighborhood<br />
+#  boundaries. <a href="#" class="showhidehint" onclick="showHide('mqepye');return false;"></a></p>
 <div id="mqepye" class="hint">
 Remember to use the <tt>add=TRUE</tt> argument to overlay features on an existing plot.
 </div>
@@ -227,13 +227,13 @@ Remember to use the <tt>add=TRUE</tt> argument to overlay features on an existin
 fn &lt;- &quot;data/sf_permitted_cannabis_dispensaries_2014.kml&quot;
 file.exists(fn)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<pre class="r"><code>ogrListLayers(fn)</code></pre>
+<pre class="r"><code>rgdal::ogrListLayers(fn)</code></pre>
 <pre><code>## [1] &quot;Cannabis Dispensaries 2014&quot;
 ## attr(,&quot;driver&quot;)
 ## [1] &quot;KML&quot;
 ## attr(,&quot;nlayers&quot;)
 ## [1] 1</code></pre>
-<pre class="r"><code>sf_pot &lt;- readOGR(fn, &quot;Cannabis Dispensaries 2014&quot;)</code></pre>
+<pre class="r"><code>sf_pot &lt;- rgdal::readOGR(fn, &quot;Cannabis Dispensaries 2014&quot;)</code></pre>
 <pre><code>## OGR data source with driver: KML 
 ## Source: &quot;data/sf_permitted_cannabis_dispensaries_2014.kml&quot;, layer: &quot;Cannabis Dispensaries 2014&quot;
 ## with 28 features
@@ -241,6 +241,9 @@ file.exists(fn)</code></pre>
 <pre class="r"><code>plot(sf_nb, axes=T, asp=1)
 plot(sf_pot, add=T, col=&quot;red&quot;, pch=16)</code></pre>
 <p><img src="ex03_import_plot_files/figure-html/plot_pot-1.png" width="672" /></p>
+</div>
+<p><a id="qtn_cbaddd" href="#" class="showhidelink" onclick="showHide('cbaddd');return false;"># 3.</a> How many permitted cannabis dispensaries are in the city?</p>
+<div id="cbaddd" class="answer-code">
 <pre class="r"><code>nrow(sf_nb)</code></pre>
 <pre><code>## [1] 41</code></pre>
 <p>⇒ there were 41 cannabis dispensaries as of 2014.</p>

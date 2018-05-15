@@ -39,11 +39,15 @@ div.colclear {
 .titlefix {
   color: blue;
 }
+.copy-button {
+  text-align:center; 
+  margin:1em 0em;
+}
 .hrdivider {
-  background-color: #888;
+  background-color: #008040;
   border: 0 none;
-  color: #888;
-  height: 5px;
+  color: #008040;
+  height: 3px;
   width:70%;
   margin-top:1em;
   margin-bottom:0.5em;
@@ -94,6 +98,9 @@ div.textbox {
   font-size: 32px;
   font-weight:normal;
   color:black;
+}
+div.ex-qtn {
+  font-family:monospace;
 }
 .ex-title {
   font-size:75%;

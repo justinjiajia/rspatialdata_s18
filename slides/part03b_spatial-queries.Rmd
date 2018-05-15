@@ -27,8 +27,7 @@ library(rgeos)
 
 # Spatial Queries
 
-## Types of Spatial Queries
-
+<div class="indented1">
 Spatial Queries: Selecting features based on their location.
 
 Absolute location - based on their coordinate values
@@ -43,6 +42,7 @@ Relative location - based on proximity to other features, including:
 - intersects  
 - closest  
 </div>
+</div>
 
 ## Related concepts
 
@@ -54,20 +54,23 @@ Spatial join - Spatial query followed by copying the attributes of selected feat
 
 ## Packages with Spatial Query Functions
 
-<div class="indented1">
-- *sp* (over)  
-- *rgeos*  
-- *raster* (extract pixel values)  
-- *FNN* (nearest neighbor)  
-</div>
 
-## <tt>over(x,y)</tt> function
+```{r, echo=FALSE, results='asis'}
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+    if (before) par(mar = c(2, 2, 0.5, 0.5))
+})
+library(kableExtra)
+tbl_vec <- c("sp", "over()", "rgeos", "gIntersects", "FNN", "get.knn()", "raster", "extract()", "rgeos", "gContains(), gCovers(), gEquals(), gIntersects(), gOverlaps(), gTouches(), gWithinDistance()")
+tbl_mat <- matrix(tbl_vec, byrow=TRUE, ncol=2, dimnames=list(1:(length(tbl_vec)/2), c("Package", "Function(s)")))
+knitr::kable(tbl_mat, format = "html", table.attr='class="tbl_compact"') %>% column_spec(column=2, monospace = TRUE)
+```
+
+# <tt>sp::over(x,y)</tt>
 
 <div class="indented1">
-- from the *sp* package    
-- does many types of Spatial overlays and joins  
-- <tt>x</tt> and <tt>y</tt> must have the same CRS
-- what you get back depends on the types of object for x and y (dozen possibilities:
+- does many types of spatial overlays and joins  
+- <tt>x</tt> and <tt>y</tt> must have identical CRS
+- what you get back depends on the class of <tt>x</tt> and <tt>y</tt> (about a dozen possibilities)
 </div>
 
 <div class="indented2">
@@ -97,28 +100,27 @@ returns the polygon index of points in y; if x is a SpatialPolygonsDataFrame, a 
 *and several others...*
 </div>
 
-## Using the <tt>over(x,y)</tt> function effectively 
+__Using <tt>sp::over(x,y)</tt> effectively __
 
 <div class="indented1">
-You have to read the details closely.
-
-If this makes your head hurt, you're not alone.
+You have to read the details closely (if this makes your head hurt, you're not alone!).
 
 Remember that a <tt>SpatialPoints</tt> and <tt>SpatialPointsDataFrame</tt> are two different object types. 
 
-You can drop the dataframe of any *Spatial** object with the <tt>geometry()</tt> function
+<p style="margin-left: 3em;">But you can drop the data frame of any _Spatial*_ object with the <tt>geometry()</tt> function</p>
+
 </div>
 
-# Example: compute the number of cannabis dispenaries per neighborhood
+__Example__: Compute the number of cannabis dispenaries in San Francisco per neighborhood
 
 1. Import the SF neighborhood boundaries and the cannabis dispensary locations. 
 
-```{r}
+```{r load_data, fig.align="center", small.mar=TRUE, cache=TRUE}
 library(rgdal)
-sfnb_ll <- readOGR("../exercises/data", "sf_neighborhoods", verbose=FALSE)
+sfnb_ll <- rgdal::readOGR("../exercises/data", "sf_neighborhoods", verbose=FALSE)
 fn <- "../exercises/data/sf_permitted_cannabis_dispensaries_2014.kml"
-sfpot_ll <- readOGR(fn, "Cannabis Dispensaries 2014", verbose=FALSE)
-sfpot_ll <- spTransform(sfpot_ll, sfnb_ll@proj4string)
+sfpot_ll <- rgdal::readOGR(fn, "Cannabis Dispensaries 2014", verbose=FALSE)
+sfpot_ll <- sp::spTransform(sfpot_ll, sfnb_ll@proj4string)
 plot(sfnb_ll, axes=T, asp=1)
 plot(sfpot_ll, add=T, col="red", pch=16)
 ```
@@ -126,25 +128,23 @@ plot(sfpot_ll, add=T, col="red", pch=16)
 2. Compute the number of dispensaries per neighborhood
 
 ```{r}
-sfpot_nb_idx <- over(geometry(sfpot_ll), geometry(sfnb_ll))
+sfpot_nb_idx <- sp::over(geometry(sfpot_ll), geometry(sfnb_ll))
 sfpot_nb_str <- sfnb_ll@data$nhood[sfpot_nb_idx]
 sfpot_nb_str <- as.character(sfpot_nb_str)  ## change factor to a character
 table(sfpot_nb_str)
 ```
 
-# Other Spatial Query Functions
-
-## Square brackets
+# Spatial Queries with square brackets
 
 To do a Spatial Query based on contains or overlays relationship, can you use the traditional [square bracket] notation. 
 
 Syntax: <tt>my_spatial_points[*rows*, ]</tt>  
 
-For the *rows* expression provide the features you want to use for selection.  
+For the *rows* expression provide a Spatial* object containing the feature(s) you want to use for selection.  
 
 __Example__: select the dispensaries that fall in the Mission neighborhood.
 
-```{r}
+```{r msn_bnd, fig.align="center", small.mar=TRUE, cache=TRUE}
 msn_bnd <- sfnb_ll[sfnb_ll$nhood=="Mission",]
 msnpot_pnts <- sfpot_ll[msn_bnd, ]
 nrow(msnpot_pnts)
@@ -152,7 +152,7 @@ plot(msn_bnd, axes=TRUE)
 plot(msnpot_pnts, add=TRUE)
 ```
 
-## rgeos Spatial Query Functions
+# *rgeos* Spatial Query Functions
 
 The rgeos package contains a number of spatial query functions, including: 
 
@@ -167,28 +167,33 @@ gWithinDistance()
 </div>
 
 Many of these use the <tt>byid</tt> argument to control whether the test is performed for individual features or the spatial layer as a whole.  
-aa
+
 Like the <tt>over()</tt> function, you have to read the help page carefully.
 
 __Example__: Find the cannabis dispensary in the Mission neighborhood using the *gContains()* function.
 
-```{r}
+```{r rgeos_plot, fig.align="center", small.mar=TRUE, cache=TRUE}
 library(rgeos)
-x_matrix <- gContains(msn_bnd, sfpot_ll, byid=c(F,T))
-x_vec <- x_matrix[,1]   ## gContains returns a matrix, in this case just one column
+x_matrix <- rgeos::gContains(msn_bnd, sfpot_ll, byid=c(F,T))
+
+## gContains returns a matrix, in this case just one column
+## Let's pull out that one column as a vector.
+x_vec <- x_matrix[,1]   
 table(x_vec)
 plot(msn_bnd, axes=TRUE)
 plot(sfpot_ll[x_vec,], add=TRUE, col="green")
 ```
 
-# Coming Soon
+## Extracting pixel values from raster data
 
-*extracting pixel values from raster data*
+Another type of spatial query is selecting and extracting pixel values that overlap features of interest.
 
-<div class="faux-h1">Next Up</div>
+We will see how to do this when we get to the *raster* package.
 
-[Exercise 9: Spatial Queries](exercises/ex09_spatial-queries.html){target="_blank"}
+# Next Up
 
-[Working with Raster Data](part03c_raster.html)
+[Exercise 9: Spatial Queries](../exercises/ex09_spatial-queries.html){target="_blank"}
+
+[Raster Data Pt. 1 - Importing and Basic Processing](part03c_raster-pt1.html)
 
 

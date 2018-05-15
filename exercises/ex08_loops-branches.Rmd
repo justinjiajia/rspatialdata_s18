@@ -1,0 +1,95 @@
+---
+title: "<span class='ex-title'>Spatial Analysis with R:</span><br/><span class='ex-subtitle'>Exercise 8: Loops and Branches</span>"
+date: "`r load('../common/course_info.RData'); lstCI$course`"
+output: 
+  html_document: 
+    css: "../common/slidy_styles.css"
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+      after_body: bottom_links.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("auton_chop.R")
+load('../common/course_info.RData')
+```
+
+### Instructions
+
+- If you haven't already, install [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/). 
+
+- Download the <a href="`r lstCI$githubrepo`" target="_blank">GitHub repo</a>. 
+
+- Create a new R script in RStudio (File &rarr; New File &rarr; R Script). 
+
+- Copy the questions below (all of which begin with the _#_ character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.
+
+- Remember to save your script periodically to avoid losing work if RStudio crashes.
+
+- If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.
+
+- If you have any questions or problems, please feel free to email the instructor.
+
+<hr class="hrdivider">
+<div class="copy-button"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div id="qtn_div" class="ex-qtn">
+
+`r hashtitle("If-else Statement")`
+
+<a id="qtn_lemrvy" href="#" class="showhidelink" onclick="showHide('lemrvy');return false;">\# `r auton()`</a> `r chop("Generate a random number *x* between 0 and 10.")`  
+
+<div id="lemrvy" class="answer-code">
+```{r}
+x <- runif(1) * 10
+```
+</div>
+
+
+<a id="qtn_vjircc" href="#" class="showhidelink" onclick="showHide('vjircc');return false;">\# `r auton()`</a> `r chop("Create an if-else statement such that if *x < 5*, the sign of *x* changes (e.g., +2 becomes -2), and if *x >= 5*, x becomes squared. Run you're code a few times to make sure it's working.")`  
+
+<div id="vjircc" class="answer-code">
+```{r}
+if (x < 5) {
+  x <- x * -1
+} else {
+  x <- x^2
+}
+x
+```
+</div>
+
+`r hashtitle("Loop Through a Data Frame")`
+
+<a id="qtn_pfidjl" href="#" class="showhidelink" onclick="showHide('pfidjl');return false;">\# `r auton()`</a> `r chop("The mtcars data frame has a column called *mpg*. What data class is this column? Compute the average *mpg* for the data frame.")`  
+
+<div id="pfidjl" class="answer-code">
+```{r}
+class(mtcars$mpg)
+mean(mtcars$mpg)
+```
+</div>
+
+
+<a id="qtn_mujiwl" href="#" class="showhidelink" onclick="showHide('mujiwl');return false;">\# `r auton()`</a> `r chop("Loop through the mtcars data frame. For each row, compute the difference between the mpg column and the average. Save these differences to a vector. Finally sum the values (should be equal to 0).")` <a href="#" class="showhidehint" onclick="showHide('uvqhhj');return false;"></a>  
+
+<div id="uvqhhj" class="hint">Use <tt>numeric()</tt> without an argument to create a new numeric vector with no elements</div>
+
+<div id="mujiwl" class="answer-code">
+```{r}
+mpg_avg <- mean(mtcars$mpg)
+mpg_diff <- numeric()
+for (i in 1:nrow(mtcars)) {
+  print(i)
+  mpg_diff <- c(mpg_diff, mtcars[i,"mpg"] - mpg_avg)
+}
+head(mpg_diff)
+sum(mpg_diff)
+```
+</div>
+ 
+
+</div><!-- end questions -->

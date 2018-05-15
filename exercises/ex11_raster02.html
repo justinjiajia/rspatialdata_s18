@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Spatial Analysis with R: Exercise 11: Site Suitability Analysis</title>
+
+<script src="lib/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="lib/navigation-1.1/tabsets.js"></script>
+<link href="lib/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="lib/highlightjs-1.1/highlight.js"></script>
+<link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+<script language="javascript" type="text/javascript">
+function TriShowHide(shID) {
+  shIDspan = shID + "span";
+  shIDdiv = shID + "div";
+  if (document.getElementById(shIDdiv).style.display != 'block') {
+    document.getElementById(shIDdiv).style.display = 'block';
+    txtSpan = "&#9660;";
+  } else {
+    document.getElementById(shIDdiv).style.display = 'none';
+    txtSpan = "&#9654;";
+  }
+  document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+}
+function showHide(shID) {
+  if (shID=="soln-show-all") {
+    var allAnswerCode = document.getElementsByClassName("answer-code");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'block';
+    }
+  } else if (shID=="soln-hide-all") {
+    var allAnswerCode = document.getElementsByClassName("answer-code");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'none';
+    }
+  } else if (shID=="hints-show-all") {
+    var allAnswerCode = document.getElementsByClassName("hint");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'block';
+    }
+  } else if (shID=="hints-hide-all") {
+    var allAnswerCode = document.getElementsByClassName("hint");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'none';
+    }
+  } else {
+    if (document.getElementById(shID)) {
+      if (document.getElementById(shID).style.display != 'block') {
+        document.getElementById(shID).style.display = 'block';
+      } else {
+        document.getElementById(shID).style.display = 'none';
+      }
+    }
+  }
+}
+function CopyToClipboard(containerid) {
+if (document.selection) { 
+    var range = document.body.createTextRange();
+    range.moveToElementText(document.getElementById(containerid));
+    range.select().createTextRange();
+    document.execCommand("copy"); 
+} else if (window.getSelection) {
+    var range = document.createRange();
+    range.selectNode(document.getElementById(containerid));
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    // alert("text copied") 
+}}
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="..\common\slidy_styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore"><span class="ex-title">Spatial Analysis with R:</span><br/><span class="ex-subtitle">Exercise 11: Site Suitability Analysis</span></h1>
+<h4 class="date"><em>Spring 2018</em></h4>
+
+</div>
+
+
+<div id="instructions" class="section level3">
+<h3>Instructions</h3>
+<ul>
+<li><p>If you haven't already, install <a href="https://cran.r-project.org/">R</a> and <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>.</p></li>
+<li><p>Download the <a href="https://github.com/ajlyons/rspatialdata/tree/gh-pages" target="_blank">GitHub repo</a>.</p></li>
+<li><p>Create a new R script in RStudio (File → New File → R Script).</p></li>
+<li><p>Copy the questions below (all of which begin with the <em>#</em> character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.</p></li>
+<li><p>Remember to save your script periodically to avoid losing work if RStudio crashes.</p></li>
+<li><p>If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.</p></li>
+<li><p>If you have any questions or problems, please feel free to email the instructor.</p></li>
+</ul>
+<hr class="hrdivider">
+<div class="copy-button">
+<button onclick="CopyToClipboard('qtn_div');return false;">
+Copy questions
+</button>
+</div>
+<div id="qtn_div" class="ex-qtn">
+<p>#  In this exercise, we will identify suitable locations for new a cannabis<br />
+#  dispensary in San Francisco based on two spatial criteria: 1) the new site<br />
+#  should not be within 1/2 mile of an existing dispensary, and 2) the elevation<br />
+#  should be &lt; 250 ft above sea level.</p>
+<p>########################################################################<br/>#### <strong>IMPORT THE SF CITY BOUNDARY AND LICENSED CANNABIS DISPENSARIES</strong> ####<br/>########################################################################</p>
+<p><a id="qtn_wwyygn" href="#" class="showhidelink" onclick="showHide('wwyygn');return false;"># 1.</a> Import the San Francisco City Boundary Shapefile, <em>sf_bnd.shp</em> <a href="#" class="showhidehint" onclick="showHide('rkaada');return false;"></a></p>
+<div id="rkaada" class="hint">
+See <a href="../slides/part01d_import_plot.html#import-shapefiles">Importing Shapefiles</a>
+</div>
+<div id="wwyygn" class="answer-code">
+<pre class="r"><code>library(rgdal)
+sfbnd_ll &lt;- rgdal::readOGR(&quot;../exercises/data&quot;, &quot;sf_bnd&quot;)</code></pre>
+<pre><code>## OGR data source with driver: ESRI Shapefile 
+## Source: &quot;../exercises/data&quot;, layer: &quot;sf_bnd&quot;
+## with 1 features
+## It has 9 fields</code></pre>
+<pre class="r"><code>sfbnd_ll &lt;- sp::geometry(sfbnd_ll)
+summary(sfbnd_ll)</code></pre>
+<pre><code>## Object of class SpatialPolygons
+## Coordinates:
+##          min        max
+## x -122.51513 -122.35702
+## y   37.70825   37.81176
+## Is projected: FALSE 
+## proj4string :
+## [+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0]</code></pre>
+</div>
+<p><a id="qtn_rdanjf" href="#" class="showhidelink" onclick="showHide('rdanjf');return false;"># 2.</a> Import the 2014 Licensed Cannabis Dispensaries in<br />
+#  <em>sf_permitted_cannabis_dispensaries_2014.kml</em>. <a href="#" class="showhidehint" onclick="showHide('grikfw');return false;"></a></p>
+<div id="grikfw" class="hint">
+See <a href="../slides/part01d_import_plot.html#import-a-kml">Import a KML</a>
+</div>
+<div id="rdanjf" class="answer-code">
+<pre class="r"><code>kml_fn &lt;- &quot;data/sf_permitted_cannabis_dispensaries_2014.kml&quot;
+file.exists(kml_fn)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>rgdal::ogrListLayers(kml_fn)</code></pre>
+<pre><code>## [1] &quot;Cannabis Dispensaries 2014&quot;
+## attr(,&quot;driver&quot;)
+## [1] &quot;KML&quot;
+## attr(,&quot;nlayers&quot;)
+## [1] 1</code></pre>
+<pre class="r"><code>cannabis_pts_ll &lt;- rgdal::readOGR(kml_fn, &quot;Cannabis Dispensaries 2014&quot;, pointDropZ=TRUE)</code></pre>
+<pre><code>## OGR data source with driver: KML 
+## Source: &quot;data/sf_permitted_cannabis_dispensaries_2014.kml&quot;, layer: &quot;Cannabis Dispensaries 2014&quot;
+## with 28 features
+## It has 2 fields</code></pre>
+<pre class="r"><code>cannabis_pts_ll &lt;- geometry(cannabis_pts_ll)
+summary(cannabis_pts_ll)</code></pre>
+<pre><code>## Object of class SpatialPoints
+## Coordinates:
+##                  min        max
+## coords.x1 -122.47113 -122.39641
+## coords.x2   37.71518   37.78823
+## Is projected: FALSE 
+## proj4string :
+## [+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0]
+## Number of points: 28</code></pre>
+</div>
+<p><a id="qtn_fiisti" href="#" class="showhidelink" onclick="showHide('fiisti');return false;"># 3.</a> Plot the cannabis dispensaries on top of the city boundary.</p>
+<div id="fiisti" class="answer-code">
+<pre class="r"><code>plot(sfbnd_ll, axes=TRUE, asp=1)
+plot(cannabis_pts_ll, add=TRUE, col=&quot;red&quot;, pch=16)</code></pre>
+<p><img src="ex11_raster02_files/figure-html/plot_cannabis-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<p>##################################<br/>#### <strong>CREATE AN ELEVATION MASK</strong> ####<br/>##################################</p>
+<p><a id="qtn_hskrnm" href="#" class="showhidelink" onclick="showHide('hskrnm');return false;"># 4.</a> Download the SRTM data for San Francisco. <a href="#" class="showhidehint" onclick="showHide('etpuvs');return false;"></a></p>
+<div id="etpuvs" class="hint">
+Use the <tt>getData()</tt> function from the raster package (see <a href="../slides/part03c_raster-pt1.html#import-raster-data-from-the-cloud" target="_blank">Importing Data from the Cloud</a>).
+</div>
+<div id="hskrnm" class="answer-code">
+<pre class="r"><code>library(raster)
+ca_dem_ll &lt;- raster::getData(&#39;SRTM&#39;, lon=-122.5, lat=37.8, download=TRUE)
+plot(ca_dem_ll, asp=1)</code></pre>
+<p><img src="ex11_raster02_files/figure-html/plot_ca_dem-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<p><a id="qtn_kjyukt" href="#" class="showhidelink" onclick="showHide('kjyukt');return false;"># 5.</a> Crop the DEM to the SF boundary.</p>
+<div id="kjyukt" class="answer-code">
+<pre class="r"><code>sf_dem_ll &lt;- crop(ca_dem_ll, sfbnd_ll)
+plot(sf_dem_ll, asp=1, main=&quot;SRTM Elevation Data&quot;)
+plot(sfbnd_ll, add=TRUE, lwd=2)</code></pre>
+<p><img src="ex11_raster02_files/figure-html/sf_dem-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<p><a id="qtn_ontqhv" href="#" class="showhidelink" onclick="showHide('ontqhv');return false;"># 6.</a> Project the DEM, city boundary, and pot dispensary locations to UTM, so we can<br />
+#  create buffers in meters. <a href="#" class="showhidehint" onclick="showHide('hmdcay');return false;"></a></p>
+<div id="hmdcay" class="hint">
+See <a href="../slides/part03c_raster-pt1.html#project-a-raster">Projecting Rasters</a>
+</div>
+<div id="ontqhv" class="answer-code">
+<pre class="r"><code>utm10n_crs &lt;- CRS(&quot;+proj=utm +zone=10 +ellps=WGS84&quot;)
+sfbnd_prj &lt;- sp::spTransform(sfbnd_ll, utm10n_crs)
+cannabis_pts_prj &lt;- sp::spTransform(cannabis_pts_ll, utm10n_crs)
+sf_dem_prj &lt;- raster::projectRaster(sf_dem_ll, crs=utm10n_crs)
+plot(sf_dem_prj, axes=TRUE, asp=1)
+plot(sfbnd_prj, add=TRUE, lwd=2)
+plot(cannabis_pts_prj, add=TRUE, col=&quot;red&quot;, pch=16)</code></pre>
+<p><img src="ex11_raster02_files/figure-html/plot_prj_dem-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<p><a id="qtn_extskn" href="#" class="showhidelink" onclick="showHide('extskn');return false;"># 7.</a> Create the elevation mask</p>
+<div id="extskn" class="answer-code">
+<pre class="r"><code>sfelev_mask &lt;- raster(sf_dem_prj)
+sfelev_mask[ getValues(sf_dem_prj) &lt; 250 * 0.3048  ] &lt;- 1
+plot(sfelev_mask, col=&quot;purple&quot;, asp=1, main=&quot;Elevation Mask&quot;, legend=FALSE)
+plot(sfbnd_prj, add=TRUE, lwd=2)</code></pre>
+<p><img src="ex11_raster02_files/figure-html/plot_elev_mask-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<p>################################<br/>#### <strong>CREATE A DISTANCE MASK</strong> ####<br/>################################</p>
+<p><a id="qtn_aqriwn" href="#" class="showhidelink" onclick="showHide('aqriwn');return false;"># 8.</a> Using the DEM as a raster template, create a distance surface from the cannabis<br />
+#  dispensaries. <a href="#" class="showhidehint" onclick="showHide('vengqd');return false;"></a></p>
+<div id="vengqd" class="hint">
+See <a href="../slides/part03d_raster-pt2.html#rastering-vector-data">Rastering Vector Data</a>
+</div>
+<div id="aqriwn" class="answer-code">
+<pre class="r"><code>cannabis_pts_rst &lt;- raster::rasterize(cannabis_pts_prj, sf_dem_prj, field=1)
+cannabis_dist2pts &lt;- raster::distance(cannabis_pts_rst)
+cannabis_dist2pts &lt;- mask(cannabis_dist2pts, sfbnd_prj)
+plot(cannabis_dist2pts, main=&quot;Distance to Cannabis Dispensaries&quot;)
+plot(sfbnd_prj, add=TRUE, lwd=2)
+plot(cannabis_pts_prj, add=TRUE, col=&quot;red&quot;, pch=16, cex=0.5)</code></pre>
+<p><img src="ex11_raster02_files/figure-html/plot_dist2pts-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<p><a id="qtn_ugeyme" href="#" class="showhidelink" onclick="showHide('ugeyme');return false;"># 9.</a> Create a raster mask of all areas more than half a mile from an existing pot<br />
+#  dispensary.</p>
+<div id="ugeyme" class="answer-code">
+<pre class="r"><code>cannabis_distmask &lt;- raster(cannabis_dist2pts)
+cannabis_distmask[ getValues(cannabis_dist2pts) &gt; 1610 / 2  ] &lt;- 1
+plot(cannabis_distmask, col=&quot;blue&quot;, asp=1, main=&quot;Distance Mask&quot;, legend=FALSE)
+plot(sfbnd_prj, add=TRUE, lwd=2)</code></pre>
+<p><img src="ex11_raster02_files/figure-html/plot_canabis_distmask-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<p>#################################<br/>#### <strong>IDENTIFY SUITABLE SITES</strong> ####<br/>#################################</p>
+<p><a id="qtn_slvhaw" href="#" class="showhidelink" onclick="showHide('slvhaw');return false;"># 10.</a> Use a raster algebra expression to identify sites that meet both criteria.</p>
+<div id="slvhaw" class="answer-code">
+<pre class="r"><code>good_sites &lt;- cannabis_distmask * sfelev_mask
+plot(good_sites, col=&quot;green&quot;, asp=1, main=&quot;Suitable Sites: Elevation and Distance&quot;, legend=FALSE)
+plot(sfbnd_prj, add=TRUE, lwd=2)</code></pre>
+<p><img src="ex11_raster02_files/figure-html/plot_suitable_sites-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<p><a id="qtn_irmknu" href="#" class="showhidelink" onclick="showHide('irmknu');return false;"># 11.</a> Bonus: create an additive site suitability model where the pixel values are the<br />
+#  number of conditions that are met (0..2). <a href="#" class="showhidehint" onclick="showHide('xaitls');return false;"></a></p>
+<div id="xaitls" class="hint">
+Convert <tt>NA</tt> pixels to 0 to prevent the results of equations from being <tt>NA</tt>.
+</div>
+<div id="irmknu" class="answer-code">
+<pre class="r"><code>## First turn the NA values to 0s
+cannabis_distmask[is.na(getValues(cannabis_distmask))] &lt;- 0
+sfelev_mask[is.na(getValues(sfelev_mask))] &lt;- 0
+
+## Add the raster masks together
+good_better_sites &lt;- cannabis_distmask + sfelev_mask
+cols &lt;- c(NA, &quot;blue&quot;, &quot;green&quot;)
+plot(good_better_sites, legend = FALSE, col = cols)
+legend(&quot;topright&quot;, legend = c(&quot;0&quot;, &quot;1&quot;, &quot;2&quot;), fill = cols)</code></pre>
+<p><img src="ex11_raster02_files/figure-html/irmknu-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<!-- end questions -->
+</div>
+
+<hr>
+<div style="float:right; width:33%; text-align:right;">
+<a href="../index.html" style="text-decoration:none;">Course outline</a>
+</div>
+
+<div style="float:right; width:33%; text-align:center;">
+<a href="#" style="text-decoration:none;" onclick="showHide('soln-show-all');return false;">show all solutions</a> | <a href="#" style="text-decoration:none;" onclick="showHide('soln-hide-all');return false;">hide all solutions</a>
+</div>
+
+<div style="width:33%;">
+<a href="#" style="text-decoration:none;" onclick="showHide('hints-show-all');return false;">show all hints</a> | <a href="#" style="text-decoration:none;" onclick="showHide('hints-hide-all');return false;">hide all hints</a>
+</div>
+<br/>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

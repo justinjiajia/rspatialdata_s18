@@ -166,7 +166,7 @@ cea_fn</code></pre></div>
 <pre><code>## [1] &quot;C:/Users/Andy/Documents/R/win-library/3.4/rgdal/pictures/cea.tif&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">file.exists</span>(cea_fn)</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<h2 id="read-the-meta-data">Read the meta data</h2>
+<h2 id="read-the-metadata">Read the metadata</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rgdal<span class="op">::</span><span class="kw">GDALinfo</span>(cea_fn)</code></pre></div>
 <pre><code>## Warning: statistics not supported by this driver</code></pre>
 <pre><code>## rows        515 
@@ -204,8 +204,8 @@ cea_rast</code></pre></div>
 ## values      : 0, 255  (min, max)</code></pre>
 <p>Notice a few things about this raster.</p>
 <div class="indented1">
-<p><em>dimensions</em>: the “size” of the file in pixels: nrow=number of rows; ncol=number of columns, and ncells= the total number of pixels or cells</p>
-<p><em>resolution</em>: the size of each pixel (in meters in this case). 1 meter pixels means that each pixel represents a 1m x 1m area on the earth’s surface.</p>
+<p><em>dimensions</em>: the â€œsizeâ€ of the file in pixels: nrow=number of rows; ncol=number of columns, and ncells= the total number of pixels or cells</p>
+<p><em>resolution</em>: the size of each pixel (in meters in this case). 1 meter pixels means that each pixel represents a 1m x 1m area on the earthâ€™s surface.</p>
 <p><em>extent</em>: the spatial extent of the raster. This value will be in the same coordinate units as the coordinate reference system of the raster.</p>
 <p><em>coord ref</em>: the coordinate reference system string for the raster.</p>
 </div>
@@ -213,6 +213,13 @@ cea_rast</code></pre></div>
 <p>The primary visualization functions for raster data are <tt>plot()</tt> and <tt>image()</tt>. We'll use <tt>image()</tt> and specify a grayscale color ramp.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(cea_rast, <span class="dt">col=</span><span class="kw">gray</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">255</span><span class="op">/</span><span class="dv">255</span>), <span class="dt">asp=</span><span class="dv">1</span>)</code></pre></div>
 <p><img src="part03c_raster-pt1_files/figure-slidy/viz_geotiff-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><em>Notes on visualizing rasters</em></p>
+<div class="indented1">
+<p>You can change the color ramp with the <tt>col</tt> argument. Use functions like <tt>gray.colors()</tt>, <tt>terrain.colors()</tt>, <tt>topo.colors()</tt>, etc.</p>
+<p>Use <tt>plotRGB()</tt> to plot a multi-band image as RGB. You can specify which bands to plot as red, green, and blue, and the <tt>stretch</tt> argument to apply a stretch for better contrast.</p>
+<p>The <em>rasterVis</em> package has additional plotting functions.</p>
+<p>See also <a href="https://earthdatascience.org/courses/earth-analytics/multispectral-remote-sensing-data/naip-imagery-raster-stacks-in-r/" target="_blank"><em>How to Open and Work With Multispectral Imagery in R</em></a></p>
+</div>
 <h2 id="common-raster-data-processing-tasks">Common Raster Data Processing Tasks</h2>
 <table class="tbl_compact">
 <thead>
@@ -268,7 +275,7 @@ projectRaster()
 </tr>
 <tr>
 <td style="text-align:left;">
-inspect pixel values
+work with pixel values (stretch, reclassify, etc.)
 </td>
 <td style="text-align:left;font-family: monospace;">
 getValues(), [rows,cols]
@@ -280,6 +287,14 @@ stack
 </td>
 <td style="text-align:left;font-family: monospace;">
 stack()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mosaic
+</td>
+<td style="text-align:left;font-family: monospace;">
+??
 </td>
 </tr>
 <tr>
@@ -315,24 +330,24 @@ writeRaster(), writeGDAL()
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
 western_ca_dem_ll &lt;-<span class="st"> </span><span class="kw">getData</span>(<span class="st">&#39;SRTM&#39;</span>, <span class="dt">lon=</span><span class="op">-</span><span class="dv">119</span>, <span class="dt">lat=</span><span class="dv">37</span>, <span class="dt">download=</span><span class="ot">TRUE</span>)
 <span class="kw">plot</span>(western_ca_dem_ll, <span class="dt">asp=</span><span class="dv">1</span>)</code></pre></div>
-<p><img src="part03c_raster-pt1_files/figure-slidy/get_data_yosem_srtm-1.png" width="768" /></p>
+<p><img src="part03c_raster-pt1_files/figure-slidy/get_data_yosem_srtm-1.png" width="768" style="display: block; margin: auto;" /></p>
 <h2 id="import-the-yosemite-park-boundary">Import the Yosemite Park Boundary</h2>
 <p>SRTM tiles are usually much larger than needed. Cropping them to a study area is often the next step, which we'll do next.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rgdal)
 yosem_bnd_ll &lt;-<span class="st"> </span>rgdal<span class="op">::</span><span class="kw">readOGR</span>(<span class="dt">dsn=</span><span class="st">&quot;../exercises/data&quot;</span>, <span class="dt">layer=</span><span class="st">&quot;yosemite_bnd&quot;</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)
 <span class="kw">plot</span>(yosem_bnd_ll, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">axes=</span><span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="part03c_raster-pt1_files/figure-slidy/import_yosem_bnd-1.png" width="768" /></p>
+<p><img src="part03c_raster-pt1_files/figure-slidy/import_yosem_bnd-1.png" width="768" style="display: block; margin: auto;" /></p>
 <h2 id="crop-the-dem-to-the-yosemite-park-boundary.">Crop the DEM to the Yosemite Park boundary.</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yosem_ext_dem_ll &lt;-<span class="st"> </span><span class="kw">crop</span>(western_ca_dem_ll, yosem_bnd_ll)
 <span class="kw">plot</span>(yosem_ext_dem_ll, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">main=</span><span class="st">&quot;SRTM Elevation Data, Yosemite NP&quot;</span>)
 <span class="kw">plot</span>(yosem_bnd_ll, <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="part03c_raster-pt1_files/figure-slidy/plot_yosem_dem-1.png" width="768" /></p>
+<p><img src="part03c_raster-pt1_files/figure-slidy/plot_yosem_dem-1.png" width="768" style="display: block; margin: auto;" /></p>
 <h2 id="mask">Mask</h2>
 <p>Masking a raster doesn't generally change the dimensions or spatial resolution, however it sets the pixel values of masked areas to NA, so they will be excluded from analyses.</p>
 <p>Mask the Yosemite DEM to the park boundary.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yosem_msk_dem_ll &lt;-<span class="st"> </span><span class="kw">mask</span>(yosem_ext_dem_ll, yosem_bnd_ll)
 <span class="kw">plot</span>(yosem_msk_dem_ll, <span class="dt">asp=</span><span class="dv">1</span>)</code></pre></div>
-<p><img src="part03c_raster-pt1_files/figure-slidy/mask_yosem_dem-1.png" width="768" /></p>
+<p><img src="part03c_raster-pt1_files/figure-slidy/mask_yosem_dem-1.png" width="768" style="display: block; margin: auto;" /></p>
 <h2 id="view-raster-properties">View raster properties</h2>
 <table class="tbl_compact">
 <thead>
@@ -351,7 +366,15 @@ Function(s)
 dimensions
 </td>
 <td style="text-align:left;font-family: monospace;">
-dim(), nrow(), ncol()
+dim(), nrow(), ncol(), ncell()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pixel values
+</td>
+<td style="text-align:left;font-family: monospace;">
+hist(), cellStats()
 </td>
 </tr>
 <tr>
@@ -411,7 +434,7 @@ inMemory()
 ## 3rd Qu.       2888
 ## Max.          3971
 ## NA&#39;s             0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yosem_ext_dem_ll</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(yosem_ext_dem_ll)</code></pre></div>
 <pre><code>## class       : RasterLayer 
 ## dimensions  : 829, 828, 686412  (nrow, ncol, ncell)
 ## resolution  : 0.0008333333, 0.0008333333  (x, y)
@@ -420,6 +443,8 @@ inMemory()
 ## data source : in memory
 ## names       : srtm_13_05 
 ## values      : 436, 3971  (min, max)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(yosem_ext_dem_ll, <span class="dt">col=</span><span class="st">&quot;gray50&quot;</span>)</code></pre></div>
+<p><img src="part03c_raster-pt1_files/figure-slidy/properties_yosem_dem-1.png" width="768" style="display: block; margin: auto;" /></p>
 <h2 id="project-a-raster">Project a raster</h2>
 <p>Just like vector data, if you want to be able to use real-world measurements in your analysis, you need to project the data to a real-world coordinate system.</p>
 <p>Let's project the Yosemite DEM and boundary to UTM10.</p>
@@ -434,17 +459,10 @@ yosem_msk_dem_prj</code></pre></div>
 ## data source : in memory
 ## names       : srtm_13_05 
 ## values      : 663.819, 3943.061  (min, max)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yosem_bnd_ll_prj &lt;-<span class="st"> </span><span class="kw">spTransform</span>(yosem_bnd_ll, utm10n_crs)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yosem_bnd_prj &lt;-<span class="st"> </span><span class="kw">spTransform</span>(yosem_bnd_ll, utm10n_crs)
 <span class="kw">plot</span>(yosem_msk_dem_prj, <span class="dt">asp=</span><span class="dv">1</span>)
-<span class="kw">plot</span>(yosem_bnd_ll_prj, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="part03c_raster-pt1_files/figure-slidy/proj_yosem-1.png" width="768" /></p>
-<p>Challenge Questions</p>
-<ul>
-<li>Count the number of 'NA' pixels in this image?<br />
-</li>
-<li>Compare the area of the park using the raster versus the park boundary.</li>
-<li>How would you grab the pixel value of a specifc row and column?</li>
-</ul>
+<span class="kw">plot</span>(yosem_bnd_prj, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="part03c_raster-pt1_files/figure-slidy/proj_yosem-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="resample" class="slide section level1">
 <h1>Resample</h1>
@@ -465,31 +483,23 @@ yosem_msk_dem_prj</code></pre></div>
 yosem_aspect &lt;-<span class="st"> </span><span class="kw">terrain</span>(yosem_msk_dem_prj_resamp, <span class="dt">opt=</span><span class="st">&quot;aspect&quot;</span>)
 yosem_hillshade &lt;-<span class="st"> </span><span class="kw">hillShade</span>(yosem_slope, yosem_aspect, <span class="dv">40</span>, <span class="dv">270</span>)
 <span class="kw">plot</span>(yosem_hillshade, <span class="dt">col=</span><span class="kw">grey</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">100</span><span class="op">/</span><span class="dv">100</span>), <span class="dt">legend=</span><span class="ot">FALSE</span>)</code></pre></div>
-<p><img src="part03c_raster-pt1_files/figure-slidy/unnamed-chunk-4-1.png" width="768" /></p>
+<p><img src="part03c_raster-pt1_files/figure-slidy/hillshade-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>Food for thought: aside from making nice visualizations, what types of questions or anlayses would slope or aspect be useful for?</p>
 <h2 id="exporting-raster-data">Exporting Raster Data</h2>
 <p>Use <tt>writeRaster()</tt> from the <em>raster</em> package to export <em>RasterLayer</em> objects to disk. <tt>writeGDAL()</tt> from the <em>rgdal</em> package can be used to export SpatialGrid* and SpatialPixels* objects.</p>
 <p>There several file formats for georeferenced raster data, with GeoTiff being the most comnon.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster<span class="op">::</span><span class="kw">writeRaster</span>(yosem_slope, <span class="st">&quot;~/yosemite_slope.tif&quot;</span>, <span class="dt">overwrite=</span><span class="ot">TRUE</span>)
 raster<span class="op">::</span><span class="kw">writeRaster</span>(yosem_aspect, <span class="st">&quot;~/yosemite_aspect.tif&quot;</span>, <span class="dt">overwrite=</span><span class="ot">TRUE</span>)</code></pre></div>
-<p>Extract Pixel Values</p>
-<p>Rasterization</p>
-<p>Distance Surfaces</p>
-<p>Raster Algebra</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#plot(myrast)</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#myrastSquared &lt;- -1 * myrast^2</span>
-<span class="co">#plot(myrastSquared)</span></code></pre></div>
 </div>
 <div id="additional-resources" class="slide section level1">
 <h1>Additional Resources</h1>
-<p>Raster package Vignette</p>
 <p><a href="http://rspatial.org/spatial/rst/8-rastermanip.html" target="_blank">Raster data manipulation</a>, book chapter by Robert Hijmans</p>
 <p><a href="https://www.neonscience.org/raster-time-series" target="_blank">Working With Raster Time Series Data in R</a>, NEON Science</p>
 <div class="faux-h1">
 Next Up
 </div>
 <p><a href="../exercises/ex10_raster01.html" target="_blank">Exercise 10: Importing Raster Data</a></p>
-<p><a href="part03c_raster-pt2.html">Raster Data Pt2</a></p>
+<p><a href="part03d_raster-pt2.html">Raster Data Pt2</a></p>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->

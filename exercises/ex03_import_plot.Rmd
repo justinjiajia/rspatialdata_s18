@@ -14,6 +14,9 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+    if (before) par(mar = c(2, 2, 0.5, 0.5))
+})
 source("auton_chop.R")
 library(rgdal)
 load('../common/course_info.RData')
@@ -36,18 +39,17 @@ load('../common/course_info.RData')
 - If you have any questions or problems, please feel free to email the instructor.
 
 <hr class="hrdivider">
-<div style="text-align:center"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div class="copy-button"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div id="qtn_div" class="ex-qtn">
 
-<div id="qtn_div">
-
-### \#\#\# IMPORT A SHAPEFILE
+`r hashtitle("IMPORT A SHAPEFILE")`
 
 <a id="qtn_zizsuk" href="#" class="showhidelink" onclick="showHide('zizsuk');return false;">\# `r auton()`</a> `r chop("The *exercises/data* folder contains a Shapefile of neighborhoods in San Francisco ([source](https://data.sfgov.org/Geographic-Locations-and-Boundaries/Analysis-Neighborhoods/p5b7-5n3h){target=\"_blank\"}). Import and plot it. How many neighborhoods are there?")`  
 
 <div id="zizsuk" class="answer-code">
-```{r import_nb, cache=TRUE}
+```{r import_nb, small.mar=TRUE, cache=TRUE}
 library(rgdal, quietly = TRUE)
-sf_nb <- readOGR("data", "sf_neighborhoods")
+sf_nb <- rgdal::readOGR("data", "sf_neighborhoods")
 plot(sf_nb, axes=T, asp=1)
 nrow(sf_nb)
 ```
@@ -56,25 +58,33 @@ nrow(sf_nb)
 
 </div>
 
-### \#\#\# IMPORT A KML
+`r hashtitle("IMPORT A KML")`
 
-<a id="qtn_wvnipb" href="#" class="showhidelink" onclick="showHide('wvnipb');return false;">\# `r auton()`</a> `r chop("The *exercises/data* folder contains a KML file with permitted cannabis dispensaries as of 2014 ([source](https://data.sfgov.org/Health-and-Social-Services/Permitted-Medical-Cannabis-Dispensaries/46p7-cb56){target=\"_blank\"}). Import and plot it over the neighborhood boundaries. How many permitted cannabis dispensaries are in the city?")`  <a href="#" class="showhidehint" onclick="showHide('mqepye');return false;"></a>  
+<a id="qtn_wvnipb" href="#" class="showhidelink" onclick="showHide('wvnipb');return false;">\# `r auton()`</a> `r chop("The *exercises/data* folder contains a KML file with permitted cannabis dispensaries as of 2014 ([source](https://data.sfgov.org/Health-and-Social-Services/Permitted-Medical-Cannabis-Dispensaries/46p7-cb56){target=\"_blank\"}). Import and plot it over the neighborhood boundaries.")`  <a href="#" class="showhidehint" onclick="showHide('mqepye');return false;"></a>  
 
 <div id="mqepye" class="hint">Remember to use the <tt>add=TRUE</tt> argument to overlay features on an existing plot.</div>
 
 <div id="wvnipb" class="answer-code">
-```{r plot_pot, cache=TRUE}
+```{r plot_pot, small.mar=TRUE, cache=TRUE}
 library(rgdal, quietly = TRUE)
 fn <- "data/sf_permitted_cannabis_dispensaries_2014.kml"
 file.exists(fn)
-ogrListLayers(fn)
-sf_pot <- readOGR(fn, "Cannabis Dispensaries 2014")
+rgdal::ogrListLayers(fn)
+sf_pot <- rgdal::readOGR(fn, "Cannabis Dispensaries 2014")
 plot(sf_nb, axes=T, asp=1)
 plot(sf_pot, add=T, col="red", pch=16)
+```
+</div>
+
+<a id="qtn_cbaddd" href="#" class="showhidelink" onclick="showHide('cbaddd');return false;">\# `r auton()`</a> `r chop("How many permitted cannabis dispensaries are in the city?")`  
+
+<div id="cbaddd" class="answer-code">
+```{r}
 nrow(sf_nb)
 ```
-&#8658; there were 41 cannabis dispensaries as of 2014.
+&#8658; there were `r nrow(sf_nb)` cannabis dispensaries as of 2014.
 </div>
+
 
 </div>
 

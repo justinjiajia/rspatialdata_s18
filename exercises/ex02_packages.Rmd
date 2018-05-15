@@ -25,10 +25,10 @@ The key to working effectively in R is finding and installing the right packages
 * __rgdal__: importing and transforming different spatial data types and providing access to proj4 library for working with map projections and coordinate systems
 
 <hr class="hrdivider">
-<div style="text-align:center"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div class="copy-button"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div id="qtn_div" class="ex-qtn">
 
-<div id="qtn_div">
-
+`r hashtitle("Exploring Packages")`
 
 <a id="qtn_xpmnyc" href="#" class="showhidelink" onclick="showHide('xpmnyc');return false;">\# `r auton()`</a> `r chop("Load the <tt>sp</tt>, <tt>raster</tt>, and <tt>rgdal</tt> packages.")`  
 

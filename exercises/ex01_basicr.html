@@ -193,13 +193,13 @@ $(document).ready(function () {
 <li><p>If you have any questions or problems, please feel free to email the instructor.</p></li>
 </ul>
 <hr class="hrdivider">
-<div style="text-align:center">
+<div class="copy-button">
 <button onclick="CopyToClipboard('qtn_div');return false;">
 Copy questions
 </button>
 </div>
-<div id="qtn_div">
-<h3 id="basic-arithmetic-vectors-variables-and-random-numbers">### BASIC ARITHMETIC, VECTORS, VARIABLES, AND RANDOM NUMBERS</h3>
+<div id="qtn_div" class="ex-qtn">
+<p>##################################################################<br/>#### <strong>BASIC ARITHMETIC, VECTORS, VARIABLES, AND RANDOM NUMBERS</strong> ####<br/>##################################################################</p>
 <p><a href="#" class="showhidelink" onclick="showHide('q1');return false;"># 1.</a> Write an expression that will return the area of a circle with radius=2. <a href="#" class="showhidehint" onclick="showHide('pmnmny');return false;"></a></p>
 <div id="pmnmny" class="hint">
 <em>area = pi times radius squared</em>
@@ -209,8 +209,8 @@ Copy questions
 pi * 2 ^ 2</code></pre>
 <pre><code>## [1] 12.56637</code></pre>
 </div>
-<p><a href="#" class="showhidelink" onclick="showHide('q2');return false;"># 2.</a> Create a variable named <em>x</em>, and assign it a numeric value. Then write an expression that returns<br />
-#  the diameter of a circle with radius = <em>x</em>. <a href="#" class="showhidehint" onclick="showHide('satbcl');return false;"></a></p>
+<p><a href="#" class="showhidelink" onclick="showHide('q2');return false;"># 2.</a> Create a variable named <em>x</em>, and assign it a numeric value. Then write an<br />
+#  expression that returns the diameter of a circle with radius = <em>x</em>. <a href="#" class="showhidehint" onclick="showHide('satbcl');return false;"></a></p>
 <div id="satbcl" class="hint">
 <em>diameter = 2 times radius</em>
 </div>
@@ -244,27 +244,27 @@ see <tt>runif()</tt>
 <pre class="r"><code>## runif() returns random numbers from 0 to 1, so if we multiply those values by 100 the 
 ## result will be numbers from 0 to 100.
 runif(n=10) * 100</code></pre>
-<pre><code>##  [1] 88.2345320 38.6734271 66.3961470 52.8276855 73.9205971 59.6638803
-##  [7] 82.3363597  0.5107227 66.1899959 52.6442397</code></pre>
+<pre><code>##  [1] 53.6849085  0.1491386 47.4190883 72.1867388 51.2043044  1.2133553
+##  [7] 16.1831887 27.6576335 48.4201571 71.9760197</code></pre>
 <pre class="r"><code>## If you prefer integers, the sample() function would work also
 sample(1:100, size=10)</code></pre>
-<pre><code>##  [1] 59 43 36 35 22 23 32 78 54 16</code></pre>
+<pre><code>##  [1] 65 24 34 28 53 54 66  1 44 67</code></pre>
 </div>
-<p><a href="#" class="showhidelink" onclick="showHide('q6');return false;"># 6.</a> Create a variable called <em>y</em>, and assign it ten randomly selected valuesof TRUE or FALSE (equal<br />
-#  weights). Find out how many elements are TRUE.</p>
+<p><a href="#" class="showhidelink" onclick="showHide('q6');return false;"># 6.</a> Create a variable called <em>y</em>, and assign it ten randomly selected valuesof TRUE<br />
+#  or FALSE (equal weights). Find out how many elements are TRUE.</p>
 <div id="q6" class="answer-code">
 <pre class="r"><code>y = sample(c(TRUE,FALSE), size=10, replace=TRUE)
 
 ## There are a few ways to count up the number of &#39;TRUE&#39;s
 summary(y)</code></pre>
 <pre><code>##    Mode   FALSE    TRUE 
-## logical       4       6</code></pre>
+## logical       6       4</code></pre>
 <pre class="r"><code>sum(y)</code></pre>
-<pre><code>## [1] 6</code></pre>
+<pre><code>## [1] 4</code></pre>
 <pre class="r"><code>table(y)</code></pre>
 <pre><code>## y
 ## FALSE  TRUE 
-##     4     6</code></pre>
+##     6     4</code></pre>
 </div>
 <p><a href="#" class="showhidelink" onclick="showHide('q7');return false;"># 7.</a> Create a character variable called <em>h</em>, and assign it the individual lowercase letters of the alphabet.</p>
 <div id="q7" class="answer-code">
@@ -282,7 +282,7 @@ h &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&qu
 ## Fancy:
 h &lt;- strsplit(rawToChar(as.raw(97:122)), split=NULL)[[1]]</code></pre>
 </div>
-<h3 id="indexing-and-filtering">### INDEXING AND FILTERING</h3>
+<p>################################<br/>#### <strong>INDEXING AND FILTERING</strong> ####<br/>################################</p>
 <p><a href="#" class="showhidelink" onclick="showHide('q8');return false;"># 8.</a> Using the variable <em>h</em> you made above, write an expression that returns the first five letters of the alphabet.</p>
 <div id="q8" class="answer-code">
 <pre class="r"><code>h[1:5]</code></pre>
@@ -296,9 +296,9 @@ head(h, n=5)</code></pre>
 <pre class="r"><code>h[c(1,5,9,15,21)]</code></pre>
 <pre><code>## [1] &quot;a&quot; &quot;e&quot; &quot;i&quot; &quot;o&quot; &quot;u&quot;</code></pre>
 </div>
-<p><a href="#" class="showhidelink" onclick="showHide('q10');return false;"># 10.</a> Create a variable called <em>x</em> and assign it a sequence of integers from 1 to 10. Then change the 5th<br />
-#  element to -99. Next, add 100 to the last five elements. Finally, find the average (mean) of your<br />
-#  vector.</p>
+<p><a href="#" class="showhidelink" onclick="showHide('q10');return false;"># 10.</a> Create a variable called <em>x</em> and assign it a sequence of integers from 1 to 10.<br />
+#  Then change the 5th element to -99. Next, add 100 to the last five elements.<br />
+#  Finally, find the average (mean) of your vector.</p>
 <div id="q10" class="answer-code">
 <pre class="r"><code>x &lt;- 1:10
 x[5] &lt;- -99

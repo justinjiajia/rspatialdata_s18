@@ -19,6 +19,9 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+    if (before) par(mar = c(2, 2, 0.5, 0.5))
+})
 library(kableExtra)
 library(maps)
 ```
@@ -51,7 +54,7 @@ ncol(mtcars)
 ```
 You can grab an individual column by name with the <tt>$</tt> selector. 
 
-```{r}
+```{r plot_wt_mpg, fig.align='center', cache=TRUE}
 class(mtcars$disp)
 summary(mtcars$wt)
 plot(x=mtcars$wt, y=mtcars$mpg, pch=16, main="Gas Mileage vs Weight")
@@ -80,7 +83,7 @@ head(canada.cities[,"name"])
 
 The *rows* expression can also be an expression that returns logicals.
 
-```{r}
+```{r plot_big_cities, small.mar=TRUE, fig.align='center', cache=TRUE}
 idx <- (canada.cities$pop > 100000)
 table(idx)
 big_cities <- canada.cities[idx,   ]
@@ -91,7 +94,7 @@ plot(big_cities[ , c("long","lat")], asp=1, pch=16  )
 
 You can append two data frames with the *rbind()* (row bind) function. This requires the two data frames to have the same columns in the same order.
 
-```{r}
+```{r plot_small_plus_big, small.mar=TRUE, fig.align='center', cache=TRUE}
 small_cities <- canada.cities[canada.cities$pop < 5000,   ]
 nrow(small_cities)
 small_plus_big_cities <- rbind(small_cities, big_cities)
@@ -109,13 +112,80 @@ head(big_cities)
 
 You can also add columns with <tt>transform()</tt> or <tt>mutate()</tt> from the *dplyr* package. You can also append a column from another data frame (presuming the rows are in the same order) with <tt>cbind()</tt>.
 
-# Data frame joins, merges, and summaries
+# Data frame join and merge
 
-We won't have time to cover how to join or merge data frames, but the basics are
+<div class="incremental"><div>
+## Joining Data Frames 
 
-- the data frames must have a column with the same values to match rows
+Use ```merge()``` to join the values of columns of two data frames from _matching_ rows 
 
-- use the merge() function
+__Note__: 
+
+<div class="compact">
+- Requires a common column  
+- Think about what should happen if there isn't a match (keep one, delete the row completely?)
+- What should happen if two rows match?
+</div>
+
+```{r}
+x <- mtcars[1:10, 1:4]
+x$carname <- rownames(x)
+rownames(x) <- NULL
+
+## Construct a second data frame
+idx <- sample(1:nrow(x), size=5)
+cars_sold_df <- data.frame(carname = x[idx, "carname"], sold = round(runif(5, min=10000, max=20000)))
+cars_sold_df <- rbind(cars_sold_df, data.frame(carname="BMW 350", sold=12000))
+cars_sold_df <-rbind(cars_sold_df, data.frame(carname="Dodge Dart", sold=42))
+cars_sold_df
+x
+```
+
+</div></div>
+
+<div class="incremental"><div>
+__Option 1__: Only keep rows where you have matches in both data frames
+
+```{r}
+merge(x, cars_sold_df, by="carname", all = FALSE)
+```
+
+</div></div>
+
+<div class="incremental"><div>
+__Option 2__: Keep all rows from the _first_ data frame
+
+```{r}
+merge(x, cars_sold_df, by="carname", all.x = TRUE)
+```
+
+</div></div>
+
+<div class="incremental"><div>
+__Option 3__: Keep all rows from the _second_ data frame
+
+```{r}
+merge(x, cars_sold_df, by="carname", all.y = TRUE)
+```
+
+</div></div>
+
+<div class="incremental"><div>
+__Option 4__: Keep all rows from _both_ data frames
+
+```{r}
+merge(x, cars_sold_df, by="carname", all = TRUE)
+```
+
+</div></div>
+
+<div class="incremental"><div>
+
+All of this can also be done (easier?) with the __tidyr__ package!
+
+Most of the data frame functions also work with Saptial*DataFrame objects
+
+</div></div>
 
 For more complex joins and summaries involving grouping and aggregate functions, look at the [dplyr data wrangling cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) from the *dplyr* package.
 

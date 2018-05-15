@@ -35,11 +35,10 @@ load('../common/course_info.RData')
 - If you have any questions or problems, please feel free to email the instructor.
 
 <hr class="hrdivider">
-<div style="text-align:center"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div class="copy-button"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div id="qtn_div" class="ex-qtn">
 
-<div id="qtn_div">
-
-### \#\#\# BASIC ARITHMETIC, VECTORS, VARIABLES, AND RANDOM NUMBERS
+`r hashtitle("BASIC ARITHMETIC, VECTORS, VARIABLES, AND RANDOM NUMBERS")`
 
 <a href="#" class="showhidelink" onclick="showHide('q1');return false;">\# `r auton()`</a> Write an expression that will return the area of a circle with radius=2. <a href="#" class="showhidehint" onclick="showHide('pmnmny');return false;"></a>  
 
@@ -135,7 +134,7 @@ h <- strsplit(rawToChar(as.raw(97:122)), split=NULL)[[1]]
 ```
 </div>
 
-### \#\#\# INDEXING AND FILTERING
+`r hashtitle("INDEXING AND FILTERING")`
 
 <a href="#" class="showhidelink" onclick="showHide('q8');return false;">\# `r auton()`</a> Using the variable _h_ you made above, write an expression that returns the first five letters of the alphabet.
 

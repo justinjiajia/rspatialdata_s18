@@ -199,9 +199,9 @@ not supported
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data=</span><span class="kw">rnorm</span>(<span class="dv">9</span>), <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">3</span>)
 mat </code></pre></div>
 <pre><code>##            [,1]       [,2]       [,3]
-## [1,]  0.1590751  1.7618291 -1.2795421
-## [2,]  1.4793530 -0.5129097  0.2577352
-## [3,] -0.2136505 -1.3856868  0.2637582</code></pre>
+## [1,]  0.6960302 -0.4901647  1.8852123
+## [2,] -1.1180335 -0.3248719  0.4662808
+## [3,] -0.6886162  0.2735287 -1.0274099</code></pre>
 <p>There are number of sample datasets that come with R, many of which are data frames. Functions to explore data frames include <tt>names()</tt>, <tt>head()</tt>, <tt>nrow()</tt>, <tt>ncol()</tt>, <tt>dim()</tt>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(mtcars)</code></pre></div>
 <pre><code>##  [1] &quot;mpg&quot;  &quot;cyl&quot;  &quot;disp&quot; &quot;hp&quot;   &quot;drat&quot; &quot;wt&quot;   &quot;qsec&quot; &quot;vs&quot;   &quot;am&quot;   &quot;gear&quot;
@@ -225,7 +225,7 @@ mat </code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   1.513   2.581   3.325   3.217   3.610   5.424</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x=</span>mtcars<span class="op">$</span>wt, <span class="dt">y=</span>mtcars<span class="op">$</span>mpg, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">main=</span><span class="st">&quot;Gas Mileage vs Weight&quot;</span>)</code></pre></div>
-<p><img src="part02c_2d-data_files/figure-slidy/unnamed-chunk-4-1.png" width="768" /></p>
+<p><img src="part02c_2d-data_files/figure-slidy/plot_wt_mpg-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="selecting-rows-and-columns" class="slide section level1">
 <h1>Selecting Rows and Columns</h1>
@@ -257,7 +257,7 @@ mat </code></pre></div>
 ##   887    29</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">big_cities &lt;-<span class="st"> </span>canada.cities[idx,   ]
 <span class="kw">plot</span>(big_cities[ , <span class="kw">c</span>(<span class="st">&quot;long&quot;</span>,<span class="st">&quot;lat&quot;</span>)], <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">16</span>  )</code></pre></div>
-<p><img src="part02c_2d-data_files/figure-slidy/unnamed-chunk-7-1.png" width="768" /></p>
+<p><img src="part02c_2d-data_files/figure-slidy/plot_big_cities-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="appending-rows" class="slide section level1">
 <h1>Appending rows</h1>
@@ -267,7 +267,7 @@ mat </code></pre></div>
 <pre><code>## [1] 598</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">small_plus_big_cities &lt;-<span class="st"> </span><span class="kw">rbind</span>(small_cities, big_cities)
 <span class="kw">plot</span>(small_plus_big_cities[ , <span class="kw">c</span>(<span class="st">&quot;long&quot;</span>,<span class="st">&quot;lat&quot;</span>)], <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">16</span>  )</code></pre></div>
-<p><img src="part02c_2d-data_files/figure-slidy/unnamed-chunk-8-1.png" width="768" /></p>
+<p><img src="part02c_2d-data_files/figure-slidy/plot_small_plus_big-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="adding-columns" class="slide section level1">
 <h1>Adding columns</h1>
@@ -290,13 +290,121 @@ mat </code></pre></div>
 ## 312        6</code></pre>
 <p>You can also add columns with <tt>transform()</tt> or <tt>mutate()</tt> from the <em>dplyr</em> package. You can also append a column from another data frame (presuming the rows are in the same order) with <tt>cbind()</tt>.</p>
 </div>
-<div id="data-frame-joins-merges-and-summaries" class="slide section level1">
-<h1>Data frame joins, merges, and summaries</h1>
-<p>We won't have time to cover how to join or merge data frames, but the basics are</p>
+<div id="data-frame-join-and-merge" class="slide section level1">
+<h1>Data frame join and merge</h1>
+<div class="incremental">
+<div>
+<h2 id="joining-data-frames">Joining Data Frames</h2>
+<p>Use <code>merge()</code> to join the values of columns of two data frames from <em>matching</em> rows</p>
+<p><strong>Note</strong>:</p>
+<div class="compact">
 <ul>
-<li><p>the data frames must have a column with the same values to match rows</p></li>
-<li><p>use the merge() function</p></li>
+<li>Requires a common column<br />
+</li>
+<li>Think about what should happen if there isn't a match (keep one, delete the row completely?)</li>
+<li>What should happen if two rows match?</li>
 </ul>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>mtcars[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]
+x<span class="op">$</span>carname &lt;-<span class="st"> </span><span class="kw">rownames</span>(x)
+<span class="kw">rownames</span>(x) &lt;-<span class="st"> </span><span class="ot">NULL</span>
+
+## Construct a second data frame
+idx &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(x), <span class="dt">size=</span><span class="dv">5</span>)
+cars_sold_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">carname =</span> x[idx, <span class="st">&quot;carname&quot;</span>], <span class="dt">sold =</span> <span class="kw">round</span>(<span class="kw">runif</span>(<span class="dv">5</span>, <span class="dt">min=</span><span class="dv">10000</span>, <span class="dt">max=</span><span class="dv">20000</span>)))
+cars_sold_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(cars_sold_df, <span class="kw">data.frame</span>(<span class="dt">carname=</span><span class="st">&quot;BMW 350&quot;</span>, <span class="dt">sold=</span><span class="dv">12000</span>))
+cars_sold_df &lt;-<span class="kw">rbind</span>(cars_sold_df, <span class="kw">data.frame</span>(<span class="dt">carname=</span><span class="st">&quot;Dodge Dart&quot;</span>, <span class="dt">sold=</span><span class="dv">42</span>))
+cars_sold_df</code></pre></div>
+<pre><code>##          carname  sold
+## 1       Merc 230 18599
+## 2      Mazda RX4 18665
+## 3  Mazda RX4 Wag 10252
+## 4      Merc 240D 15250
+## 5 Hornet 4 Drive 10009
+## 6        BMW 350 12000
+## 7     Dodge Dart    42</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x</code></pre></div>
+<pre><code>##     mpg cyl  disp  hp           carname
+## 1  21.0   6 160.0 110         Mazda RX4
+## 2  21.0   6 160.0 110     Mazda RX4 Wag
+## 3  22.8   4 108.0  93        Datsun 710
+## 4  21.4   6 258.0 110    Hornet 4 Drive
+## 5  18.7   8 360.0 175 Hornet Sportabout
+## 6  18.1   6 225.0 105           Valiant
+## 7  14.3   8 360.0 245        Duster 360
+## 8  24.4   4 146.7  62         Merc 240D
+## 9  22.8   4 140.8  95          Merc 230
+## 10 19.2   6 167.6 123          Merc 280</code></pre>
+</div>
+</div>
+<div class="incremental">
+<div>
+<p><strong>Option 1</strong>: Only keep rows where you have matches in both data frames</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">merge</span>(x, cars_sold_df, <span class="dt">by=</span><span class="st">&quot;carname&quot;</span>, <span class="dt">all =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>##          carname  mpg cyl  disp  hp  sold
+## 1 Hornet 4 Drive 21.4   6 258.0 110 10009
+## 2      Mazda RX4 21.0   6 160.0 110 18665
+## 3  Mazda RX4 Wag 21.0   6 160.0 110 10252
+## 4       Merc 230 22.8   4 140.8  95 18599
+## 5      Merc 240D 24.4   4 146.7  62 15250</code></pre>
+</div>
+</div>
+<div class="incremental">
+<div>
+<p><strong>Option 2</strong>: Keep all rows from the <em>first</em> data frame</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">merge</span>(x, cars_sold_df, <span class="dt">by=</span><span class="st">&quot;carname&quot;</span>, <span class="dt">all.x =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>##              carname  mpg cyl  disp  hp  sold
+## 1         Datsun 710 22.8   4 108.0  93    NA
+## 2         Duster 360 14.3   8 360.0 245    NA
+## 3     Hornet 4 Drive 21.4   6 258.0 110 10009
+## 4  Hornet Sportabout 18.7   8 360.0 175    NA
+## 5          Mazda RX4 21.0   6 160.0 110 18665
+## 6      Mazda RX4 Wag 21.0   6 160.0 110 10252
+## 7           Merc 230 22.8   4 140.8  95 18599
+## 8          Merc 240D 24.4   4 146.7  62 15250
+## 9           Merc 280 19.2   6 167.6 123    NA
+## 10           Valiant 18.1   6 225.0 105    NA</code></pre>
+</div>
+</div>
+<div class="incremental">
+<div>
+<p><strong>Option 3</strong>: Keep all rows from the <em>second</em> data frame</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">merge</span>(x, cars_sold_df, <span class="dt">by=</span><span class="st">&quot;carname&quot;</span>, <span class="dt">all.y =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>##          carname  mpg cyl  disp  hp  sold
+## 1        BMW 350   NA  NA    NA  NA 12000
+## 2     Dodge Dart   NA  NA    NA  NA    42
+## 3 Hornet 4 Drive 21.4   6 258.0 110 10009
+## 4      Mazda RX4 21.0   6 160.0 110 18665
+## 5  Mazda RX4 Wag 21.0   6 160.0 110 10252
+## 6       Merc 230 22.8   4 140.8  95 18599
+## 7      Merc 240D 24.4   4 146.7  62 15250</code></pre>
+</div>
+</div>
+<div class="incremental">
+<div>
+<p><strong>Option 4</strong>: Keep all rows from <em>both</em> data frames</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">merge</span>(x, cars_sold_df, <span class="dt">by=</span><span class="st">&quot;carname&quot;</span>, <span class="dt">all =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>##              carname  mpg cyl  disp  hp  sold
+## 1            BMW 350   NA  NA    NA  NA 12000
+## 2         Datsun 710 22.8   4 108.0  93    NA
+## 3         Dodge Dart   NA  NA    NA  NA    42
+## 4         Duster 360 14.3   8 360.0 245    NA
+## 5     Hornet 4 Drive 21.4   6 258.0 110 10009
+## 6  Hornet Sportabout 18.7   8 360.0 175    NA
+## 7          Mazda RX4 21.0   6 160.0 110 18665
+## 8      Mazda RX4 Wag 21.0   6 160.0 110 10252
+## 9           Merc 230 22.8   4 140.8  95 18599
+## 10         Merc 240D 24.4   4 146.7  62 15250
+## 11          Merc 280 19.2   6 167.6 123    NA
+## 12           Valiant 18.1   6 225.0 105    NA</code></pre>
+</div>
+</div>
+<div class="incremental">
+<div>
+<p>All of this can also be done (easier?) with the <strong>tidyr</strong> package!</p>
+<p>Most of the data frame functions also work with Saptial*DataFrame objects</p>
+</div>
+</div>
 <p>For more complex joins and summaries involving grouping and aggregate functions, look at the <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">dplyr data wrangling cheatsheet</a> from the <em>dplyr</em> package.</p>
 </div>
 <div id="next-up" class="slide section level1">

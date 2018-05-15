@@ -127,8 +127,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">load</span>(<span class="st">&quot;~/yosemite_dem.RData&quot;</span>)  <span class="co"># yosem_msk_dem_prj</span>
 <span class="kw">plot</span>(yosem_msk_dem_prj, <span class="dt">asp=</span><span class="dv">1</span>)
 <span class="kw">plot</span>(yosem_bnd_prj, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="part03d_raster-pt2_files/figure-slidy/plot_start-1.png" width="768" /></p>
-<p>There are couple of ways to get pixel values</p>
+<p><img src="part03d_raster-pt2_files/figure-slidy/plot_start-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>There are couple of ways to get pixel values:</p>
 <p><tt>myrast[<em>rows</em>,<em>cols</em>]</tt></p>
 <p><tt>getValues()</tt> - returns all pixel values as a vector (useful for global operations)</p>
 <p>Example: identify steep slopes in Yosemite</p>
@@ -136,7 +136,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 all_slope_vals &lt;-<span class="st"> </span><span class="kw">getValues</span>(yosem_slope)
 ## Slope is computed in radians. To show degrees, multiply by 180.
 <span class="kw">hist</span>(all_slope_vals <span class="op">*</span><span class="st"> </span><span class="dv">180</span>, <span class="dt">xlab=</span><span class="st">&quot;slope (degrees)&quot;</span>, <span class="dt">col=</span><span class="st">&quot;grey80&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Yosemite Slope Distribution&quot;</span>)</code></pre></div>
-<p><img src="part03d_raster-pt2_files/figure-slidy/hist_slope_vals-1.png" width="768" /></p>
+<p><img src="part03d_raster-pt2_files/figure-slidy/hist_slope_vals-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>Let's make a mask of high slope values, where we define steep slopes as &gt; 40 degrees.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Create a blank copy of yosem_slope
 yosem_slope_steep &lt;-<span class="st"> </span><span class="kw">raster</span>(yosem_slope)
@@ -163,7 +163,7 @@ yosem_slope_steep</code></pre></div>
 ## NA&#39;s    138246</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(yosem_slope)
 <span class="kw">plot</span>(yosem_slope_steep, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">legend=</span><span class="ot">FALSE</span>)</code></pre></div>
-<p><img src="part03d_raster-pt2_files/figure-slidy/steep_slope_define-1.png" width="768" /></p>
+<p><img src="part03d_raster-pt2_files/figure-slidy/steep_slope_define-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="extract-pixel-values" class="slide section level1">
 <h1>Extract Pixel Values</h1>
@@ -175,16 +175,16 @@ y &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">m
 yosem_pts &lt;-<span class="st"> </span><span class="kw">SpatialPoints</span>(<span class="dt">coords=</span><span class="kw">data.frame</span>(<span class="dt">x=</span>x,<span class="dt">y=</span>y), <span class="dt">proj4string =</span> yosem_bnd_prj<span class="op">@</span>proj4string)
 <span class="kw">plot</span>(yosem_bnd_prj, <span class="dt">axes=</span>T, <span class="dt">asp=</span><span class="dv">1</span>)
 <span class="kw">plot</span>(yosem_pts, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="part03d_raster-pt2_files/figure-slidy/samp_pts-1.png" width="768" /></p>
+<p><img src="part03d_raster-pt2_files/figure-slidy/samp_pts-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>To extract values from a raster for where features overlap, use <tt>extract()</tt>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(yosem_msk_dem_prj)
 <span class="kw">plot</span>(yosem_pts, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="part03d_raster-pt2_files/figure-slidy/unnamed-chunk-1-1.png" width="768" /></p>
+<p><img src="part03d_raster-pt2_files/figure-slidy/plot_dem-1.png" width="768" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pt_elev &lt;-<span class="st"> </span><span class="kw">extract</span>(yosem_msk_dem_prj, yosem_pts)
 pt_elev</code></pre></div>
-<pre><code>##  [1]       NA 2865.649       NA       NA 2061.676       NA       NA
-##  [8]       NA       NA 2762.204       NA 2973.621 3283.169 2236.509
-## [15] 2238.745 2487.973 2435.695 2568.100       NA       NA</code></pre>
+<pre><code>##  [1]       NA 2357.994 2221.648 2239.482 2399.413 2308.290 2740.538
+##  [8]       NA       NA       NA 2620.761 2785.150 2147.991 1376.220
+## [15]       NA 3605.036       NA 2838.410       NA 2714.338</code></pre>
 </div>
 <div id="rastering-vector-data" class="slide section level1">
 <h1>Rastering Vector Data</h1>
@@ -198,36 +198,58 @@ x &lt;-<span class="st"> </span><span class="kw">getValues</span>(yosem_pts_rst)
 ## 20</code></pre>
 <h2 id="create-a-distance-surface">Create a distance surface</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yosem_dist2pts &lt;-<span class="st"> </span><span class="kw">distance</span>(yosem_pts_rst)
-<span class="kw">plot</span>(yosem_dist2pts, <span class="dt">main=</span><span class="st">&quot;Distance to Random Points&quot;</span>)
+<span class="kw">plot</span>(yosem_dist2pts, <span class="dt">main=</span><span class="st">&quot;Distance to Random Points&quot;</span>, <span class="dt">asp=</span><span class="dv">1</span>)
 <span class="kw">plot</span>(yosem_bnd_prj, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="part03d_raster-pt2_files/figure-slidy/create_dist-1.png" width="768" /></p>
+<p><img src="part03d_raster-pt2_files/figure-slidy/create_dist-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="creating-a-mask" class="slide section level1">
+<h1>Creating a Mask</h1>
+<p>In prepation for raster algebra (below), we often turn a derived raster surface into a Mask where all pixels are either 1 where a condition is met, or 0 (or NA) where a condition is not met.</p>
+<p>The process for turning a continous raster into a mask is generally.</p>
+<div class="indented2">
+<ul>
+<li>use the <tt>raster()</tt> function to create a new, blank, raster without any pixel values using the input raster as the template<br />
+</li>
+<li>change the pixels where the condition is met from NA to 1</li>
+</ul>
+</div>
+<p><strong>Example 1</strong>: Create a raster mask of areas within 1 mile (1610 meters) of the Yosemite sample points. All pixels should be NA except for those that meet the criteria which should be 1.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pts_close_rst &lt;-<span class="st"> </span><span class="kw">raster</span>(yosem_dist2pts)
+dist_vals &lt;-<span class="st"> </span><span class="kw">getValues</span>(yosem_dist2pts)
+pts_close_rst[ dist_vals <span class="op">&lt;</span><span class="st"> </span><span class="fl">1609.34</span>  ] &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="kw">plot</span>(pts_close_rst, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">main=</span><span class="st">&quot;Distance Mask&quot;</span>, <span class="dt">legend=</span><span class="ot">FALSE</span>)
+<span class="kw">plot</span>(yosem_bnd_prj, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="part03d_raster-pt2_files/figure-slidy/mask01-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><em>Bonus</em>: create the distance mask using a buffer</p>
+<p><strong>Example 2</strong>: Create a raster mask of areas whose slope &lt;20 degrees.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flat_areas_rst &lt;-<span class="st"> </span><span class="kw">raster</span>(yosem_slope)
+flat_areas_rst[<span class="kw">getValues</span>(yosem_slope) <span class="op">&lt;</span><span class="st"> </span>(<span class="dv">20</span><span class="op">/</span><span class="dv">180</span>)] &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="kw">plot</span>(flat_areas_rst, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">main=</span><span class="st">&quot;Flat Area Mask&quot;</span>, <span class="dt">legend=</span><span class="ot">FALSE</span>)
+<span class="kw">plot</span>(yosem_bnd_prj, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="part03d_raster-pt2_files/figure-slidy/mask02-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="raster-algebra" class="slide section level1">
 <h1>Raster Algebra</h1>
-<p>Raster algebra is where you add, subtract, multiply, etc. two or more rasters together.</p>
+<p>Raster algebra (<em>aka</em> raster calculator, map algebra) is where you add, subtract, multiply, etc. two or more rasters together, as though they were numbers.</p>
+<p>We can use raster algebra for siting analyses that aim to find the locations that meet multiple criteria.</p>
+<div class="indented2">
 <ul>
-<li><p>The rasters should have the same extent and pixel size</p></li>
-<li><p>The operation is evaluated on a pixel-by-pixel basis.</p></li>
-<li><p>We can use raster algebra for siting analyses that aim to find the locations that meet multiple criteria.</p></li>
+<li>The rasters should have the same extent, pixel size, and CRS<br />
+</li>
+<li>The operation is evaluated on a pixel-by-pixel basis<br />
+</li>
+<li>Generally all math operations (<tt>+ - * /</tt>) with a <tt>NA</tt> value will return <tt>NA</tt></li>
 </ul>
-<p>Example: Find all locations in Yosemite that are within 1 mile of our sample points and all on slopes &lt; 20 degrees.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Create a raster of the suitable distances
-## All pixels will be NA except for those that meet the criteria
-<span class="co"># 1 mile = 1609.34 meters</span>
-pts_close_rst &lt;-<span class="st"> </span><span class="kw">raster</span>(yosem_dist2pts)
-dist_vals &lt;-<span class="st"> </span><span class="kw">getValues</span>(yosem_dist2pts)
-pts_close_rst[ dist_vals <span class="op">&lt;</span><span class="st"> </span><span class="fl">1609.34</span>  ] &lt;-<span class="st"> </span><span class="dv">1</span>
-
-## Create a raster of suitable flat areas
-flat_areas_rst &lt;-<span class="st"> </span><span class="kw">raster</span>(yosem_slope)
-slope_vals &lt;-<span class="st"> </span><span class="kw">getValues</span>(yosem_slope)
-flat_areas_rst[ slope_vals <span class="op">&lt;</span><span class="st"> </span>(<span class="dv">20</span><span class="op">/</span><span class="dv">180</span>) ] &lt;-<span class="st"> </span><span class="dv">1</span>
-
-## Multiple the two rasters to find those cells where both conditions are met
-best_locations &lt;-<span class="st"> </span>flat_areas_rst <span class="op">*</span><span class="st"> </span>pts_close_rst
-<span class="kw">image</span>(best_locations, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)
+</div>
+<p><em>Syntax</em>: <tt>rast1 + rast2 - rast3 * rast4 / rast5</tt></p>
+<p><strong>Example</strong>: Find all locations in Yosemite that are a) within 1 mile of our sample points, <em>and</em> b) on slopes &lt; 20 degrees.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">best_locations &lt;-<span class="st"> </span>flat_areas_rst <span class="op">*</span><span class="st"> </span>pts_close_rst
+<span class="kw">image</span>(best_locations, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">asp=</span><span class="dv">1</span>)
 <span class="kw">plot</span>(yosem_bnd_prj, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="part03d_raster-pt2_files/figure-slidy/plot_rast01-1.png" width="768" /></p>
+<p><img src="part03d_raster-pt2_files/figure-slidy/plot_rast01-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><em>Notes</em></p>
+<p>In this example, we multiplied the two masks together because the rules specified that <em>both</em> conditions were required. An altnernative approach could be to <em>add</em> raster masks together so that the pixel values in the output reflect a ranking based on the number of criteria satisfied.</p>
+<p>For large datasets and/or more complex combinations, the <em>overlay()</em> function may have better performance.</p>
 </div>
 <div id="next-up" class="slide section level1">
 <h1>Next Up</h1>

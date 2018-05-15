@@ -193,65 +193,66 @@ $(document).ready(function () {
 <li><p>If you have any questions or problems, please feel free to email the instructor.</p></li>
 </ul>
 <hr class="hrdivider">
-<div style="text-align:center">
+<div class="copy-button">
 <button onclick="CopyToClipboard('qtn_div');return false;">
 Copy questions
 </button>
 </div>
-<div id="qtn_div">
-<p>########################################<br />
-<strong>### Import Projected CA Counties and Cell Towers</strong></p>
-<p><a id="qtn_mhhtcn" href="#" class="showhidelink" onclick="showHide('mhhtcn');return false;"># 1.</a> (If needed) import the projected county boundaries and cell tower locations you<br />
-#  saved in an earlier exercise.</p>
+<div id="qtn_div" class="ex-qtn">
+<p>##########################################<br/>#### <strong>LOAD CA COUNTIES AND CELL TOWERS</strong> ####<br/>##########################################</p>
+<p><a id="qtn_mhhtcn" href="#" class="showhidelink" onclick="showHide('mhhtcn');return false;"># 1.</a> Import the projected county boundaries and cell tower locations you saved in an<br />
+#  earlier exercise (if needed).</p>
 <div id="mhhtcn" class="answer-code">
-<pre class="r"><code>load(&quot;data/ex06_cell_towers_prj.RData&quot;)
-load(&quot;data/ex06_counties_bnd.RData&quot;)</code></pre>
+<pre class="r"><code>load(&quot;ex06_outputs.RData&quot;)  ## ca_cnty_prj and cell_towers_spdf_prj</code></pre>
 </div>
-<p>########################################<br />
-<strong>### Country Centroids and Delaunay Triangulation</strong></p>
-<p><a id="qtn_kliybg" href="#" class="showhidelink" onclick="showHide('kliybg');return false;"># 2.</a> Compute and plot the centroids of the counties.</p>
+<p>######################################################<br/>#### <strong>COUNTRY CENTROIDS AND DELAUNAY TRIANGULATION</strong> ####<br/>######################################################</p>
+<p><a id="qtn_kliybg" href="#" class="showhidelink" onclick="showHide('kliybg');return false;"># 2.</a> Compute and plot the centroids of the counties. <a href="#" class="showhidehint" onclick="showHide('vbnxfm');return false;"></a></p>
+<div id="vbnxfm" class="hint">
+See <a href="../slides/part02f_geoprocessing.html#area-and-centroids">Area and Centroids</a>
+</div>
 <div id="kliybg" class="answer-code">
 <pre class="r"><code>library(rgeos)</code></pre>
 <pre><code>## rgeos version: 0.3-26, (SVN revision 560)
 ##  GEOS runtime version: 3.6.1-CAPI-1.10.1 r0 
 ##  Linking to sp version: 1.2-6 
 ##  Polygon checking: TRUE</code></pre>
-<pre class="r"><code>ca_cnty_ctr &lt;- gCentroid(ca_cnty_prj, byid=TRUE)
+<pre class="r"><code>ca_cnty_ctr &lt;- rgeos::gCentroid(ca_cnty_prj, byid=TRUE)
 plot(ca_cnty_prj, axes=TRUE, asp=1)
 plot(ca_cnty_ctr, col=&quot;tan3&quot;, pch=17, cex=1.2, add=TRUE)</code></pre>
-<p><img src="ex07_geoprocessing_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="ex07_geoprocessing_files/figure-html/rgeos_cnt-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<p><a id="qtn_ctxpvl" href="#" class="showhidelink" onclick="showHide('ctxpvl');return false;"># 3.</a> Create and plot a Delaunay Triangulation of the county centroids.</p>
+<p><a id="qtn_ctxpvl" href="#" class="showhidelink" onclick="showHide('ctxpvl');return false;"># 3.</a> Create and plot a Delaunay Triangulation of the county centroids. <a href="#" class="showhidehint" onclick="showHide('bvxkyu');return false;"></a></p>
+<div id="bvxkyu" class="hint">
+See <a href="../slides/part02f_geoprocessing.html#delaunay-triangulation">Delaunay Triangulation</a>
+</div>
 <div id="ctxpvl" class="answer-code">
-<pre class="r"><code>countyctr_tri &lt;- gDelaunayTriangulation(ca_cnty_ctr)
-#plot(sfpot_prj, col=&quot;red&quot;, pch=16, cex=2, axes=TRUE)
+<pre class="r"><code>countyctr_tri &lt;- rgeos::gDelaunayTriangulation(ca_cnty_ctr)
 plot(ca_cnty_prj, border=&quot;grey60&quot;, axes=TRUE, asp=1)
 plot(countyctr_tri, add=TRUE, border=&quot;springgreen4&quot;, lwd=1.2)</code></pre>
-<p><img src="ex07_geoprocessing_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="ex07_geoprocessing_files/figure-html/plot_cty_del-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<p>########################################<br />
-<strong>### Buffers and Intersections</strong></p>
+<p>###################################<br/>#### <strong>BUFFERS AND INTERSECTIONS</strong> ####<br/>###################################</p>
 <p><a id="qtn_azdmbs" href="#" class="showhidelink" onclick="showHide('azdmbs');return false;"># 4.</a> Compute a 5 mile buffer around each tower.</p>
 <div id="azdmbs" class="answer-code">
 <pre class="r"><code>meters_per_mile &lt;- 1609.34
-cell_towers_buf &lt;- gBuffer(cell_towers_spdf_prj, byid=TRUE, width=5 * meters_per_mile)
+cell_towers_buf &lt;- rgeos::gBuffer(cell_towers_spdf_prj, byid=TRUE, width=5 * meters_per_mile)
 plot(cell_towers_buf)</code></pre>
-<p><img src="ex07_geoprocessing_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="ex07_geoprocessing_files/figure-html/tower_buff-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <p><a id="qtn_rdwyol" href="#" class="showhidelink" onclick="showHide('rdwyol');return false;"># 5.</a> Focusing on one county, find the area within 5 miles of a cell tower. What<br />
 #  percentage of the county is this?</p>
 <div id="rdwyol" class="answer-code">
 <pre class="r"><code>idx &lt;- sample(1:nrow(ca_cnty_prj), size=1)
 some_county_bnd &lt;- ca_cnty_prj[idx,]
-cnty_celltowbuff &lt;- gIntersection(some_county_bnd, cell_towers_buf)
+cnty_celltowbuff &lt;- rgeos::gIntersection(some_county_bnd, cell_towers_buf)
 plot(some_county_bnd, axes=TRUE, asp=TRUE, main=ca_cnty_prj@data[idx, &quot;CountyNAME&quot;])
 plot(cnty_celltowbuff, add=TRUE, col=&quot;red&quot;, pch=16, cex=0.7)</code></pre>
-<p><img src="ex07_geoprocessing_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="ex07_geoprocessing_files/figure-html/some_cty-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>gArea(cnty_celltowbuff)</code></pre>
-<pre><code>## [1] 1040134423</code></pre>
+<pre><code>## [1] 1745759672</code></pre>
 <pre class="r"><code>gArea(cnty_celltowbuff) / gArea(some_county_bnd)</code></pre>
-<pre><code>## [1] 0.2887868</code></pre>
-<p>29% of the county is within 5 miles of cell tower.</p>
+<pre><code>## [1] 0.4843877</code></pre>
+<p>48% of the county is within 5 miles of a cell tower.</p>
 </div>
 </div>
 <!-- end questions -->

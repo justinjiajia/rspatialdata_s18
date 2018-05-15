@@ -14,6 +14,9 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+    if (before) par(mar = c(2, 2, 0.8, 0.5))
+})
 source("auton_chop.R")
 load('../common/course_info.RData')
 ```
@@ -35,57 +38,57 @@ load('../common/course_info.RData')
 - If you have any questions or problems, please feel free to email the instructor.
 
 <hr class="hrdivider">
-<div style="text-align:center"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div class="copy-button"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div id="qtn_div" class="ex-qtn">
 
-<div id="qtn_div">
+`r hashtitle("Load CA Counties and Cell Towers")`
 
-`r hashline()`  
-__\#\#\# Import Projected CA Counties and Cell Towers__
-
-<a id="qtn_mhhtcn" href="#" class="showhidelink" onclick="showHide('mhhtcn');return false;">\# `r auton()`</a> `r chop("(If needed) import the projected county boundaries and cell tower locations you saved in an earlier exercise.")`  
+<a id="qtn_mhhtcn" href="#" class="showhidelink" onclick="showHide('mhhtcn');return false;">\# `r auton()`</a> `r chop("Import the projected county boundaries and cell tower locations you saved in an earlier exercise (if needed).")`  
 
 <div id="mhhtcn" class="answer-code">
 ```{r}
-load("data/ex06_cell_towers_prj.RData")
-load("data/ex06_counties_bnd.RData")
+load("ex06_outputs.RData")  ## ca_cnty_prj and cell_towers_spdf_prj
 ```
 </div>
 
-`r hashline()`  
-__\#\#\# Country Centroids and Delaunay Triangulation__
+`r hashtitle("Country Centroids and Delaunay Triangulation")`
 
-<a id="qtn_kliybg" href="#" class="showhidelink" onclick="showHide('kliybg');return false;">\# `r auton()`</a> `r chop("Compute and plot the centroids of the counties.")`  
+<a id="qtn_kliybg" href="#" class="showhidelink" onclick="showHide('kliybg');return false;">\# `r auton()`</a> `r chop("Compute and plot the centroids of the counties.")` <a href="#" class="showhidehint" onclick="showHide('vbnxfm');return false;"></a>  
+
+<div id="vbnxfm" class="hint">See [Area and Centroids](../slides/part02f_geoprocessing.html#area-and-centroids)</div>
+  
 
 <div id="kliybg" class="answer-code">
-```{r}
+```{r rgeos_cnt, small.mar=TRUE, fig.align='center', cache=TRUE}
 library(rgeos)
-ca_cnty_ctr <- gCentroid(ca_cnty_prj, byid=TRUE)
+ca_cnty_ctr <- rgeos::gCentroid(ca_cnty_prj, byid=TRUE)
 plot(ca_cnty_prj, axes=TRUE, asp=1)
 plot(ca_cnty_ctr, col="tan3", pch=17, cex=1.2, add=TRUE)
 ```
 </div>
 
 
-<a id="qtn_ctxpvl" href="#" class="showhidelink" onclick="showHide('ctxpvl');return false;">\# `r auton()`</a> `r chop("Create and plot a Delaunay Triangulation of the county centroids.")`  
+<a id="qtn_ctxpvl" href="#" class="showhidelink" onclick="showHide('ctxpvl');return false;">\# `r auton()`</a> `r chop("Create and plot a Delaunay Triangulation of the county centroids.")` <a href="#" class="showhidehint" onclick="showHide('bvxkyu');return false;"></a>  
+
+<div id="bvxkyu" class="hint">See [Delaunay Triangulation](../slides/part02f_geoprocessing.html#delaunay-triangulation)</div>
+  
 
 <div id="ctxpvl" class="answer-code">
-```{r}
-countyctr_tri <- gDelaunayTriangulation(ca_cnty_ctr)
-#plot(sfpot_prj, col="red", pch=16, cex=2, axes=TRUE)
+```{r plot_cty_del, small.mar=TRUE, fig.align='center', cache=TRUE}
+countyctr_tri <- rgeos::gDelaunayTriangulation(ca_cnty_ctr)
 plot(ca_cnty_prj, border="grey60", axes=TRUE, asp=1)
 plot(countyctr_tri, add=TRUE, border="springgreen4", lwd=1.2)
 ```
 </div>
 
-`r hashline()`  
-__\#\#\# Buffers and Intersections__
+`r hashtitle("Buffers and Intersections")`
 
 <a id="qtn_azdmbs" href="#" class="showhidelink" onclick="showHide('azdmbs');return false;">\# `r auton()`</a> `r chop("Compute a 5 mile buffer around each tower.")`  
 
 <div id="azdmbs" class="answer-code">
-```{r}
+```{r tower_buff, small.mar=TRUE, fig.align='center', cache=TRUE}
 meters_per_mile <- 1609.34
-cell_towers_buf <- gBuffer(cell_towers_spdf_prj, byid=TRUE, width=5 * meters_per_mile)
+cell_towers_buf <- rgeos::gBuffer(cell_towers_spdf_prj, byid=TRUE, width=5 * meters_per_mile)
 plot(cell_towers_buf)
 ```
 </div>
@@ -93,17 +96,17 @@ plot(cell_towers_buf)
 <a id="qtn_rdwyol" href="#" class="showhidelink" onclick="showHide('rdwyol');return false;">\# `r auton()`</a> `r chop("Focusing on one county, find the area within 5 miles of a cell tower. What percentage of the county is this?")`  
 
 <div id="rdwyol" class="answer-code">
-```{r}
+```{r some_cty, fig.align='center', cache=TRUE}
 idx <- sample(1:nrow(ca_cnty_prj), size=1)
 some_county_bnd <- ca_cnty_prj[idx,]
-cnty_celltowbuff <- gIntersection(some_county_bnd, cell_towers_buf)
+cnty_celltowbuff <- rgeos::gIntersection(some_county_bnd, cell_towers_buf)
 plot(some_county_bnd, axes=TRUE, asp=TRUE, main=ca_cnty_prj@data[idx, "CountyNAME"])
 plot(cnty_celltowbuff, add=TRUE, col="red", pch=16, cex=0.7)
 gArea(cnty_celltowbuff)
 gArea(cnty_celltowbuff) / gArea(some_county_bnd)
 ```
 
-`r 100 * round(gArea(cnty_celltowbuff) / gArea(some_county_bnd),2)`% of the county is within 5 miles of a cell tower.
+`r 100 * round(rgeos::gArea(cnty_celltowbuff) / rgeos::gArea(some_county_bnd),2)`% of the county is within 5 miles of a cell tower.
 </div>
 
 </div><!-- end questions -->

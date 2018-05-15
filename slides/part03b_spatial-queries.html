@@ -122,7 +122,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="spatial-queries" class="slide section level1">
 <h1>Spatial Queries</h1>
-<h2 id="types-of-spatial-queries">Types of Spatial Queries</h2>
+<div class="indented1">
 <p>Spatial Queries: Selecting features based on their location.</p>
 <p>Absolute location - based on their coordinate values</p>
 <p>Relative location - based on proximity to other features, including:</p>
@@ -142,33 +142,76 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </li>
 </ul>
 </div>
+</div>
 <h2 id="related-concepts">Related concepts</h2>
 <div class="indented1">
 <p>Attribute query - select features based on their attribute values</p>
 <p>Spatial join - Spatial query followed by copying the attributes of selected features (also called Spatial Enrichment)</p>
 </div>
 <h2 id="packages-with-spatial-query-functions">Packages with Spatial Query Functions</h2>
-<div class="indented1">
-<ul>
-<li><em>sp</em> (over)<br />
-</li>
-<li><em>rgeos</em><br />
-</li>
-<li><em>raster</em> (extract pixel values)<br />
-</li>
-<li><em>FNN</em> (nearest neighbor)<br />
-</li>
-</ul>
+<table class="tbl_compact">
+<thead>
+<tr>
+<th style="text-align:left;">
+Package
+</th>
+<th style="text-align:left;">
+Function(s)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+sp
+</td>
+<td style="text-align:left;font-family: monospace;">
+over()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rgeos
+</td>
+<td style="text-align:left;font-family: monospace;">
+gIntersects
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FNN
+</td>
+<td style="text-align:left;font-family: monospace;">
+get.knn()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+raster
+</td>
+<td style="text-align:left;font-family: monospace;">
+extract()
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rgeos
+</td>
+<td style="text-align:left;font-family: monospace;">
+gContains(), gCovers(), gEquals(), gIntersects(), gOverlaps(), gTouches(), gWithinDistance()
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<h2 id="overxy-function"><tt>over(x,y)</tt> function</h2>
+<div id="spoverxy" class="slide section level1">
+<h1><tt>sp::over(x,y)</tt></h1>
 <div class="indented1">
 <ul>
-<li>from the <em>sp</em> package<br />
+<li>does many types of spatial overlays and joins<br />
 </li>
-<li>does many types of Spatial overlays and joins<br />
-</li>
-<li><tt>x</tt> and <tt>y</tt> must have the same CRS</li>
-<li>what you get back depends on the types of object for x and y (dozen possibilities:</li>
+<li><tt>x</tt> and <tt>y</tt> must have identical CRS</li>
+<li>what you get back depends on the class of <tt>x</tt> and <tt>y</tt> (about a dozen possibilities)</li>
 </ul>
 </div>
 <div class="indented2">
@@ -198,31 +241,30 @@ x = &quot;SpatialPolygons&quot;, y = &quot;SpatialPoints&quot;
 </div>
 <p><em>and several others...</em></p>
 </div>
-<h2 id="using-the-overxy-function-effectively">Using the <tt>over(x,y)</tt> function effectively</h2>
+<p><strong>Using <tt>sp::over(x,y)</tt> effectively </strong></p>
 <div class="indented1">
-<p>You have to read the details closely.</p>
-<p>If this makes your head hurt, you're not alone.</p>
+<p>You have to read the details closely (if this makes your head hurt, you're not alone!).</p>
 <p>Remember that a <tt>SpatialPoints</tt> and <tt>SpatialPointsDataFrame</tt> are two different object types.</p>
-<p>You can drop the dataframe of any *Spatial** object with the <tt>geometry()</tt> function</p>
+<p style="margin-left: 3em;">
+But you can drop the data frame of any _Spatial*_ object with the <tt>geometry()</tt> function
+</p>
 </div>
-</div>
-<div id="example-compute-the-number-of-cannabis-dispenaries-per-neighborhood" class="slide section level1">
-<h1>Example: compute the number of cannabis dispenaries per neighborhood</h1>
+<p><strong>Example</strong>: Compute the number of cannabis dispenaries in San Francisco per neighborhood</p>
 <ol style="list-style-type: decimal">
 <li>Import the SF neighborhood boundaries and the cannabis dispensary locations.</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rgdal)
-sfnb_ll &lt;-<span class="st"> </span><span class="kw">readOGR</span>(<span class="st">&quot;../exercises/data&quot;</span>, <span class="st">&quot;sf_neighborhoods&quot;</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)
+sfnb_ll &lt;-<span class="st"> </span>rgdal<span class="op">::</span><span class="kw">readOGR</span>(<span class="st">&quot;../exercises/data&quot;</span>, <span class="st">&quot;sf_neighborhoods&quot;</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)
 fn &lt;-<span class="st"> &quot;../exercises/data/sf_permitted_cannabis_dispensaries_2014.kml&quot;</span>
-sfpot_ll &lt;-<span class="st"> </span><span class="kw">readOGR</span>(fn, <span class="st">&quot;Cannabis Dispensaries 2014&quot;</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)
-sfpot_ll &lt;-<span class="st"> </span><span class="kw">spTransform</span>(sfpot_ll, sfnb_ll<span class="op">@</span>proj4string)
+sfpot_ll &lt;-<span class="st"> </span>rgdal<span class="op">::</span><span class="kw">readOGR</span>(fn, <span class="st">&quot;Cannabis Dispensaries 2014&quot;</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)
+sfpot_ll &lt;-<span class="st"> </span>sp<span class="op">::</span><span class="kw">spTransform</span>(sfpot_ll, sfnb_ll<span class="op">@</span>proj4string)
 <span class="kw">plot</span>(sfnb_ll, <span class="dt">axes=</span>T, <span class="dt">asp=</span><span class="dv">1</span>)
 <span class="kw">plot</span>(sfpot_ll, <span class="dt">add=</span>T, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>)</code></pre></div>
-<p><img src="part03b_spatial-queries_files/figure-slidy/unnamed-chunk-1-1.png" width="768" /></p>
+<p><img src="part03b_spatial-queries_files/figure-slidy/load_data-1.png" width="768" style="display: block; margin: auto;" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Compute the number of dispensaries per neighborhood</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sfpot_nb_idx &lt;-<span class="st"> </span><span class="kw">over</span>(<span class="kw">geometry</span>(sfpot_ll), <span class="kw">geometry</span>(sfnb_ll))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sfpot_nb_idx &lt;-<span class="st"> </span>sp<span class="op">::</span><span class="kw">over</span>(<span class="kw">geometry</span>(sfpot_ll), <span class="kw">geometry</span>(sfnb_ll))
 sfpot_nb_str &lt;-<span class="st"> </span>sfnb_ll<span class="op">@</span>data<span class="op">$</span>nhood[sfpot_nb_idx]
 sfpot_nb_str &lt;-<span class="st"> </span><span class="kw">as.character</span>(sfpot_nb_str)  ## change factor to a character
 <span class="kw">table</span>(sfpot_nb_str)</code></pre></div>
@@ -240,12 +282,11 @@ sfpot_nb_str &lt;-<span class="st"> </span><span class="kw">as.character</span>(
 ##             West of Twin Peaks 
 ##                              1</code></pre>
 </div>
-<div id="other-spatial-query-functions" class="slide section level1">
-<h1>Other Spatial Query Functions</h1>
-<h2 id="square-brackets">Square brackets</h2>
+<div id="spatial-queries-with-square-brackets" class="slide section level1">
+<h1>Spatial Queries with square brackets</h1>
 <p>To do a Spatial Query based on contains or overlays relationship, can you use the traditional [square bracket] notation.</p>
 <p>Syntax: <tt>my_spatial_points[<em>rows</em>, ]</tt></p>
-<p>For the <em>rows</em> expression provide the features you want to use for selection.</p>
+<p>For the <em>rows</em> expression provide a Spatial* object containing the feature(s) you want to use for selection.</p>
 <p><strong>Example</strong>: select the dispensaries that fall in the Mission neighborhood.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">msn_bnd &lt;-<span class="st"> </span>sfnb_ll[sfnb_ll<span class="op">$</span>nhood<span class="op">==</span><span class="st">&quot;Mission&quot;</span>,]
 msnpot_pnts &lt;-<span class="st"> </span>sfpot_ll[msn_bnd, ]
@@ -253,8 +294,10 @@ msnpot_pnts &lt;-<span class="st"> </span>sfpot_ll[msn_bnd, ]
 <pre><code>## [1] 8</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(msn_bnd, <span class="dt">axes=</span><span class="ot">TRUE</span>)
 <span class="kw">plot</span>(msnpot_pnts, <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="part03b_spatial-queries_files/figure-slidy/unnamed-chunk-3-1.png" width="768" /></p>
-<h2 id="rgeos-spatial-query-functions">rgeos Spatial Query Functions</h2>
+<p><img src="part03b_spatial-queries_files/figure-slidy/msn_bnd-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="rgeos-spatial-query-functions" class="slide section level1">
+<h1><em>rgeos</em> Spatial Query Functions</h1>
 <p>The rgeos package contains a number of spatial query functions, including:</p>
 <div class="indented2" style="font-family:monospace;">
 <p>gContains()<br />
@@ -265,28 +308,30 @@ gOverlaps()<br />
 gTouches()<br />
 gWithinDistance()</p>
 </div>
-<p>Many of these use the <tt>byid</tt> argument to control whether the test is performed for individual features or the spatial layer as a whole.<br />
-aa Like the <tt>over()</tt> function, you have to read the help page carefully.</p>
+<p>Many of these use the <tt>byid</tt> argument to control whether the test is performed for individual features or the spatial layer as a whole.</p>
+<p>Like the <tt>over()</tt> function, you have to read the help page carefully.</p>
 <p><strong>Example</strong>: Find the cannabis dispensary in the Mission neighborhood using the <em>gContains()</em> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rgeos)
-x_matrix &lt;-<span class="st"> </span><span class="kw">gContains</span>(msn_bnd, sfpot_ll, <span class="dt">byid=</span><span class="kw">c</span>(F,T))
-x_vec &lt;-<span class="st"> </span>x_matrix[,<span class="dv">1</span>]   ## gContains returns a matrix, in this case just one column
+x_matrix &lt;-<span class="st"> </span>rgeos<span class="op">::</span><span class="kw">gContains</span>(msn_bnd, sfpot_ll, <span class="dt">byid=</span><span class="kw">c</span>(F,T))
+
+## gContains returns a matrix, in this case just one column
+## Let&#39;s pull out that one column as a vector.
+x_vec &lt;-<span class="st"> </span>x_matrix[,<span class="dv">1</span>]   
 <span class="kw">table</span>(x_vec)</code></pre></div>
 <pre><code>## x_vec
 ## FALSE  TRUE 
 ##    20     8</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(msn_bnd, <span class="dt">axes=</span><span class="ot">TRUE</span>)
 <span class="kw">plot</span>(sfpot_ll[x_vec,], <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&quot;green&quot;</span>)</code></pre></div>
-<p><img src="part03b_spatial-queries_files/figure-slidy/unnamed-chunk-4-1.png" width="768" /></p>
+<p><img src="part03b_spatial-queries_files/figure-slidy/rgeos_plot-1.png" width="768" style="display: block; margin: auto;" /></p>
+<h2 id="extracting-pixel-values-from-raster-data">Extracting pixel values from raster data</h2>
+<p>Another type of spatial query is selecting and extracting pixel values that overlap features of interest.</p>
+<p>We will see how to do this when we get to the <em>raster</em> package.</p>
 </div>
-<div id="coming-soon" class="slide section level1">
-<h1>Coming Soon</h1>
-<p><em>extracting pixel values from raster data</em></p>
-<div class="faux-h1">
-Next Up
-</div>
-<p><a href="exercises/ex09_spatial-queries.html" target="_blank">Exercise 9: Spatial Queries</a></p>
-<p><a href="part03c_raster.html">Working with Raster Data</a></p>
+<div id="next-up" class="slide section level1">
+<h1>Next Up</h1>
+<p><a href="../exercises/ex09_spatial-queries.html" target="_blank">Exercise 9: Spatial Queries</a></p>
+<p><a href="part03c_raster-pt1.html">Raster Data Pt. 1 - Importing and Basic Processing</a></p>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->

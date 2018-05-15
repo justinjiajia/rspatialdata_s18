@@ -120,58 +120,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="pres-title">Control Structures: Loops and Branches</span>
   </p>
 </div>
-<div id="course-outline" class="slide section level1">
-<h1>Course Outline</h1>
-<!------- WEEK 01 ---------------------------------------->
-<p><span id="tri01span" class="tritoggle" onclick="TriShowHide(&#39;tri01&#39;);return false;">▶ </span><span class="sessiontitle">April 19. Intro to R, Packages, Basic Syntax, Importing Data, Basic Visualization</span></p>
-<div id="tri01div" class="compact" style="display:none;">
-<ul>
-<li>RStudio<br />
-</li>
-<li>basic syntax<br />
-</li>
-<li>data types</li>
-<li>indexing and filtering<br />
-</li>
-<li>comparison operators<br />
-</li>
-<li>sequences<br />
-</li>
-<li>packages</li>
-<li>sample datasets<br />
-</li>
-<li>importing spatial data<br />
-</li>
-<li>basic plotting<br />
-</li>
-</ul>
-</div>
-<!-------- WEEK 02 --------------------------------------->
-<p><span id="zeroryspan" class="tritoggle" onclick="TriShowHide(&#39;zerory&#39;);return false;">▶ </span><span class="sessiontitle">April 26. Two-Dimensional Data Structures, R Markdown, Spatial Data Classes, Projections, Queries, Geoprocessing, Spatial Overlays</span></p>
-<div id="zerorydiv" class="compact" style="display:none;">
-<ul>
-<li>lists, data frames, matrices</li>
-<li>importing and exporting<br />
-</li>
-<li>R Markdown</li>
-<li>spatial data classes</li>
-<li>projections</li>
-<li>queries</li>
-<li>geoprocessing</li>
-<li>spatial overlays</li>
-</ul>
-</div>
-<!--------- WEEK 03 -------------------------------------->
-<p><span id="icosxkspan" class="tritoggle" onclick="TriShowHide(&#39;icosxk&#39;);return false;">▼ </span><span class="sessiontitle">May 10. Loops and branches, APIs, geocoding, raster analyses, R-ArcGIS integration</span></p>
-<div id="icosxkdiv" class="compact" style="display:block;">
-
-</div>
-<!---------- WEEK 04 ------------------------------------->
-<p><span id="iadcpnspan" class="tritoggle" onclick="TriShowHide(&#39;iadcpn&#39;);return false;">▶ </span><span class="sessiontitle">May ??. Custom functions, working with models, ggmap &amp; leaflet</span></p>
-<div id="iadcpndiv" class="compact" style="display:none;">
-
-</div>
-</div>
 <div id="branching-with-if-else-and-ifelse" class="slide section level1">
 <h1>Branching with <tt>if</tt>, <tt>else</tt>, and <tt>ifelse</tt></h1>
 <p><tt>if</tt> and <tt>else</tt> statements are control structures that let you control how a code should execute based on a set of pre-established conditions.</p>
@@ -195,43 +143,80 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </li>
 </ul>
 </div>
+<h2 id="chaining-multiple-tests-with-and-and-or">Chaining multiple tests with 'and' and 'or'</h2>
+<p>You can chain together expressions that test for multiple conditions using operators for <em>and</em> and <em>or</em>.</p>
+<p>Note however R doesn't use the keywords <em>and</em> and <em>or</em>. Rather use <tt>||</tt> for 'or', and <tt>&amp;&amp;</tt> for 'and'.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">4</span>; y &lt;-<span class="st"> </span><span class="dv">8</span>
+
+## &#39;or&#39; Test
+<span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span> <span class="op">||</span><span class="st"> </span>y <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>) {
+  <span class="kw">print</span>(<span class="st">&quot;TRUE&quot;</span>)
+} <span class="cf">else</span> {
+  <span class="kw">print</span>(<span class="st">&quot;FALSE&quot;</span>)
+}</code></pre></div>
+<pre><code>## [1] &quot;TRUE&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## &#39;and&#39;
+<span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span> <span class="op">&amp;&amp;</span><span class="st"> </span>y <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>) {
+  <span class="kw">print</span>(<span class="st">&quot;TRUE&quot;</span>)
+} <span class="cf">else</span> {
+  <span class="kw">print</span>(<span class="st">&quot;FALSE&quot;</span>)
+}</code></pre></div>
+<pre><code>## [1] &quot;FALSE&quot;</code></pre>
+<h2 id="if---else-if---else">if - else if - else</h2>
+<p>You can string together multiple 'else if' checks.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">size=</span><span class="dv">1</span>)
+x</code></pre></div>
+<pre><code>## [1] 20</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+  <span class="kw">print</span>(<span class="st">&quot;You picked an even number&quot;</span>)
+} <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+  <span class="kw">print</span>(<span class="st">&quot;You picked a multiple of 3&quot;</span>)
+} <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">%%</span><span class="st"> </span><span class="dv">5</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
+  <span class="kw">print</span>(<span class="st">&quot;You picked a multiple of 5&quot;</span>)
+} <span class="cf">else</span> {
+  <span class="kw">print</span>(<span class="st">&quot;You picked a prime&quot;</span>)
+}</code></pre></div>
+<pre><code>## [1] &quot;You picked an even number&quot;</code></pre>
+<h2 id="the-ifelse-function">The <tt>ifelse()</tt> function</h2>
+<p>A variation of the <tt>if-else</tt> statement is the <strong><tt>ifelse()</tt></strong> function. This function is handy for recoding data.</p>
+<p>Syntax:</p>
+<p><tt>ifelse(<em>condition</em>, <em>value-if-true</em>, <em>value-if-false</em>)</tt></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">animal &lt;-<span class="st"> </span><span class="kw">ifelse</span>(animal<span class="op">==</span><span class="st">&quot;cat&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)       </code></pre></div>
 </div>
 <div id="loops" class="slide section level1">
 <h1>Loops</h1>
 <ul>
+<li>Loops are fundamental to automation</li>
 <li>Use a <strong>for</strong> loop if you know in advance how many passes<br />
 </li>
 <li>use a <strong>while</strong> loop if you have to do a check to see if you need to continue going through the loop</li>
 </ul>
+<div class="figure">
+<img src="images/loops.png" />
+
+</div>
 <h2 id="for-loops">For loops</h2>
+<p>Generic syntax</p>
+<p><tt>for ( ) {</p>
+<p>} </tt></p>
 <p>You generally loop a variable like <em>i</em> over a vector of values to control the loop.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>){
   <span class="kw">print</span>(i<span class="op">^</span><span class="dv">2</span>)
 }</code></pre></div>
 <pre><code>## [1] 1
 ## [1] 4
 ## [1] 9
 ## [1] 16
-## [1] 25
-## [1] 36
-## [1] 49
-## [1] 64
-## [1] 81
-## [1] 100</code></pre>
+## [1] 25</code></pre>
 <p>An example where the loop variable is used as an index.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {
   <span class="kw">print</span>(state.name[i])
 }</code></pre></div>
 <pre><code>## [1] &quot;Alabama&quot;
 ## [1] &quot;Alaska&quot;
 ## [1] &quot;Arizona&quot;
 ## [1] &quot;Arkansas&quot;
-## [1] &quot;California&quot;
-## [1] &quot;Colorado&quot;
-## [1] &quot;Connecticut&quot;
-## [1] &quot;Delaware&quot;
-## [1] &quot;Florida&quot;
-## [1] &quot;Georgia&quot;</code></pre>
+## [1] &quot;California&quot;</code></pre>
 <p>Loops can be combined with if-else statements</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
 <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
@@ -251,13 +236,69 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## [1] 8
 ## [1] 9
 ## [1] 10</code></pre>
-</div>
-<div id="while-loops" class="slide section level1">
-<h1>While Loops</h1>
+<h2 id="while-loops">While Loops</h2>
+<p>The generic form of a while loop is</p>
+<p><tt>while (condition) { <lines of code></p>
+<p>} </tt></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)
+<span class="kw">cat</span>(<span class="st">&quot;i =&quot;</span>, <span class="kw">round</span>(i,<span class="dv">2</span>), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre></div>
+<pre><code>## i = 0.29</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">while</span> (i <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.8</span>) {
+  i &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)
+  <span class="kw">cat</span>(<span class="st">&quot;i =&quot;</span>, <span class="kw">round</span>(i,<span class="dv">2</span>), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+}</code></pre></div>
+<pre><code>## i = 0.51 
+## i = 0.71 
+## i = 0.06 
+## i = 0.73 
+## i = 0.56 
+## i = 0.79 
+## i = 0.25 
+## i = 0.38 
+## i = 0.22 
+## i = 0.79 
+## i = 0.65 
+## i = 0.71 
+## i = 0.2 
+## i = 0.68 
+## i = 0.14 
+## i = 0.9</code></pre>
+<h2 id="break">break</h2>
+<p>To break out of a for or while loop, you can use the <tt>break</tt> statement.</p>
+<p><tt>while (TRUE) { if (some_condition) { break } } </tt></p>
+<h2 id="loop-through-a-data-frame">Loop through a data frame</h2>
+<p>One of the most common uses of a loop is to loop through a data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(USArrests)) {
+  ## do something  
+}</code></pre></div>
+<h2 id="recording-the-results-of-each-iteration">Recording the Results of Each Iteration</h2>
+<p>Loops are commonly used to apply an algorithm to each element or row.</p>
+<p>You may want to store or save the results of each pass. A common technique is to create a variable to save the results before you start the loop, and then update or append it within the loop.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> &quot;&quot;</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
+  random_let &lt;-<span class="st"> </span><span class="kw">sample</span>(LETTERS, <span class="dv">1</span>)
+  x &lt;-<span class="st"> </span><span class="kw">paste</span>(x, random_let)
+}
+x</code></pre></div>
+<pre><code>## [1] &quot; C V G T R L S E U B&quot;</code></pre>
+<p><em><strong>Notes</strong></em></p>
+<p>Many R functions are vectorized, so often you don't actually need a code loop.</p>
+<p>See also <a href="https://www.datacamp.com/community/tutorials/tutorial-on-loops-in-r" target="_blank">Loops Tutorial from DataCamp</a></p>
+<p><strong>Example: add a random offset to each element of sequence</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Addition is vectorized, so we don&#39;t need a loop
+<span class="kw">data.frame</span>(<span class="dt">num=</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">num_plus_offset=</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="fl">0.5</span>))</code></pre></div>
+<pre><code>##   num num_plus_offset
+## 1   1       0.8588065
+## 2   2       2.5185631
+## 3   3       2.7960673
+## 4   4       2.5116857
+## 5   5       4.8581034</code></pre>
+<p>In addition to for and while loops, R has functions like <tt>sapply()</tt> and <tt>lapply()</tt> that will apply a function to each element of a vector/list.</p>
+<p><tt>sapply()</tt> and <tt>lapply()</tt> are generally usualy faster than traditional loops.</p>
 </div>
 <div id="next-up" class="slide section level1">
 <h1>Next Up</h1>
-<p><a href="exercises/ex08_loops-branches.html" target="_blank">Exercise 8: Loops and Branches</a></p>
+<p><a href="../exercises/ex08_loops-branches.html" target="_blank">Exercise 8: Loops and Branches</a></p>
 <p><a href="part03b_spatial-queries.html">Spatial Queries</a></p>
 </div>
 

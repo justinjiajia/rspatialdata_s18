@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Spatial Analysis with R: Exercise 10: Import Raster Data</title>
+
+<script src="lib/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="lib/navigation-1.1/tabsets.js"></script>
+<link href="lib/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="lib/highlightjs-1.1/highlight.js"></script>
+<link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+<script language="javascript" type="text/javascript">
+function TriShowHide(shID) {
+  shIDspan = shID + "span";
+  shIDdiv = shID + "div";
+  if (document.getElementById(shIDdiv).style.display != 'block') {
+    document.getElementById(shIDdiv).style.display = 'block';
+    txtSpan = "&#9660;";
+  } else {
+    document.getElementById(shIDdiv).style.display = 'none';
+    txtSpan = "&#9654;";
+  }
+  document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+}
+function showHide(shID) {
+  if (shID=="soln-show-all") {
+    var allAnswerCode = document.getElementsByClassName("answer-code");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'block';
+    }
+  } else if (shID=="soln-hide-all") {
+    var allAnswerCode = document.getElementsByClassName("answer-code");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'none';
+    }
+  } else if (shID=="hints-show-all") {
+    var allAnswerCode = document.getElementsByClassName("hint");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'block';
+    }
+  } else if (shID=="hints-hide-all") {
+    var allAnswerCode = document.getElementsByClassName("hint");
+    for (i = 0; i < allAnswerCode.length; i++) {
+        allAnswerCode[i].style.display = 'none';
+    }
+  } else {
+    if (document.getElementById(shID)) {
+      if (document.getElementById(shID).style.display != 'block') {
+        document.getElementById(shID).style.display = 'block';
+      } else {
+        document.getElementById(shID).style.display = 'none';
+      }
+    }
+  }
+}
+function CopyToClipboard(containerid) {
+if (document.selection) { 
+    var range = document.body.createTextRange();
+    range.moveToElementText(document.getElementById(containerid));
+    range.select().createTextRange();
+    document.execCommand("copy"); 
+} else if (window.getSelection) {
+    var range = document.createRange();
+    range.selectNode(document.getElementById(containerid));
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    // alert("text copied") 
+}}
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="..\common\slidy_styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore"><span class="ex-title">Spatial Analysis with R:</span><br/><span class="ex-subtitle">Exercise 10: Import Raster Data</span></h1>
+<h4 class="date"><em>Spring 2018</em></h4>
+
+</div>
+
+
+<div id="instructions" class="section level3">
+<h3>Instructions</h3>
+<ul>
+<li><p>If you haven't already, install <a href="https://cran.r-project.org/">R</a> and <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>.</p></li>
+<li><p>Download the <a href="https://github.com/ajlyons/rspatialdata/tree/gh-pages" target="_blank">GitHub repo</a>.</p></li>
+<li><p>Create a new R script in RStudio (File → New File → R Script).</p></li>
+<li><p>Copy the questions below (all of which begin with the <em>#</em> character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.</p></li>
+<li><p>Remember to save your script periodically to avoid losing work if RStudio crashes.</p></li>
+<li><p>If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.</p></li>
+<li><p>If you have any questions or problems, please feel free to email the instructor.</p></li>
+</ul>
+<hr class="hrdivider">
+<div class="copy-button">
+<button onclick="CopyToClipboard('qtn_div');return false;">
+Copy questions
+</button>
+</div>
+<div id="qtn_div" class="ex-qtn">
+<p>##########################<br/>#### <strong>IMPORT A GEOTIFF</strong> ####<br/>##########################</p>
+<p><a id="qtn_hnlugg" href="#" class="showhidelink" onclick="showHide('hnlugg');return false;"># 1.</a> Import the GeoTiff file <tt>SP27GTIF.TIF</tt> that comes with the <em>rgdal</em> package.<br />
+#  View its properties. <a href="#" class="showhidehint" onclick="showHide('pzobpq');return false;"></a></p>
+<div id="pzobpq" class="hint">
+To find the directory where pictures from the rgdal package are saved, run <tt>system.file(&quot;pictures&quot;, package=&quot;rgdal&quot;)</tt>
+</div>
+<div id="hnlugg" class="answer-code">
+<pre class="r"><code>library(raster)
+img_dir &lt;- system.file(&quot;pictures&quot;, package=&quot;rgdal&quot;)
+img_fn &lt;- file.path(img_dir, &quot;SP27GTIF.TIF&quot;)
+file.exists(img_fn)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>img_rast &lt;- raster::raster(img_fn)
+print(img_rast)</code></pre>
+<pre><code>## class       : RasterLayer 
+## dimensions  : 929, 699, 649371  (nrow, ncol, ncell)
+## resolution  : 32.8, 32.8  (x, y)
+## extent      : 681480, 704407.2, 1882579, 1913050  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=tmerc +lat_0=36.66666666666666 +lon_0=-88.33333333333333 +k=0.9999749999999999 +x_0=152400.3048006096 +y_0=0 +datum=NAD27 +units=us-ft +no_defs +ellps=clrk66 +nadgrids=@conus,@alaska,@ntv2_0.gsb,@ntv1_can.dat 
+## data source : C:\Users\Andy\Documents\R\win-library\3.4\rgdal\pictures\SP27GTIF.TIF 
+## names       : SP27GTIF 
+## values      : 0, 255  (min, max)</code></pre>
+</div>
+<p><a id="qtn_poyepl" href="#" class="showhidelink" onclick="showHide('poyepl');return false;"># 2.</a> How many band(s) does this image have? What is the range of pixel values?</p>
+<div id="poyepl" class="answer-code">
+<pre class="r"><code>summary(img_rast)</code></pre>
+<pre><code>## Warning in .local(object, ...): summary is an estimate based on a sample of 1e+05 cells (15.4% of all cells)</code></pre>
+<pre><code>##         SP27GTIF
+## Min.           4
+## 1st Qu.       78
+## Median       104
+## 3rd Qu.      152
+## Max.         255
+## NA&#39;s           0</code></pre>
+<p>This image has only one band, with values from 4-255.</p>
+</div>
+<p><a id="qtn_brceln" href="#" class="showhidelink" onclick="showHide('brceln');return false;"># 3.</a> Plot the image with a gray scale colors.</p>
+<div id="brceln" class="answer-code">
+<pre class="r"><code>image(img_rast, col=grey.colors(255), asp=1)</code></pre>
+<p><img src="ex10_raster01_files/figure-html/print_img-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<p><a id="qtn_sgaova" href="#" class="showhidelink" onclick="showHide('sgaova');return false;"># 4.</a> What is the resolution (size) of the pixels?</p>
+<div id="sgaova" class="answer-code">
+<pre class="r"><code>res(img_rast)</code></pre>
+<pre><code>## [1] 32.8 32.8</code></pre>
+</div>
+<p><a id="qtn_jpiflp" href="#" class="showhidelink" onclick="showHide('jpiflp');return false;"># 5.</a> What part of the planet is this image from? <a href="#" class="showhidehint" onclick="showHide('lpfzzx');return false;"></a></p>
+<div id="lpfzzx" class="hint">
+(Un)project the image to geographic coordinates (see <a href="../slides/part02e_spatial-data.html#geographic-coordinates">Geographic Coordinates</a>). Then enter the latitude and longitude into Google Maps by changing the URL <a href="http://maps.google.com/?q=36.3,-119.0" class="uri">http://maps.google.com/?q=36.3,-119.0</a> (note that Google Map URLs expect the latitude followed by the longitude).
+</div>
+<div id="jpiflp" class="answer-code">
+<pre class="r"><code>img_rast_ll &lt;- projectRaster(img_rast, crs=sp::CRS(&quot;+init=epsg:4326&quot;))
+plot(img_rast_ll, col=gray.colors(255))</code></pre>
+<p><img src="ex10_raster01_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>The image is the <a href="https://goo.gl/maps/AqnXUFqFxUo">Chicago waterfront</a>.</p>
+</div>
+</div>
+<!-- end questions -->
+</div>
+
+<hr>
+<div style="float:right; width:33%; text-align:right;">
+<a href="../index.html" style="text-decoration:none;">Course outline</a>
+</div>
+
+<div style="float:right; width:33%; text-align:center;">
+<a href="#" style="text-decoration:none;" onclick="showHide('soln-show-all');return false;">show all solutions</a> | <a href="#" style="text-decoration:none;" onclick="showHide('soln-hide-all');return false;">hide all solutions</a>
+</div>
+
+<div style="width:33%;">
+<a href="#" style="text-decoration:none;" onclick="showHide('hints-show-all');return false;">show all hints</a> | <a href="#" style="text-decoration:none;" onclick="showHide('hints-hide-all');return false;">hide all hints</a>
+</div>
+<br/>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

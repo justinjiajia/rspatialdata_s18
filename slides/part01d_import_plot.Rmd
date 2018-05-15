@@ -19,31 +19,20 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+    if (before) par(mar = c(2, 2, 0.5, 0.5))
+})
 ```
 
 # Spatial Data
 
-<div class="incremental"><div>
-__Physical World &rarr; GIS World__
+## Physical World &rarr; GIS World
 
 <div class="incremental centerblock" style="margin-bottom:2em;"><img src="images/layers.jpg"></img></div>
 
 <div class="incremental centerblock" style="margin-bottom:2em;"><img src="images/vectors-features-abstract.png"></img></div>
 
 <div class="incremental centerblock" style="margin-bottom:2em;"><img src="images/raster-features-abstract.png"></img></div>
-
-</div></div>
-
-<div class="incremental"><div><hr class="hrdivider">
-__Projections__
-<div class="centerblock"><img src="images/projections_550x682.png"></img></div>
-</div></div>
-
-<div class="centerblock" style="margin-top:2em;">
-<iframe src="http://www.jasondavies.com/maps/transition/" style="width:1234px;height:732px;">
-  <p>Your browser does not support iframes.</p>
-</iframe>
-</div>
 
 # Representing Geographic Data 
 
@@ -60,6 +49,22 @@ How would you represent each of the following?
 >- soil type
 >- land use
 </div>
+
+# Projections
+
+<div class="centerblock"><img src="images/projections_550x682.png"></img></div>
+
+<div class="centerblock" style="margin-top:2em;">
+<iframe src="http://www.jasondavies.com/maps/transition/" style="width:1234px;height:732px;">
+  <p>Your browser does not support iframes.</p>
+</iframe>
+</div>
+
+## UTM
+
+A common projection system is __Universal Transverse Mercator__ (UTM). UTM divides the planet up into 60 zones that are 6 degrees wide. The USA falls in zones 10-19. 
+
+<div class="centerblock"><a href="https://commons.wikimedia.org/wiki/File:Utm-zones-USA.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Utm-zones-USA.svg"></img></a></div>
 
 # Importing Vector Data: rgdal
 
@@ -81,19 +86,19 @@ View layers in a directory:
 
 ```{r echo=TRUE, eval=FALSE}
 library(rgdal)
-ogrListLayers(dsn)
+rgdal::ogrListLayers(dsn)
 ```
 
 Where _dsn_ is a directory.
 
 ```{r}
-ogrListLayers("../exercises/data")
+rgdal::ogrListLayers("../exercises/data")
 ```
 
 View metadata before importing:
 
 ```{r echo=TRUE, eval=FALSE}
-ogrInfo(dsn, shape_file_name)
+rgdal::ogrInfo(dsn, shape_file_name)
 ```
 
 where _shape_file_name_ is the name of the directory, minus the _.shp_ extension
@@ -101,7 +106,7 @@ where _shape_file_name_ is the name of the directory, minus the _.shp_ extension
 To import, use ```readOGR()```
 
 ```{r import_shp, echo=TRUE}
-ca_counties <- readOGR("../exercises/data", "ca_counties_census")
+ca_counties <- rgdal::readOGR("../exercises/data", "ca_counties_census")
 summary(ca_counties)
 ```
 
@@ -110,8 +115,8 @@ summary(ca_counties)
 ```{r import_kml, echo=TRUE}
 kml_fn <- "../exercises/data/berkeley_public_sites.kml"
 file.exists(kml_fn)
-ogrListLayers(kml_fn)
-brk_sites <- readOGR(kml_fn, "Public Facilities")
+rgdal::ogrListLayers(kml_fn)
+brk_sites <- rgdal::readOGR(kml_fn, "Public Facilities")
 summary(brk_sites)
 ```
 
@@ -119,11 +124,11 @@ summary(brk_sites)
 
 rgdal can import from a file geodatabase also. In this case, the source is the name of a directory.
 
-```{r plot_sfcrimes, cache=TRUE}
+```{r plot_sfcrimes, cache=TRUE, fig.align='center', small.mar=TRUE}
 gdb_dir <- "../exercises/data/sf_crime.gdb"
 file.exists(gdb_dir)
-ogrListLayers(gdb_dir)
-sfcrime_sp <- readOGR(dsn=gdb_dir,layer="San_Francisco_Crimes")
+rgdal::ogrListLayers(gdb_dir)
+sfcrime_sp <- rgdal::readOGR(dsn=gdb_dir,layer="San_Francisco_Crimes")
 class(sfcrime_sp)
 names(sfcrime_sp@data)
 plot(sfcrime_sp, pch=16, cex=0.4, axes=T, asp=1)
@@ -151,13 +156,13 @@ There are lots of optional arguments to make it look nicer
 There are plotting packages for even nicer output (e.g., <tt>ggplot2</tt>)
 </div>
 
-```{r plot_ca, fig.align="center", out.height=400, cache=TRUE}
+```{r plot_ca, fig.align="center", out.height=400, cache=TRUE, small.mar=TRUE}
 plot(ca_counties)
 ```
 
 Notice how its squished? We can fix that with the ```asp``` argument (aspect ratio).
 
-```{r plot_asp1, cache=TRUE}
+```{r plot_asp1, cache=TRUE, fig.align='center', small.mar=TRUE}
 plot(ca_counties, asp=1)
 ```
 
@@ -182,7 +187,7 @@ _Plotting Examples_
 
 Here we pass the ```col``` argument to give the polygon a fill.
 
-```{r plot_multicolors, cache=TRUE}
+```{r plot_multicolors, cache=TRUE, fig.align='center', small.mar=TRUE}
 palette()
 plot(ca_counties, col=palette(), asp=1)
 ```

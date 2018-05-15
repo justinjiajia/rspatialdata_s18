@@ -193,16 +193,15 @@ $(document).ready(function () {
 <li><p>If you have any questions or problems, please feel free to email the instructor.</p></li>
 </ul>
 <hr class="hrdivider">
-<div style="text-align:center">
+<div class="copy-button">
 <button onclick="CopyToClipboard('qtn_div');return false;">
 Copy questions
 </button>
 </div>
-<div id="qtn_div">
-<p>####################<br />
-### SORT DATA</p>
-<p># <tt>Nile</tt> is a dataset that comes with the <em>datasets</em> package, and contains the annual flow of the<br />
-#  river Nile from 1871-1970.</p>
+<div id="qtn_div" class="ex-qtn">
+<p>###################<br/>#### <strong>SORT DATA</strong> ####<br/>###################</p>
+<p># <tt>Nile</tt> is a dataset that comes with the <em>datasets</em> package, and contains the<br />
+#  annual flow of the river Nile from 1871-1970.</p>
 <p><a id="qtn_zfhrcd" href="#" class="showhidelink" onclick="showHide('zfhrcd');return false;"># 1.</a> What type of object is <em>Nile</em>?</p>
 <div id="zfhrcd" class="answer-code">
 <pre class="r"><code>class(Nile)</code></pre>
@@ -217,10 +216,10 @@ Copy questions
 <p><a id="qtn_wckfld" href="#" class="showhidelink" onclick="showHide('wckfld');return false;"># 3.</a> Plot the Nile data</p>
 <div id="wckfld" class="answer-code">
 <pre class="r"><code>plot(Nile)</code></pre>
-<p><img src="ex04_sort-save-misc_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="ex04_sort-save-misc_files/figure-html/plot_nile-1.png" width="672" /></p>
 </div>
-<p><a id="qtn_fpulpd" href="#" class="showhidelink" onclick="showHide('fpulpd');return false;"># 4.</a> Write expressions that return the i) lowest 3 values from <em>Nile</em>, ii) the top 3 values, and iii)<br />
-#  middle three values</p>
+<p><a id="qtn_fpulpd" href="#" class="showhidelink" onclick="showHide('fpulpd');return false;"># 4.</a> Write expressions that return the i) lowest 3 values from <em>Nile</em>, ii) the top 3<br />
+#  values, and iii) middle three values</p>
 <div id="fpulpd" class="answer-code">
 <pre class="r"><code>sort(Nile)[1:3]</code></pre>
 <pre><code>## [1] 456 649 676</code></pre>
@@ -230,8 +229,7 @@ Copy questions
 sort(Nile)[seq(from=mid_idx-1, to=mid_idx+1)]</code></pre>
 <pre><code>## [1] 874 890 897</code></pre>
 </div>
-<p>####################<br />
-<strong>### CREATE AND MANIPULATE A LIST</strong></p>
+<p>######################################<br/>#### <strong>CREATE AND MANIPULATE A LIST</strong> ####<br/>######################################</p>
 <p><a id="qtn_ncnwzg" href="#" class="showhidelink" onclick="showHide('ncnwzg');return false;"># 5.</a> Create three vectors:<br />
 # i. your favorite colors<br />
 # ii. ten random numbers from a uniform distribution ranging from 10 to 20<br />
@@ -249,11 +247,11 @@ my_list</code></pre>
 ## [1] &quot;green&quot;   &quot;crimson&quot; &quot;bronze&quot; 
 ## 
 ## $nums
-##  [1] 10.37470 15.76191 16.24487 13.80308 15.25319 18.01784 18.24371
-##  [8] 19.34479 12.36445 15.21938
+##  [1] 15.67369 18.32882 17.94986 17.47386 11.01808 19.66060 19.86022
+##  [8] 19.97475 10.18321 17.08953
 ## 
 ## $ltrs
-## [1] &quot;Q&quot; &quot;R&quot; &quot;I&quot; &quot;F&quot; &quot;D&quot;</code></pre>
+## [1] &quot;C&quot; &quot;H&quot; &quot;W&quot; &quot;S&quot; &quot;J&quot;</code></pre>
 </div>
 <p><a id="qtn_nnkyrr" href="#" class="showhidelink" onclick="showHide('nnkyrr');return false;"># 7.</a> Write expressions that returns the class of each element of your list.</p>
 <div id="nnkyrr" class="answer-code">
@@ -267,8 +265,8 @@ my_list</code></pre>
 <pre class="r"><code>str(my_list)</code></pre>
 <pre><code>## List of 3
 ##  $ colors: chr [1:3] &quot;green&quot; &quot;crimson&quot; &quot;bronze&quot;
-##  $ nums  : num [1:10] 10.4 15.8 16.2 13.8 15.3 ...
-##  $ ltrs  : chr [1:5] &quot;Q&quot; &quot;R&quot; &quot;I&quot; &quot;F&quot; ...</code></pre>
+##  $ nums  : num [1:10] 15.7 18.3 17.9 17.5 11 ...
+##  $ ltrs  : chr [1:5] &quot;C&quot; &quot;H&quot; &quot;W&quot; &quot;S&quot; ...</code></pre>
 <pre class="r"><code>sapply(my_list, class)</code></pre>
 <pre><code>##      colors        nums        ltrs 
 ## &quot;character&quot;   &quot;numeric&quot; &quot;character&quot;</code></pre>
@@ -279,8 +277,7 @@ my_list</code></pre>
 names(my_list)</code></pre>
 <pre><code>## [1] &quot;colors&quot; &quot;nums&quot;</code></pre>
 </div>
-<p>####################<br />
-<strong>### SAVING DATA TO DISK</strong></p>
+<p>#############################<br/>#### <strong>SAVING DATA TO DISK</strong> ####<br/>#############################</p>
 <p><a id="qtn_zenxza" href="#" class="showhidelink" onclick="showHide('zenxza');return false;"># 9.</a> Where is R's 'home' directory on your computer?</p>
 <div id="zenxza" class="answer-code">
 <pre class="r"><code>setwd(&quot;~&quot;)
@@ -297,7 +294,8 @@ getwd()</code></pre>
 my_list</code></pre>
 <pre><code>## Error in eval(expr, envir, enclos): object &#39;my_list&#39; not found</code></pre>
 </div>
-<p><a id="qtn_nayatk" href="#" class="showhidelink" onclick="showHide('nayatk');return false;"># 12.</a> Load the R data file you saved to the home directory earlier. Verify the list is back in memory.</p>
+<p><a id="qtn_nayatk" href="#" class="showhidelink" onclick="showHide('nayatk');return false;"># 12.</a> Load the R data file you saved to the home directory earlier. Verify the list<br />
+#  is back in memory.</p>
 <div id="nayatk" class="answer-code">
 <pre class="r"><code>load(&quot;~/MyListData.RData&quot;)
 my_list</code></pre>
@@ -305,8 +303,8 @@ my_list</code></pre>
 ## [1] &quot;green&quot;   &quot;crimson&quot; &quot;bronze&quot; 
 ## 
 ## $nums
-##  [1] 10.37470 15.76191 16.24487 13.80308 15.25319 18.01784 18.24371
-##  [8] 19.34479 12.36445 15.21938</code></pre>
+##  [1] 15.67369 18.32882 17.94986 17.47386 11.01808 19.66060 19.86022
+##  [8] 19.97475 10.18321 17.08953</code></pre>
 </div>
 </div>
 <!-- end question div -->

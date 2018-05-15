@@ -242,53 +242,53 @@ view and/or edit the element names
 <p>To illustrate, let's make a vector of random values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="dv">1000</span> <span class="op">*</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">10</span>))
 x</code></pre></div>
-<pre><code>##  [1]  27 280 277 668 810 183 786 930 511 936</code></pre>
+<pre><code>##  [1] 831 186 803 986 687 460 802 932 965 635</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sort</span>(x)</code></pre></div>
-<pre><code>##  [1]  27 183 277 280 511 668 786 810 930 936</code></pre>
+<pre><code>##  [1] 186 460 635 687 802 803 831 932 965 986</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">order</span>(x)</code></pre></div>
-<pre><code>##  [1]  1  6  3  2  9  4  7  5  8 10</code></pre>
+<pre><code>##  [1]  2  6 10  5  7  3  1  8  9  4</code></pre>
 <p>If you compute the order of the elements, you can return a sorted copy of the list by putting the indices inside the square brackets.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">idx &lt;-<span class="st"> </span><span class="kw">order</span>(x)
 x[idx]</code></pre></div>
-<pre><code>##  [1]  27 183 277 280 511 668 786 810 930 936</code></pre>
+<pre><code>##  [1] 186 460 635 687 802 803 831 932 965 986</code></pre>
 <p>Sorting in descending order can be done with the <tt>decreasing</tt> argument.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">idx &lt;-<span class="st"> </span><span class="kw">order</span>(x, <span class="dt">decreasing=</span><span class="ot">TRUE</span>)
 x[idx]</code></pre></div>
-<pre><code>##  [1] 936 930 810 786 668 511 280 277 183  27</code></pre>
+<pre><code>##  [1] 986 965 932 831 803 802 687 635 460 186</code></pre>
 </div>
 <div id="picking-a-random-sample" class="slide section level1">
 <h1>Picking a Random Sample</h1>
 <p>We've already seen examples of generating random numbers with functions like <tt>runif()</tt> and <tt>rnorm()</tt>. Another common task is selecting a random sample. Suppose you want to pick three letters from the alphabet at random (for a password for example).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sample</span>(LETTERS, <span class="dt">size=</span><span class="dv">3</span>)</code></pre></div>
-<pre><code>## [1] &quot;K&quot; &quot;L&quot; &quot;S&quot;</code></pre>
+<pre><code>## [1] &quot;A&quot; &quot;M&quot; &quot;W&quot;</code></pre>
 <div style="margin:0 3em;border:1px solid grey;">
 <p><em>Challenge question</em>: Write an R expression that returns 100 letters selected at random. Hint: you might need to add an argument because there aren't 100 leetters in the alphabet. [<span id="qtn_htismynn" class="showhide" style="cursor: pointer; color:blue;" onclick="showHide(&#39;htismynn&#39;);return false;">Ans</span>].</p>
 <div id="htismynn" class="answer-code">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sample</span>(LETTERS, <span class="dt">size=</span><span class="dv">100</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>##   [1] &quot;K&quot; &quot;R&quot; &quot;P&quot; &quot;J&quot; &quot;J&quot; &quot;L&quot; &quot;M&quot; &quot;M&quot; &quot;Q&quot; &quot;K&quot; &quot;D&quot; &quot;B&quot; &quot;U&quot; &quot;T&quot; &quot;O&quot; &quot;N&quot; &quot;W&quot;
-##  [18] &quot;F&quot; &quot;P&quot; &quot;G&quot; &quot;K&quot; &quot;F&quot; &quot;J&quot; &quot;T&quot; &quot;P&quot; &quot;V&quot; &quot;C&quot; &quot;Z&quot; &quot;M&quot; &quot;S&quot; &quot;Z&quot; &quot;Y&quot; &quot;B&quot; &quot;D&quot;
-##  [35] &quot;L&quot; &quot;X&quot; &quot;C&quot; &quot;N&quot; &quot;S&quot; &quot;G&quot; &quot;K&quot; &quot;T&quot; &quot;F&quot; &quot;K&quot; &quot;I&quot; &quot;X&quot; &quot;W&quot; &quot;D&quot; &quot;J&quot; &quot;N&quot; &quot;S&quot;
-##  [52] &quot;S&quot; &quot;P&quot; &quot;X&quot; &quot;T&quot; &quot;Q&quot; &quot;L&quot; &quot;J&quot; &quot;W&quot; &quot;R&quot; &quot;G&quot; &quot;L&quot; &quot;S&quot; &quot;R&quot; &quot;W&quot; &quot;N&quot; &quot;F&quot; &quot;W&quot;
-##  [69] &quot;L&quot; &quot;I&quot; &quot;O&quot; &quot;G&quot; &quot;M&quot; &quot;R&quot; &quot;V&quot; &quot;N&quot; &quot;K&quot; &quot;Y&quot; &quot;O&quot; &quot;Q&quot; &quot;L&quot; &quot;Y&quot; &quot;A&quot; &quot;G&quot; &quot;T&quot;
-##  [86] &quot;A&quot; &quot;L&quot; &quot;A&quot; &quot;T&quot; &quot;C&quot; &quot;N&quot; &quot;V&quot; &quot;P&quot; &quot;Q&quot; &quot;O&quot; &quot;J&quot; &quot;D&quot; &quot;Y&quot; &quot;G&quot; &quot;P&quot;</code></pre>
+<pre><code>##   [1] &quot;M&quot; &quot;W&quot; &quot;M&quot; &quot;N&quot; &quot;Q&quot; &quot;D&quot; &quot;V&quot; &quot;D&quot; &quot;W&quot; &quot;C&quot; &quot;Z&quot; &quot;J&quot; &quot;Q&quot; &quot;X&quot; &quot;G&quot; &quot;H&quot; &quot;Q&quot;
+##  [18] &quot;P&quot; &quot;O&quot; &quot;W&quot; &quot;X&quot; &quot;V&quot; &quot;Z&quot; &quot;V&quot; &quot;S&quot; &quot;N&quot; &quot;I&quot; &quot;Z&quot; &quot;Y&quot; &quot;E&quot; &quot;E&quot; &quot;Q&quot; &quot;T&quot; &quot;V&quot;
+##  [35] &quot;C&quot; &quot;Q&quot; &quot;S&quot; &quot;Y&quot; &quot;M&quot; &quot;B&quot; &quot;M&quot; &quot;S&quot; &quot;C&quot; &quot;Q&quot; &quot;G&quot; &quot;E&quot; &quot;E&quot; &quot;H&quot; &quot;J&quot; &quot;W&quot; &quot;F&quot;
+##  [52] &quot;R&quot; &quot;L&quot; &quot;M&quot; &quot;T&quot; &quot;C&quot; &quot;C&quot; &quot;F&quot; &quot;X&quot; &quot;S&quot; &quot;T&quot; &quot;X&quot; &quot;D&quot; &quot;G&quot; &quot;E&quot; &quot;N&quot; &quot;M&quot; &quot;L&quot;
+##  [69] &quot;F&quot; &quot;P&quot; &quot;E&quot; &quot;O&quot; &quot;Q&quot; &quot;K&quot; &quot;W&quot; &quot;E&quot; &quot;F&quot; &quot;B&quot; &quot;U&quot; &quot;N&quot; &quot;M&quot; &quot;G&quot; &quot;V&quot; &quot;R&quot; &quot;X&quot;
+##  [86] &quot;J&quot; &quot;E&quot; &quot;W&quot; &quot;N&quot; &quot;R&quot; &quot;D&quot; &quot;L&quot; &quot;Y&quot; &quot;R&quot; &quot;V&quot; &quot;D&quot; &quot;N&quot; &quot;A&quot; &quot;A&quot; &quot;M&quot;</code></pre>
 </div>
 </div>
 <p>Another way to pick a sample with the <tt>sample()</tt> function is to generate a vector of logical values, and then use that as the expression for the rows to return.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">control_grp_yn &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(T,F), <span class="dt">size=</span><span class="dv">26</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)
 control_grp_yn</code></pre></div>
-<pre><code>##  [1] FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE
-## [12]  TRUE FALSE FALSE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE
-## [23] FALSE  TRUE FALSE FALSE</code></pre>
+<pre><code>##  [1] FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE
+## [12]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE
+## [23]  TRUE  TRUE  TRUE  TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LETTERS[control_grp_yn]</code></pre></div>
-<pre><code>##  [1] &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;I&quot; &quot;J&quot; &quot;L&quot; &quot;O&quot; &quot;P&quot; &quot;R&quot; &quot;X&quot;</code></pre>
+<pre><code>##  [1] &quot;D&quot; &quot;F&quot; &quot;H&quot; &quot;K&quot; &quot;L&quot; &quot;M&quot; &quot;N&quot; &quot;O&quot; &quot;P&quot; &quot;Q&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;</code></pre>
 <div style="margin:0 3em;border:1px solid grey;">
 <p><em>Challenge question</em>: How could you modify the code above to increase the odds of being selected from 50:50 to 2:1? [<span id="qtn_ismynn" class="showhide" style="cursor: pointer; color:blue;" onclick="showHide(&#39;ismynn&#39;);return false;">Ans</span>].</p>
 <div id="ismynn" class="answer-code" style="margin-left:1em;">
 <p>An easy way to boost the odds of being selected is simply to increase the number of <tt>TRUE</tt> values in the sample source.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">control_grp_yn &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(T,T,F), <span class="dt">size=</span><span class="dv">26</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)
 LETTERS[control_grp_yn]</code></pre></div>
-<pre><code>##  [1] &quot;A&quot; &quot;C&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;J&quot; &quot;K&quot; &quot;L&quot; &quot;M&quot; &quot;O&quot; &quot;P&quot; &quot;Q&quot; &quot;R&quot; &quot;S&quot; &quot;W&quot; &quot;X&quot;
-## [18] &quot;Z&quot;</code></pre>
+<pre><code>##  [1] &quot;A&quot; &quot;D&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;J&quot; &quot;K&quot; &quot;L&quot; &quot;M&quot; &quot;N&quot; &quot;P&quot; &quot;Q&quot; &quot;S&quot; &quot;T&quot; &quot;U&quot; &quot;V&quot;
+## [18] &quot;W&quot; &quot;Y&quot; &quot;Z&quot;</code></pre>
 </div>
 </div>
 </div>
@@ -426,8 +426,8 @@ move_data<span class="op">$</span>selected</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(x_nums)   ## remove x_nums from memory
 <span class="kw">load</span>(<span class="st">&quot;~/first_try.RData&quot;</span>)
 <span class="kw">summary</span>(x_nums)</code></pre></div>
-<pre><code>##      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-## -60.56882 -13.17315  -0.20110   0.02755  14.12150  58.24077</code></pre>
+<pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## -60.9022 -13.5849   0.6754   0.3599  13.2205  66.2261</code></pre>
 <p><strong>Short Cuts</strong></p>
 <p>If you're working at the console and want to quickly get the name to a file, you can use the <strong><tt>file.choose()</tt></strong> function.</p>
 <p>In RStudio, you can use the Files tab to browse your files and set the working directory.</p>

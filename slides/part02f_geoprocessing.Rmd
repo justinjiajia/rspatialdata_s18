@@ -19,6 +19,9 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+    if (before) par(mar = c(2, 2, 0.5, 0.5))
+})
 library(kableExtra)
 library(rgdal)
 library(rgeos)
@@ -75,7 +78,7 @@ Many functions from rgeos have a <tt>byid</tt> argument. byid=TRUE means applies
 
 To try it out, let's open the SF neighboods and cannabis dispensaries you opened in an earlier exercise.
 
-```{r}
+```{r import_plot_sf_nb_pot, fig.align="center", small.mar=TRUE, cache=TRUE}
 library(rgdal)
 sf_nb_ll <- readOGR("../exercises/data", "sf_neighborhoods")
 fn <- "../exercises/data/sf_permitted_cannabis_dispensaries_2014.kml"
@@ -90,7 +93,7 @@ Distance and area are only meaningful with projected data. Hence you typically p
 
 Project the San Francisco data to UTM Zone 10
 
-```{r}
+```{r proj_utm, small.mar=TRUE, fig.align="center", cache=TRUE}
 utm10n <- CRS("+proj=utm +zone=10 +ellps=WGS84")
 sfnb_prj <- spTransform(sf_nb_ll, utm10n)
 sfpot_prj <- spTransform(sf_pot_ll, utm10n)
@@ -109,7 +112,7 @@ str(sfnb_area)
 
 <tt>gCentroid()</tt>
 
-```{r}
+```{r nb_ctr, small.mar=TRUE, fig.align="center", cache=TRUE}
 sfnb_ctr_sp <- gCentroid(sfnb_prj, byid=TRUE)
 class(sfnb_ctr_sp)
 plot(sfnb_prj, axes=TRUE, asp=1)
@@ -124,7 +127,7 @@ plot(sfnb_ctr_sp, col="purple", pch=17, cex=1.2, add=TRUE)
 - byid: apply to individual features
 - width: in map units, (postive=outer buffer, negative=inner
 
-```{r bufpot_byidt}
+```{r bufpot_byidt, small.mar=TRUE, fig.align="center", cache=TRUE}
 buff_dist <- 1000 * 0.3048  ## 1000 ft in meters
 sfpot_buf_prj <- gBuffer(sfpot_prj, byid=T, width=buff_dist)
 plot(sfpot_buf_prj, axes=TRUE)
@@ -132,7 +135,7 @@ plot(sfpot_buf_prj, axes=TRUE)
 
 Note the difference that <tt>byid=F</tt> makes:
 
-```{r bufpot_byidf}
+```{r bufpot_byidf, small.mar=TRUE, fig.align="center", cache=TRUE}
 sfpot_buf_prj <- gBuffer(sfpot_prj, byid=F, width=buff_dist)
 plot(sfpot_buf_prj, axes=TRUE)
 ```
@@ -141,7 +144,7 @@ plot(sfpot_buf_prj, axes=TRUE)
 
 Intersect the buffered dispensaries with just one of the neighborhood boundaries.
 
-```{r}
+```{r plot_msg, small.mar=TRUE, fig.align="center", cache=TRUE}
 nb_name <- "Mission"
 mission_bnd <- sfnb_prj[sfnb_prj@data$nhood==nb_name, ]
 mission_intrsct_pot <- gIntersection(mission_bnd, sfpot_buf_prj)
@@ -151,7 +154,7 @@ plot(mission_intrsct_pot, col="red", add=T)
 
 Compute the percentage of the Mission neighborhood that falls within 1000 feet of a cannabis dispensary.
 
-```{r}
+```{r compute_prp, cache=TRUE}
 gArea(mission_intrsct_pot) / gArea(mission_bnd)
 ```
 
@@ -164,7 +167,7 @@ gArea(mission_intrsct_pot) / gArea(mission_bnd)
 
 Create a Delaunay Triangulation for the cannabis dispensaries.
 
-```{r delaunay_tri, fig.align="center"}
+```{r delaunay_tri, fig.align="center", small.mar=TRUE, cache=TRUE}
 sfpot_deltri <- gDelaunayTriangulation(sfpot_prj)
 plot(sfpot_prj, col="red", pch=16, cex=2, axes=TRUE)
 plot(sfnb_prj, border="grey60", add=TRUE)
@@ -173,13 +176,14 @@ plot(sfpot_deltri, add=TRUE, border="darkorchid3", lwd=2)
 
 # Convex Hull / Minimum Convex Polygon
 
-```{r}
+```{r chull_plot, small.mar=TRUE, fig.align="center", cache=TRUE}
 sfpot_ch <- gConvexHull(sfpot_prj)
 plot(sfpot_prj, col="red", pch=16, cex=2, axes=TRUE)
 plot(sfnb_prj, border="grey60", add=TRUE)
 plot(sfpot_ch, add=TRUE, border="darkorchid3", lwd=2)
 ```
 
+See also <tt>chull()</tt> from the *grDevices* package (part of the base R installation)
 
 # Next Up
 

@@ -20,6 +20,9 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+    if (before) par(mar = c(2, 2, 0.5, 0.5))
+})
 library(kableExtra)
 library(raster)
 library(rgdal)
@@ -83,7 +86,7 @@ cea_fn
 file.exists(cea_fn)
 ```
 
-## Read the meta data
+## Read the metadata
 
 ```{r gdal_info_spna, cache=TRUE}
 rgdal::GDALinfo(cea_fn)
@@ -112,16 +115,27 @@ Notice a few things about this raster.
 
 The primary visualization functions for raster data are <tt>plot()</tt> and <tt>image()</tt>. We'll use <tt>image()</tt> and specify a grayscale color ramp.
 
-```{r viz_geotiff, fig.align="center", cache=TRUE}
+```{r viz_geotiff, cache=TRUE, fig.align="center", small.mar=TRUE}
 image(cea_rast, col=gray(0:255/255), asp=1)
 ```
 
-## Common Raster Data Processing Tasks
+*Notes on visualizing rasters*
 
+<div class="indented1">
+You can change the color ramp with the <tt>col</tt> argument. Use functions like <tt>gray.colors()</tt>, <tt>terrain.colors()</tt>, <tt>topo.colors()</tt>, etc.
+
+Use <tt>plotRGB()</tt> to plot a multi-band image as RGB. You can specify which bands to plot as red, green, and blue, and the <tt>stretch</tt> argument to apply a stretch for better contrast.
+
+The *rasterVis* package has additional plotting functions.
+
+See also [*How to Open and Work With Multispectral Imagery in R*](https://earthdatascience.org/courses/earth-analytics/multispectral-remote-sensing-data/naip-imagery-raster-stacks-in-r/){target="_blank"}
+</div>
+
+## Common Raster Data Processing Tasks
 
 ```{r, echo=FALSE, results='asis'}
 library(kableExtra)
-tbl_vec <- c("visualize", "image(), plot()", "crop", "crop()", "mask", "mask()", "resample (i.e., change the pixel size)", "aggregate()", "(re)project", "projectRaster()", "inspect pixel values", "getValues(), [rows,cols]", "stack", "stack()", "export to disk", "writeRaster(), writeGDAL()")
+tbl_vec <- c("visualize", "image(), plot()", "crop", "crop()", "mask", "mask()", "resample (i.e., change the pixel size)", "aggregate()", "(re)project", "projectRaster()", "work with pixel values (stretch, reclassify, etc.)", "getValues(), [rows,cols]", "stack", "stack()", "mosaic", "??", "export to disk", "writeRaster(), writeGDAL()")
 tbl_mat <- matrix(tbl_vec, byrow=TRUE, ncol=2, dimnames=list(1:(length(tbl_vec)/2), c("Task", "Function(s)")))
 knitr::kable(tbl_mat, format = "html", table.attr='class="tbl_compact"') %>% column_spec(column=2, monospace = TRUE)
 ```
@@ -146,7 +160,7 @@ For other sources of elevation data, see the [*elevatr* package](https://cran.r-
 
 Note that SRTM data comes in 5 degree tiles. These files can be about 70Mb. Pass <tt>download=TRUE</tt> to cache the TIF file.
 
-```{r get_data_yosem_srtm, cache=TRUE}
+```{r get_data_yosem_srtm, cache=TRUE, fig.align="center", small.mar=TRUE}
 library(raster)
 western_ca_dem_ll <- getData('SRTM', lon=-119, lat=37, download=TRUE)
 plot(western_ca_dem_ll, asp=1)
@@ -157,7 +171,7 @@ plot(western_ca_dem_ll, asp=1)
 
 SRTM tiles are usually much larger than needed. Cropping them to a study area is often the next step, which we'll do next.
 
-```{r import_yosem_bnd, cache=TRUE}
+```{r import_yosem_bnd, cache=TRUE, fig.align="center", small.mar=TRUE}
 library(rgdal)
 yosem_bnd_ll <- rgdal::readOGR(dsn="../exercises/data", layer="yosemite_bnd", verbose=FALSE)
 plot(yosem_bnd_ll, asp=1, axes=TRUE)
@@ -165,7 +179,7 @@ plot(yosem_bnd_ll, asp=1, axes=TRUE)
 
 ## Crop the DEM to the Yosemite Park boundary.
 
-```{r plot_yosem_dem, cache=TRUE}
+```{r plot_yosem_dem, cache=TRUE, fig.align="center", small.mar=TRUE}
 yosem_ext_dem_ll <- crop(western_ca_dem_ll, yosem_bnd_ll)
 plot(yosem_ext_dem_ll, asp=1, main="SRTM Elevation Data, Yosemite NP")
 plot(yosem_bnd_ll, add=TRUE)
@@ -177,16 +191,15 @@ Masking a raster doesn't generally change the dimensions or spatial resolution, 
 
 Mask the Yosemite DEM to the park boundary.
 
-```{r mask_yosem_dem, cache=TRUE}
+```{r mask_yosem_dem, cache=TRUE, fig.align="center", small.mar=TRUE}
 yosem_msk_dem_ll <- mask(yosem_ext_dem_ll, yosem_bnd_ll)
 plot(yosem_msk_dem_ll, asp=1)
 ```
 
 ## View raster properties
 
-
 ```{r, echo=FALSE, results='asis'}
-tbl_vec <- c("dimensions", "dim(), nrow(), ncol()", "extent", "extent(), x@extent",
+tbl_vec <- c("dimensions", "dim(), nrow(), ncol(), ncell()", "pixel values", "hist(), cellStats()", "extent", "extent(), x@extent",
 "projection info", "proj4string(), x@proj4string", "pixel size", "res()", "in memory", "inMemory()")
 tbl_mat <- matrix(tbl_vec, byrow=TRUE, ncol=2, dimnames=list(1:(length(tbl_vec)/2), c("Property", "Function(s)")))
 knitr::kable(tbl_mat, format = "html", table.attr='class="tbl_compact"') %>% column_spec(column=2, monospace = TRUE)
@@ -194,14 +207,15 @@ knitr::kable(tbl_mat, format = "html", table.attr='class="tbl_compact"') %>% col
 
 Let's see those in action:
 
-```{r}
+```{r properties_yosem_dem, cache=TRUE, fig.align="center", small.mar=TRUE}
 dim(yosem_msk_dem_ll)
 nrow(yosem_msk_dem_ll)
 ncol(yosem_msk_dem_ll)
 res(yosem_msk_dem_ll)
 extent(yosem_msk_dem_ll)
 summary(yosem_ext_dem_ll)
-yosem_ext_dem_ll
+print(yosem_ext_dem_ll)
+hist(yosem_ext_dem_ll, col="gray50")
 ```
 
 ## Project a raster
@@ -210,7 +224,7 @@ Just like vector data, if you want to be able to use real-world measurements in 
 
 Let's project the Yosemite DEM and boundary to UTM10.
 
-```{r proj_yosem, cache=TRUE}
+```{r proj_yosem, cache=TRUE, fig.align="center", small.mar=TRUE}
 utm10n_crs <- CRS("+proj=utm +zone=10 +ellps=WGS84")
 yosem_msk_dem_prj <- projectRaster(yosem_msk_dem_ll, crs=utm10n_crs)
 yosem_msk_dem_prj
@@ -240,7 +254,7 @@ res(yosem_msk_dem_prj_resamp)
 
 A common visualization task for elevation data is computing slope, aspect, and hillshade.
 
-```{r}
+```{r hillshade, cache=TRUE, fig.align="center", small.mar=TRUE}
 yosem_slope <- terrain(yosem_msk_dem_prj_resamp, opt="slope")
 yosem_aspect <- terrain(yosem_msk_dem_prj_resamp, opt="aspect")
 yosem_hillshade <- hillShade(yosem_slope, yosem_aspect, 40, 270)

@@ -14,6 +14,9 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+    if (before) par(mar = c(2, 2, 0.5, 0.5))
+})
 source("auton_chop.R")
 library(rgdal)
 load('../common/course_info.RData')
@@ -36,12 +39,10 @@ load('../common/course_info.RData')
 - If you have any questions or problems, please feel free to email the instructor.
 
 <hr class="hrdivider">
-<div style="text-align:center"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div class="copy-button"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div id="qtn_div" class="ex-qtn">
 
-<div id="qtn_div">
-
-`r paste0(rep('\\#',20), collapse='')`  
-\#\#\# SORT DATA
+`r hashtitle("SORT DATA")`
 
 \# `r chop("<tt>Nile</tt> is a dataset that comes with the *datasets* package, and contains the annual flow of the river Nile from 1871-1970.")`
 
@@ -65,7 +66,7 @@ length(Nile)
 <a id="qtn_wckfld" href="#" class="showhidelink" onclick="showHide('wckfld');return false;">\# `r auton()`</a> `r chop("Plot the Nile data")`  
 
 <div id="wckfld" class="answer-code">
-```{r}
+```{r plot_nile, cache=TRUE}
 plot(Nile)
 ```
 </div>
@@ -81,8 +82,7 @@ sort(Nile)[seq(from=mid_idx-1, to=mid_idx+1)]
 ```
 </div>
 
-`r paste0(rep('\\#',20), collapse='')`  
-__\#\#\# CREATE AND MANIPULATE A LIST__
+`r hashtitle("CREATE AND MANIPULATE A LIST")`
 
 <a id="qtn_ncnwzg" href="#" class="showhidelink" onclick="showHide('ncnwzg');return false;">\# `r auton()`</a> Create three vectors:  
 \# i. your favorite colors  
@@ -133,8 +133,7 @@ names(my_list)
 ```
 </div>
 
-`r paste0(rep('\\#',20), collapse='')`  
-__\#\#\# SAVING DATA TO DISK__
+`r hashtitle("SAVING DATA TO DISK")`
 
 <a id="qtn_zenxza" href="#" class="showhidelink" onclick="showHide('zenxza');return false;">\# `r auton()`</a> `r chop("Where is R's 'home' directory on your computer?")`  
 

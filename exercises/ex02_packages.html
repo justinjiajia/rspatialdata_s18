@@ -188,12 +188,13 @@ $(document).ready(function () {
 <li><strong>rgdal</strong>: importing and transforming different spatial data types and providing access to proj4 library for working with map projections and coordinate systems</li>
 </ul>
 <hr class="hrdivider">
-<div style="text-align:center">
+<div class="copy-button">
 <button onclick="CopyToClipboard('qtn_div');return false;">
 Copy questions
 </button>
 </div>
-<div id="qtn_div">
+<div id="qtn_div" class="ex-qtn">
+<p>############################<br/>#### <strong>EXPLORING PACKAGES</strong> ####<br/>############################</p>
 <p><a id="qtn_xpmnyc" href="#" class="showhidelink" onclick="showHide('xpmnyc');return false;"># 1.</a> Load the <tt>sp</tt>, <tt>raster</tt>, and <tt>rgdal</tt> packages.</p>
 <div id="xpmnyc" class="answer-code">
 <pre class="r"><code>library(sp)
@@ -222,7 +223,8 @@ You may need to install the <tt>maps</tt> package if you haven't already.
 class(world.cities)</code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 </div>
-<p><a id="qtn_qaszan" href="#" class="showhidelink" onclick="showHide('qaszan');return false;"># 5.</a> The <tt>HairEyeColor</tt> dataset contains hair and eye color data from student from which university <a href="#" class="showhidehint" onclick="showHide('ibymvd');return false;"></a></p>
+<p><a id="qtn_qaszan" href="#" class="showhidelink" onclick="showHide('qaszan');return false;"># 5.</a> The <tt>HairEyeColor</tt> dataset contains hair and eye color data from student from<br />
+#  which university <a href="#" class="showhidehint" onclick="showHide('ibymvd');return false;"></a></p>
 <div id="ibymvd" class="hint">
 Bundled datasets have help pages too!
 </div>
@@ -230,7 +232,8 @@ Bundled datasets have help pages too!
 <pre class="r"><code>?HairEyeColor</code></pre>
 <p>The University of Delaware.</p>
 </div>
-<p><a id="qtn_edwpeb" href="#" class="showhidelink" onclick="showHide('edwpeb');return false;"># 6.</a> Which package could you use to compute <em>Ripley's K</em> (a statistic that measures point clustering)?</p>
+<p><a id="qtn_edwpeb" href="#" class="showhidelink" onclick="showHide('edwpeb');return false;"># 6.</a> Which package could you use to compute <em>Ripley's K</em> (a statistic that measures<br />
+#  point clustering)?</p>
 <div id="edwpeb" class="answer-code">
 <p>Google: <em>Ripley's K R</em><br />
 The <a href="https://cran.r-project.org/web/packages/spatstat/vignettes/getstart.pdf" target="_blank"><tt>spatstat</tt></a> package has it</p>

@@ -19,6 +19,9 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+    if (before) par(mar = c(2, 2, 0.5, 0.5))
+})
 library(kableExtra)
 library(raster)
 library(rgdal)
@@ -29,14 +32,14 @@ library(rgdal)
 
 First we bring in the elevation data we made last time.
 
-```{r plot_start, cache=TRUE}
+```{r plot_start, cache=TRUE, fig.align="center", small.mar=TRUE}
 load("~/yosemite_bnd.RData")  # yosem_bnd_prj
 load("~/yosemite_dem.RData")  # yosem_msk_dem_prj
 plot(yosem_msk_dem_prj, asp=1)
 plot(yosem_bnd_prj, add=TRUE, lwd=2)
 ```
 
-There are couple of ways to get pixel values
+There are couple of ways to get pixel values:
 
 <tt>myrast[*rows*,*cols*]</tt>
 
@@ -44,7 +47,7 @@ There are couple of ways to get pixel values
 
 Example: identify steep slopes in Yosemite
 
-```{r hist_slope_vals, cache=TRUE}
+```{r hist_slope_vals, cache=TRUE, fig.align="center"}
 yosem_slope <- raster("~/yosemite_slope.tif")
 all_slope_vals <- getValues(yosem_slope)
 ## Slope is computed in radians. To show degrees, multiply by 180.
@@ -53,7 +56,7 @@ hist(all_slope_vals * 180, xlab="slope (degrees)", col="grey80", main="Yosemite 
 
 Let's make a mask of high slope values, where we define steep slopes as > 40 degrees.
 
-```{r steep_slope_define, cache=TRUE}
+```{r steep_slope_define, cache=TRUE, fig.align="center", small.mar=TRUE}
 ## Create a blank copy of yosem_slope
 yosem_slope_steep <- raster(yosem_slope)
 hasValues(yosem_slope_steep)
@@ -70,7 +73,7 @@ plot(yosem_slope_steep, col="red", add=TRUE, legend=FALSE)
 
 Create some sample points
 
-```{r samp_pts, cache=TRUE}
+```{r samp_pts, cache=TRUE, fig.align="center", small.mar=TRUE}
 bbox <- yosem_bnd_prj@bbox
 num_pts <- 20
 x <- runif(min=bbox[1,1], max=bbox[1,2], num_pts)
@@ -82,7 +85,7 @@ plot(yosem_pts, cex=2, pch=16, col="red", add=TRUE)
 
 To extract values from a raster for where features overlap, use <tt>extract()</tt>.
 
-```{r}
+```{r plot_dem, fig.align="center", small.mar=TRUE, cache=TRUE}
 plot(yosem_msk_dem_prj)
 plot(yosem_pts, cex=2, pch=16, col="red", add=TRUE)
 pt_elev <- extract(yosem_msk_dem_prj, yosem_pts)
@@ -103,43 +106,71 @@ table(x)
 
 ## Create a distance surface
 
-```{r create_dist, cache=TRUE}
+```{r create_dist, cache=TRUE, fig.align="center"}
 yosem_dist2pts <- distance(yosem_pts_rst)
-plot(yosem_dist2pts, main="Distance to Random Points")
+plot(yosem_dist2pts, main="Distance to Random Points", asp=1)
+plot(yosem_bnd_prj, add=TRUE, lwd=2)
+```
+
+# Creating a Mask
+
+In prepation for raster algebra (below), we often turn a derived raster surface into a Mask where all pixels are either 1 where a condition is met, or 0 (or NA) where a condition is not met.
+
+The process for turning a continous raster into a mask is generally.
+
+<div class="indented2">
+- use the <tt>raster()</tt> function to create a new, blank, raster without any pixel values using the input raster as the template  
+- change the pixels where the condition is met from NA to 1
+</div>
+
+__Example 1__: Create a raster mask of areas within 1 mile (1610 meters) of the Yosemite sample points. All pixels should be NA except for those that meet the criteria which should be 1.
+
+```{r mask01, cache=TRUE, fig.align="center"}
+pts_close_rst <- raster(yosem_dist2pts)
+dist_vals <- getValues(yosem_dist2pts)
+pts_close_rst[ dist_vals < 1609.34  ] <- 1
+plot(pts_close_rst, col="red", asp=1, main="Distance Mask", legend=FALSE)
+plot(yosem_bnd_prj, add=TRUE, lwd=2)
+```
+
+*Bonus*: create the distance mask using a buffer 
+
+__Example 2__: Create a raster mask of areas whose slope <20 degrees.
+
+```{r mask02, cache=TRUE, fig.align="center"}
+flat_areas_rst <- raster(yosem_slope)
+flat_areas_rst[getValues(yosem_slope) < (20/180)] <- 1
+plot(flat_areas_rst, col="red", asp=1, main="Flat Area Mask", legend=FALSE)
 plot(yosem_bnd_prj, add=TRUE, lwd=2)
 ```
 
 # Raster Algebra
 
-Raster algebra is where you add, subtract, multiply, etc. two or more rasters together. 
+Raster algebra (*aka* raster calculator, map algebra) is where you add, subtract, multiply, etc. two or more rasters together, as though they were numbers.
 
-- The rasters should have the same extent and pixel size
+We can use raster algebra for siting analyses that aim to find the locations that meet multiple criteria.
 
-- The operation is evaluated on a pixel-by-pixel basis.
+<div class="indented2">
+- The rasters should have the same extent, pixel size, and CRS  
+- The operation is evaluated on a pixel-by-pixel basis  
+- Generally all math operations (<tt>+ - * /</tt>) with a <tt>NA</tt> value will return <tt>NA</tt>
+</div>
 
-- We can use raster algebra for siting analyses that aim to find the locations that meet multiple criteria. 
+*Syntax*: <tt>rast1 + rast2 - rast3 * rast4 / rast5</tt>
 
+__Example__: Find all locations in Yosemite that are a) within 1 mile of our sample points, *and* b) on slopes < 20 degrees. 
 
-Example: Find all locations in Yosemite that are within 1 mile of our sample points and all on slopes < 20 degrees. 
-
-```{r plot_rast01, cache=TRUE}
-## Create a raster of the suitable distances
-## All pixels will be NA except for those that meet the criteria
-# 1 mile = 1609.34 meters
-pts_close_rst <- raster(yosem_dist2pts)
-dist_vals <- getValues(yosem_dist2pts)
-pts_close_rst[ dist_vals < 1609.34  ] <- 1
-
-## Create a raster of suitable flat areas
-flat_areas_rst <- raster(yosem_slope)
-slope_vals <- getValues(yosem_slope)
-flat_areas_rst[ slope_vals < (20/180) ] <- 1
-
-## Multiple the two rasters to find those cells where both conditions are met
+```{r plot_rast01, cache=TRUE, fig.align="center", small.mar=TRUE}
 best_locations <- flat_areas_rst * pts_close_rst
-image(best_locations, col="red")
+image(best_locations, col="red", asp=1)
 plot(yosem_bnd_prj, add=TRUE, lwd=2)
 ```
+
+*Notes*
+
+In this example, we multiplied the two masks together because the rules specified that *both* conditions were required. An altnernative approach could be to *add* raster masks together so that the pixel values in the output reflect a ranking based on the number of criteria satisfied. 
+
+For large datasets and/or more complex combinations, the *overlay()* function may have better performance.
 
 # Next Up
 

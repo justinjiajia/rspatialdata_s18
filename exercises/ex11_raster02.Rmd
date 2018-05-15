@@ -1,0 +1,200 @@
+---
+title: "<span class='ex-title'>Spatial Analysis with R:</span><br/><span class='ex-subtitle'>Exercise 11: Site Suitability Analysis</span>"
+date: "`r load('../common/course_info.RData'); lstCI$course`"
+output: 
+  html_document: 
+    css: "../common/slidy_styles.css"
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+      after_body: bottom_links.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+    if (before) par(mar = c(2, 2, 0.5, 0.5))
+})
+source("auton_chop.R")
+load('../common/course_info.RData')
+library(rgdal)
+```
+
+### Instructions
+
+- If you haven't already, install [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/). 
+
+- Download the <a href="`r lstCI$githubrepo`" target="_blank">GitHub repo</a>. 
+
+- Create a new R script in RStudio (File &rarr; New File &rarr; R Script). 
+
+- Copy the questions below (all of which begin with the _#_ character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.
+
+- Remember to save your script periodically to avoid losing work if RStudio crashes.
+
+- If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.
+
+- If you have any questions or problems, please feel free to email the instructor.
+
+<hr class="hrdivider">
+<div class="copy-button"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div id="qtn_div" class="ex-qtn">
+
+\# &nbsp;`r chop("In this exercise, we will identify suitable locations for new a cannabis dispensary in San Francisco based on two spatial criteria: 1) the new site should not be within 1/2 mile of an existing dispensary, and 2) the elevation should be < 250 ft above sea level.")`
+
+
+`r hashtitle("Import the SF City Boundary and Licensed Cannabis Dispensaries")`  
+
+<a id="qtn_wwyygn" href="#" class="showhidelink" onclick="showHide('wwyygn');return false;">\# `r auton()`</a> `r chop("Import the San Francisco City Boundary Shapefile, *sf_bnd.shp*")` <a href="#" class="showhidehint" onclick="showHide('rkaada');return false;"></a>  
+
+<div id="rkaada" class="hint">
+See [Importing Shapefiles](../slides/part01d_import_plot.html#import-shapefiles)</div>
+
+<div id="wwyygn" class="answer-code">
+```{r import_bnd, cache=TRUE, fig.align='center', small.mar=TRUE}
+library(rgdal)
+sfbnd_ll <- rgdal::readOGR("../exercises/data", "sf_bnd")
+sfbnd_ll <- sp::geometry(sfbnd_ll)
+summary(sfbnd_ll)
+```
+</div>
+
+<a id="qtn_rdanjf" href="#" class="showhidelink" onclick="showHide('rdanjf');return false;">\# `r auton()`</a> `r chop("Import the 2014 Licensed Cannabis Dispensaries in *sf_permitted_cannabis_dispensaries_2014.kml*.")` <a href="#" class="showhidehint" onclick="showHide('grikfw');return false;"></a>  
+
+<div id="grikfw" class="hint">See [Import a KML](../slides/part01d_import_plot.html#import-a-kml)</div>
+
+<div id="rdanjf" class="answer-code">
+```{r import_cannabis, cache=TRUE, fig.align='center', small.mar=TRUE}
+kml_fn <- "data/sf_permitted_cannabis_dispensaries_2014.kml"
+file.exists(kml_fn)
+rgdal::ogrListLayers(kml_fn)
+cannabis_pts_ll <- rgdal::readOGR(kml_fn, "Cannabis Dispensaries 2014", pointDropZ=TRUE)
+cannabis_pts_ll <- geometry(cannabis_pts_ll)
+summary(cannabis_pts_ll)
+```
+</div>
+
+<a id="qtn_fiisti" href="#" class="showhidelink" onclick="showHide('fiisti');return false;">\# `r auton()`</a> `r chop("Plot the cannabis dispensaries on top of the city boundary.")`  
+
+<div id="fiisti" class="answer-code">
+```{r plot_cannabis, cache=TRUE, fig.align='center', small.mar=TRUE}
+plot(sfbnd_ll, axes=TRUE, asp=1)
+plot(cannabis_pts_ll, add=TRUE, col="red", pch=16)
+```
+</div>
+
+`r hashtitle("Create an Elevation Mask")`  
+
+<a id="qtn_hskrnm" href="#" class="showhidelink" onclick="showHide('hskrnm');return false;">\# `r auton()`</a> `r chop("Download the SRTM data for San Francisco.")` <a href="#" class="showhidehint" onclick="showHide('etpuvs');return false;"></a>  
+
+<div id="etpuvs" class="hint">Use the <tt>getData()</tt> function from the raster package (see [Importing Data from the Cloud](../slides/part03c_raster-pt1.html#import-raster-data-from-the-cloud){target="_blank"}). </div>
+  
+<div id="hskrnm" class="answer-code">
+```{r plot_ca_dem, cache=TRUE, fig.align='center', small.mar=TRUE}
+library(raster)
+ca_dem_ll <- raster::getData('SRTM', lon=-122.5, lat=37.8, download=TRUE)
+plot(ca_dem_ll, asp=1)
+```
+</div>
+
+<a id="qtn_kjyukt" href="#" class="showhidelink" onclick="showHide('kjyukt');return false;">\# `r auton()`</a> `r chop("Crop the DEM to the SF boundary.")`  
+
+<div id="kjyukt" class="answer-code">
+```{r sf_dem, cache=TRUE, fig.align='center'}
+sf_dem_ll <- crop(ca_dem_ll, sfbnd_ll)
+plot(sf_dem_ll, asp=1, main="SRTM Elevation Data")
+plot(sfbnd_ll, add=TRUE, lwd=2)
+```
+</div>
+
+<a id="qtn_ontqhv" href="#" class="showhidelink" onclick="showHide('ontqhv');return false;">\# `r auton()`</a> `r chop("Project the DEM, city boundary, and pot dispensary locations to UTM, so we can create buffers in meters.")` <a href="#" class="showhidehint" onclick="showHide('hmdcay');return false;"></a>  
+
+<div id="hmdcay" class="hint">See [Projecting Rasters](../slides/part03c_raster-pt1.html#project-a-raster)</div>
+  
+<div id="ontqhv" class="answer-code">
+```{r plot_prj_dem, cache=TRUE, fig.align='center', small.mar=TRUE}
+utm10n_crs <- CRS("+proj=utm +zone=10 +ellps=WGS84")
+sfbnd_prj <- sp::spTransform(sfbnd_ll, utm10n_crs)
+cannabis_pts_prj <- sp::spTransform(cannabis_pts_ll, utm10n_crs)
+sf_dem_prj <- raster::projectRaster(sf_dem_ll, crs=utm10n_crs)
+plot(sf_dem_prj, axes=TRUE, asp=1)
+plot(sfbnd_prj, add=TRUE, lwd=2)
+plot(cannabis_pts_prj, add=TRUE, col="red", pch=16)
+```
+</div>
+
+<a id="qtn_extskn" href="#" class="showhidelink" onclick="showHide('extskn');return false;">\# `r auton()`</a> `r chop("Create the elevation mask")`  
+
+<div id="extskn" class="answer-code">
+```{r plot_elev_mask, cache=TRUE, fig.align='center'}
+sfelev_mask <- raster(sf_dem_prj)
+sfelev_mask[ getValues(sf_dem_prj) < 250 * 0.3048  ] <- 1
+plot(sfelev_mask, col="purple", asp=1, main="Elevation Mask", legend=FALSE)
+plot(sfbnd_prj, add=TRUE, lwd=2)
+```
+</div>
+
+`r hashtitle("Create a distance mask")`  
+
+<a id="qtn_aqriwn" href="#" class="showhidelink" onclick="showHide('aqriwn');return false;">\# `r auton()`</a> `r chop("Using the DEM as a raster template, create a distance surface from the cannabis dispensaries.")` <a href="#" class="showhidehint" onclick="showHide('vengqd');return false;"></a>  
+
+<div id="vengqd" class="hint">See [Rastering Vector Data](../slides/part03d_raster-pt2.html#rastering-vector-data)</div>
+
+
+<div id="aqriwn" class="answer-code">
+```{r plot_dist2pts, cache=TRUE, fig.align='center'}
+cannabis_pts_rst <- raster::rasterize(cannabis_pts_prj, sf_dem_prj, field=1)
+cannabis_dist2pts <- raster::distance(cannabis_pts_rst)
+cannabis_dist2pts <- mask(cannabis_dist2pts, sfbnd_prj)
+plot(cannabis_dist2pts, main="Distance to Cannabis Dispensaries")
+plot(sfbnd_prj, add=TRUE, lwd=2)
+plot(cannabis_pts_prj, add=TRUE, col="red", pch=16, cex=0.5)
+
+```
+</div>
+
+<a id="qtn_ugeyme" href="#" class="showhidelink" onclick="showHide('ugeyme');return false;">\# `r auton()`</a> `r chop("Create a raster mask of all areas more than half a mile from an existing pot dispensary.")`  
+
+<div id="ugeyme" class="answer-code">
+```{r plot_canabis_distmask, cache=TRUE, fig.align='center'}
+cannabis_distmask <- raster(cannabis_dist2pts)
+cannabis_distmask[ getValues(cannabis_dist2pts) > 1610 / 2  ] <- 1
+plot(cannabis_distmask, col="blue", asp=1, main="Distance Mask", legend=FALSE)
+plot(sfbnd_prj, add=TRUE, lwd=2)
+```
+</div>
+
+
+`r hashtitle("Identify Suitable Sites")`  
+
+<a id="qtn_slvhaw" href="#" class="showhidelink" onclick="showHide('slvhaw');return false;">\# `r auton()`</a> `r chop("Use a raster algebra expression to identify sites that meet both criteria.")`  
+
+<div id="slvhaw" class="answer-code">
+```{r plot_suitable_sites, cache=TRUE, fig.align='center'}
+good_sites <- cannabis_distmask * sfelev_mask
+plot(good_sites, col="green", asp=1, main="Suitable Sites: Elevation and Distance", legend=FALSE)
+plot(sfbnd_prj, add=TRUE, lwd=2)
+```
+</div>
+
+<a id="qtn_irmknu" href="#" class="showhidelink" onclick="showHide('irmknu');return false;">\# `r auton()`</a> `r chop("Bonus: create an additive site suitability model where the pixel values are the number of conditions that are met (0..2).")` <a href="#" class="showhidehint" onclick="showHide('xaitls');return false;"></a>  
+
+<div id="xaitls" class="hint">Convert <tt>NA</tt> pixels to 0 to prevent the results of equations from being <tt>NA</tt>.</div>
+
+<div id="irmknu" class="answer-code">
+```{r irmknu, cache=TRUE, fig.align='center', small.mar=TRUE}
+## First turn the NA values to 0s
+cannabis_distmask[is.na(getValues(cannabis_distmask))] <- 0
+sfelev_mask[is.na(getValues(sfelev_mask))] <- 0
+
+## Add the raster masks together
+good_better_sites <- cannabis_distmask + sfelev_mask
+cols <- c(NA, "blue", "green")
+plot(good_better_sites, legend = FALSE, col = cols)
+legend("topright", legend = c("0", "1", "2"), fill = cols)
+```
+</div>
+
+</div><!-- end questions -->

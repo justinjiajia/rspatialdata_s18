@@ -193,29 +193,21 @@ $(document).ready(function () {
 <li><p>If you have any questions or problems, please feel free to email the instructor.</p></li>
 </ul>
 <hr class="hrdivider">
-<div style="text-align:center">
+<div class="copy-button">
 <button onclick="CopyToClipboard('qtn_div');return false;">
 Copy questions
 </button>
 </div>
-<div id="qtn_div">
-<h3 id="import-county-boundaries">### IMPORT COUNTY BOUNDARIES</h3>
-<p><a id="qtn_tzzewz" href="#" class="showhidelink" onclick="showHide('tzzewz');return false;"># 1.</a> The exercises/data directory has a Shapefile called <em>ca_counties_census</em>. Bring it into R and<br />
-#  determine if they are projected. <a href="#" class="showhidehint" onclick="showHide('feolbg');return false;"></a></p>
+<div id="qtn_div" class="ex-qtn">
+<p>##################################<br/>#### <strong>IMPORT COUNTY BOUNDARIES</strong> ####<br/>##################################</p>
+<p><a id="qtn_tzzewz" href="#" class="showhidelink" onclick="showHide('tzzewz');return false;"># 1.</a> The exercises/data directory has a Shapefile called <em>ca_counties_census</em>. Bring<br />
+#  it into R and determine if they are projected. <a href="#" class="showhidehint" onclick="showHide('feolbg');return false;"></a></p>
 <div id="feolbg" class="hint">
 See <a href="../slides/part01d_import_plot.html#importing-vector-data-rgdal" target="_blank">Importing Vector Data with rgdal</a>
 </div>
 <div id="tzzewz" class="answer-code">
-<pre class="r"><code>library(rgdal)</code></pre>
-<pre><code>## Loading required package: sp</code></pre>
-<pre><code>## rgdal: version: 1.2-13, (SVN revision 686)
-##  Geospatial Data Abstraction Library extensions to R successfully loaded
-##  Loaded GDAL runtime: GDAL 2.2.0, released 2017/04/28
-##  Path to GDAL shared files: C:/Users/Andy/Documents/R/win-library/3.4/rgdal/gdal
-##  Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
-##  Path to PROJ.4 shared files: C:/Users/Andy/Documents/R/win-library/3.4/rgdal/proj
-##  Linking to sp version: 1.2-5</code></pre>
-<pre class="r"><code>shapefile_dir &lt;- &quot;data&quot;
+<pre class="r"><code>library(rgdal)
+shapefile_dir &lt;- &quot;data&quot;
 file.exists(shapefile_dir)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>ca_cnty_prj &lt;- rgdal::readOGR(shapefile_dir, &quot;ca_counties_census&quot;)</code></pre>
@@ -237,8 +229,9 @@ file.exists(shapefile_dir)</code></pre>
 ## +towgs84=0,0,0</code></pre>
 <p>Yes, the county boundaries are projected. We can tell the data are projected because the units meters.</p>
 </div>
-<p><a id="qtn_jofvcg" href="#" class="showhidelink" onclick="showHide('jofvcg');return false;"># 2.</a> The exercises/data directory has a csv file called <em>ca_celltowers.csv</em>. Import it into R. Which<br />
-#  columns contain the longitude and latitude in decimal degrees? <a href="#" class="showhidehint" onclick="showHide('ilgqqh');return false;"></a></p>
+<p>#####################################<br/>#### <strong>IMPORT CELL TOWER LOCATIONS</strong> ####<br/>#####################################</p>
+<p><a id="qtn_jofvcg" href="#" class="showhidelink" onclick="showHide('jofvcg');return false;"># 2.</a> The exercises/data directory has a csv file called <em>ca_celltowers.csv</em>. Import<br />
+#  it into R. Which columns contain the longitude and latitude in decimal degrees? <a href="#" class="showhidehint" onclick="showHide('ilgqqh');return false;"></a></p>
 <div id="ilgqqh" class="hint">
 Decimal degrees are written as numbers with decimal places, as opposed to the <em>degrees,minutes,seconds</em> notation.
 </div>
@@ -275,7 +268,8 @@ head(cell_towers_df)</code></pre>
 ## 6 36.9331</code></pre>
 <p>It looks like the LONG and LAT columns contain decimal degrees.</p>
 </div>
-<p><a id="qtn_tkwexp" href="#" class="showhidelink" onclick="showHide('tkwexp');return false;"># 3.</a> Create a SpatialPointsDataFrame for the cell towers. For the CRS, use WGS84 geographic coordinates. <a href="#" class="showhidehint" onclick="showHide('vfhcis');return false;"></a></p>
+<p><a id="qtn_tkwexp" href="#" class="showhidelink" onclick="showHide('tkwexp');return false;"># 3.</a> Create a SpatialPointsDataFrame for the cell towers. For the CRS, use WGS84<br />
+#  geographic coordinates. <a href="#" class="showhidehint" onclick="showHide('vfhcis');return false;"></a></p>
 <div id="vfhcis" class="hint">
 The epsg code for Geographic Coordinates WGS84 is 4326
 </div>
@@ -283,11 +277,12 @@ The epsg code for Geographic Coordinates WGS84 is 4326
 <pre class="r"><code>library(sp)
 cell_towers_spdf_ll &lt;- SpatialPointsDataFrame(coords=cell_towers_df[ ,c(&quot;LONG&quot;, &quot;LAT&quot;)], data=cell_towers_df, proj4string = CRS(&quot;+init=epsg:4326&quot;))
 plot(cell_towers_spdf_ll)</code></pre>
-<p><img src="ex06_spatial-data-ops_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="ex06_spatial-data-ops_files/figure-html/plot_twr-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<p><a id="qtn_yoepjg" href="#" class="showhidelink" onclick="showHide('yoepjg');return false;"># 4.</a> Project the cell towers into the same projection system as the county boundaries. <a href="#" class="showhidehint" onclick="showHide('duktto');return false;"></a></p>
+<p><a id="qtn_yoepjg" href="#" class="showhidelink" onclick="showHide('yoepjg');return false;"># 4.</a> Project the cell towers into the same projection system as the county<br />
+#  boundaries. <a href="#" class="showhidehint" onclick="showHide('duktto');return false;"></a></p>
 <div id="duktto" class="hint">
-You can reference the proj4string object directly when you project the cell towers, no need to make a copy.
+You can reference the proj4string slot for the counties using the proj4string slot (e.g., <em><a href="mailto:x@proj4string">x@proj4string</a></em>).
 </div>
 <div id="yoepjg" class="answer-code">
 <pre class="r"><code>cell_towers_spdf_prj  &lt;- sp::spTransform(cell_towers_spdf_ll, ca_cnty_prj@proj4string)
@@ -365,30 +360,32 @@ summary(cell_towers_spdf_prj)</code></pre>
 <div id="cdzvsw" class="answer-code">
 <pre class="r"><code>plot(ca_cnty_prj, axes=TRUE, asp=1)
 plot(cell_towers_spdf_prj, add=TRUE, col=&quot;red&quot;, pch=16, cex=0.5)</code></pre>
-<p><img src="ex06_spatial-data-ops_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="ex06_spatial-data-ops_files/figure-html/plot_twrs_spdf-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<p><a id="qtn_mzzuax" href="#" class="showhidelink" onclick="showHide('mzzuax');return false;"># 6.</a> Select a county of your choice, and use an attribute query to save the boundary of that county as a<br />
-#  new SpatialPolygonDataFrame. Plot it, and then plot the cell towers on top. <a href="#" class="showhidehint" onclick="showHide('muorxt');return false;"></a></p>
+<p>############################################################<br/>#### <strong>SELECT ONE COUNTY BOUNDARY WITH AN ATTRIBUTE QUERY</strong> ####<br/>############################################################</p>
+<p><a id="qtn_mzzuax" href="#" class="showhidelink" onclick="showHide('mzzuax');return false;"># 6.</a> Select a county of your choice, and use an attribute query to save the boundary<br />
+#  of that county as a new SpatialPolygonDataFrame. Plot it, and then plot the<br />
+#  cell towers on top. <a href="#" class="showhidehint" onclick="showHide('muorxt');return false;"></a></p>
 <div id="muorxt" class="hint">
 You can extract features from a SpatialPolygonDataFrame with square bracket notation, the same way you would a data frame.
 </div>
 <div id="mzzuax" class="answer-code">
 <pre class="r"><code>idx &lt;- sample(1:nrow(ca_cnty_prj), size=1)
 idx</code></pre>
-<pre><code>## [1] 11</code></pre>
+<pre><code>## [1] 53</code></pre>
 <pre class="r"><code>random_county &lt;- ca_cnty_prj[idx,]
 plot(random_county, axes=TRUE, asp=TRUE)
 plot(cell_towers_spdf_prj, add=TRUE, col=&quot;red&quot;, pch=16, cex=0.7)</code></pre>
-<p><img src="ex06_spatial-data-ops_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="ex06_spatial-data-ops_files/figure-html/one_cnty_plot-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<p><a id="qtn_uphips" href="#" class="showhidelink" onclick="showHide('uphips');return false;"># 7.</a> Save the projected county boundaries and cell tower locations to disk so they can be loaded for a<br />
-#  future exercise. <a href="#" class="showhidehint" onclick="showHide('bhxspo');return false;"></a></p>
+<p>##########################<br/>#### <strong>SAVE THE RESULTS</strong> ####<br/>##########################</p>
+<p><a id="qtn_uphips" href="#" class="showhidelink" onclick="showHide('uphips');return false;"># 7.</a> Save the projected county boundaries and cell tower locations to disk so they<br />
+#  can be loaded for a future exercise. <a href="#" class="showhidehint" onclick="showHide('bhxspo');return false;"></a></p>
 <div id="bhxspo" class="hint">
 Remember where you save it!
 </div>
 <div id="uphips" class="answer-code">
-<pre class="r"><code>save(cell_towers_spdf_prj, file=&quot;data/ex06_cell_towers_prj.RData&quot;)
-save(ca_cnty_prj, file=&quot;data/ex06_counties_bnd.RData&quot;)</code></pre>
+<pre class="r"><code>save(list=c(&quot;ca_cnty_prj&quot;, &quot;cell_towers_spdf_prj&quot;), file=&quot;ex06_outputs.RData&quot;)</code></pre>
 </div>
 </div>
 <!-- end questions -->

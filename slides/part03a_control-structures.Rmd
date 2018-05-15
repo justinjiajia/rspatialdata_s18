@@ -25,11 +25,6 @@ library(kableExtra)
 
 ---
 
-# Course Outline
-
-```{r test-main, child = 'course_outline.Rmd'}
-```
-
 # Branching with <tt>if</tt>, <tt>else</tt>, and <tt>ifelse</tt>
 
 <tt>if</tt> and <tt>else</tt> statements are control structures that let you control how a code should execute based on a set of pre-established conditions.
@@ -55,13 +50,57 @@ if (x > 7) {
 - indentation is not mandatory, but makes the code more legible   
 </div>
 
-__<tt>ifelse()</tt>__
+## Chaining multiple tests with 'and' and 'or'
 
-A variabtion of the <tt>if-then</tt> statements is the __<tt>ifelse()</tt>__ function. This function is handy for recoding data.
+You can chain together expressions that test for multiple conditions using operators for *and* and *or*. 
+
+Note however R doesn't use the keywords *and* and *or*. Rather use <tt>||</tt> for 'or', and <tt>&&</tt> for 'and'.
+
+```{r}
+x <- 4; y <- 8
+
+## 'or' Test
+if (x < 5 || y > 10) {
+  print("TRUE")
+} else {
+  print("FALSE")
+}
+
+## 'and'
+if (x < 5 && y > 10) {
+  print("TRUE")
+} else {
+  print("FALSE")
+}
+
+```
+
+## if - else if - else
+
+You can string together multiple 'else if' checks.
+
+```{r}
+x <- sample(1:20, size=1)
+x
+if (x %% 2 == 0) {
+  print("You picked an even number")
+} else if (x %% 3 == 0) {
+  print("You picked a multiple of 3")
+} else if (x %% 5 == 0) {
+  print("You picked a multiple of 5")
+} else {
+  print("You picked a prime")
+}
+```
+
+
+## The <tt>ifelse()</tt> function
+
+A variation of the <tt>if-else</tt> statement is the __<tt>ifelse()</tt>__ function. This function is handy for recoding data.
 
 Syntax:
 
-<tt>ifelse(test, yes, no)</tt>
+<tt>ifelse(*condition*, *value-if-true*, *value-if-false*)</tt>
 
 
 ```{r, eval=FALSE}
@@ -71,15 +110,27 @@ animal <- ifelse(animal=="cat", 1, 0)
 
 # Loops
 
+- Loops are fundamental to automation
 - Use a __for__ loop if you know in advance how many passes  
 - use a __while__ loop if you have to do a check to see if you need to continue going through the loop  
 
+![](images/loops.png)
+
 ## For loops
+
+Generic syntax
+
+<tt>for (  ) {
+ 
+}
+</tt>
 
 You generally loop a variable like *i* over a vector of values to control the loop.
 
+
+
 ```{r}
-for (i in 1:10){
+for (i in 1:5){
   print(i^2)
 }
 ```
@@ -87,7 +138,7 @@ for (i in 1:10){
 An example where the loop variable is used as an index.
 
 ```{r}
-for (i in 1:10) {
+for (i in 1:5) {
   print(state.name[i])
 }
 ```
@@ -105,24 +156,81 @@ for (i in 1:10) {
 }
 ```
 
-## Keeping Track of a Variable
-
-A common practice is to 
-
-
-Loop through a data frame
-
-
-
-
 ## While Loops
 
+The generic form of a while loop is
 
+<tt>while (condition) {
+  <lines of code>
+  
+}
+</tt>
 
+```{r}
+i <- runif(1)
+cat("i =", round(i,2), "\n")
+while (i < 0.8) {
+  i <- runif(1)
+  cat("i =", round(i,2), "\n")
+}
+```
+
+## break
+
+To break out of a for or while loop, you can use the <tt>break</tt> statement.
+
+<tt>while (TRUE) {
+  if (some_condition) {
+    break
+  }
+}
+</tt>
+
+## Loop through a data frame
+
+One of the most common uses of a loop is to loop through a data frame.
+
+```{r}
+for (i in 1:nrow(USArrests)) {
+  ## do something  
+}
+```
+
+## Recording the Results of Each Iteration
+
+Loops are commonly used to apply an algorithm to each element or row.
+
+You may want to store or save the results of each pass. A common technique is to create a variable to save the results before you start the loop, and then update or append it within the loop.
+
+```{r}
+x <- ""
+for (i in 1:10) {
+  random_let <- sample(LETTERS, 1)
+  x <- paste(x, random_let)
+}
+x
+```
+
+*__Notes__*
+
+Many R functions are vectorized, so often you don't actually need a code loop.
+
+See also [Loops Tutorial from DataCamp](https://www.datacamp.com/community/tutorials/tutorial-on-loops-in-r){target="_blank"}
+
+__Example: add a random offset to each element of sequence__
+
+```{r}
+## Addition is vectorized, so we don't need a loop
+data.frame(num=1:5, num_plus_offset=1:5 + rnorm(5, mean=0, sd=0.5))
+```
+
+In addition to for and while loops, R has functions like <tt>sapply()</tt> and <tt>lapply()</tt> that will apply a function to each element of a vector/list. 
+
+<tt>sapply()</tt> and <tt>lapply()</tt> are generally usualy faster than traditional loops. 
 
 # Next Up
 
-[Exercise 8: Loops and Branches](exercises/ex08_loops-branches.html){target="_blank"}
+[Exercise 8: Loops and Branches](../exercises/ex08_loops-branches.html){target="_blank"}
 
 [Spatial Queries](part03b_spatial-queries.html)
 
