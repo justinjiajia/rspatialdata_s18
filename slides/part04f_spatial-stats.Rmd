@@ -85,13 +85,13 @@ _Visualization_
 </div>
 </div></div>
 
-Recommended Sources
+# Additional Sources
 
 [Intro to GIS and Spatial Analysis](https://mgimond.github.io/Spatial/interpolation-in-r.html){target="_blank"}, Manuel Gimond
 
-[Spatial Statistics and Surface Interpolation](http://www.nickeubank.com/wp-content/uploads/2015/11/RGIS5_spatialstatistics.html)
+[Spatial Statistics and Surface Interpolation](http://www.nickeubank.com/wp-content/uploads/2015/11/RGIS5_spatialstatistics.html){target="_blank"}, Nick Eubank
 
-[Spatial Point Statistics](http://www.simonqueenborough.info/R/specialist/spatial)
+[Spatial Point Statistics](http://www.simonqueenborough.info/R/specialist/spatial){target="_blank"}, Queenborough Lab
 
 
 
