@@ -145,6 +145,9 @@ summary(cars_lm)
 ```
 </div>
 
+# Next Up
+
+[Spatial Stats](part04f_spatial-stats.html){target="_blank"}
 
 
 
