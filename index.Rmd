@@ -21,113 +21,82 @@ h1 {
 
 ```{r include=FALSE}
 load('common/course_info.RData')
+source('common/auton_chop.R')
 ```
 
 # `r lstCI$class01short`. Introduction to R  
 
-<li class="slide"><a target="_blank" class="slide" href="slides/part01a_intro.html">Intro</a></li>
+`r toc_link("Intro", "part01a_intro.html", "slides")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part01b_rsyntax.html">R Syntax</a></li>
+`r toc_link("R Syntax", "part01b_rsyntax.html", "slides")`
 
-<li class="exercise"><a target="_blank" class="exercise"
-href="exercises/ex01_basicr.html">Exercise 1: Basic Operations</a></li>
+`r toc_link("Exercise 1: Basic Operations", "ex01_basicr.html", "exercises")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part01c_packages.html">Working with Packages</a></li>
+`r toc_link("Working with Packages", "part01c_packages.html", "slides")`
 
-<li class="exercise"><a target="_blank" class="exercise"
-href="exercises/ex02_packages.html">Exercise 2: Packages</a></li>
+`r toc_link("Exercise 2: Packages", "ex02_packages.html", "exercises")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part01d_import_plot.html">Importing and Plotting Spatial Data</a></li>
+`r toc_link("Importing and Plotting Spatial Data", "part01d_import_plot.html", "slides")`
 
-<li class="exercise"><a target="_blank" class="exercise"
-href="exercises/ex03_import_plot.html">Exercise 3: Import and Plot Data</a></li>
+`r toc_link("Exercise 3: Import and Plot Data", "ex03_import_plot.html", "exercises")`
 
 # `r lstCI$class02short`. Two Dimensional Data Structures, R Markdown, Spatial Data Classes, Projections, Queries, Geoprocessing
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part02a_review.html">Review from Last Time</a></li>
+`r toc_link("Review from Last Time", "part02a_review.html", "slides")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part02b_sort-save-misc.html">More R Fundamentals</a></li>
+`r toc_link("More R Fundamentals", "part02b_sort-save-misc.html", "slides")`
 
-<li class="exercise"><a target="_blank" class="exercise" href="exercises/ex04_sort-save-misc.html">Exercise 4: Lists, Sorting and Saving Data</a></li>
+`r toc_link("Exercise 4: Lists, Sorting and Saving Data", "ex04_sort-save-misc.html", "exercises")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part02c_2d-data.html">Matrices and data frames</a></li>
-  
-<li class="exercise"><a target="_blank" class="exercise"
-href="exercises/ex05_dataframes.html">Exercise 5: Working with Data Frames</a></li>
+`r toc_link("Matrices and data frames", "part02c_2d-data.html", "slides")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part02d_rmarkdown.html">R Markdown</a></li>
+`r toc_link("Exercise 5: Working with Data Frames", "ex05_dataframes.html", "exercises")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part02e_spatial-data.html">Spatial Data Basic Operations</a></li>
+`r toc_link("R Markdown", "part02d_rmarkdown.html", "slides")`
 
-<li class="exercise"><a target="_blank" class="exercise"
-href="exercises/ex06_spatial-data-ops.html">Exercise 6: Spatial Data Operations</a></li>
+`r toc_link("Spatial Data Basic Operations", "part02e_spatial-data.html", "slides")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part02f_geoprocessing.html">Geoprocessing</a></li>
+`r toc_link("Exercise 6: Spatial Data Operations", "ex06_spatial-data-ops.html", "exercises")`
 
-<li class="exercise"><a target="_blank" class="exercise"
-href="exercises/ex07_geoprocessing.html">Exercise 7: Geoprocessing</a></li>
+`r toc_link("Geoprocessing", "part02f_geoprocessing.html", "slides")`
+
+`r toc_link("Exercise 7: Geoprocessing", "ex07_geoprocessing.html", "exercises")`
 
 # `r lstCI$class03short`. Loops and branches, spatial queries, raster data
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part03a_control-structures.html">Control Structures</a></li>
+`r toc_link("Control Structures", "part03a_control-structures.html", "slides")`
 
-<li class="exercise"><a target="_blank" class="exercise"
-href="exercises/ex08_loops-branches.html">Exercise 8: Loops and Branches</a></li>
+`r toc_link("Exercise 8: Loops and Branches", "ex08_loops-branches.html", "exercises")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part03b_spatial-queries.html">Spatial Queries</a></li>
+`r toc_link("Spatial Queries", "part03b_spatial-queries.html", "slides")`
 
-<li class="exercise"><a target="_blank" class="exercise"
-href="exercises/ex09_spatial-queries.html">Exercise 9: Spatial Queries</a></li>
+`r toc_link("Exercise 9: Spatial Queries", "ex09_spatial-queries.html", "exercises")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part03c_raster-pt1.html">Raster Data Pt. 1. Importing and Basic Processing</a></li>
+`r toc_link("Raster Data Pt. 1. Importing and Basic Processing", "part03c_raster-pt1.html", "slides")`
 
-<li class="exercise"><a target="_blank" class="exercise"
-href="exercises/ex10_raster01.html">Exercise 10: Importing Raster Data</a></li>
+`r toc_link("Exercise 10: Importing Raster Data", "ex10_raster01.html", "exercises")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part03d_raster-pt2.html">Raster Data Pt. 2. Derived Rasters</a></li>
+`r toc_link("Raster Data Pt. 2. Derived Rasters", "part03d_raster-pt2.html", "slides")`
 
-<li class="exercise"><a target="_blank" class="exercise"
-href="exercises/ex11_raster02.html">Exercise 11: Derived Data</a></li>
+`r toc_link("Exercise 11: Derived Data", "ex11_raster02.html", "exercises")`
 
 # `r lstCI$class04short`. Character data, custom functions, APIs, geocoding, working with models, ggmap & leaflet, R-ArcGIS integration
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part04a_custom-functions.html">Custom functions</a></li>
+`r toc_link("Custom functions", "part04a_custom-functions.html", "slides")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part04b_online-data.html">Working with online data</a></li>
+`r toc_link("Working with online data", "part04b_online-data.html", "slides")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part04c_geocoding.html">Geocoding</a></li>
+`r toc_link("Geocoding", "part04c_geocoding.html", "slides")`
 
-<li class="exercise"><a target="_blank" class="exercise"
-href="exercises/ex12_geocoding.html">Exercise 12: Geocoding</a></li>
+`r toc_link("Exercise 12: Geocoding", "ex12_geocoding.html", "exercises")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part04d_ggmap_leaflet.html">ggMap and Leaflet</a></li>
+`r toc_link("ggmap and leaflet", "part04d_ggmap_leaflet.html", "slides")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part04e_models.html">Working with Statistical Models</a></li>
+`r toc_link("Working with Statistical Models", "part04e_models.html", "slides")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part04f_spatial-stats.html">Spatial Stats</a></li>
+`r toc_link("Spatial Stats", "part04f_spatial-stats.html", "slides")`
 
-<li class="slide"><a target="_blank" class="slide" 
-href="slides/part04g_arcgisbridge.html">R-ArcGIS Bridge</a></li>
-
+`r toc_link("R-ArcGIS Bridge", "part04g_arcgisbridge.html", "slides")`
 
 # Resources
 

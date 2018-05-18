@@ -12,10 +12,11 @@ output:
       after_body: bottom_links.html
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-source("auton_chop.R")
-load('../common/course_info.RData')
+```{r setup, child = '../common/exercises_setup.Rmd', include=FALSE}
+```
+
+```{r preload_libraries, include=FALSE}
+
 ```
 
 ### Instructions

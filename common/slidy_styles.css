@@ -240,25 +240,25 @@ pre.scrolling-code {
 .tbl_compact tr:nth-child(even) {
   background-color: #dddddd;
 }
-li.exercise {
+li.exercises {
   margin-left: 4em;
   list-style: none;
   font-size: 120%;
 }
-li.exercise:before {
+li.exercises:before {
   content: '\1F4D3';
   text-decoration: none;
 }
-a.exercise {
+a.exercises {
   font-weight:normal;
   font-family:monospace;
 }
-li.slide {
+li.slides {
   margin-left: 2em;
   list-style: none;
   font-size: 120%;
 }
-li.slide:before {
+li.slides:before {
   content: '\20E2';
   text-decoration: none;
   margin-right: 1em;

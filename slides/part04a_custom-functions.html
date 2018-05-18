@@ -257,14 +257,14 @@ pts &lt;-<span class="st"> </span><span class="kw">circle_pts</span>(<span class
 </div>
 <div id="practice-1-1" class="slide section level1">
 <h1>Practice 1</h1>
-<p>Write a function that takes as its argument a bounding box matrix and returns the aera of the bounding box.</p>
+<p>Write a function that takes as its argument a bounding box matrix and returns the area of the bounding box.</p>
 <p>You may recall the bounding box of a sp object is a matrix that looks like:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sp)
 x &lt;-<span class="st"> </span><span class="kw">SpatialPoints</span>(<span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">runif</span>(<span class="dv">25</span>)<span class="op">*</span><span class="dv">10</span>,<span class="dt">y=</span><span class="kw">runif</span>(<span class="dv">25</span>)<span class="op">*</span><span class="dv">10</span>))
 <span class="kw">bbox</span>(x)</code></pre></div>
-<pre><code>##         min      max
-## x 1.6630514 9.899581
-## y 0.3874845 9.542570</code></pre>
+<pre><code>##          min      max
+## x 0.01491386 9.115395
+## y 0.18320537 9.974755</code></pre>
 <p>Here is a function definintion you can use:</p>
 <p><span style="font-family:monospace; color:DarkGreen;"> bbox_area &lt;- function(b) {</p>
 <p>} </span></p>
@@ -345,10 +345,6 @@ sample_bbox</code></pre></div>
 ## x -10  50
 ## y  80 320</code></pre>
 </div>
-</div>
-<div id="next-up" class="slide section level1">
-<h1>Next-Up</h1>
-<p><a href="part05c_models.html">Working with models</a></p>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->

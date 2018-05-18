@@ -115,9 +115,14 @@ chop = local({
     
     return(x_out)  
   }  
+})
 
-  
-  
+toc_link <- local({
+  function(title, html_fn, type=c("slides", "exercises")) {
+    html_snip <- paste0("<li class=\"", type, "\"><a target=\"_blank\" class=\"", type, 
+                        "\" href=\"", type, "/", html_fn, "\">", title, "</a></li>")
+    return(html_snip)
+  }
 })
 
 

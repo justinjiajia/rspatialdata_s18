@@ -49,16 +49,31 @@ __Common statistical models__
 - +100s more!
 </div>
 
+__Underlying Math__
+
+Statistical models are mathematical models. You don't need to know every detail, but you should enough about the underlying math to be able to interpret the outputs. For example, in ordinary least squares regression,
+
+$$y_i = \beta_0 + \beta_1x_{1i} + \beta_2x_{2i} + \beta_3x_{3i} + \ldots + \beta_nx_{ni} + \epsilon_i $$ 
+
+You should remember,
+
+<div class="compact">
+- the value of a dependent variable $y$ is modeled as a linear combo of one other variables (the $x$'s)
+- each independent variable the algorithm finds a weight or coefficient $\beta$ that does the best overall job at predicting values
+- the difference between the modelled value and the actual value is the error term or residual $\epsilon$ </div>
+
 __Common elements of statistical models__
 
 <div class="compact">
 - fitted coefficients
-- p-values
 - predicted values
 - observed values
 - residuals
+- R-squared
+- p-values
 - etc.
 </div>
+
 
 # Working with Statistical Models in R
 

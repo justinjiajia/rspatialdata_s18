@@ -169,7 +169,7 @@ source("~/MyScripts/andy_utils.R")
 
 # Practice 1
 
-Write a function that takes as its argument a bounding box matrix and returns the aera of the bounding box.
+Write a function that takes as its argument a bounding box matrix and returns the area of the bounding box.
 
 You may recall the bounding box of a sp object is a matrix that looks like:
 

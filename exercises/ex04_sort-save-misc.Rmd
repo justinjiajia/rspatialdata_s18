@@ -12,14 +12,11 @@ output:
       after_body: bottom_links.html
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-knitr::knit_hooks$set(small.mar = function(before, options, envir) {
-    if (before) par(mar = c(2, 2, 0.5, 0.5))
-})
-source("auton_chop.R")
+```{r setup, child = '../common/exercises_setup.Rmd', include=FALSE}
+```
+
+```{r preload_libraries, include=FALSE}
 library(rgdal)
-load('../common/course_info.RData')
 ```
 
 ### Instructions

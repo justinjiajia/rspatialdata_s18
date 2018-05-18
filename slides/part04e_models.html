@@ -146,14 +146,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>+100s more!</li>
 </ul>
 </div>
+<p><strong>Underlying Math</strong></p>
+<p>Statistical models are mathematical models. You don't need to know every detail, but you should enough about the underlying math to be able to interpret the outputs. For example, in ordinary least squares regression,</p>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1x_{1i} + \beta_2x_{2i} + \beta_3x_{3i} + \ldots + \beta_nx_{ni} + \epsilon_i \]</span></p>
+<p>You should remember,</p>
+<div class="compact">
+<ul>
+<li>the value of a dependent variable <span class="math inline">\(y\)</span> is modeled as a linear combo of one other variables (the <span class="math inline">\(x\)</span>'s)</li>
+<li>each independent variable the algorithm finds a weight or coefficient <span class="math inline">\(\beta\)</span> that does the best overall job at predicting values</li>
+<li>the difference between the modelled value and the actual value is the error term or residual <span class="math inline">\(\epsilon\)</span>
+</div></li>
+</ul>
 <p><strong>Common elements of statistical models</strong></p>
 <div class="compact">
 <ul>
 <li>fitted coefficients</li>
-<li>p-values</li>
 <li>predicted values</li>
 <li>observed values</li>
 <li>residuals</li>
+<li>R-squared</li>
+<li>p-values</li>
 <li>etc.</li>
 </ul>
 </div>
