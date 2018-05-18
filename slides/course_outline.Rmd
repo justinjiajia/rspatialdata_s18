@@ -24,32 +24,39 @@ load('../common/course_info.RData')
 </div>
 
 <!-------- WEEK 02 --------------------------------------->
-<span class="tritoggle" id="zeroryspan" onclick="TriShowHide('zerory');return false;">`r if (2 %in% params$this_week) "&#9660;" else "&#9654;"` </span><span class="sessiontitle">`r lstCI$class02short`. Two-Dimensional Data Structures, R Markdown, Spatial Data Classes, Projections, Queries, Geoprocessing, Spatial Overlays</span>
+<span class="tritoggle" id="zeroryspan" onclick="TriShowHide('zerory');return false;">`r if (2 %in% params$this_week) "&#9660;" else "&#9654;"` </span><span class="sessiontitle">`r lstCI$class02short`. Two-Dimensional Data Structures, R Markdown, Spatial Data Wrangling, Geoprocessing</span>
 
 <div id="zerorydiv" style="display:`r if (2 %in% params$this_week) "block" else "none"`;" class="compact">
 - lists, data frames, matrices
-- importing and exporting   
+- importing data    
+- saving data
 - R Markdown 
 - spatial data classes
 - projections
-- queries
+- attribute queries
 - geoprocessing
-- spatial overlays
 </div>
 
 <!--------- WEEK 03 -------------------------------------->
-<span class="tritoggle" id="icosxkspan" onclick="TriShowHide('icosxk');return false;">`r if (3 %in% params$this_week) "&#9660;" else "&#9654;"` </span><span class="sessiontitle">`r lstCI$class03short`. Loops and branches, APIs, geocoding, raster analyses, R-ArcGIS integration</span>
+<span class="tritoggle" id="icosxkspan" onclick="TriShowHide('icosxk');return false;">`r if (3 %in% params$this_week) "&#9660;" else "&#9654;"` </span><span class="sessiontitle">`r lstCI$class03short`. Loops and Branches, Spatial Queries, Raster Data</span>
 
 <div id="icosxkdiv" style="display:`r if (3 %in% params$this_week) "block" else "none"`;" class="compact">
-
-
-
+- if-else statements
+- code loops
+- spatial queries
+- importing raster data
+- basic raster data operations
+- rasterization of vectors
+- derived raster layers
+- masks and raster algebra
 </div>
 
 <!---------- WEEK 04 ------------------------------------->
-<span class="tritoggle" id="iadcpnspan" onclick="TriShowHide('iadcpn');return false;">`r if (4 %in% params$this_week) "&#9660;" else "&#9654;"` </span><span class="sessiontitle">`r lstCI$class04short`. Custom functions, working with models, ggmap & leaflet</span>
+<span class="tritoggle" id="iadcpnspan" onclick="TriShowHide('iadcpn');return false;">`r if (4 %in% params$this_week) "&#9660;" else "&#9654;"` </span><span class="sessiontitle">`r lstCI$class04short`. Custom functions, Geocoding, Statistical Models, APIs, geocoding, ggmap & leaflet, R-ArcGIS integration</span>
 
 <div id="iadcpndiv" class="compact" style="display:`r if (4 %in% params$this_week) "block" else "none"`;">
-
+- working with character data
+- geocoding
+- custom functions
 </div>
 

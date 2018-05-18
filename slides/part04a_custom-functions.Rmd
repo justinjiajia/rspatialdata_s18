@@ -1,0 +1,308 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>Custom Functions</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 4
+---
+
+```{r setup, child = 'slides_setup.Rmd', include=FALSE}
+```
+
+```{r load_libraries, include=FALSE}
+library(spatstat)
+```
+
+# Custom Functions
+
+__Functions__
+
+<div class="compact">
+- good way to reuse code
+- can be saved in R scripts or packages
+- functions can:
+    - do things (like plot, print)
+    - return values
+- define a function like a variable
+    - _myfun <- function() { code goes here  }_
+</div>
+
+A simple function.
+
+```{r}
+hello_world <- function() {
+  print("Hello world!")
+}
+```
+
+You call custom functions like any built-in function.
+
+```{r}
+hello_world()
+```
+
+__Returning Values__
+
+The function will exit and return the value of
+
+<div class="compact">
+- the last line of code
+- the return() function 
+</div>
+
+```{r}
+hello_world <- function() {
+  print("Hello world!")
+  return("It's a beautiful day.")
+}
+
+msg <- hello_world()
+msg
+```
+
+__Tip__: If you need to return a lot of unstructured stuff, return a list object.
+
+__Arguments__
+
+<div class="compact">
+- arguments can be added to the function definition
+- use them in your code
+</div>
+
+```{r}
+inch2cm <- function(x) {
+  return(x * 2.54)  
+}
+
+inch2cm(10)
+```
+
+Arguments are passed as _copies_. This means if the function modifies the argument, it won't change the argument value in the calling environment.
+
+```{r}
+inch2cm <- function(x) {
+  cm_val <- x * 2.54
+  x <- x * 2
+  return (cm_val)
+}
+
+num_inch <- 10
+inch2cm(num_inch)
+num_inch  
+```
+
+Separate multiple arguments with commas.
+
+```{r circl01, cache=TRUE, med.mar=TRUE, fig.align="center", fig.height=4, fig.width=4, out.height=400, out.width=400}
+circle_pts <- function(radius, ctr_x, ctr_y) {
+  theta <- seq(from=0, to=2*pi, by=pi/18)
+  xs <- ctr_x + radius * cos(theta)
+  ys <- ctr_y + radius * sin(theta)
+  return (cbind(xs, ys))
+}
+
+pts <- circle_pts(0.5, 10, 10)
+head(pts)
+plot(pts, type="b", asp=1)
+```
+
+R will throw an error message if arguments are not passed (but will not check the data type or value).
+
+The way you make an argument optional is to give it a default value.
+
+```{r circl02, cache=TRUE, med.mar=TRUE, fig.align="center", fig.height=4, fig.width=4, out.height=400, out.width=400}
+
+circle_pts <- function(radius, ctr_x=0, ctr_y=0) {
+  theta <- seq(from=0, to=2*pi, by=pi/18)
+  xs <- ctr_x + radius * cos(theta)
+  ys <- ctr_y + radius * sin(theta)
+  return (cbind(xs, ys))
+}
+
+pts <- circle_pts(1)
+head(pts)
+plot(pts, type="b", asp=1)
+```
+
+## Practice 1
+
+Write a function that squares the log of the argument. Test if your function is vectorized. <a id="qtn_wytkrx" href="#" onclick="showHide('wytkrx');return false;">[Solution]</a>   
+
+<div id="wytkrx" class="answer-code">
+```{r}
+log_sq <- function(x) {
+  log(x) ^ 2
+}
+
+log_sq(1)
+log_sq(1:10)
+```
+</div>
+
+__Tips and Good Practices__
+
+<div class="compact">
+- put the non-optional arguments first
+- checking the value and class of arguments is pretty standard
+- best functions do one small thing (modular)
+- avoid naming your functions with a built-in function name
+- exchange information through arguments and return values
+- remember to load packages!
+- send message to the console using  print(), cat() statements
+- functions can be saved in R files or packages reloaded with source()
+</div>
+
+```{r, eval=FALSE}
+source("~/MyScripts/andy_utils.R")
+```
+
+# Practice 1
+
+Write a function that takes as its argument a bounding box matrix and returns the aera of the bounding box.
+
+You may recall the bounding box of a sp object is a matrix that looks like:
+
+```{r}
+library(sp)
+x <- SpatialPoints(data.frame(x=runif(25)*10,y=runif(25)*10))
+bbox(x)
+```
+
+Here is a function definintion you can use:
+
+<span style="font-family:monospace; color:DarkGreen;">
+bbox_area <- function(b) {
+
+}
+</span>
+
+Here is how your defintion might work in practice
+
+```{r, include=FALSE}
+bbox_area <- function(b) {
+  bbox_width <- b[1,2] - b[1,1]
+  bbox_height <- b[2,2] - b[2,1]
+  return(bbox_width * bbox_height)
+}
+```
+
+
+```{r}
+mySp <- SpatialPoints(data.frame(x=10:20,y=30:40))
+mySp_ext <- bbox(mySp)
+mySp_ext
+bbox_area(mySp_ext)
+```
+
+<span class="textlink" onclick="showHide('abscss');return false;">[Solution]</span>
+
+<div id="abscss" class="answer-code">
+```{r}
+bbox_area <- function(b) {
+  bbox_width <- b[1,2] - b[1,1]
+  bbox_height <- b[2,2] - b[2,1]
+  return(bbox_width * bbox_height)
+}
+
+bbox_area(bbox(mySp))
+```
+</div>
+
+# Practice 2
+
+Write a function that takes two arguments:
+
+<div class="compact">
+- the bounding box of a Spatial object (2x2 matrix)
+- a portion for the increase or decrease dimensions
+</div>
+
+The function should return another bounding box (matrix) with the same center but whose length and width have been increased or decreased by the factor. 
+
+Here is a function definintion you can use:
+
+<span style="font-family:monospace; color:DarkGreen;">
+bbox_resized <- function(b, f=0.05) {
+
+}
+</span>
+
+So for example if the bounding box was:
+
+```{r}
+mySp <- SpatialPoints(data.frame(x=seq(10,30,length.out=10),y=seq(100,300,length.out=10)))
+sample_bbox <- bbox(mySp)
+sample_bbox
+```
+
+And you passed:
+
+<span style="font-family:monospace; color:DarkGreen;">bbox_resized(sample_bbox)</span>
+
+You'd get back:
+
+```{r, include=FALSE}
+bbox_resized <- function(b, f=0.05) {
+  ## Compute width and height
+  bbox_width <- b[1,2] - b[1,1]
+  bbox_height <- b[2,2] - b[2,1]
+  
+  ## Find the max of width or height
+  bbox_maxdim <- max(bbox_width, bbox_height)
+  
+  ## Find how much to add or subtract
+  bbox_buffdist <- (bbox_maxdim * f) / 2
+  
+  ## Prepare a matrix
+  bbox_buffmat <- bbox_buffdist * matrix(c(-1,-1,1,1), nrow=2)
+  
+  return(b + bbox_buffmat )
+}
+```
+
+
+```{r}
+bbox_resized(sample_bbox)
+```
+
+<span class="textlink" onclick="showHide('abcss');return false;">[Solution]</span>
+
+<div id="abcss" class="answer-code">
+```{r}
+bbox_resized <- function(b, f=0.05) {
+  
+  ## Compute width and height
+  bbox_width <- b[1,2] - b[1,1]
+  bbox_height <- b[2,2] - b[2,1]
+  
+  ## Find the max of width or height
+  bbox_maxdim <- max(bbox_width, bbox_height)
+  
+  ## Find how much to add or subtract
+  bbox_buffdist <- (bbox_maxdim * f) / 2
+  
+  ## Prepare a matrix of the offsets, including the correct signs
+  bbox_buffmat <- bbox_buffdist * matrix(c(-1,-1,1,1), nrow=2)
+  
+  return(b + bbox_buffmat )
+}
+
+bbox_resized(sample_bbox)
+bbox_resized(sample_bbox, f=0.2)
+```
+</div>
+
+
+
+

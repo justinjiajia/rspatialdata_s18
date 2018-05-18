@@ -1,0 +1,103 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>R-ArcGIS Bridge</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 4
+---
+
+```{r setup, child = 'slides_setup.Rmd', include=FALSE}
+```
+
+```{r load_libraries, include=FALSE}
+library(arcgisbinding)
+```
+
+# R-ArcGIS Bridge 
+
+## Compatibility & Installation
+
+Requires a licensed ArcGIS desktop version
+
+The R-ArcGIS Bridge works for 
+
+<div class="compact">
+- ArcPro 2.0 (native support)
+    - Install from ArcPro 
+    - [Instruction Video](https://community.esri.com/videos/4136-installing-the-r-arcgis-bridge-for-arcgis-pro-20)
+- ArcMap 10.3.1 / ArcPro 1.1
+    - [Instructions on GitHub](https://github.com/R-ArcGIS/r-bridge-install)
+</div>
+
+## What You Can Do with the Bridge
+
+<div class="compact">
+- View metadata before bringing spatial info into R.
+- Import spatial layers from disk, or file geodatabases.
+- Create R scripts that you run from ArcGIS.
+</div>
+
+# Example
+
+```{r loadarcbinding02, cache=TRUE}
+library(arcgisbinding)
+library(sp)
+arc.check_product()
+
+## Create the connection
+crimepts_con <- arc.open(path="../exercises/data/SF_Crime.gdb/San_Francisco_Crimes")
+
+## Display info (metadata)
+crimepts_con
+```
+
+Import to R as "ArcGIS data frame".
+
+```{r loadarcbinding03, cache=TRUE}
+crimepts_adf <- arc.select(crimepts_con)
+names(crimepts_adf)
+nrow(crimepts_adf)
+attr(crimepts_adf, "shape")
+```
+
+Convert to a <tt>sp</tt> object.
+
+```{r loadarcbinding04, cache=TRUE}
+crimepts_spdf <- arc.data2sp(crimepts_adf)
+class(crimepts_spdf)
+```
+
+Plot.
+
+```{r loadarcbinding05, cache=TRUE}
+plot(crimepts_spdf, axes=TRUE, pch=16, cex=0.3)
+```
+
+# See also
+
+<div class="compact">
+- [arcgisbinding Vignette](https://r-arcgis.github.io/assets/arcgisbinding-vignette.html)
+- https://spatialstats.github.io/r-arcgis-bridge/
+- [Code samples on GitHub](https://r-arcgis.github.io/)
+- ESRI Webinars
+</div>
+
+## R-ArcGIS Bridge Exercise
+
+[Analyze Crime Statistics](http://learn.arcgis.com/en/projects/analyze-crime-using-statistics-and-the-r-arcgis-bridge/){target="_blank"}
+
+[Identify an Ecological Niche for African Buffalo](http://learn.arcgis.com/en/projects/identify-an-ecological-niche-for-african-buffalo/){target="_blank"}
+
+
+

@@ -176,6 +176,4 @@ For large datasets and/or more complex combinations, the *overlay()* function ma
 
 [Exercise 11: Derived Data](../exercises/ex11_raster02.html){target="_blank"}
 
-[Geocoding](part03e_geocoding.html)
-
 

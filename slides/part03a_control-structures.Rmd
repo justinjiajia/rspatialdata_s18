@@ -17,13 +17,16 @@ params:
     this_week: 3
 ---
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(kableExtra)
 ```
 
----
+# Course Outline
+
+```{r test-main, child = 'course_outline.Rmd'}
+```
+
 
 # Branching with <tt>if</tt>, <tt>else</tt>, and <tt>ifelse</tt>
 

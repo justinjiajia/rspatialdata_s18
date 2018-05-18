@@ -1,0 +1,107 @@
+---
+title: "<span class='ex-title'>Spatial Analysis with R:</span><br/><span class='ex-subtitle'>Exercise: Geocoding</span>"
+date: "`r load('../common/course_info.RData'); lstCI$course`"
+output: 
+  html_document: 
+    css: "../common/slidy_styles.css"
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+      after_body: bottom_links.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+    if (before) par(mar = c(2, 2, 0.5, 0.5))
+})
+source("auton_chop.R")
+load('../common/course_info.RData')
+```
+
+### Instructions
+
+- If you haven't already, install [R](https://cran.r-project.org/) and [RStudio](https://www.rstudio.com/products/rstudio/download/). 
+
+- Download the <a href="`r lstCI$githubrepo`" target="_blank">GitHub repo</a>. 
+
+- Create a new R script in RStudio (File &rarr; New File &rarr; R Script). 
+
+- Copy the questions below (all of which begin with the _#_ character so RStudio will interpret them as a comment) into your script. Under each question, write R code. Run each line of R code as you enter it (press the Run button or ctrl+enter) to make sure it works.
+
+- Remember to save your script periodically to avoid losing work if RStudio crashes.
+
+- If you get stuck, click on the 'hint' link, or the question number to see the answer. Click again to hide.
+
+- If you have any questions or problems, please feel free to email the instructor.
+
+<hr class="hrdivider">
+<div class="copy-button"><button onclick="CopyToClipboard('qtn_div');return false;">Copy questions</button></div>
+<div id="qtn_div" class="ex-qtn">
+
+`r hashtitle("Geocoding")`
+
+### \#\#\# Geocoding and Visualization with ggmap
+
+<a id="qtn_iktpcr" href="#" class="showhidelink" onclick="showHide('iktpcr');return false;">\# `r auton()`</a> `r chop("Import _sf_libraries.csv_ from the _data_ directory. ")`  
+
+<div id="iktpcr" class="answer-code">
+```{r import_sf_lib01, cache=TRUE}
+sf_lib_df <- read.csv("data/sf_libraries.csv", stringsAsFactors = FALSE)
+head(sf_lib_df)
+```
+</div>
+
+<a id="qtn_gterlu" href="#" class="showhidelink" onclick="showHide('gterlu');return false;">\# `r auton()`</a> `r chop("Concatenate the address columns into a single character vector.")` <a href="#" class="showhidehint" onclick="showHide('llpkgo');return false;"></a>  
+
+<div id="llpkgo" class="hint">Address info is spread across four columns - combine these into a single string with <tt>paste()</tt>.</div>    
+
+<div id="gterlu" class="answer-code">
+```{r import_sf_lib02, cache=TRUE, eval=TRUE}
+sf_lib_address <- paste(sf_lib_df$Address, sf_lib_df$City, sf_lib_df$State, sf_lib_df$Zip, sep=", ")
+head(sf_lib_address)
+```
+</div>
+
+<a id="qtn_bzmnmu" href="#" class="showhidelink" onclick="showHide('bzmnmu');return false;">\# `r auton()`</a> `r chop("Geocode the addresses and add the latitude and longitude columns to the data frame.")` 
+
+<div id="bzmnmu" class="answer-code">
+Use <tt>ggmap::geocode()</tt> to access Google Maps' geocoder.
+
+```{r include=FALSE}
+load("~/sf_lib_df.RData")  # sf_lib_df
+load("~/sf_lib_gc.RData")  # sf_lib_gc
+```
+
+```{r sf_lib_geocode, cache=TRUE, eval=FALSE}
+library(ggmap)
+sf_lib_gc <- ggmap::geocode(sf_lib_address, source="google", output="latlon", messaging = FALSE, force=TRUE)
+```
+
+Looks good - all rows were geocoded. Add these lat & long columns to the data frame.
+
+```{r sf_lib_addgeocodecols, cache=FALSE}
+sf_lib_df <- cbind(sf_lib_df, sf_lib_gc[ , c("lon", "lat")])
+```
+</div>
+
+<a id="qtn_jctmhg" href="#" class="showhidelink" onclick="showHide('jctmhg');return false;">\# `r auton()`</a> `r chop("Create a SpatialPointsDataFrame for the county libraries. Plot them, and save as a RData file.")` <a href="#" class="showhidehint" onclick="showHide('cdxzwa');return false;"></a>  
+
+<div id="cdxzwa" class="hint">The CRS for geographic coordinates is <tt>CRS("+init=epsg:4326")</tt></div>
+  
+
+<div id="jctmhg" class="answer-code">
+
+```{r}
+names(sf_lib_df)
+library(sp)
+sf_lib_spdf <- sp::SpatialPointsDataFrame(coords = sf_lib_df[ , c("lon","lat")], proj4string = sp::CRS("+init=epsg:4326"), data=sf_lib_df[ , "Branch", drop=F])
+plot(sf_lib_spdf, axes=TRUE, asp=1, pch=16, col="red")
+save(sf_lib_spdf, file="~/sf_lib_spdf.RData")
+```
+</div>
+
+
+</div><!-- end questions -->

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Working with Online Data" />
+  <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href=' https://is.gd/rspatial_baygeo_s18 ' target='_blank'> https://is.gd/rspatial_baygeo_s18 </a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Week 4:  Spatial Data Analysis with R  May 17, 2018</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) { 
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy"); 
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied") 
+  }}
+  </script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="..\common\slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title"><span class="pres-date">Week 4: </span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span> <br/><span class="pres-date">May 17, 2018</span></h1>
+  <p class="author">
+<span class="pres-title">Working with Online Data</span>
+  </p>
+</div>
+<div id="downloading-data" class="slide section level1">
+<h1>Downloading Data</h1>
+<p>There are several ways to download data and work with it in R.</p>
+<div class="compact">
+<ul>
+<li>download a file, open it locally</li>
+<li>import a data file saved remotely</li>
+<li>import data from an API</li>
+<li>import images tiles to display in a map</li>
+<li>scrape web pages</li>
+</ul>
+</div>
+<h2 id="download-and-import-files">Download and Import Files</h2>
+<ol style="list-style-type: decimal">
+<li><p>Go to a site that has downloadable data (e.g., <a href="https://data.sfgov.org/" class="uri">https://data.sfgov.org/</a>, <a href="https://www.census.gov/geo/maps-data/" class="uri">https://www.census.gov/geo/maps-data/</a>, <a href="http://www.californiaschoolcampusdatabase.org/" class="uri">http://www.californiaschoolcampusdatabase.org/</a>)</p></li>
+<li><p>Using a browser, FTP program, R's <tt>download.file()</tt> function, the wget command line utility, etc., download files to your computer, taking note where they go.</p></li>
+<li><p>Unzip the file if needed</p></li>
+<li><p>Import the file using standard R functions (<tt>read.csv()</tt>, <tt>readOGR()</tt>, <tt>raster()</tt>, etc.)</p></li>
+</ol>
+<h2 id="connection-objects">Connection objects</h2>
+<p>A connection object like a phone line. You open it with a command. While it's open, you use other commands to download files. When you're done, you close it.</p>
+<p>There are several types of connections, including connections to compressed files, URLs, pipes, sockets, etc.</p>
+<p>You can have multiple connections open at once (up to 128). You should make it a habit to explicitly close connections in your code when you're done with them</p>
+<p><strong>Example</strong>: Download a RData file saved on a website</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mycon &lt;-<span class="st"> </span><span class="kw">url</span>(<span class="st">&quot;http://tlocoh.r-forge.r-project.org/pepper.n4571.s0.003.k15.iso.lhs.01.RData&quot;</span>)
+<span class="kw">load</span>(mycon)
+<span class="kw">close</span>(mycon) 
+<span class="kw">require</span>(tlocoh)
+<span class="kw">plot</span>(pepper.lhs.k15, <span class="dt">iso=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="part04b_online-data_files/figure-slidy/unnamed-chunk-1-1.png" width="768" /></p>
+<p><strong>Example 2</strong>. Import a Text File on a FTP Server</p>
+<p>Many functions that import data can accept a connection object. These functions usually open and close the connection object automatically, but see the help pages for deatils.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">co2 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_mm_mlo.txt&quot;</span>, <span class="dt">comment=</span><span class="st">&#39;#&#39;</span>)
+<span class="kw">str</span>(co2)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    722 obs. of  7 variables:
+##  $ V1: int  1958 1958 1958 1958 1958 1958 1958 1958 1958 1958 ...
+##  $ V2: int  3 4 5 6 7 8 9 10 11 12 ...
+##  $ V3: num  1958 1958 1958 1958 1959 ...
+##  $ V4: num  316 317 318 -100 316 ...
+##  $ V5: num  316 317 318 317 316 ...
+##  $ V6: num  315 315 315 315 315 ...
+##  $ V7: int  -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ...</code></pre>
+</div>
+<div id="apis" class="slide section level1">
+<h1>APIs</h1>
+<p>API stands for <em>Application Programming Interface</em>.</p>
+<p>It is both a translator and a messenger between two different programs.</p>
+<p>Many R packages use APIs to call libraries written in C</p>
+<p><strong>Example</strong>: Call a geos function using <tt>rgeos</tt></p>
+<ol style="list-style-type: decimal">
+<li>You tell rgeos (in R) what you would like to happen and give it the data you want to manipulate</li>
+<li>rgeos translates those commands into commands that GEOS can understand.</li>
+<li>rgeos converts your data to data that GEOS can use.</li>
+<li>GEOS then does its analysis, and gives the results to rgeos.</li>
+<li>rgeos then converts those results back to R data, and gives it back to you!</li>
+</ol>
+</div>
+<div id="web-apis" class="slide section level1">
+<h1>Web APIs</h1>
+<p>WebAPIs are API protocols for communicating with a web server. They often use the URL to pass arguments.</p>
+<p>Example: the UC Census Bureau has a <a href="https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.pdf">geocoding service</a>. If you pass a URL in the following form, it will return matched addresses in a standard format that can be parsed into a data frame.</p>
+<p><a href="https://geocoding.geo.census.gov/geocoder/*returntype*/searchtype?*parameters*" class="uri">https://geocoding.geo.census.gov/geocoder/*returntype*/searchtype?*parameters*</a></p>
+<h2 id="packages-that-use-apis">Packages that Use APIs</h2>
+<p>It's not hard to write R scripts to interact with APIs. But it's even easier to use a package that has wrapper functions.</p>
+<p><strong>Packages that Wrap API Calls in R Functions</strong></p>
+<p><a href="https://cran.r-project.org/web/packages/ggmpa/" target="_blank">ggmap</a> - Google Maps (tiles)</p>
+<p><a href="https://cran.r-project.org/web/packages/raster/" target="_blank">raster</a> - GADM, SRTM, countries, etc.</p>
+<p><a href="https://github.com/USGS-R/geoknife" target="_blank">geoknife</a> - USGS Data</p>
+<p><a href="https://cran.r-project.org/web/packages/censusapi/" target="_blank">censusapi</a>, also <a href="https://cran.r-project.org/web/packages/tidycensus/" target="_blank">tidycensus</a> - US Census Data</p>
+<p><a href="https://cran.r-project.org/web/packages/move/">move</a> - <a href="https://www.movebank.org/" target="_blank">MoveBank</a></p>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>Working with Online Data</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 4
+---
+
+```{r setup, child = 'slides_setup.Rmd', include=FALSE}
+```
+
+```{r load_libraries, include=FALSE}
+require(tlocoh)
+```
+
+# Downloading Data
+
+There are several ways to download data and work with it in R.
+
+<div class="compact">
+- download a file, open it locally
+- import a data file saved remotely
+- import data from an API
+- import images tiles to display in a map
+- scrape web pages
+</div>
+
+## Download and Import Files
+
+1. Go to a site that has downloadable data (e.g., https://data.sfgov.org/, https://www.census.gov/geo/maps-data/, http://www.californiaschoolcampusdatabase.org/)
+
+1. Using a browser, FTP program, R's <tt>download.file()</tt> function, the wget command line utility, etc., download files to your computer, taking note where they go.
+
+1. Unzip the file if needed
+
+1. Import the file using standard R functions (<tt>read.csv()</tt>, <tt>readOGR()</tt>, <tt>raster()</tt>, etc.)
+
+## Connection objects
+
+A connection object like a phone line. You open it with a command. While it's open, you use other commands to download files. When you're done, you close it.
+
+There are several types of connections, including connections to compressed files, URLs, pipes, sockets, etc.
+
+You can have multiple connections open at once (up to 128). You should make it a habit to explicitly close connections in your code when you're done with them 
+
+__Example__: Download a RData file saved on a website
+
+```{r}
+mycon <- url("http://tlocoh.r-forge.r-project.org/pepper.n4571.s0.003.k15.iso.lhs.01.RData")
+load(mycon)
+close(mycon) 
+require(tlocoh)
+plot(pepper.lhs.k15, iso=TRUE)
+```
+
+__Example 2__. Import a Text File on a FTP Server
+
+Many functions that import data can accept a connection object. These functions usually open and close the connection object automatically, but see the help pages for deatils.
+
+```{r}
+co2 <- read.table("ftp://aftp.cmdl.noaa.gov/products/trends/co2/co2_mm_mlo.txt", comment='#')
+str(co2)
+```
+
+# APIs
+
+API stands for _Application Programming Interface_.
+
+It is both a translator and a messenger between two different programs.
+
+Many R packages use APIs to call libraries written in C
+
+__Example__: Call a geos function using <tt>rgeos</tt>
+
+1. You tell rgeos (in R) what you would like to happen and give it the data you want to manipulate
+1. rgeos translates those commands into commands that GEOS can understand.
+1. rgeos converts your data to data that GEOS can use.
+1. GEOS then does its analysis, and gives the results to rgeos.
+1. rgeos then converts those results back to R data, and gives it back to you!
+
+# Web APIs 
+
+WebAPIs are API protocols for communicating with a web server. They often use the URL to pass arguments.
+
+Example: the UC Census Bureau has a [geocoding service](https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.pdf). If you pass a URL in the following form, it will return matched addresses in a standard format that can be parsed into a data frame.
+
+https://geocoding.geo.census.gov/geocoder/*returntype*/searchtype?*parameters*
+
+## Packages that Use APIs
+
+It's not hard to write R scripts to interact with APIs. But it's even easier to use a package that has wrapper functions. 
+
+__Packages that Wrap API Calls in R Functions__
+
+[ggmap](https://cran.r-project.org/web/packages/ggmpa/){target="_blank"} - Google Maps (tiles)
+
+[raster](https://cran.r-project.org/web/packages/raster/){target="_blank"} - GADM, SRTM, countries, etc.
+
+[geoknife](https://github.com/USGS-R/geoknife){target="_blank"} - USGS Data
+
+[censusapi](https://cran.r-project.org/web/packages/censusapi/){target="_blank"}, also  [tidycensus](https://cran.r-project.org/web/packages/tidycensus/){target="_blank"} - US Census Data
+
+[move](https://cran.r-project.org/web/packages/move/) -  [MoveBank](https://www.movebank.org/){target="_blank"}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

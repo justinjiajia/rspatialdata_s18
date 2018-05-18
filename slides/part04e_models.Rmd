@@ -1,0 +1,150 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>Working with Statistical Models</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 4
+---
+
+```{r setup, child = 'slides_setup.Rmd', include=FALSE}
+```
+
+```{r load_libraries, include=FALSE}
+```
+
+# Statistical Models
+
+__Statistics Are Used__
+
+<div class="compact">
+- control for chance you get from sampling
+- predict (regression)
+- tell us how likely our results would be if there were no relationship
+- which factors explain the variance
+</div>
+
+__Common statistical models__
+
+<div class="compact">
+- ordinary least squares
+- logistic regression
+- Wilcoxon
+- Chisquare test
+- Kruskal Wallis
+- Poisson
+- discriminant analysis
+- ANOVA
+- neural net & other machine learning
+- +100s more!
+</div>
+
+__Common elements of statistical models__
+
+<div class="compact">
+- fitted coefficients
+- p-values
+- predicted values
+- observed values
+- residuals
+- etc.
+</div>
+
+# Working with Statistical Models in R
+
+<div class="compact">
+- prepare your data in a data frame or matrix
+- call a model function (e.g. <tt>lm()</tt>), and save the result to a variable
+
+<div class="indented4">
+Many model functions use _formula syntax_ to specify the model variables, e.g.,
+
+<tt>income ~ gender + age + race + education</tt>
+
+where _income_, _gender_, _age_, _race_, and _education_ are column names in a data frame
+</div>
+
+- R 'runs' the model 
+- the function returns a model 'object' (often a list) which contans
+    - coefficients
+    - p-values
+    - independent variables
+    - observed outcomes
+    - predicted values
+    - residuals
+- you can save the model object to a variable
+- use the model object to 
+    - plot values, curves, etc.
+    - 'run' the model on another set of data
+    - print out summaries
+</div>
+
+## Example: Old Faithful
+
+<img src="images/old_faithful_300x225.jpg" style="float:right;"></img>
+
+Does the waiting time influence the duration of an erruption?
+
+Let's run a linear regression 
+
+```{r}
+head(faithful)
+faithful_lm <- lm(eruptions ~ waiting, data=faithful)
+class(faithful_lm)
+```
+
+The <tt>faithful_lm</tt> object is class 'lm', but it's also a list. 
+
+```{r}
+is.list(faithful_lm)
+names(faithful_lm)
+faithful_lm$coefficients
+```
+
+Most model objects have customized versions of core functions like summary() and plot().
+
+```{r}
+summary(faithful_lm)
+plot(faithful$waiting, faithful$eruptions, pch=16)
+abline(faithful_lm, col="red", lwd=2)
+plot(faithful_lm, ask=FALSE)
+```
+
+Many packages will have other functions to do specilized plots or other things with the model object. Or running the model may require a series of functions. 
+
+General advice: 
+
+<div class="compact">
+- have a general understanding of the statistical method  
+- read the package Vignette  
+- look for code examples  
+</div>
+
+# Practice
+
+Using the built-in dataset <tt>cars</tt>, see if the stopping distance is correlated to speed. 
+
+<span class="textlink" onclick="showHide('dfsfs');return false;">[Solution]</span>
+
+<div id="dfsfs" class="answer-code">
+```{r}
+cars_lm <- lm(dist ~ speed, data = cars)
+plot(cars$speed, cars$dist, pch=16)
+abline(cars_lm, col="red", lwd=2)
+summary(cars_lm)
+```
+</div>
+
+
+
+

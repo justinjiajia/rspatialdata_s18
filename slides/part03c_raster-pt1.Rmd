@@ -17,13 +17,10 @@ params:
     this_week: 3
 ---
 
+```{r setup, child = 'slides_setup.Rmd', include=FALSE}
+```
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-knitr::knit_hooks$set(small.mar = function(before, options, envir) {
-    if (before) par(mar = c(2, 2, 0.5, 0.5))
-})
-library(kableExtra)
+```{r load_libraries, include=FALSE}
 library(raster)
 library(rgdal)
 ```
@@ -95,7 +92,7 @@ rgdal::GDALinfo(cea_fn)
 ## Import the GeoTiff
 
 ```{r import_geotiff, fig.align="center", cache=TRUE}
-cea_rast <- raster(cea_fn)
+cea_rast <- raster::raster(cea_fn)
 cea_rast
 ```
 
@@ -162,7 +159,7 @@ Note that SRTM data comes in 5 degree tiles. These files can be about 70Mb. Pass
 
 ```{r get_data_yosem_srtm, cache=TRUE, fig.align="center", small.mar=TRUE}
 library(raster)
-western_ca_dem_ll <- getData('SRTM', lon=-119, lat=37, download=TRUE)
+western_ca_dem_ll <- raster::getData('SRTM', lon=-119, lat=37, download=TRUE)
 plot(western_ca_dem_ll, asp=1)
 ```
 
@@ -179,7 +176,7 @@ plot(yosem_bnd_ll, asp=1, axes=TRUE)
 
 ## Crop the DEM to the Yosemite Park boundary.
 
-```{r plot_yosem_dem, cache=TRUE, fig.align="center", small.mar=TRUE}
+```{r plot_yosem_dem, cache=TRUE, fig.align="center", med.mar=TRUE}
 yosem_ext_dem_ll <- crop(western_ca_dem_ll, yosem_bnd_ll)
 plot(yosem_ext_dem_ll, asp=1, main="SRTM Elevation Data, Yosemite NP")
 plot(yosem_bnd_ll, add=TRUE)

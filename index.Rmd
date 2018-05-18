@@ -76,7 +76,7 @@ href="slides/part02f_geoprocessing.html">Geoprocessing</a></li>
 <li class="exercise"><a target="_blank" class="exercise"
 href="exercises/ex07_geoprocessing.html">Exercise 7: Geoprocessing</a></li>
 
-# `r lstCI$class03short`. Loops and branches, spatial queries, raster data, APIs, geocoding
+# `r lstCI$class03short`. Loops and branches, spatial queries, raster data
 
 <li class="slide"><a target="_blank" class="slide" 
 href="slides/part03a_control-structures.html">Control Structures</a></li>
@@ -102,13 +102,31 @@ href="slides/part03d_raster-pt2.html">Raster Data Pt. 2. Derived Rasters</a></li
 <li class="exercise"><a target="_blank" class="exercise"
 href="exercises/ex11_raster02.html">Exercise 11: Derived Data</a></li>
 
+# `r lstCI$class04short`. Character data, custom functions, APIs, geocoding, working with models, ggmap & leaflet, R-ArcGIS integration
+
 <li class="slide"><a target="_blank" class="slide" 
-href="slides/part03e_geocoding.html">Geocoding</a></li>
+href="slides/part04a_custom-functions.html">Custom functions</a></li>
+
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part04b_online-data.html">Working with online data</a></li>
+
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part04c_geocoding.html">Geocoding</a></li>
 
 <li class="exercise"><a target="_blank" class="exercise"
 href="exercises/ex12_geocoding.html">Exercise 12: Geocoding</a></li>
 
-# `r lstCI$class04short`. Custom functions, working with models, ggmap & leaflet, projects, R-ArcGIS integration
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part04d_ggmap_leaflet.html">ggMap and Leaflet</a></li>
+
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part04e_models.html">Working with Statistical Models</a></li>
+
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part04f_spatial-stats.html">Spatial Stats</a></li>
+
+<li class="slide"><a target="_blank" class="slide" 
+href="slides/part04g_arcgisbridge.html">R-ArcGIS Bridge</a></li>
 
 
 # Resources

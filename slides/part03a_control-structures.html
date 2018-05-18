@@ -120,6 +120,71 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="pres-title">Control Structures: Loops and Branches</span>
   </p>
 </div>
+<div id="course-outline" class="slide section level1">
+<h1>Course Outline</h1>
+<!------- WEEK 01 ---------------------------------------->
+<p><span id="tri01span" class="tritoggle" onclick="TriShowHide(&#39;tri01&#39;);return false;">▶ </span><span class="sessiontitle">April 19. Intro to R, Packages, Basic Syntax, Importing Data, Basic Visualization</span></p>
+<div id="tri01div" class="compact" style="display:none;">
+<ul>
+<li>RStudio<br />
+</li>
+<li>basic syntax<br />
+</li>
+<li>data types</li>
+<li>indexing and filtering<br />
+</li>
+<li>comparison operators<br />
+</li>
+<li>sequences<br />
+</li>
+<li>packages</li>
+<li>sample datasets<br />
+</li>
+<li>importing spatial data<br />
+</li>
+<li>basic plotting<br />
+</li>
+</ul>
+</div>
+<!-------- WEEK 02 --------------------------------------->
+<p><span id="zeroryspan" class="tritoggle" onclick="TriShowHide(&#39;zerory&#39;);return false;">▶ </span><span class="sessiontitle">April 26. Two-Dimensional Data Structures, R Markdown, Spatial Data Wrangling, Geoprocessing</span></p>
+<div id="zerorydiv" class="compact" style="display:none;">
+<ul>
+<li>lists, data frames, matrices</li>
+<li>importing data<br />
+</li>
+<li>saving data</li>
+<li>R Markdown</li>
+<li>spatial data classes</li>
+<li>projections</li>
+<li>attribute queries</li>
+<li>geoprocessing</li>
+</ul>
+</div>
+<!--------- WEEK 03 -------------------------------------->
+<p><span id="icosxkspan" class="tritoggle" onclick="TriShowHide(&#39;icosxk&#39;);return false;">▼ </span><span class="sessiontitle">May 10. Loops and branches, spatial queries, raster data</span></p>
+<div id="icosxkdiv" class="compact" style="display:block;">
+<ul>
+<li>if-else statements</li>
+<li>code loops</li>
+<li>spatial queries</li>
+<li>importing raster data</li>
+<li>basis raster data operations</li>
+<li>rasterization of vectors</li>
+<li>derived raster layers</li>
+<li>masks and raster algebra</li>
+</ul>
+</div>
+<!---------- WEEK 04 ------------------------------------->
+<p><span id="iadcpnspan" class="tritoggle" onclick="TriShowHide(&#39;iadcpn&#39;);return false;">▶ </span><span class="sessiontitle">May 17. Custom functions, working with models, ggmap &amp; leaflet, APIs, geocoding, R-ArcGIS integration</span></p>
+<div id="iadcpndiv" class="compact" style="display:none;">
+<ul>
+<li>character data</li>
+<li>geocoding</li>
+<li>custom functions</li>
+</ul>
+</div>
+</div>
 <div id="branching-with-if-else-and-ifelse" class="slide section level1">
 <h1>Branching with <tt>if</tt>, <tt>else</tt>, and <tt>ifelse</tt></h1>
 <p><tt>if</tt> and <tt>else</tt> statements are control structures that let you control how a code should execute based on a set of pre-established conditions.</p>
@@ -166,7 +231,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>You can string together multiple 'else if' checks.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">size=</span><span class="dv">1</span>)
 x</code></pre></div>
-<pre><code>## [1] 20</code></pre>
+<pre><code>## [1] 4</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
   <span class="kw">print</span>(<span class="st">&quot;You picked an even number&quot;</span>)
 } <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
@@ -242,27 +307,17 @@ x</code></pre></div>
 <p>} </tt></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)
 <span class="kw">cat</span>(<span class="st">&quot;i =&quot;</span>, <span class="kw">round</span>(i,<span class="dv">2</span>), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</code></pre></div>
-<pre><code>## i = 0.29</code></pre>
+<pre><code>## i = 0.48</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">while</span> (i <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.8</span>) {
   i &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)
   <span class="kw">cat</span>(<span class="st">&quot;i =&quot;</span>, <span class="kw">round</span>(i,<span class="dv">2</span>), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
 }</code></pre></div>
-<pre><code>## i = 0.51 
-## i = 0.71 
-## i = 0.06 
-## i = 0.73 
-## i = 0.56 
-## i = 0.79 
-## i = 0.25 
-## i = 0.38 
-## i = 0.22 
-## i = 0.79 
+<pre><code>## i = 0.79 
+## i = 0.23 
 ## i = 0.65 
-## i = 0.71 
-## i = 0.2 
-## i = 0.68 
-## i = 0.14 
-## i = 0.9</code></pre>
+## i = 0.77 
+## i = 0.69 
+## i = 0.99</code></pre>
 <h2 id="break">break</h2>
 <p>To break out of a for or while loop, you can use the <tt>break</tt> statement.</p>
 <p><tt>while (TRUE) { if (some_condition) { break } } </tt></p>
@@ -280,7 +335,7 @@ x</code></pre></div>
   x &lt;-<span class="st"> </span><span class="kw">paste</span>(x, random_let)
 }
 x</code></pre></div>
-<pre><code>## [1] &quot; C V G T R L S E U B&quot;</code></pre>
+<pre><code>## [1] &quot; P A U N F B P N X K&quot;</code></pre>
 <p><em><strong>Notes</strong></em></p>
 <p>Many R functions are vectorized, so often you don't actually need a code loop.</p>
 <p>See also <a href="https://www.datacamp.com/community/tutorials/tutorial-on-loops-in-r" target="_blank">Loops Tutorial from DataCamp</a></p>
@@ -288,11 +343,11 @@ x</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Addition is vectorized, so we don&#39;t need a loop
 <span class="kw">data.frame</span>(<span class="dt">num=</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">num_plus_offset=</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="fl">0.5</span>))</code></pre></div>
 <pre><code>##   num num_plus_offset
-## 1   1       0.8588065
-## 2   2       2.5185631
-## 3   3       2.7960673
-## 4   4       2.5116857
-## 5   5       4.8581034</code></pre>
+## 1   1        1.622980
+## 2   2        2.246464
+## 3   3        3.233202
+## 4   4        4.518972
+## 5   5        4.899529</code></pre>
 <p>In addition to for and while loops, R has functions like <tt>sapply()</tt> and <tt>lapply()</tt> that will apply a function to each element of a vector/list.</p>
 <p><tt>sapply()</tt> and <tt>lapply()</tt> are generally usualy faster than traditional loops.</p>
 </div>

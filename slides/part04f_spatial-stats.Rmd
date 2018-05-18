@@ -1,0 +1,70 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>Spatial Stats</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 4
+---
+
+
+```{r setup, child = 'slides_setup.Rmd', include=FALSE}
+```
+
+```{r load_libraries, include=FALSE}
+library(spatstat)
+```
+
+
+
+INTERPOLATION
+
+__Thiessen polygons / Voronoi Diagram__
+
+For text and images, see
+https://www.cdrc.ac.uk/wp-content/uploads/2016/11/Practical_11.html
+
+Thiessen polygons
+The first step we can take to interpolate the data across space is to create Thiessen polygons. Thiessen polygons are formed to assign boundaries of the areas closest to each unique point. Therefore, for every point in a dataset, it has a corresponding Thiessen polygon. This is demonstrated in the diagram below.
+
+```{r}
+library(spatstat)  
+library(maptools)  # Needed for conversion from SPDF to ppp
+
+# Create a tessellated surface
+dat.pp <- as(dirichlet(as.ppp(House.Points)), "SpatialPolygons")
+dat.pp <- as(dat.pp,"SpatialPolygons")
+```
+
+
+
+
+## Autocorrelation Test: Compute Moran's-I
+
+if (!require(spdep)) install.packages("spdep")
+library(spdep)
+
+# The first step is to compute the 'spatial weights' matrix.
+# This essentially is an matrix that indicates which polygons
+# are neighbors. We'll need this to compute Moran's-I.
+
+ca_counties_nb <- poly2nb(ca_counties)
+ca_counties_listw <- nb2listw(ca_counties_nb)
+
+# We're now ready to compute Moran's-I on the residuals.
+
+ca_counties_res_moran <- lm.morantest(tickdensLM, ca_counties_listw)
+print(ca_counties_res_moran)
+
+
+

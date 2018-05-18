@@ -1,0 +1,158 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>ggmap and leaflet</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 4
+---
+
+```{r setup, child = 'slides_setup.Rmd', include=FALSE}
+```
+
+```{r load_libraries, include=FALSE}
+library(ggmap)
+library(leaflet)
+```
+
+# Making maps with _ggmap_
+
+## Overview
+
+<div class="compact">
+- ggmap is based upon <tt>ggplot2</tt>
+- uses the grammar of graphics, consisting of:
+    1. data and aesthetic mappings
+    1. geoms (geometric objects)
+    1. stats (statistical transformations)
+    1. coords (coordinate systems)
+    1. scales
+    1. facets (a specification of how to break things into smaller subplots)
+- works well with the <tt>RColorBrewer</tt> package (color palletes)
+- suggested way to learn
+    + learn the basic concepts
+    + look for examples and cheatsheets:
+        - [ggmap quickstart](../extras/ggmap_cheatsheet.pdf)
+        - [ggplot2](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+    + see also [ggplot2 intro](http://eriqande.github.io/rep-res-web/lectures/ggplot_1_pole_vault_example.html) tutorial
+</div>
+
+## Differences between <tt>ggmap</tt> and base plotting
+
+With <tt>ggmap</tt>,
+
+<div class="compact">
+- you can't add features to an existing plot
+- if location object is text, it will do the geocoding also
+- you can add background tiles
+</div>
+
+### Example 2: qmap()
+
+<tt>qmap()</tt> is a good way to get started 
+
+<div class="compact">
+ - works like the normal plot() function
+ - arguments include _location_ arguments to download tiles
+</div>
+
+```{r qmap01, cache=TRUE}
+qmap(location = "San Francisco City Hall", zoom = 18, source="google", messaging=FALSE)
+```
+
+## More complex maps
+
+add additional features, labels, legends, adjust view, colors, 
+
+you can save a _ggmap_ object (plot definition) to a variable, and then plot it later with the <tt>print()</tt> function
+
+use the &#43; operator to build up the definition of your plot (a _ggmap_ object)
+
+Pieces of a ggmap object:  
+get_map() (_tiles_) + geom_xxxx (symbols) + annotations + scales + facets
+
+<tt>get_map()</tt> downloads tiles (which you can save to a variable)
+
+
+### Example 3: Display a single address
+
+```{r ggmap01, cache=TRUE, message=FALSE}
+address_txt <- "1125 Valencia St., San Francisco, CA"
+address_gc <- ggmap::geocode(address_txt, source = "google", output = "latlona", messaging = FALSE)
+
+## Download tiles and save them to a variable
+stamen_tiles <- get_map(location=address_txt, source="stamen", maptype="watercolor", crop=FALSE, zoom=17, messaging=FALSE)
+
+## Make a plot of the tiles plus the geocoded address from before
+ggmap(stamen_tiles) + geom_point(aes(x = lon, y = lat), data = address_gc, alpha = .5, color="darkred", size = 3)
+```
+
+Additional Notes
+
+<div class="compact">
+- spatial data have to be in lat-long (or converted to lat-long)
+- you can plot Spatial* objects by first turning them into data frames with <tt>fortify()</tt>
+- data are displayed in the [web mercator](https://en.wikipedia.org/wiki/Web_Mercator) projection (EPSG:3857)
+- you can't (easily) reproject tiles (but see also the <tt>gmap()</tt> function in <tt>dismo</tt> package returns a RasterLayer)
+- see also [<tt>tmap</tt>](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html)
+
+</div>
+
+
+# leaflet
+
+## leaflet basics
+
+<div class="compact">
+- leaflet is a JavaScript library for dynamic mapping (in a browser)
+- pan and zoom are default functionalities
+- you can add  annotations like markers, polygons, and popups.
+- like <tt>ggmap</tt>, you can dislpay background tiles (requires internet connection)
+- with the exception of background tiles, __all__ spatial data in the map are encoded into the HTML file, and rendered by the browser 
+</div>
+
+## Creating leaflet maps in R
+
+<div class="compact">
+- <tt>leaflet</tt> package simplifies creating leaflet maps in R
+- like <tt>ggmap</tt>, you build up your leaflet object with sentence style syntax, then 'print' it
+- use the pipe operator _%>%_ to feed the results of one function into the next
+- leaflet maps in R Markdown files will become interactive when rendered to HTML 
+</div>
+
+```{r, include=FALSE}
+#load("~/sf_lib_spdf.RData")  #sf_lib_spdf
+load("~/sf_lib_df.RData")  # sf_lib_df
+```
+
+
+```{r leaf01, cache=TRUE, fig.width=7, fig.align='center', message=FALSE}
+library(leaflet)
+sf_lib_leaf <- leaflet(sf_lib_df) %>% addMarkers(~lon, ~lat, popup = ~Branch) %>% addProviderTiles(providers$CartoDB.Positron)
+sf_lib_leaf
+```
+
+Other things you can customize in leaflet
+
+<div class="compact">
+- additional map tiles available
+- markers
+- popups
+- overlay other features (sp objects, GeoJSON)
+- add more controls (with Shiny)
+</div>
+
+More info: <http://rstudio.github.io/leaflet/>
+
+
+

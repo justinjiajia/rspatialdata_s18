@@ -192,7 +192,7 @@ cea_fn</code></pre></div>
 ## Metadata:
 ## AREA_OR_POINT=Area</code></pre>
 <h2 id="import-the-geotiff">Import the GeoTiff</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cea_rast &lt;-<span class="st"> </span><span class="kw">raster</span>(cea_fn)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cea_rast &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">raster</span>(cea_fn)
 cea_rast</code></pre></div>
 <pre><code>## class       : RasterLayer 
 ## dimensions  : 515, 514, 264710  (nrow, ncol, ncell)
@@ -204,8 +204,8 @@ cea_rast</code></pre></div>
 ## values      : 0, 255  (min, max)</code></pre>
 <p>Notice a few things about this raster.</p>
 <div class="indented1">
-<p><em>dimensions</em>: the â€œsizeâ€ of the file in pixels: nrow=number of rows; ncol=number of columns, and ncells= the total number of pixels or cells</p>
-<p><em>resolution</em>: the size of each pixel (in meters in this case). 1 meter pixels means that each pixel represents a 1m x 1m area on the earthâ€™s surface.</p>
+<p><em>dimensions</em>: the “size” of the file in pixels: nrow=number of rows; ncol=number of columns, and ncells= the total number of pixels or cells</p>
+<p><em>resolution</em>: the size of each pixel (in meters in this case). 1 meter pixels means that each pixel represents a 1m x 1m area on the earth’s surface.</p>
 <p><em>extent</em>: the spatial extent of the raster. This value will be in the same coordinate units as the coordinate reference system of the raster.</p>
 <p><em>coord ref</em>: the coordinate reference system string for the raster.</p>
 </div>
@@ -328,7 +328,7 @@ writeRaster(), writeGDAL()
 <h2 id="download-a-dem-for-yosemite-national-park">Download a DEM for Yosemite National Park</h2>
 <p>Note that SRTM data comes in 5 degree tiles. These files can be about 70Mb. Pass <tt>download=TRUE</tt> to cache the TIF file.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-western_ca_dem_ll &lt;-<span class="st"> </span><span class="kw">getData</span>(<span class="st">&#39;SRTM&#39;</span>, <span class="dt">lon=</span><span class="op">-</span><span class="dv">119</span>, <span class="dt">lat=</span><span class="dv">37</span>, <span class="dt">download=</span><span class="ot">TRUE</span>)
+western_ca_dem_ll &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">getData</span>(<span class="st">&#39;SRTM&#39;</span>, <span class="dt">lon=</span><span class="op">-</span><span class="dv">119</span>, <span class="dt">lat=</span><span class="dv">37</span>, <span class="dt">download=</span><span class="ot">TRUE</span>)
 <span class="kw">plot</span>(western_ca_dem_ll, <span class="dt">asp=</span><span class="dv">1</span>)</code></pre></div>
 <p><img src="part03c_raster-pt1_files/figure-slidy/get_data_yosem_srtm-1.png" width="768" style="display: block; margin: auto;" /></p>
 <h2 id="import-the-yosemite-park-boundary">Import the Yosemite Park Boundary</h2>

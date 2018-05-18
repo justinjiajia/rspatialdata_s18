@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Geocoding" />
+  <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href=' https://is.gd/rspatial_baygeo_s18 ' target='_blank'> https://is.gd/rspatial_baygeo_s18 </a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Week 4:  Spatial Data Analysis with R  May 17, 2018</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) { 
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy"); 
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied") 
+  }}
+  </script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="..\common\slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title"><span class="pres-date">Week 4: </span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span> <br/><span class="pres-date">May 17, 2018</span></h1>
+  <p class="author">
+<span class="pres-title">Geocoding</span>
+  </p>
+</div>
+<div id="course-outline" class="slide section level1">
+<h1>Course Outline</h1>
+<!------- WEEK 01 ---------------------------------------->
+<p><span id="tri01span" class="tritoggle" onclick="TriShowHide(&#39;tri01&#39;);return false;">▶ </span><span class="sessiontitle">April 19. Intro to R, Packages, Basic Syntax, Importing Data, Basic Visualization</span></p>
+<div id="tri01div" class="compact" style="display:none;">
+<ul>
+<li>RStudio<br />
+</li>
+<li>basic syntax<br />
+</li>
+<li>data types</li>
+<li>indexing and filtering<br />
+</li>
+<li>comparison operators<br />
+</li>
+<li>sequences<br />
+</li>
+<li>packages</li>
+<li>sample datasets<br />
+</li>
+<li>importing spatial data<br />
+</li>
+<li>basic plotting<br />
+</li>
+</ul>
+</div>
+<!-------- WEEK 02 --------------------------------------->
+<p><span id="zeroryspan" class="tritoggle" onclick="TriShowHide(&#39;zerory&#39;);return false;">▶ </span><span class="sessiontitle">April 26. Two-Dimensional Data Structures, R Markdown, Spatial Data Wrangling, Geoprocessing</span></p>
+<div id="zerorydiv" class="compact" style="display:none;">
+<ul>
+<li>lists, data frames, matrices</li>
+<li>importing data<br />
+</li>
+<li>saving data</li>
+<li>R Markdown</li>
+<li>spatial data classes</li>
+<li>projections</li>
+<li>attribute queries</li>
+<li>geoprocessing</li>
+</ul>
+</div>
+<!--------- WEEK 03 -------------------------------------->
+<p><span id="icosxkspan" class="tritoggle" onclick="TriShowHide(&#39;icosxk&#39;);return false;">▶ </span><span class="sessiontitle">May 10. Loops and Branches, Spatial Queries, Raster Data</span></p>
+<div id="icosxkdiv" class="compact" style="display:none;">
+<ul>
+<li>if-else statements</li>
+<li>code loops</li>
+<li>spatial queries</li>
+<li>importing raster data</li>
+<li>basic raster data operations</li>
+<li>rasterization of vectors</li>
+<li>derived raster layers</li>
+<li>masks and raster algebra</li>
+</ul>
+</div>
+<!---------- WEEK 04 ------------------------------------->
+<p><span id="iadcpnspan" class="tritoggle" onclick="TriShowHide(&#39;iadcpn&#39;);return false;">▼ </span><span class="sessiontitle">May 17. Custom functions, Geocoding, Statistical Models, APIs, geocoding, ggmap &amp; leaflet, R-ArcGIS integration</span></p>
+<div id="iadcpndiv" class="compact" style="display:block;">
+<ul>
+<li>working with character data</li>
+<li>geocoding</li>
+<li>custom functions</li>
+</ul>
+</div>
+</div>
+<div id="character-data" class="slide section level1">
+<h1>Character Data</h1>
+<h2 id="combine-vs.-concatenation">Combine vs. Concatenation</h2>
+<p><strong>Combine</strong> means building a vector. For character (string) vectors, we generally use the <tt>c()</tt> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;have&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;dream&quot;</span>)
+x</code></pre></div>
+<pre><code>## [1] &quot;I&quot;     &quot;have&quot;  &quot;a&quot;     &quot;dream&quot;</code></pre>
+<p>Concatenate means string together. In spreadsheets and most programming languages, you can concatenate strings with the <tt>&amp;</tt> or <tt>+</tt> operators (e.g., <em>&quot;I &quot; &amp; &quot;have &quot; &amp; &quot;a &quot; &amp; &quot;dream&quot;</em> in most languages returns '<em>I have a dream</em>').</p>
+<p>R is different. To concatentate character objects in R, you have to use <tt>paste()</tt>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;have&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;dream&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;I have a dream&quot;</code></pre>
+<p>You can customize the <tt>paste()</tt> function by specifying the separator character.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;have&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;dream&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;-&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;I-have-a-dream&quot;</code></pre>
+<p>Note in the <tt>paste()</tt> expression above the strings are passed as separate arguments, not elements of a vector. See what happens when you pass a character vector.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;have&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;dream&quot;</span>))</code></pre></div>
+<pre><code>## [1] &quot;I&quot;     &quot;have&quot;  &quot;a&quot;     &quot;dream&quot;</code></pre>
+<p>If you want to concatenate the elements of a character vector, you can use the <tt>collapse</tt> argument.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;have&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;dream&quot;</span>), <span class="dt">collapse=</span><span class="st">&quot;--&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;I--have--a--dream&quot;</code></pre>
+<p><tt>paste()</tt> is a vectorized function, meaning if you pass it two or more character vectors, it will concantenate the corresponding elements.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;hot&quot;</span>, <span class="st">&quot;cold&quot;</span>, <span class="st">&quot;stale&quot;</span>)
+y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;soup&quot;</span>, <span class="st">&quot;sandwich&quot;</span>, <span class="st">&quot;donut&quot;</span>)
+<span class="kw">paste</span>(x, y)</code></pre></div>
+<pre><code>## [1] &quot;hot soup&quot;      &quot;cold sandwich&quot; &quot;stale donut&quot;</code></pre>
+</div>
+<div id="factors" class="slide section level1">
+<h1>Factors</h1>
+<p>Factors are a memory efficient way to save character vectors, particularly when there are duplicate values. Under the hood, R creates a lookup table of the unique values (called levels), and saves them as integers.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">animals_vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;dog&quot;</span>, <span class="st">&quot;mouse&quot;</span>, <span class="st">&quot;horse&quot;</span>)
+animals_factor &lt;-<span class="st"> </span><span class="kw">as.factor</span>(animals_vec)</code></pre></div>
+<p>You can usually work with factors the same way you would work with character vectors. One exception is when the character values are actually numeric strings.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nums_str &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;34&quot;</span>, <span class="st">&quot;47&quot;</span>, <span class="st">&quot;99&quot;</span>)
+<span class="kw">as.numeric</span>(nums_str)</code></pre></div>
+<pre><code>## [1] 34 47 99</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nums_fact &lt;-<span class="st"> </span><span class="kw">as.factor</span>(nums_str)
+<span class="kw">as.numeric</span>(nums_fact)</code></pre></div>
+<pre><code>## [1] 1 2 3</code></pre>
+<p>When importing a CSV, R will often convert columns to factors without informing you. You can control this behavior with the <tt>stringsAsFactors</tt> argument. Even better, always check and if needed change the data types of columns after they've been brought into R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flowers_df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;flower_data.csv&quot;</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
+</div>
+<div id="geocoding" class="slide section level1">
+<h1>Geocoding</h1>
+<div style="float:right;">
+<img src="images/geocoding_238x230.png" />
+</div>
+<p><em>geocoding</em> is the process of turning an address or place name into latitude-longitude coordinates</p>
+<p>typically requires an online service</p>
+<div class="compact indented1">
+<ul>
+<li>Google Maps</li>
+<li><a href="https://www.census.gov/geo/maps-data/data/geocoder.html">Census</a></li>
+<li>ESRI</li>
+<li><a href="https://docs.google.com/spreadsheets/d/1I2rEVX2CN8AqkhpzUTuNwNvJy8il1exccrsd4OGwDCU/edit#gid=0" target="_blank">many others</a></li>
+</ul>
+</div>
+<p>free services generally limit num addresses per search, and/or num queries per day</p>
+<p>services can be web-based or API</p>
+<p>API services may require getting a key and agreeing to the Terms of Service</p>
+</div>
+<div id="geocoding-with-ggmap" class="slide section level1">
+<h1>Geocoding with <em>ggmap</em></h1>
+<h2 id="ggmap-package"><em>ggmap</em> package</h2>
+<div class="indented2">
+<ul>
+<li>geocoding</li>
+<li>nice looking static maps
+<ul>
+<li>plot Spatial* objects out-of-the-box</li>
+<li>download background tiles</li>
+<li>uses the 'grammar of graphics' (based on ggplot)</li>
+<li>supports syntax where complex commands are strung together as 'sentences'</li>
+</ul></li>
+</ul>
+</div>
+<h2 id="supported-geocoders">Supported geocoders</h2>
+<p><em>ggmap</em> works with the following geocoding services</p>
+<div class="compact">
+<ul>
+<li><p>Google Maps API</p>
+<ul>
+<li>limited to 2500 queries per day</li>
+<li>test your code with a small number of addresses so you don't blow through your free quota</li>
+<li>find out how many you have left with <tt>geocodeQueryCheck()</tt></li>
+</ul></li>
+<li><p>Data Science Toolkit</p>
+<ul>
+<li>draws from US Census and OpenStreetMap</li>
+<li>available as Vagrant VM or EC2 AMI (i.e., you can install it yourself)</li>
+</ul></li>
+</ul>
+</div>
+<p>To use these you have to be online</p>
+</div>
+<div id="defining-locations" class="slide section level1">
+<h1>Defining Locations</h1>
+<p>Three ways to define location:</p>
+<ol style="list-style-type: decimal">
+<li>place name or address</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myLocation &lt;-<span class="st"> &quot;University of Washington&quot;</span>
+myLocation &lt;-<span class="st"> &quot;5121 Russett Rd, Rockville, MD 20853&quot;</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>lat/long</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myLocation &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">lon =</span> <span class="op">-</span><span class="fl">95.3632715</span>, <span class="dt">lat =</span> <span class="fl">29.7632836</span>)</code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Bounding box lowerleftlon, lowerleftlat, upperrightlon, upperrightlat</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myLocation &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">130</span>, <span class="dv">30</span>, <span class="op">-</span><span class="dv">105</span>, <span class="dv">50</span>)</code></pre></div>
+</div>
+<div id="example-1" class="slide section level1">
+<h1>Example 1</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggmap)
+address_txt &lt;-<span class="st"> &quot;1125 Valencia St., San Francisco, CA&quot;</span>
+address_gc &lt;-<span class="st"> </span>ggmap<span class="op">::</span><span class="kw">geocode</span>(address_txt, <span class="dt">source =</span> <span class="st">&quot;google&quot;</span>, <span class="dt">output =</span> <span class="st">&quot;latlona&quot;</span>, <span class="dt">messaging =</span> <span class="ot">FALSE</span>)
+address_gc</code></pre></div>
+<pre><code>##         lon      lat
+## 1 -122.4206 37.75483
+##                                                          address
+## 1 mission campus, 1125 valencia st, san francisco, ca 94110, usa</code></pre>
+<p><tt>geocode()</tt> is vectorized (you can pass it multiple locations)</p>
+<p>options for the <tt>output</tt> argument:</p>
+<table class="tbl_compact">
+<thead>
+<tr>
+<th style="text-align:left;">
+Output argument
+</th>
+<th style="text-align:left;">
+Returns
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+&quot;latlon&quot;
+</td>
+<td style="text-align:left;">
+lat &amp; long
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+&quot;latlona&quot;
+</td>
+<td style="text-align:left;">
+lat, long, &amp; address
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+&quot;more&quot;
+</td>
+<td style="text-align:left;">
+lat, long, address, &amp; other info
+</td>
+</tr>
+</tbody>
+</table>
+<p><em>loctype</em> column (with output='more') tells you type of result (e.g., approximate, rooftop)</p>
+<p><tt>mutate_geocode()</tt> will put the location info into the dataframe</p>
+<p><tt>revgeocode()</tt> performs a reverse geocode</p>
+</div>
+<div id="example-2-geocode-california-breweries" class="slide section level1">
+<h1>Example 2: Geocode California Breweries</h1>
+<p>First we import the <em>ca_breweries.csv</em> file. For now we'll just work with the first 40 records.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">csv_fn &lt;-<span class="st"> &quot;../exercises/data/ca_breweries.csv&quot;</span>
+<span class="kw">file.exists</span>(csv_fn)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ca_brew_df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(csv_fn, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+ca_brew_df &lt;-<span class="st"> </span>ca_brew_df[<span class="dv">1</span><span class="op">:</span><span class="dv">40</span>,]
+<span class="kw">head</span>(ca_brew_df)</code></pre></div>
+<pre><code>##                                   Name                     Address
+## 1              10 Mile Brewing Company            1136 E Willow St
+## 2                    101 North Brewing       1304 Scott St Suite D
+## 3                           14 Cannons 31125 Via Colinas Suite 907
+## 4 21st Amendment Brewery - San Leandro            2010 Williams St
+## 5                2Kids Brewing Company         8680 Miralani Drive
+## 6             32 North Brewing Company 8655 Production Ave Suite A
+##               City State          Phone    Type
+## 1      Signal Hill    CA (562) 612-1255 Brewery
+## 2         Petaluma    CA (707) 778-8384 Brewery
+## 3 Westlake Village    CA (818) 652-6971 Brewery
+## 4      San Leandro    CA                Brewery
+## 5        San Diego    CA (858) 480-5437 Brewery
+## 6       Sand Diego    CA   619-363-2622 Brewery</code></pre>
+<p>It looks like the addresses are split across the 'Address', 'City', and 'State' columns. Let's combine those and try to get the coordinates.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ca_brew_address &lt;-<span class="st"> </span><span class="kw">paste</span>(ca_brew_df<span class="op">$</span>Address, ca_brew_df<span class="op">$</span>City, ca_brew_df<span class="op">$</span>State, <span class="dt">sep=</span><span class="st">&quot;, &quot;</span>)
+<span class="co">#head(ca_brew_address)</span>
+ca_brew_address</code></pre></div>
+<pre><code>##  [1] &quot;1136 E Willow St, Signal Hill, CA&quot;                
+##  [2] &quot;1304 Scott St Suite D, Petaluma, CA&quot;              
+##  [3] &quot;31125 Via Colinas Suite 907, Westlake Village, CA&quot;
+##  [4] &quot;2010 Williams St, San Leandro, CA&quot;                
+##  [5] &quot;8680 Miralani Drive, San Diego, CA&quot;               
+##  [6] &quot;8655 Production Ave Suite A, Sand Diego, CA&quot;      
+##  [7] &quot;1795 Hancock Street, San Diego, CA&quot;               
+##  [8] &quot;821 Cornwall St, Cambria, CA&quot;                     
+##  [9] &quot;2878 Columbia Street, Torrance, CA&quot;               
+## [10] &quot;435 Fernleaf, Corona Del Mar, CA&quot;                 
+## [11] &quot;1795 Hancock St., Suite P1, San Diego, CA&quot;        
+## [12] &quot;28822 Old Town Front St., Temecula, CA&quot;           
+## [13] &quot;975 Detroit Ave, Concord, CA&quot;                     
+## [14] &quot;9368 Cabot Drive, San Diego, CA&quot;                  
+## [15] &quot;692 Arrow Grand Cir, Covina, CA&quot;                  
+## [16] &quot;2351 Alpine Blvd., Alpine, CA&quot;                    
+## [17] &quot;2402 Research Drive, Livermore, CA&quot;               
+## [18] &quot;9659 Main St, Plymouth, CA&quot;                       
+## [19] &quot;4150 Mission Blvd #208, San Diego, CA&quot;            
+## [20] &quot;336 South Anaheim Boulevard , Anaheim, CA&quot;        
+## [21] &quot;1705 Mariposa St., San Francisco, CA&quot;             
+## [22] &quot;17700 Highway 253, Boonville, CA&quot;                 
+## [23] &quot;216 S Alameda St, Los Angeles, CA&quot;                
+## [24] &quot;3101 Busch Dr., Fairfield, CA&quot;                    
+## [25] &quot;15800 Roscoe Blvd, Van Nuys, CA&quot;                  
+## [26] &quot;5621 Palmer Way, Carlsbad, CA&quot;                    
+## [27] &quot;7123 Arlington Ave., Suite - A, Riverside, CA&quot;    
+## [28] &quot;415 Grande Ave, South San Francisco, CA&quot;          
+## [29] &quot;919 Calle Amanecer Suite A, San Clemente, CA&quot;     
+## [30] &quot;3416 Adams Ave., San Diego, CA&quot;                   
+## [31] &quot;2330 La Mirada Dr. Suite 300, Vista, CA&quot;          
+## [32] &quot;401-B Bel Marin Keys Blvd, Novato, CA&quot;            
+## [33] &quot;5401 Linda Vista Road, Suite 406, San Diego, CA&quot;  
+## [34] &quot;10051 Old Grove Road Suite B, San Diego, CA&quot;      
+## [35] &quot;950 Orcutt Rd, San Luis Obispo, CA&quot;               
+## [36] &quot;1525 Cortland Ave, San Francisco, CA&quot;             
+## [37] &quot;3535 N. Main St., Soquel, CA&quot;                     
+## [38] &quot;2957 Randolph Ave, Unit B, Costa Mesa, CA&quot;        
+## [39] &quot;2575 Pioneer Ave #104, Vista, CA&quot;                 
+## [40] &quot;3055 Limestone Way, Paso Robles, CA&quot;</code></pre>
+<p>Now we can run the geocode service.</p>
+<p><strong>Tip</strong>: The free Google geocoding service has a limit of 2500 addresses per day per IP address. There may also be a limit on the number of requests <em>per second</em>, per IP address. If you get error messages that say <em>Geocode Failed with Status OVER_QUERY_LIMIT</em>, but you haven't reached your 2500 daily limit, the issue may be queries that are too rapid.</p>
+<p>Some of these bottlenecks can be overcome by 1) getting a Google Maps API Key and 2) entering your Google Maps API key when you submit your geocode requests. Getting a <a href="https://developers.google.com/maps/documentation/geocoding/get-api-key" target="_blank">Google Maps API key</a> is easy. To use a Google Maps API key while geocoding, you must be using <em>ggmap</em> v2.7 or later. You can see which verion you have by running <tt>packageVersion()</tt>. <em>ggmap</em> v2.7 is not on CRAN yet, so you have to use <tt>devtools::install_github(&quot;dkahle/ggmap&quot;)</tt>. Once you have version 2.7, enter your Google Maps API key with the <tt>register_google()</tt> function, before running <tt>geocode()</tt>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Load my Google Maps API key
+<span class="kw">load</span>(<span class="st">&quot;~/google_api_key.RData&quot;</span>)
+
+## Enter API key
+<span class="kw">register_google</span>(<span class="dt">key=</span>my_google_api_key)
+
+ca_brew_geocode_df &lt;-<span class="st"> </span>ggmap<span class="op">::</span><span class="kw">geocode</span>(ca_brew_address, <span class="dt">source =</span> <span class="st">&quot;google&quot;</span>, <span class="dt">output =</span> <span class="st">&quot;latlona&quot;</span>)</code></pre></div>
+<p>Add the geocoding results to the data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ca_brew_df &lt;-<span class="st"> </span><span class="kw">cbind</span>(ca_brew_df, ca_brew_geocode_df)
+<span class="co">#head(ca_brew_df)</span>
+ca_brew_df</code></pre></div>
+<pre><code>##                                        Name
+## 1                   10 Mile Brewing Company
+## 2                         101 North Brewing
+## 3                                14 Cannons
+## 4      21st Amendment Brewery - San Leandro
+## 5                     2Kids Brewing Company
+## 6                  32 North Brewing Company
+## 7                  5 Points Brewing Company
+## 8                          927 Beer Company
+## 9                Absolution Brewing Company
+## 10                    Academy of Fine Beers
+## 11         Acoustic Ales Brewing Experiment
+## 12                       Aftershock Brewery
+## 13                           Ale Industries
+## 14                 AleSmith Brewing Company
+## 15                   Alosta Brewing Company
+## 16                      Alpine Beer Company
+## 17                      Altamont Beer Works
+## 18                   Amador Brewing Company
+## 19                      Amplified Ale Works
+## 20                          Anaheim Brewery
+## 21                       Anchor Brewing Co.
+## 22          Anderson Valley Brewing Company
+## 23                       Angel City Brewery
+## 24               Anheuser-Busch - Fairfield
+## 25            Anheuser-Busch Inc - Van Nuys
+## 26                           Arcana Brewing
+## 27                    Area 51 Craft Brewery
+## 28                        Armstrong Brewing
+## 29                  Artifex Brewing Company
+## 30                Automatic Brewing Company
+## 31                            Aztec Brewery
+## 32                         Baeltane Brewing
+## 33                Ballast Point Brewing Co.
+## 34 Ballast Point Brewing Co. - Main Brewery
+## 35                    Bang the Drum Brewery
+## 36               Barebottle Brewing Company
+## 37        Bargetto Winery (Chaucer&#39;s Wines)
+## 38             Barley Forge Brewing Company
+## 39                    Barrel Harbor Brewing
+## 40              BarrelHouse Brewing Company
+##                             Address                City State
+## 1                  1136 E Willow St         Signal Hill    CA
+## 2             1304 Scott St Suite D            Petaluma    CA
+## 3       31125 Via Colinas Suite 907    Westlake Village    CA
+## 4                  2010 Williams St         San Leandro    CA
+## 5               8680 Miralani Drive           San Diego    CA
+## 6       8655 Production Ave Suite A          Sand Diego    CA
+## 7               1795 Hancock Street           San Diego    CA
+## 8                   821 Cornwall St             Cambria    CA
+## 9              2878 Columbia Street            Torrance    CA
+## 10                     435 Fernleaf      Corona Del Mar    CA
+## 11       1795 Hancock St., Suite P1           San Diego    CA
+## 12         28822 Old Town Front St.            Temecula    CA
+## 13                  975 Detroit Ave             Concord    CA
+## 14                 9368 Cabot Drive           San Diego    CA
+## 15              692 Arrow Grand Cir              Covina    CA
+## 16                2351 Alpine Blvd.              Alpine    CA
+## 17              2402 Research Drive           Livermore    CA
+## 18                     9659 Main St            Plymouth    CA
+## 19           4150 Mission Blvd #208           San Diego    CA
+## 20     336 South Anaheim Boulevard              Anaheim    CA
+## 21                1705 Mariposa St.       San Francisco    CA
+## 22                17700 Highway 253           Boonville    CA
+## 23                 216 S Alameda St         Los Angeles    CA
+## 24                   3101 Busch Dr.           Fairfield    CA
+## 25                15800 Roscoe Blvd            Van Nuys    CA
+## 26                  5621 Palmer Way            Carlsbad    CA
+## 27   7123 Arlington Ave., Suite - A           Riverside    CA
+## 28                   415 Grande Ave South San Francisco    CA
+## 29       919 Calle Amanecer Suite A        San Clemente    CA
+## 30                  3416 Adams Ave.           San Diego    CA
+## 31     2330 La Mirada Dr. Suite 300               Vista    CA
+## 32        401-B Bel Marin Keys Blvd              Novato    CA
+## 33 5401 Linda Vista Road, Suite 406           San Diego    CA
+## 34     10051 Old Grove Road Suite B           San Diego    CA
+## 35                    950 Orcutt Rd     San Luis Obispo    CA
+## 36                1525 Cortland Ave       San Francisco    CA
+## 37                 3535 N. Main St.              Soquel    CA
+## 38        2957 Randolph Ave, Unit B          Costa Mesa    CA
+## 39            2575 Pioneer Ave #104               Vista    CA
+## 40               3055 Limestone Way         Paso Robles    CA
+##             Phone    Type       lon      lat
+## 1  (562) 612-1255 Brewery -118.1778 33.80398
+## 2  (707) 778-8384 Brewery -122.6652 38.27000
+## 3  (818) 652-6971 Brewery -118.8019 34.15511
+## 4                 Brewery -122.1766 37.71124
+## 5  (858) 480-5437 Brewery -117.1373 32.89665
+## 6    619-363-2622 Brewery -117.1648 32.88268
+## 7  (619) 550-BREW Brewery -117.1846 32.74227
+## 8  (805) 203-5265 Brewery -121.0986 35.56669
+## 9                 Brewery -118.3379 33.84314
+## 10 (949) 862-5808 Brewery -117.8749 33.60037
+## 11 (619) 299-2537 Brewery -117.1846 32.74227
+## 12 (951) 972-2256 Brewery -117.1448 33.48849
+## 13 (925) 470-5280 Brewery -122.0281 37.95144
+## 14 (858) 549-9888 Brewery -117.1447 32.89238
+## 15 (626) 470-7897 Brewery -117.8791 34.10453
+## 16 (619) 445-2337 Brewery -116.7627 32.83517
+## 17 (925) 443-2337 Brewery -121.7200 37.67585
+## 18   209-507-1900 Brewery -120.8434 38.48235
+## 19 (858) 270-5222 Brewery -117.2543 32.79177
+## 20 (714) 780-1888 Brewery -117.9125 33.83274
+## 21 (415) 863-8350 Brewery -122.4008 37.76330
+## 22 (800) 207-BEER Brewery -123.3556 39.00051
+## 23 (213) 622-1261 Brewery -118.2381 34.04678
+## 24 (707) 429-7653 Brewery -122.0937 38.23643
+## 25 (818) 989-5300 Brewery -118.4768 34.22096
+## 26 (909) 529-2337 Brewery -117.2739 33.14021
+## 27 (909) 936-5010 Brewery -117.4499 33.94658
+## 28   650-989-8447 Brewery -122.4131 37.65559
+## 29   949-429-7805 Brewery -117.6059 33.44893
+## 30 (619) 255-2491 Brewery -117.1203 32.76350
+## 31 (800) 706-6324 Brewery -117.2300 33.14965
+## 32 (415) 883-2040 Brewery -122.5383 38.07491
+## 33 (619) 298-2337 Brewery -117.1953 32.76672
+## 34 (619) 298-2337 Brewery -117.1109 32.89853
+## 35   805-242-8372 Brewery -120.6458 35.26148
+## 36   415-926-8617 Brewery -122.4091 37.74009
+## 37 (800) 211-6630 Brewery -121.9545 36.99536
+## 38 (714) 641-2084 Brewery -117.8882 33.67870
+## 39   760-734-3949 Brewery -117.2216 33.14887
+## 40   805 296-1128 Brewery -120.6911 35.57597
+##                                                    address
+## 1             1136 e willow st, signal hill, ca 90755, usa
+## 2                 1304 scott st d, petaluma, ca 94954, usa
+## 3  31125 via colinas #907, westlake village, ca 91362, usa
+## 4             2010 williams st, san leandro, ca 94577, usa
+## 5               8680 miralani dr, san diego, ca 92126, usa
+## 6          8655 production ave a, san diego, ca 92121, usa
+## 7                1795 hancock st, san diego, ca 92110, usa
+## 8                  821 cornwall st, cambria, ca 93428, usa
+## 9                2878 columbia st, torrance, ca 90503, usa
+## 10         435 fernleaf ave, corona del mar, ca 92625, usa
+## 11               1795 hancock st, san diego, ca 92110, usa
+## 12        28822 old town front st, temecula, ca 92590, usa
+## 13                 975 detroit ave, concord, ca 94518, usa
+## 14                 9368 cabot dr, san diego, ca 92126, usa
+## 15              692 arrow grand cir, covina, ca 91722, usa
+## 16                 2351 alpine blvd, alpine, ca 91901, usa
+## 17              2402 research dr, livermore, ca 94550, usa
+## 18                   9659 main st, plymouth, ca 95669, usa
+## 19        4150 mission blvd #208, san diego, ca 92109, usa
+## 20              336 s anaheim blvd, anaheim, ca 92805, usa
+## 21          1705 mariposa st, san francisco, ca 94107, usa
+## 22                  17700 ca-253, yorkville, ca 95494, usa
+## 23            216 s alameda st, los angeles, ca 90012, usa
+## 24                 3101 busch dr, fairfield, ca 94534, usa
+## 25              15800 roscoe blvd, van nuys, ca 91406, usa
+## 26                5621 palmer way, carlsbad, ca 92010, usa
+## 27          7123 arlington ave a, riverside, ca 92503, usa
+## 28       415 grand ave, south san francisco, ca 94080, usa
+## 29       919 calle amanecer a, san clemente, ca 92673, usa
+## 30                3416 adams ave, san diego, ca 92116, usa
+## 31            2330 la mirada dr #300, vista, ca 92081, usa
+## 32          401 bel marin keys blvd, novato, ca 94949, usa
+## 33      5401 linda vista rd #406, san diego, ca 92110, usa
+## 34          10051 old grove rd b, san diego, ca 92131, usa
+## 35           950 orcutt rd, san luis obispo, ca 93401, usa
+## 36         1525 cortland ave, san francisco, ca 94110, usa
+## 37                   3535 n main st, soquel, ca 95073, usa
+## 38          2957 randolph ave b, costa mesa, ca 92626, usa
+## 39             2575 pioneer ave #104, vista, ca 92081, usa
+## 40          3055 limestone way, paso robles, ca 93446, usa</code></pre>
+<p>If there are any addresses that did not yield a match, we can investigate them using an attribute filter.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(ca_brew_df)</code></pre></div>
+<pre><code>## [1] &quot;Name&quot;    &quot;Address&quot; &quot;City&quot;    &quot;State&quot;   &quot;Phone&quot;   &quot;Type&quot;    &quot;lon&quot;    
+## [8] &quot;lat&quot;     &quot;address&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ca_brew_df[<span class="kw">is.na</span>(ca_brew_df<span class="op">$</span>lon),]</code></pre></div>
+<pre><code>## [1] Name    Address City    State   Phone   Type    lon     lat     address
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<p>To plot the ones that geocoded successfully.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sp); <span class="kw">library</span>(raster)
+ca_ll &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">getData</span>(<span class="st">&quot;GADM&quot;</span>, <span class="dt">country=</span><span class="st">&quot;USA&quot;</span>, <span class="dt">level=</span><span class="dv">1</span>, <span class="dt">download =</span> <span class="ot">TRUE</span>)
+ca_ll &lt;-<span class="st"> </span>ca_ll[ca_ll<span class="op">@</span>data<span class="op">$</span>NAME_<span class="dv">1</span><span class="op">==</span><span class="st">&quot;California&quot;</span>,]
+ca_brew_sp &lt;-<span class="st"> </span>sp<span class="op">::</span><span class="kw">SpatialPoints</span>(ca_brew_df[<span class="op">!</span><span class="kw">is.na</span>(ca_brew_df<span class="op">$</span>lon),<span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>)], <span class="dt">proj4string =</span> <span class="kw">CRS</span>(<span class="st">&quot;+init=epsg:4326&quot;</span>))
+<span class="kw">plot</span>(ca_ll, <span class="dt">axes=</span>T, <span class="dt">asp=</span><span class="dv">1</span>)
+<span class="kw">plot</span>(ca_brew_sp, <span class="dt">pch=</span><span class="dv">18</span>, <span class="dt">col=</span><span class="st">&quot;purple&quot;</span>, <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="part04c_geocoding_files/figure-slidy/plot_brew-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="additional-resources" class="slide section level1">
+<h1>Additional Resources</h1>
+<div class="compact indented1">
+<ul>
+<li><a href="http://www.rpubs.com/cengel248/177198">Geocoding in R</a></li>
+<li><a href="https://github.com/cengel/r_IPgeocode">Geocoding IP addresses</a></li>
+<li><em>ggmap</em> Vignette</li>
+</ul>
+</div>
+<div class="faux-h1">
+Next Up
+</div>
+<p><a href="../exercises/ex12_geocoding.html" target="_blank">Exercise 12: Geocoding</a></p>
+<p><a href="part04b_custom-functions.html"></a></p>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

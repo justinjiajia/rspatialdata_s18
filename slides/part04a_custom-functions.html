@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Custom Functions" />
+  <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href=' https://is.gd/rspatial_baygeo_s18 ' target='_blank'> https://is.gd/rspatial_baygeo_s18 </a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Week 4:  Spatial Data Analysis with R  May 17, 2018</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) { 
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy"); 
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied") 
+  }}
+  </script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="..\common\slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title"><span class="pres-date">Week 4: </span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span> <br/><span class="pres-date">May 17, 2018</span></h1>
+  <p class="author">
+<span class="pres-title">Custom Functions</span>
+  </p>
+</div>
+<div id="custom-functions" class="slide section level1">
+<h1>Custom Functions</h1>
+<p><strong>Functions</strong></p>
+<div class="compact">
+<ul>
+<li>good way to reuse code</li>
+<li>can be saved in R scripts or packages</li>
+<li>functions can:
+<ul>
+<li>do things (like plot, print)</li>
+<li>return values</li>
+</ul></li>
+<li>define a function like a variable
+<ul>
+<li><em>myfun &lt;- function() { code goes here }</em></li>
+</ul></li>
+</ul>
+</div>
+<p>A simple function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hello_world &lt;-<span class="st"> </span><span class="cf">function</span>() {
+  <span class="kw">print</span>(<span class="st">&quot;Hello world!&quot;</span>)
+}</code></pre></div>
+<p>You call custom functions like any built-in function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hello_world</span>()</code></pre></div>
+<pre><code>## [1] &quot;Hello world!&quot;</code></pre>
+<p><strong>Returning Values</strong></p>
+<p>The function will exit and return the value of</p>
+<div class="compact">
+<ul>
+<li>the last line of code</li>
+<li>the return() function</li>
+</ul>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hello_world &lt;-<span class="st"> </span><span class="cf">function</span>() {
+  <span class="kw">print</span>(<span class="st">&quot;Hello world!&quot;</span>)
+  <span class="kw">return</span>(<span class="st">&quot;It&#39;s a beautiful day.&quot;</span>)
+}
+
+msg &lt;-<span class="st"> </span><span class="kw">hello_world</span>()</code></pre></div>
+<pre><code>## [1] &quot;Hello world!&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">msg</code></pre></div>
+<pre><code>## [1] &quot;It&#39;s a beautiful day.&quot;</code></pre>
+<p><strong>Tip</strong>: If you need to return a lot of unstructured stuff, return a list object.</p>
+<p><strong>Arguments</strong></p>
+<div class="compact">
+<ul>
+<li>arguments can be added to the function definition</li>
+<li>use them in your code</li>
+</ul>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inch2cm &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="kw">return</span>(x <span class="op">*</span><span class="st"> </span><span class="fl">2.54</span>)  
+}
+
+<span class="kw">inch2cm</span>(<span class="dv">10</span>)</code></pre></div>
+<pre><code>## [1] 25.4</code></pre>
+<p>Arguments are passed as <em>copies</em>. This means if the function modifies the argument, it won't change the argument value in the calling environment.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inch2cm &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  cm_val &lt;-<span class="st"> </span>x <span class="op">*</span><span class="st"> </span><span class="fl">2.54</span>
+  x &lt;-<span class="st"> </span>x <span class="op">*</span><span class="st"> </span><span class="dv">2</span>
+  <span class="kw">return</span> (cm_val)
+}
+
+num_inch &lt;-<span class="st"> </span><span class="dv">10</span>
+<span class="kw">inch2cm</span>(num_inch)</code></pre></div>
+<pre><code>## [1] 25.4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num_inch  </code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<p>Separate multiple arguments with commas.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">circle_pts &lt;-<span class="st"> </span><span class="cf">function</span>(radius, ctr_x, ctr_y) {
+  theta &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">2</span><span class="op">*</span>pi, <span class="dt">by=</span>pi<span class="op">/</span><span class="dv">18</span>)
+  xs &lt;-<span class="st"> </span>ctr_x <span class="op">+</span><span class="st"> </span>radius <span class="op">*</span><span class="st"> </span><span class="kw">cos</span>(theta)
+  ys &lt;-<span class="st"> </span>ctr_y <span class="op">+</span><span class="st"> </span>radius <span class="op">*</span><span class="st"> </span><span class="kw">sin</span>(theta)
+  <span class="kw">return</span> (<span class="kw">cbind</span>(xs, ys))
+}
+
+pts &lt;-<span class="st"> </span><span class="kw">circle_pts</span>(<span class="fl">0.5</span>, <span class="dv">10</span>, <span class="dv">10</span>)
+<span class="kw">head</span>(pts)</code></pre></div>
+<pre><code>##            xs       ys
+## [1,] 10.50000 10.00000
+## [2,] 10.49240 10.08682
+## [3,] 10.46985 10.17101
+## [4,] 10.43301 10.25000
+## [5,] 10.38302 10.32139
+## [6,] 10.32139 10.38302</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(pts, <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">asp=</span><span class="dv">1</span>)</code></pre></div>
+<p><img src="part04a_custom-functions_files/figure-slidy/circl01-1.png" width="400" height="400" style="display: block; margin: auto;" /></p>
+<p>R will throw an error message if arguments are not passed (but will not check the data type or value).</p>
+<p>The way you make an argument optional is to give it a default value.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">circle_pts &lt;-<span class="st"> </span><span class="cf">function</span>(radius, <span class="dt">ctr_x=</span><span class="dv">0</span>, <span class="dt">ctr_y=</span><span class="dv">0</span>) {
+  theta &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">0</span>, <span class="dt">to=</span><span class="dv">2</span><span class="op">*</span>pi, <span class="dt">by=</span>pi<span class="op">/</span><span class="dv">18</span>)
+  xs &lt;-<span class="st"> </span>ctr_x <span class="op">+</span><span class="st"> </span>radius <span class="op">*</span><span class="st"> </span><span class="kw">cos</span>(theta)
+  ys &lt;-<span class="st"> </span>ctr_y <span class="op">+</span><span class="st"> </span>radius <span class="op">*</span><span class="st"> </span><span class="kw">sin</span>(theta)
+  <span class="kw">return</span> (<span class="kw">cbind</span>(xs, ys))
+}
+
+pts &lt;-<span class="st"> </span><span class="kw">circle_pts</span>(<span class="dv">1</span>)
+<span class="kw">head</span>(pts)</code></pre></div>
+<pre><code>##             xs        ys
+## [1,] 1.0000000 0.0000000
+## [2,] 0.9848078 0.1736482
+## [3,] 0.9396926 0.3420201
+## [4,] 0.8660254 0.5000000
+## [5,] 0.7660444 0.6427876
+## [6,] 0.6427876 0.7660444</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(pts, <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">asp=</span><span class="dv">1</span>)</code></pre></div>
+<p><img src="part04a_custom-functions_files/figure-slidy/circl02-1.png" width="400" height="400" style="display: block; margin: auto;" /></p>
+<h2 id="practice-1">Practice 1</h2>
+<p>Write a function that squares the log of the argument. Test if your function is vectorized. <a id="qtn_wytkrx" href="#" onclick="showHide('wytkrx');return false;">[Solution]</a></p>
+<div id="wytkrx" class="answer-code">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">log_sq &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="kw">log</span>(x) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>
+}
+
+<span class="kw">log_sq</span>(<span class="dv">1</span>)</code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log_sq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</code></pre></div>
+<pre><code>##  [1] 0.000000 0.480453 1.206949 1.921812 2.590290 3.210402 3.786566
+##  [8] 4.324077 4.827796 5.301898</code></pre>
+</div>
+<p><strong>Tips and Good Practices</strong></p>
+<div class="compact">
+<ul>
+<li>put the non-optional arguments first</li>
+<li>checking the value and class of arguments is pretty standard</li>
+<li>best functions do one small thing (modular)</li>
+<li>avoid naming your functions with a built-in function name</li>
+<li>exchange information through arguments and return values</li>
+<li>remember to load packages!</li>
+<li>send message to the console using print(), cat() statements</li>
+<li>functions can be saved in R files or packages reloaded with source()</li>
+</ul>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;~/MyScripts/andy_utils.R&quot;</span>)</code></pre></div>
+</div>
+<div id="practice-1-1" class="slide section level1">
+<h1>Practice 1</h1>
+<p>Write a function that takes as its argument a bounding box matrix and returns the aera of the bounding box.</p>
+<p>You may recall the bounding box of a sp object is a matrix that looks like:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sp)
+x &lt;-<span class="st"> </span><span class="kw">SpatialPoints</span>(<span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">runif</span>(<span class="dv">25</span>)<span class="op">*</span><span class="dv">10</span>,<span class="dt">y=</span><span class="kw">runif</span>(<span class="dv">25</span>)<span class="op">*</span><span class="dv">10</span>))
+<span class="kw">bbox</span>(x)</code></pre></div>
+<pre><code>##         min      max
+## x 1.6630514 9.899581
+## y 0.3874845 9.542570</code></pre>
+<p>Here is a function definintion you can use:</p>
+<p><span style="font-family:monospace; color:DarkGreen;"> bbox_area &lt;- function(b) {</p>
+<p>} </span></p>
+<p>Here is how your defintion might work in practice</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mySp &lt;-<span class="st"> </span><span class="kw">SpatialPoints</span>(<span class="kw">data.frame</span>(<span class="dt">x=</span><span class="dv">10</span><span class="op">:</span><span class="dv">20</span>,<span class="dt">y=</span><span class="dv">30</span><span class="op">:</span><span class="dv">40</span>))
+mySp_ext &lt;-<span class="st"> </span><span class="kw">bbox</span>(mySp)
+mySp_ext</code></pre></div>
+<pre><code>##   min max
+## x  10  20
+## y  30  40</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bbox_area</span>(mySp_ext)</code></pre></div>
+<pre><code>## [1] 100</code></pre>
+<p><span class="textlink" onclick="showHide(&#39;abscss&#39;);return false;">[Solution]</span></p>
+<div id="abscss" class="answer-code">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bbox_area &lt;-<span class="st"> </span><span class="cf">function</span>(b) {
+  bbox_width &lt;-<span class="st"> </span>b[<span class="dv">1</span>,<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>b[<span class="dv">1</span>,<span class="dv">1</span>]
+  bbox_height &lt;-<span class="st"> </span>b[<span class="dv">2</span>,<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>b[<span class="dv">2</span>,<span class="dv">1</span>]
+  <span class="kw">return</span>(bbox_width <span class="op">*</span><span class="st"> </span>bbox_height)
+}
+
+<span class="kw">bbox_area</span>(<span class="kw">bbox</span>(mySp))</code></pre></div>
+<pre><code>## [1] 100</code></pre>
+</div>
+</div>
+<div id="practice-2" class="slide section level1">
+<h1>Practice 2</h1>
+<p>Write a function that takes two arguments:</p>
+<div class="compact">
+<ul>
+<li>the bounding box of a Spatial object (2x2 matrix)</li>
+<li>a portion for the increase or decrease dimensions</li>
+</ul>
+</div>
+<p>The function should return another bounding box (matrix) with the same center but whose length and width have been increased or decreased by the factor.</p>
+<p>Here is a function definintion you can use:</p>
+<p><span style="font-family:monospace; color:DarkGreen;"> bbox_resized &lt;- function(b, f=0.05) {</p>
+<p>} </span></p>
+<p>So for example if the bounding box was:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mySp &lt;-<span class="st"> </span><span class="kw">SpatialPoints</span>(<span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">seq</span>(<span class="dv">10</span>,<span class="dv">30</span>,<span class="dt">length.out=</span><span class="dv">10</span>),<span class="dt">y=</span><span class="kw">seq</span>(<span class="dv">100</span>,<span class="dv">300</span>,<span class="dt">length.out=</span><span class="dv">10</span>)))
+sample_bbox &lt;-<span class="st"> </span><span class="kw">bbox</span>(mySp)
+sample_bbox</code></pre></div>
+<pre><code>##   min max
+## x  10  30
+## y 100 300</code></pre>
+<p>And you passed:</p>
+<p><span style="font-family:monospace; color:DarkGreen;">bbox_resized(sample_bbox)</span></p>
+<p>You'd get back:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bbox_resized</span>(sample_bbox)</code></pre></div>
+<pre><code>##   min max
+## x   5  35
+## y  95 305</code></pre>
+<p><span class="textlink" onclick="showHide(&#39;abcss&#39;);return false;">[Solution]</span></p>
+<div id="abcss" class="answer-code">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bbox_resized &lt;-<span class="st"> </span><span class="cf">function</span>(b, <span class="dt">f=</span><span class="fl">0.05</span>) {
+  
+  ## Compute width and height
+  bbox_width &lt;-<span class="st"> </span>b[<span class="dv">1</span>,<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>b[<span class="dv">1</span>,<span class="dv">1</span>]
+  bbox_height &lt;-<span class="st"> </span>b[<span class="dv">2</span>,<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>b[<span class="dv">2</span>,<span class="dv">1</span>]
+  
+  ## Find the max of width or height
+  bbox_maxdim &lt;-<span class="st"> </span><span class="kw">max</span>(bbox_width, bbox_height)
+  
+  ## Find how much to add or subtract
+  bbox_buffdist &lt;-<span class="st"> </span>(bbox_maxdim <span class="op">*</span><span class="st"> </span>f) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
+  
+  ## Prepare a matrix of the offsets, including the correct signs
+  bbox_buffmat &lt;-<span class="st"> </span>bbox_buffdist <span class="op">*</span><span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="dt">nrow=</span><span class="dv">2</span>)
+  
+  <span class="kw">return</span>(b <span class="op">+</span><span class="st"> </span>bbox_buffmat )
+}
+
+<span class="kw">bbox_resized</span>(sample_bbox)</code></pre></div>
+<pre><code>##   min max
+## x   5  35
+## y  95 305</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bbox_resized</span>(sample_bbox, <span class="dt">f=</span><span class="fl">0.2</span>)</code></pre></div>
+<pre><code>##   min max
+## x -10  50
+## y  80 320</code></pre>
+</div>
+</div>
+<div id="next-up" class="slide section level1">
+<h1>Next-Up</h1>
+<p><a href="part05c_models.html">Working with models</a></p>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

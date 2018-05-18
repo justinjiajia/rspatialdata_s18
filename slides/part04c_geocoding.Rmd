@@ -1,0 +1,287 @@
+---
+title: "<span class='pres-date'>Week `r params$this_week`: </span><br/><span class='pres-subtitle'>Spatial Data Analysis with R</span> <br/><span class='pres-date'>`r load('../common/course_info.RData'); lstCI[[paste0('class0', params$this_week)]]`</span>"
+author: "<span class='pres-title'>Geocoding</span>"
+output: 
+  slidy_presentation:
+    css: "../common/slidy_styles.css"
+    df_print: default
+    duration: 0
+    font_adjustment: 2
+    footer:  !expr load('../common/course_info.RData'); paste("<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href='", lstCI$etherpadshort, "' target='_blank'>", lstCI$etherpadshort, "</a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>")
+    self_contained: no
+    lib_dir: lib
+    smart: no
+    includes:
+      in_header: "../common/header.html"
+params:
+    this_week: 4
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+library(ggmap)
+library(sp)
+library(raster)
+```
+
+# Course Outline
+
+```{r test-main, child = 'course_outline.Rmd'}
+```
+
+# Character Data
+
+## Combine vs. Concatenation
+
+__Combine__ means building a vector. For character (string) vectors, we generally use the <tt>c()</tt> function.
+
+```{r}
+x <- c("I", "have", "a", "dream")
+x
+```
+
+Concatenate means string together. In spreadsheets and most programming languages, you can concatenate strings with the <tt>&</tt> or <tt>+</tt> operators (e.g., *"I " & "have " & "a " & "dream"* in most languages returns '*I have a dream*'). 
+
+R is different. To concatentate character objects in R, you have to use  <tt>paste()</tt>.
+
+```{r}
+paste("I", "have", "a", "dream")
+```
+
+You can customize the <tt>paste()</tt> function by specifying the separator character.
+
+```{r}
+paste("I", "have", "a", "dream", sep="-")
+```
+
+Note in the <tt>paste()</tt> expression above the strings are passed as separate arguments, not elements of a vector. See what happens when you pass a character vector.
+
+```{r}
+paste(c("I", "have", "a", "dream"))
+```
+
+If you want to concatenate the elements of a character vector, you can use the <tt>collapse</tt> argument.
+
+```{r}
+paste(c("I", "have", "a", "dream"), collapse="--")
+```
+
+<tt>paste()</tt> is a vectorized function, meaning if you pass it two or more character vectors, it will concantenate the corresponding elements.
+
+```{r}
+x <- c("hot", "cold", "stale")
+y <- c("soup", "sandwich", "donut")
+paste(x, y)
+```
+
+# Factors 
+
+Factors are a memory efficient way to save character vectors, particularly when there are duplicate values. Under the hood, R creates a lookup table of the unique values (called levels), and saves them as integers.
+
+```{r}
+animals_vec <- c("dog", "mouse", "horse")
+animals_factor <- as.factor(animals_vec)
+```
+
+You can usually work with factors the same way you would work with character vectors. One exception is when the character values are actually numeric strings.
+
+```{r}
+nums_str <- c("34", "47", "99")
+as.numeric(nums_str)
+nums_fact <- as.factor(nums_str)
+as.numeric(nums_fact)
+```
+
+When importing a CSV, R will often convert columns to factors without informing you. You can control this behavior with the <tt>stringsAsFactors</tt> argument. Even better, always check and if needed change the data types of columns after they've been brought into R.
+
+```{r, eval=FALSE}
+flowers_df <- read.csv("flower_data.csv", stringsAsFactors = FALSE)
+```
+
+# Geocoding
+
+<div style="float:right;">![](images/geocoding_238x230.png)</div>
+
+_geocoding_ is the process of turning an address or place name into latitude-longitude coordinates
+
+typically requires an online service
+
+<div class="compact indented1">
+* Google Maps
+* [Census](https://www.census.gov/geo/maps-data/data/geocoder.html)
+* ESRI
+* [many others](https://docs.google.com/spreadsheets/d/1I2rEVX2CN8AqkhpzUTuNwNvJy8il1exccrsd4OGwDCU/edit#gid=0){target="_blank"}
+</div>
+
+free services generally limit num addresses per search, and/or num queries per day
+
+services can be web-based or API
+
+API services may require getting a key and agreeing to the Terms of Service
+
+# Geocoding with *ggmap*
+
+## *ggmap* package 
+
+<div class="indented2">
+* geocoding
+* nice looking static maps 
+    - plot Spatial* objects out-of-the-box
+    - download background tiles
+    - uses the 'grammar of graphics' (based on ggplot)
+    - supports syntax where complex commands are strung together as 'sentences' 
+</div>
+
+## Supported geocoders
+
+*ggmap* works with the following geocoding services
+
+<div class="compact">
+* Google Maps API
+
+    + limited to 2500 queries per day
+    + test your code with a small number of addresses so you don't blow through your free quota
+    + find out how many you have left with <tt>geocodeQueryCheck()</tt>
+
+* Data Science Toolkit
+
+    + draws from US Census and OpenStreetMap
+    + available as Vagrant VM or EC2 AMI (i.e., you can install it yourself) 
+</div> 
+
+To use these you have to be online 
+
+# Defining Locations
+
+Three ways to define location:
+
+1. place name or address
+
+```{r}
+myLocation <- "University of Washington"
+myLocation <- "5121 Russett Rd, Rockville, MD 20853"
+```
+
+2. lat/long
+
+```{r}
+myLocation <- c(lon = -95.3632715, lat = 29.7632836)
+```
+
+3. Bounding box lowerleftlon, lowerleftlat, upperrightlon, upperrightlat
+
+```{r}
+myLocation <- c(-130, 30, -105, 50)
+```
+
+# Example 1
+
+```{r test_gc, cache=TRUE, message=FALSE}
+library(ggmap)
+address_txt <- "1125 Valencia St., San Francisco, CA"
+address_gc <- ggmap::geocode(address_txt, source = "google", output = "latlona", messaging = FALSE)
+address_gc
+```
+
+<tt>geocode()</tt> is vectorized (you can pass it multiple locations)
+
+options for the <tt>output</tt> argument:
+
+```{r, echo=FALSE, results='asis', cache=TRUE}
+tbl_vec <- c("\"latlon\"", "lat & long", "\"latlona\"", "lat, long, & address", "\"more\"", "lat, long, address, & other info")
+tbl_mat <- matrix(tbl_vec, byrow=TRUE, ncol=2, dimnames=list(1:(length(tbl_vec)/2), c("Output argument", "Returns")))
+knitr::kable(tbl_mat, format = "html", table.attr='class="tbl_compact"') %>% column_spec(column=1, italic = FALSE)
+```
+
+_loctype_ column (with output='more') tells you type of result (e.g., approximate, rooftop) 
+ 
+<tt>mutate_geocode()</tt> will put the location info into the dataframe
+
+<tt>revgeocode()</tt> performs a reverse geocode
+
+# Example 2: Geocode California Breweries
+
+First we import the *ca_breweries.csv* file. For now we'll just work with the first 40 records.
+
+```{r load_brew_csv, cache=TRUE}
+csv_fn <- "../exercises/data/ca_breweries.csv"
+file.exists(csv_fn)
+ca_brew_df <- read.csv(csv_fn, stringsAsFactors = FALSE)
+ca_brew_df <- ca_brew_df[1:40,]
+head(ca_brew_df)
+```
+
+It looks like the addresses are split across the 'Address', 'City', and 'State' columns. Let's combine those and try to get the coordinates.
+
+```{r paste_address, cache=TRUE}
+ca_brew_address <- paste(ca_brew_df$Address, ca_brew_df$City, ca_brew_df$State, sep=", ")
+#head(ca_brew_address)
+ca_brew_address
+```
+
+Now we can run the geocode service. 
+
+__Tip__: The free Google geocoding service has a limit of 2500 addresses per day per IP address. There may also be a limit on the number of requests *per second*, per IP address. If you get error messages that say *Geocode Failed with Status OVER_QUERY_LIMIT*, but you haven't reached your 2500 daily limit, the issue may be queries that are too rapid.
+
+Some of these bottlenecks can be overcome by 1) getting a Google Maps API Key and 2) entering your Google Maps API key when you submit your geocode requests. Getting a [Google Maps API key](https://developers.google.com/maps/documentation/geocoding/get-api-key){target="_blank"} is easy. To use a Google Maps API key while geocoding, you must be using *ggmap* v2.7 or later. You can see which verion you have by running <tt>packageVersion()</tt>. *ggmap* v2.7 is not on CRAN yet, so you have to use <tt>devtools::install_github("dkahle/ggmap")</tt>. Once you have version 2.7, enter your Google Maps API key with the <tt>register_google()</tt> function, before running <tt>geocode()</tt>. 
+
+```{r get_gc, cache=TRUE, eval=FALSE, message=FALSE}
+## Load my Google Maps API key
+load("~/google_api_key.RData")
+
+## Enter API key
+register_google(key=my_google_api_key)
+
+ca_brew_geocode_df <- ggmap::geocode(ca_brew_address, source = "google", output = "latlona")
+```
+
+
+```{r loadresults, include=FALSE}
+load("~/ca_brew_geocode.RData")
+# ca_brew_geocode_df
+```
+
+
+Add the geocoding results to the data frame.
+
+```{r}
+ca_brew_df <- cbind(ca_brew_df, ca_brew_geocode_df)
+head(ca_brew_df)
+```
+
+If there are any addresses that did not yield a match, we can investigate them using an attribute filter.
+
+```{r names_brew, cache=TRUE}
+names(ca_brew_df)
+ca_brew_df[is.na(ca_brew_df$lon),]
+```
+
+To plot the ones that geocoded successfully.
+
+```{r plot_brew, cache=TRUE, fig.align='center', small.mar=TRUE}
+library(sp); library(raster)
+ca_ll <- raster::getData("GADM", country="USA", level=1, download = TRUE)
+ca_ll <- ca_ll[ca_ll@data$NAME_1=="California",]
+ca_brew_sp <- sp::SpatialPoints(ca_brew_df[!is.na(ca_brew_df$lon),c("lon","lat")], proj4string = CRS("+init=epsg:4326"))
+plot(ca_ll, axes=T, asp=1)
+plot(ca_brew_sp, pch=18, col="purple", cex=1.2, add=TRUE)
+```
+
+# Additional Resources
+
+<div class="compact indented1">
+  * [Geocoding in R](http://www.rpubs.com/cengel248/177198)
+  * [Geocoding IP addresses](https://github.com/cengel/r_IPgeocode)
+  * _ggmap_ Vignette
+</div>
+
+<div class="faux-h1">Next Up</div>
+
+[Exercise 12: Geocoding](../exercises/ex12_geocoding.html){target="_blank"}
+
+[](part04b_custom-functions.html)
+
+
+
+

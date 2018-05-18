@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="ggmap and leaflet" />
+  <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href=' https://is.gd/rspatial_baygeo_s18 ' target='_blank'> https://is.gd/rspatial_baygeo_s18 </a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Week 4:  Spatial Data Analysis with R  May 17, 2018</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) { 
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy"); 
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied") 
+  }}
+  </script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <script src="lib/htmlwidgets-1.0/htmlwidgets.js"></script>
+  <script src="lib/jquery-1.12.4/jquery.min.js"></script>
+  <link href="lib/leaflet-0.7.7/leaflet.css" rel="stylesheet" />
+  <script src="lib/leaflet-0.7.7/leaflet.js"></script>
+  <link href="lib/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+  <link href="lib/leaflet-label-0.2.2/leaflet.label.css" rel="stylesheet" />
+  <script src="lib/leaflet-label-0.2.2/leaflet.label.js"></script>
+  <script src="lib/Proj4Leaflet-0.7.2/proj4-compressed.js"></script>
+  <script src="lib/Proj4Leaflet-0.7.2/proj4leaflet.js"></script>
+  <script src="lib/leaflet-binding-1.1.0/leaflet.js"></script>
+  <script src="lib/leaflet-providers-1.0.27/leaflet-providers.js"></script>
+  <script src="lib/leaflet-providers-plugin-1.1.0/leaflet-providers-plugin.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="..\common\slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title"><span class="pres-date">Week 4: </span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span> <br/><span class="pres-date">May 17, 2018</span></h1>
+  <p class="author">
+<span class="pres-title">ggmap and leaflet</span>
+  </p>
+</div>
+<div id="making-maps-with-ggmap" class="titleslide slide section level1"><h1>Making maps with <em>ggmap</em></h1></div><div id="overview" class="slide section level2">
+<h2>Overview</h2>
+<div class="compact">
+<ul>
+<li>ggmap is based upon <tt>ggplot2</tt></li>
+<li>uses the grammar of graphics, consisting of:
+<ol style="list-style-type: decimal">
+<li>data and aesthetic mappings</li>
+<li>geoms (geometric objects)</li>
+<li>stats (statistical transformations)</li>
+<li>coords (coordinate systems)</li>
+<li>scales</li>
+<li>facets (a specification of how to break things into smaller subplots)</li>
+</ol></li>
+<li>works well with the <tt>RColorBrewer</tt> package (color palletes)</li>
+<li>suggested way to learn
+<ul>
+<li>learn the basic concepts</li>
+<li>look for examples and cheatsheets:
+<ul>
+<li><a href="../extras/ggmap_cheatsheet.pdf">ggmap quickstart</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf">ggplot2</a></li>
+</ul></li>
+<li>see also <a href="http://eriqande.github.io/rep-res-web/lectures/ggplot_1_pole_vault_example.html">ggplot2 intro</a> tutorial</li>
+</ul></li>
+</ul>
+</div>
+</div><div id="differences-between-ggmap-and-base-plotting" class="slide section level2">
+<h2>Differences between <tt>ggmap</tt> and base plotting</h2>
+<p>With <tt>ggmap</tt>,</p>
+<div class="compact">
+<ul>
+<li>you can't add features to an existing plot</li>
+<li>if location object is text, it will do the geocoding also</li>
+<li>you can add background tiles</li>
+</ul>
+</div>
+<h3 id="example-2-qmap">Example 2: qmap()</h3>
+<p><tt>qmap()</tt> is a good way to get started</p>
+<div class="compact">
+<ul>
+<li>works like the normal plot() function</li>
+<li>arguments include <em>location</em> arguments to download tiles</li>
+</ul>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qmap</span>(<span class="dt">location =</span> <span class="st">&quot;San Francisco City Hall&quot;</span>, <span class="dt">zoom =</span> <span class="dv">18</span>, <span class="dt">source=</span><span class="st">&quot;google&quot;</span>, <span class="dt">messaging=</span><span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/staticmap?center=San+Francisco+City+Hall&amp;zoom=18&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/geocode/json?address=San%20Francisco%20City%20Hall</code></pre>
+<p><img src="part04d_ggmap_leaflet_files/figure-slidy/qmap01-1.png" width="768" /></p>
+</div><div id="more-complex-maps" class="slide section level2">
+<h2>More complex maps</h2>
+<p>add additional features, labels, legends, adjust view, colors,</p>
+<p>you can save a <em>ggmap</em> object (plot definition) to a variable, and then plot it later with the <tt>print()</tt> function</p>
+<p>use the + operator to build up the definition of your plot (a <em>ggmap</em> object)</p>
+<p>Pieces of a ggmap object:<br />
+get_map() (<em>tiles</em>) + geom_xxxx (symbols) + annotations + scales + facets</p>
+<p><tt>get_map()</tt> downloads tiles (which you can save to a variable)</p>
+<h3 id="example-3-display-a-single-address">Example 3: Display a single address</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">address_txt &lt;-<span class="st"> &quot;1125 Valencia St., San Francisco, CA&quot;</span>
+address_gc &lt;-<span class="st"> </span>ggmap<span class="op">::</span><span class="kw">geocode</span>(address_txt, <span class="dt">source =</span> <span class="st">&quot;google&quot;</span>, <span class="dt">output =</span> <span class="st">&quot;latlona&quot;</span>, <span class="dt">messaging =</span> <span class="ot">FALSE</span>)
+
+## Download tiles and save them to a variable
+stamen_tiles &lt;-<span class="st"> </span><span class="kw">get_map</span>(<span class="dt">location=</span>address_txt, <span class="dt">source=</span><span class="st">&quot;stamen&quot;</span>, <span class="dt">maptype=</span><span class="st">&quot;watercolor&quot;</span>, <span class="dt">crop=</span><span class="ot">FALSE</span>, <span class="dt">zoom=</span><span class="dv">17</span>, <span class="dt">messaging=</span><span class="ot">FALSE</span>)
+
+## Make a plot of the tiles plus the geocoded address from before
+<span class="kw">ggmap</span>(stamen_tiles) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> lon, <span class="dt">y =</span> lat), <span class="dt">data =</span> address_gc, <span class="dt">alpha =</span> .<span class="dv">5</span>, <span class="dt">color=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">size =</span> <span class="dv">3</span>)</code></pre></div>
+<p><img src="part04d_ggmap_leaflet_files/figure-slidy/ggmap01-1.png" width="768" /></p>
+<p>Additional Notes</p>
+<div class="compact">
+<ul>
+<li>spatial data have to be in lat-long (or converted to lat-long)</li>
+<li>you can plot Spatial* objects by first turning them into data frames with <tt>fortify()</tt></li>
+<li>data are displayed in the <a href="https://en.wikipedia.org/wiki/Web_Mercator">web mercator</a> projection (EPSG:3857)</li>
+<li>you can't (easily) reproject tiles (but see also the <tt>gmap()</tt> function in <tt>dismo</tt> package returns a RasterLayer)</li>
+<li>see also <a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html"><tt>tmap</tt></a></li>
+</ul>
+</div>
+</div>
+<div id="leaflet" class="titleslide slide section level1"><h1>leaflet</h1></div><div id="leaflet-basics" class="slide section level2">
+<h2>leaflet basics</h2>
+<div class="compact">
+<ul>
+<li>leaflet is a JavaScript library for dynamic mapping (in a browser)</li>
+<li>pan and zoom are default functionalities</li>
+<li>you can add annotations like markers, polygons, and popups.</li>
+<li>like <tt>ggmap</tt>, you can dislpay background tiles (requires internet connection)</li>
+<li>with the exception of background tiles, <strong>all</strong> spatial data in the map are encoded into the HTML file, and rendered by the browser</li>
+</ul>
+</div>
+</div><div id="creating-leaflet-maps-in-r" class="slide section level2">
+<h2>Creating leaflet maps in R</h2>
+<div class="compact">
+<ul>
+<li><tt>leaflet</tt> package simplifies creating leaflet maps in R</li>
+<li>like <tt>ggmap</tt>, you build up your leaflet object with sentence style syntax, then 'print' it</li>
+<li>use the pipe operator <em>%&gt;%</em> to feed the results of one function into the next</li>
+<li>leaflet maps in R Markdown files will become interactive when rendered to HTML</li>
+</ul>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(leaflet)
+sf_lib_leaf &lt;-<span class="st"> </span><span class="kw">leaflet</span>(sf_lib_df) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">addMarkers</span>(<span class="op">~</span>lon, <span class="op">~</span>lat, <span class="dt">popup =</span> <span class="op">~</span>Branch) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">addProviderTiles</span>(providers<span class="op">$</span>CartoDB.Positron)
+sf_lib_leaf</code></pre></div>
+<div id="htmlwidget-21061a14d0498847f894" style="width:672px;height:576px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-21061a14d0498847f894">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addMarkers","args":[[37.7786036,37.7325476,37.7388562,37.7952132,37.7640815,37.7271276,37.7339686,37.7968098,37.7241493,37.7789562,37.8013195,37.726712,37.751969,37.7754265,37.7502674,37.8025835,37.7141525,37.7511734,37.7701355,37.7431757,37.7270797,37.7601361,37.7888864,37.7818433,37.7633605,37.7124331,37.7413787,37.7840762],[-122.4972701,-122.3911965,-122.4161326,-122.4102251,-122.4318162,-122.4333203,-122.4337163,-122.4290512,-122.4562556,-122.4158888,-122.4341471,-122.4744804,-122.4198708,-122.3931226,-122.4350898,-122.4132745,-122.4659856,-122.4980644,-122.4510011,-122.479407,-122.4063311,-122.3976578,-122.4448218,-122.4681747,-122.4762895,-122.4079241,-122.4662067,-122.4374787],null,null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["ANZA","BAYVIEW / LINDA BROOKS-BURTON","BERNAL HEIGHTS","CHINATOWN / HIM MARK LAI","EUREKA VALLEY / HARVEY MILK MEMORIAL","EXCELSIOR","GLEN PARK","GOLDEN GATE VALLEY","INGLESIDE","MAIN LIBRARY","MARINA","MERCED","MISSION","MISSION BAY","NOE VALLEY/SALLY BRUNN","NORTH BEACH","OCEAN VIEW","ORTEGA","PARK","PARKSIDE","PORTOLA","POTRERO","PRESIDIO","RICHMOND/SEN. MILTON MARKS","SUNSET","VISITACION VALLEY","WEST PORTAL","WESTERN ADDITION"],null,null,null,null,null,null]},{"method":"addProviderTiles","args":["CartoDB.Positron",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]}],"limits":{"lat":[37.7124331,37.8025835],"lng":[-122.4980644,-122.3911965]}},"evals":[],"jsHooks":[]}</script>
+<p>Other things you can customize in leaflet</p>
+<div class="compact">
+<ul>
+<li>additional map tiles available</li>
+<li>markers</li>
+<li>popups</li>
+<li>overlay other features (sp objects, GeoJSON)</li>
+<li>add more controls (with Shiny)</li>
+</ul>
+</div>
+<p>More info: <a href="http://rstudio.github.io/leaflet/" class="uri">http://rstudio.github.io/leaflet/</a></p>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>

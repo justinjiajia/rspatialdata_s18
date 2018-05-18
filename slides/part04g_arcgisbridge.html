@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="R-ArcGIS Bridge" />
+  <meta name="copyright" content="<span class='footer-right'><a href='acknowledgements.html'>Acknowledgements</a></span><span class='footer-right'><a href='../index.html'>Course Homepage</a></span><span class='footer-right'>Etherpad:&nbsp<a href=' https://is.gd/rspatial_baygeo_s18 ' target='_blank'> https://is.gd/rspatial_baygeo_s18 </a></span><span class='footer-subtitle'>Spatial Data Analysis in R</span>"/>
+  <meta name="font-size-adjustment" content="2"/>
+  <title>Week 4:  Spatial Data Analysis with R  May 17, 2018</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACkUlEQVQ4jX2SW0jTcRTHTzNyeZlh6lqmm3POdNPC6SxSEzaqafkykOFoIxTDWpKRFV6iQMNLFyMSsQvUW0WORc2WWBmGKEGZXUyz0NrmNmfa1PYgfHsQ1v5oHjgvX875/M45vy/R8mDJ9caxrFIL5CUWJB00Q9n+7Q+l1BetUMuMTL3JpTB0QVnejd1Hu9DQ60G5eQbqB7PIvj0L2bUZ0KZzghWbs0o7Fx3Tc/B6vStm6+g0wrQvIKh2gKKyUxnNSZoO685SC1YDeL1e9Ll+Ia7WCd5pJ4hojQ8g1nViezETYBqZx93BOdwa9jAgsdUT4J6ZQqC6f4GIiLYU9/RzNWYIdU9hd/8rLjN7UGT8DbWROVVMlQsBBWas142DiIikdfbFMF0POIVm2NzM1zwLS+mvcSsnEajpBSv/8RIgucGJ1EYXEs+NwjrlWfUGMee/Y2PFJIJLrFibex8kOsahhCYnUlpnIL1kh9X9/yMKG2yIOOlAsPYnAveZsE75EEQUQLwTwy5Rsxvx9UxApKEPEYY+BiSizA623oaggkdgq4xLKwRLq7i8sy6EFlpg8wNEVwyAd3wAbZ8cPu3CazeCC/sRojYjaL8Jvm8MPWLDBm03A8CveQ9+7RBia4cYU4QfeokwzTOwc6/4OzKXHap/C5ufD0RNo0i4OAZR81dcnnD69Mp3PxBe9GRkuZdFKk7sqTcQ132EpGUMydetSLnpgOSGHVtbxpHU9AX8mkFEG55/ZrjQL1h82V6esPLVh8Sr40i940J6xzzS7s1C0m6HqHEEiTnatgT5gcPijHxltFwhjpRIQpZjBAJ2lFTBFW5TiOPT8mXx6apdcRl5OaJM1Q6hLC9ls3RPTLgok0NELCKiv02kPqt/O1MZAAAAAElFTkSuQmCC" rel="icon" type="image/x-icon" />
+  <script language="javascript" type="text/javascript">
+  function TriShowHide(shID) {
+    shIDspan = shID + "span";
+    shIDdiv = shID + "div";
+    if (document.getElementById(shIDdiv).style.display != 'block') {
+      document.getElementById(shIDdiv).style.display = 'block';
+      txtSpan = "&#9660;";
+    } else {
+      document.getElementById(shIDdiv).style.display = 'none';
+      txtSpan = "&#9654;";
+    }
+    document.getElementById(shIDspan).innerHTML = txtSpan + " ";
+  }
+  function showHide(shID) {
+    if (shID=="soln-show-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="soln-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("answer-code");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else if (shID=="hints-show-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'block';
+      }
+    } else if (shID=="hints-hide-all") {
+      var allAnswerCode = document.getElementsByClassName("hint");
+      for (i = 0; i < allAnswerCode.length; i++) {
+          allAnswerCode[i].style.display = 'none';
+      }
+    } else {
+      if (document.getElementById(shID)) {
+        if (document.getElementById(shID).style.display != 'block') {
+          document.getElementById(shID).style.display = 'block';
+        } else {
+          document.getElementById(shID).style.display = 'none';
+        }
+      }
+    }
+  }
+  function CopyToClipboard(containerid) {
+  if (document.selection) { 
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerid));
+      range.select().createTextRange();
+      document.execCommand("copy"); 
+  } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerid));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      // alert("text copied") 
+  }}
+  </script>
+  <link href="lib/slidy-2/styles/slidy.css" rel="stylesheet" />
+  <script src="lib/slidy-2/scripts/slidy.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="..\common\slidy_styles.css" />
+  <meta name="duration" content="0" />
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title"><span class="pres-date">Week 4: </span><br/><span class="pres-subtitle">Spatial Data Analysis with R</span> <br/><span class="pres-date">May 17, 2018</span></h1>
+  <p class="author">
+<span class="pres-title">R-ArcGIS Bridge</span>
+  </p>
+</div>
+<div id="r-arcgis-bridge" class="slide section level1">
+<h1>R-ArcGIS Bridge</h1>
+<h2 id="compatibility-installation">Compatibility &amp; Installation</h2>
+<p>Requires a licensed ArcGIS desktop version</p>
+<p>The R-ArcGIS Bridge works for</p>
+<div class="compact">
+<ul>
+<li>ArcPro 2.0 (native support)
+<ul>
+<li>Install from ArcPro</li>
+<li><a href="https://community.esri.com/videos/4136-installing-the-r-arcgis-bridge-for-arcgis-pro-20">Instruction Video</a></li>
+</ul></li>
+<li>ArcMap 10.3.1 / ArcPro 1.1
+<ul>
+<li><a href="https://github.com/R-ArcGIS/r-bridge-install">Instructions on GitHub</a></li>
+</ul></li>
+</ul>
+</div>
+<h2 id="what-you-can-do-with-the-bridge">What You Can Do with the Bridge</h2>
+<div class="compact">
+<ul>
+<li>View metadata before bringing spatial info into R.</li>
+<li>Import spatial layers from disk, or file geodatabases.</li>
+<li>Create R scripts that you run from ArcGIS.</li>
+</ul>
+</div>
+</div>
+<div id="example" class="slide section level1">
+<h1>Example</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(arcgisbinding)
+<span class="kw">library</span>(sp)
+<span class="kw">arc.check_product</span>()</code></pre></div>
+<pre><code>## product: ArcGIS Pro ( 12.1.0.10257 )
+## license: Advanced</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Create the connection
+crimepts_con &lt;-<span class="st"> </span><span class="kw">arc.open</span>(<span class="dt">path=</span><span class="st">&quot;../exercises/data/SF_Crime.gdb/San_Francisco_Crimes&quot;</span>)
+
+## Display info (metadata)
+crimepts_con</code></pre></div>
+<pre><code>## type         : FeatureClass
+## path         : ../exercises/data/SF_Crime.gdb/San_Francisco_Crimes 
+## fields       : OBJECTID, Shape, Field1, Dates, Category, Descript, 
+## fields       : DayOfWeek, PdDistrict, Resolution, Address, X, Y
+## extent       :
+##      xmin      ymin      xmax      ymax 
+## -13638156   4512125 -13621636   4527822 
+## *** shapeinfo ***
+## type         : Point
+## WKT          : PROJCS[&quot;WGS_1984_World_Mercator&quot;,GEOGCS[&quot;GCS_WGS_1984&quot;,DATUM[&quot;D_WGS_1984&quot;,SPHEROID[&quot;WGS_1984&quot;,6378137.0,298.257223563]],PRIMEM[&quot;Greenwich&quot;,0.0],UNIT[&quot;Degree&quot;,0.0174532925199433]],PROJECTION[&quot;Mercator&quot;],PARAMETER[&quot;False_Easting&quot;,0.0],PARAMETER[&quot;False_Northing&quot;,0.0],PARAMETER[&quot;Central_Meridian&quot;,0.0],PARAMETER[&quot;Standard_Parallel_1&quot;,0.0],UNIT[&quot;Meter&quot;,1.0]]
+## WKID         : 3395</code></pre>
+<p>Import to R as &quot;ArcGIS data frame&quot;.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crimepts_adf &lt;-<span class="st"> </span><span class="kw">arc.select</span>(crimepts_con)
+<span class="kw">names</span>(crimepts_adf)</code></pre></div>
+<pre><code>##  [1] &quot;OBJECTID&quot;   &quot;Field1&quot;     &quot;Dates&quot;      &quot;Category&quot;   &quot;Descript&quot;  
+##  [6] &quot;DayOfWeek&quot;  &quot;PdDistrict&quot; &quot;Resolution&quot; &quot;Address&quot;    &quot;X&quot;         
+## [11] &quot;Y&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(crimepts_adf)</code></pre></div>
+<pre><code>## [1] 74760</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attr</span>(crimepts_adf, <span class="st">&quot;shape&quot;</span>)</code></pre></div>
+<pre><code>## type         : Point
+## WKT          : PROJCS[&quot;WGS_1984_World_Mercator&quot;,GEOGCS[&quot;GCS_WGS_1984&quot;,DATUM[&quot;D_WGS_1984&quot;,SPHEROID[&quot;WGS_1984&quot;,6378137.0,298.257223563]],PRIMEM[&quot;Greenwich&quot;,0.0],UNIT[&quot;Degree&quot;,0.0174532925199433]],PROJECTION[&quot;Mercator&quot;],PARAMETER[&quot;False_Easting&quot;,0.0],PARAMETER[&quot;False_Northing&quot;,0.0],PARAMETER[&quot;Central_Meridian&quot;,0.0],PARAMETER[&quot;Standard_Parallel_1&quot;,0.0],UNIT[&quot;Meter&quot;,1.0]]
+## WKID         : 3395
+## length       : 74760</code></pre>
+<p>Convert to a <tt>sp</tt> object.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crimepts_spdf &lt;-<span class="st"> </span><span class="kw">arc.data2sp</span>(crimepts_adf)
+<span class="kw">class</span>(crimepts_spdf)</code></pre></div>
+<pre><code>## [1] &quot;SpatialPointsDataFrame&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;sp&quot;</code></pre>
+<p>Plot.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(crimepts_spdf, <span class="dt">axes=</span><span class="ot">TRUE</span>, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex=</span><span class="fl">0.3</span>)</code></pre></div>
+<p><img src="part04g_arcgisbridge_files/figure-slidy/loadarcbinding05-1.png" width="768" /></p>
+</div>
+<div id="see-also" class="slide section level1">
+<h1>See also</h1>
+<div class="compact">
+<ul>
+<li><a href="https://r-arcgis.github.io/assets/arcgisbinding-vignette.html">arcgisbinding Vignette</a></li>
+<li><a href="https://spatialstats.github.io/r-arcgis-bridge/" class="uri">https://spatialstats.github.io/r-arcgis-bridge/</a></li>
+<li><a href="https://r-arcgis.github.io/">Code samples on GitHub</a></li>
+<li>ESRI Webinars</li>
+</ul>
+</div>
+<h2 id="r-arcgis-bridge-exercise">R-ArcGIS Bridge Exercise</h2>
+<p><a href="http://learn.arcgis.com/en/projects/analyze-crime-using-statistics-and-the-r-arcgis-bridge/" target="_blank">Analyze Crime Statistics</a></p>
+<p><a href="http://learn.arcgis.com/en/projects/identify-an-ecological-niche-for-african-buffalo/" target="_blank">Identify an Ecological Niche for African Buffalo</a></p>
+</div>
+
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+</body>
+</html>
